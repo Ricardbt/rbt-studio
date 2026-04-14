@@ -4,7 +4,7 @@ Developer & Creative Technologist portfolio website.
 
 ## Tech Stack
 
-- React 18 + Vite
+- React 18 + Vite ✓
 - TailwindCSS
 - JavaScript
 
