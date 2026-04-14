@@ -31,7 +31,10 @@ npm run build
 4. **Create New Repository**:
    - Repository URL: `https://github.com/Ricardbt/rbt-studio.git`
    - Branch: `master`
-   - Install Path: (leave empty = public_html)
+   - Install Path: `dist`
+   - Framework: `React` (o `Other`)
+   - Build command: `npm run build`
+   - Output directory: `dist`
 
 ### 2. Enable Auto-Deployment
 
