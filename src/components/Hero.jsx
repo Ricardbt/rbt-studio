@@ -1,50 +1,4 @@
-import { useRef, useEffect, useState } from 'react'
-
-function Robot() {
-  const [blink, setBlink] = useState(false)
-  
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setBlink(true)
-      setTimeout(() => setBlink(false), 150)
-    }, 3000)
-    return () => clearInterval(interval)
-  }, [])
-
-  return (
-    <svg viewBox="0 0 120 160" className="w-32 h-40 md:w-40 md:h-48">
-      <g stroke="currentColor" strokeWidth="1.2" fill="none" strokeLinecap="round" strokeLinejoin="round" className="text-accent">
-        {/* Head */}
-        <rect x="30" y="20" width="60" height="50" rx="4" />
-        {/* Antenna */}
-        <line x1="60" y1="20" x2="60" y2="8" />
-        <circle cx="60" cy="6" r="2" className="fill-current text-accent" />
-        {/* Eyes */}
-        <circle cx="45" cy="40" r="4" className={`${blink ? 'fill-accent' : 'stroke-accent'}`} />
-        <circle cx="75" cy="40" r="4" className={`${blink ? 'fill-accent' : 'stroke-accent'}`} />
-        {/* Mouth */}
-        <line x1="45" y1="55" x2="75" y2="55" />
-        {/* Neck */}
-        <line x1="60" y1="70" x2="60" y2="80" />
-        {/* Body */}
-        <rect x="35" y="80" width="50" height="45" rx="3" />
-        {/* Screen on body */}
-        <line x1="45" y1="92" x2="75" y2="92" />
-        <line x1="45" y1="100" x2="75" y2="100" />
-        <line x1="45" y1="108" x2="65" y2="108" />
-        {/* Arms */}
-        <path d="M35 90 L20 100 L20 110" className="animate-pulse" />
-        <path d="M85 90 L100 100 L100 110" className="animate-pulse" />
-        {/* Legs */}
-        <line x1="45" y1="125" x2="45" y2="145" />
-        <line x1="75" y1="125" x2="75" y2="145" />
-        {/* Feet */}
-        <line x1="38" y1="145" x2="52" y2="145" />
-        <line x1="68" y1="145" x2="82" y2="145" />
-      </g>
-    </svg>
-  )
-}
+import Robot3D from './Robot3D'
 
 function ParticleCanvas() {
   const canvasRef = useRef(null)
@@ -206,11 +160,9 @@ export default function Hero() {
       </div>
 
       {/* Right - Canvas + Robot */}
-      <div className="relative hidden lg:flex items-center justify-center overflow-hidden">
-        <ParticleCanvas />
-        <div className="absolute inset-0 bg-gradient-to-l from-bg/0 to-bg/60 pointer-events-none" />
-        <div className="relative z-10 animate-pulse">
-          <Robot />
+      <div className="relative hidden lg:block overflow-hidden">
+        <div className="absolute inset-0">
+          <Robot3D />
         </div>
         <div className="absolute bottom-8 right-10 text-right">
           <div className="font-mono text-[10px] tracking-widest uppercase text-textMuted">
