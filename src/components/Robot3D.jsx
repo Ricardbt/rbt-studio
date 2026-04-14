@@ -1,67 +1,76 @@
-import { useRef, useState } from 'react'
+import { useRef, useMemo } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
-import { Float, MeshTransmissionMaterial } from '@react-three/drei'
+import { Float } from '@react-three/drei'
+import * as THREE from 'three'
 
-function RobotMesh({ mouse }) {
-  const groupRef = useRef()
-  const [hovered, setHovered] = useState(false)
-  
-  useFrame((state) => {
-    if (groupRef.current) {
-      groupRef.current.rotation.y = state.clock.elapsedTime * 0.3
-      groupRef.current.rotation.x = Math.sin(state.clock.elapsedTime * 0.5) * 0.1
-    }
-  })
+function FloatingRings() {
+  const rings = useMemo(() => {
+    return [
+      { radius: 2.2, tube: 0.008, opacity: 0.15, speed: 0.2 },
+      { radius: 1.6, tube: 0.006, opacity: 0.25, speed: -0.15 },
+      { radius: 1.0, tube: 0.004, opacity: 0.35, speed: 0.25 },
+    ]
+  }, [])
 
   return (
-    <group 
-      ref={groupRef}
-      onPointerOver={() => setHovered(true)}
-      onPointerOut={() => setHovered(false)}
-      scale={hovered ? 1.1 : 1}
-    >
-      <Float speed={2} rotationIntensity={0.2} floatIntensity={0.5}>
-        <mesh position={[0, 0, 0]}>
-          <boxGeometry args={[1.5, 1.5, 1.5]} />
-          <meshStandardMaterial color="#2E7D5A" wireframe />
-        </mesh>
-        
-        <mesh position={[0, 0, 0]}>
-          <boxGeometry args={[1, 1, 1]} />
-          <meshStandardMaterial color="#1A1D1B" />
-        </mesh>
-
-        <mesh position={[-0.3, 0.5, 0.5]}>
-          <sphereGeometry args={[0.15, 16, 16]} />
-          <meshStandardMaterial color={hovered ? "#4CAF50" : "#2E7D5A"} emissive={hovered ? "#4CAF50" : "#2E7D5A"} emissiveIntensity={0.5} />
-        </mesh>
-        
-        <mesh position={[0.3, 0.5, 0.5]}>
-          <sphereGeometry args={[0.15, 16, 16]} />
-          <meshStandardMaterial color={hovered ? "#4CAF50" : "#2E7D5A"} emissive={hovered ? "#4CAF50" : "#2E7D5A"} emissiveIntensity={0.5} />
-        </mesh>
-
-        <mesh position={[0, -0.8, 0]}>
-          <cylinderGeometry args={[0.1, 0.15, 0.3, 8]} />
-          <meshStandardMaterial color="#2E7D5A" wireframe />
-        </mesh>
-      </Float>
+    <group>
+      {rings.map((ring, i) => (
+        <AnimatedRing key={i} {...ring} />
+      ))}
     </group>
   )
 }
 
-function Particles() {
-  const count = 50
-  const positions = new Float32Array(count * 3)
+function AnimatedRing({ radius, tube, opacity, speed }) {
+  const ref = useRef()
   
-  for (let i = 0; i < count; i++) {
-    positions[i * 3] = (Math.random() - 0.5) * 8
-    positions[i * 3 + 1] = (Math.random() - 0.5) * 8
-    positions[i * 3 + 2] = (Math.random() - 0.5) * 8
-  }
+  useFrame((state) => {
+    if (ref.current) {
+      ref.current.rotation.x = state.clock.elapsedTime * speed * 0.3
+      ref.current.rotation.y = state.clock.elapsedTime * speed * 0.5
+      ref.current.rotation.z = state.clock.elapsedTime * speed * 0.1
+    }
+  })
 
   return (
-    <points>
+    <mesh ref={ref}>
+      <torusGeometry args={[radius, tube, 16, 100]} />
+      <meshBasicMaterial 
+        color="#1A5D43" 
+        transparent 
+        opacity={opacity} 
+        wireframe 
+      />
+    </mesh>
+  )
+}
+
+function FloatingPoints() {
+  const count = 40
+  const positions = useMemo(() => {
+    const pos = new Float32Array(count * 3)
+    for (let i = 0; i < count; i++) {
+      const theta = Math.random() * Math.PI * 2
+      const phi = Math.acos(2 * Math.random() - 1)
+      const r = 0.8 + Math.random() * 1.5
+      pos[i * 3] = r * Math.sin(phi) * Math.cos(theta)
+      pos[i * 3 + 1] = r * Math.sin(phi) * Math.sin(theta)
+      pos[i * 3 + 2] = r * Math.cos(phi)
+    }
+    return pos
+  }, [count])
+
+  const ref = useRef()
+  
+  useFrame((state) => {
+    if (ref.current) {
+      ref.current.rotation.y = state.clock.elapsedTime * 0.05
+      ref.current.rotation.x = Math.sin(state.clock.elapsedTime * 0.1) * 0.1
+    }
+  })
+
+  return (
+    <points ref={ref}>
       <bufferGeometry>
         <bufferAttribute
           attach="attributes-position"
@@ -70,23 +79,107 @@ function Particles() {
           itemSize={3}
         />
       </bufferGeometry>
-      <pointsMaterial size={0.03} color="#2E7D5A" transparent opacity={0.6} />
+      <pointsMaterial 
+        size={0.04} 
+        color="#1A5D43" 
+        transparent 
+        opacity={0.5} 
+        sizeAttenuation
+      />
     </points>
+  )
+}
+
+function CenterSphere() {
+  const ref = useRef()
+  
+  useFrame((state) => {
+    if (ref.current) {
+      const s = 1 + Math.sin(state.clock.elapsedTime * 0.5) * 0.05
+      ref.current.scale.set(s, s, s)
+    }
+  })
+
+  return (
+    <mesh ref={ref}>
+      <sphereGeometry args={[0.15, 32, 32]} />
+      <meshBasicMaterial 
+        color="#1A5D43" 
+        transparent 
+        opacity={0.8} 
+      />
+    </mesh>
+  )
+}
+
+function ConnectingLines() {
+  const linesRef = useRef()
+  const count = 12
+  
+  const positions = useMemo(() => {
+    const points = []
+    for (let i = 0; i < count; i++) {
+      const theta = (i / count) * Math.PI * 2
+      const r = 0.4 + Math.random() * 0.3
+      points.push({
+        start: [0, 0, 0],
+        end: [
+          Math.cos(theta) * r,
+          (Math.random() - 0.5) * 0.5,
+          Math.sin(theta) * r
+        ]
+      })
+    }
+    return points
+  }, [])
+
+  useFrame((state) => {
+    if (linesRef.current) {
+      linesRef.current.rotation.y = state.clock.elapsedTime * 0.1
+    }
+  })
+
+  return (
+    <group ref={linesRef}>
+      {positions.map((line, i) => (
+        <line key={i}>
+          <bufferGeometry>
+            <bufferAttribute
+              attach="attributes-position"
+              count={2}
+              array={new Float32Array([...line.start, ...line.end])}
+              itemSize={3}
+            />
+          </bufferGeometry>
+          <lineBasicMaterial color="#1A5D43" transparent opacity={0.2} />
+        </line>
+      ))}
+    </group>
   )
 }
 
 export default function Robot3D() {
   return (
     <div className="w-full h-full">
-      <Canvas camera={{ position: [0, 0, 5], fov: 50 }} gl={{ antialias: true }}>
-        <ambientLight intensity={0.5} />
-        <pointLight position={[10, 10, 10]} intensity={1} color="#2E7D5A" />
-        <pointLight position={[-10, -10, -10]} intensity={0.5} color="#4CAF50" />
-        
-        <RobotMesh />
-        <Particles />
-        
-        <gridHelper args={[20, 20, '#2E7D5A', '#1A1D1B']} position={[0, -2, 0]} />
+      <Canvas
+        camera={{ position: [0, 0, 4], fov: 45 }}
+        gl={{ 
+          antialias: true, 
+          alpha: true,
+          powerPreference: 'high-performance'
+        }}
+        style={{ background: 'transparent' }}
+      >
+        <Float 
+          speed={1.5} 
+          rotationIntensity={0.1} 
+          floatIntensity={0.3}
+        >
+          <FloatingRings />
+          <CenterSphere />
+          <ConnectingLines />
+          <FloatingPoints />
+        </Float>
       </Canvas>
     </div>
   )
