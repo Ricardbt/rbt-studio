@@ -1,0 +1,21 @@
+name: Deploy to Hostinger
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Trigger Hostinger Webhook
+        run: |
+          if [ -n "${{ secrets.HOSTINGER_WEBHOOK_URL }}" ]; then
+            curl -s -X POST "${{ secrets.HOSTINGER_WEBHOOK_URL }}"
+            echo "Deployment triggered"
+          else
+            echo "HOSTINGER_WEBHOOK_URL not set, skipped"
+          fi
