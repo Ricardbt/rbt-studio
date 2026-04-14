@@ -1,39 +1,41 @@
 export default function About() {
   return (
-    <section className="py-16 px-6 md:px-12 bg-surface border-y border-border">
-      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-16">
-        <div>
-          <div className="font-mono text-[10px] tracking-widest uppercase text-accent mb-3">
+    <section className="py-20 lg:py-24 px-6 md:px-12 lg:px-20 bg-surface/30 border-y border-border/20">
+      <div className="max-w-[1600px] mx-auto grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-20">
+        <div className="group">
+          <div className="font-mono text-[10px] tracking-[0.25em] uppercase text-accent/50 mb-4">
             Formación
           </div>
-          <div className="font-sans text-lg font-semibold text-text mb-1">
+          <h3 className="font-display text-2xl text-text mb-3 group-hover:text-accent transition-colors duration-300">
             Bellas Artes
-          </div>
-          <div className="font-mono text-xs text-textMuted leading-relaxed">
+          </h3>
+          <p className="font-sans text-sm text-textMuted leading-relaxed">
             Imagen & Diseño · Universidad de Barcelona. Base conceptual y visual que impregna cada proyecto técnico.
-          </div>
+          </p>
         </div>
-        <div>
-          <div className="font-mono text-[10px] tracking-widest uppercase text-accent mb-3">
+        
+        <div className="group">
+          <div className="font-mono text-[10px] tracking-[0.25em] uppercase text-accent/50 mb-4">
             Experiencia
           </div>
-          <div className="font-sans text-lg font-semibold text-text mb-1">
+          <h3 className="font-display text-2xl text-text mb-3 group-hover:text-accent transition-colors duration-300">
             10+ años
-          </div>
-          <div className="font-mono text-xs text-textMuted leading-relaxed">
-            De la Universidad de Barcelona a Paladini Digital Solutions. Proyectos para startups, agencias, instituciones y proyectos propios.
-          </div>
+          </h3>
+          <p className="font-sans text-sm text-textMuted leading-relaxed">
+            De la Universidad de Barcelona a Paladini Digital. Proyectos para startups, agencias e instituciones.
+          </p>
         </div>
-        <div>
-          <div className="font-mono text-[10px] tracking-widest uppercase text-accent mb-3">
+        
+        <div className="group">
+          <div className="font-mono text-[10px] tracking-[0.25em] uppercase text-accent/50 mb-4">
             Ubicación
           </div>
-          <div className="font-sans text-lg font-semibold text-text mb-1">
-            Barcelona · Remote-ready
-          </div>
-          <div className="font-mono text-xs text-textMuted leading-relaxed">
-            Disponible para proyectos en remoto globalmente. Idiomas: Español, Catalán, Inglés (B2).
-          </div>
+          <h3 className="font-display text-2xl text-text mb-3 group-hover:text-accent transition-colors duration-300">
+            Barcelona
+          </h3>
+          <p className="font-sans text-sm text-textMuted leading-relaxed">
+            Disponible globalmente en remoto. Español, Catalán, Inglés (B2).
+          </p>
         </div>
       </div>
     </section>
