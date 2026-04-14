@@ -1,54 +1,59 @@
+import { useState } from 'react'
+
 const PROJECTS = [
-  { num: '01', name: 'StoryPrint AI', desc: 'SaaS de cuentos ilustrados personalizados. Multi-step wizard con generación LLM, ilustraciones IA y export PDF.', tech: 'Next.js · Supabase · LLMs' },
-  { num: '02', name: 'Brandboard AI', desc: 'Plataforma de identidad de marca para agencias. Pipeline multi-agente con OpenAI + Anthropic y entregables exportables.', tech: 'React · Supabase · AI Orchestration' },
-  { num: '03', name: 'NutrAI', desc: 'Formulador de suplementos personalizado con historial persistente y parsing robusto de outputs JSON del modelo.', tech: 'React · Anthropic API · TypeScript' },
-  { num: '04', name: 'GeoRoutes WP Theme', desc: 'Tema WordPress con CPTs de rutas, Leaflet maps, soporte GPX y REST API personalizada para comunidades outdoor.', tech: 'WordPress · Leaflet · PHP' },
-  { num: '05', name: 'Portfolio 3D', desc: 'Tema WordPress con integración Three.js para portfolios de artistas. Shader personalizado, WebGL canvas reactivo.', tech: 'Three.js · WebGL · WordPress' },
-  { num: '06', name: 'Processing Sketchbook', desc: 'Colección de animaciones generativas: sistemas de partículas, L-systems, física simulada y arte algorítmico interactivo.', tech: 'Processing · Java · Generative Art' },
+  { num: '01', name: 'StoryPrint AI', desc: 'SaaS de cuentos ilustrados personalizados con generación LLM.', tech: 'Next.js · Supabase · LLMs' },
+  { num: '02', name: 'Brandboard AI', desc: 'Plataforma de identidad de marca con pipeline multi-agente.', tech: 'React · Supabase · AI' },
+  { num: '03', name: 'NutrAI', desc: 'Formulador de suplementos personalizado con parsing JSON.', tech: 'React · Anthropic · TS' },
+  { num: '04', name: 'GeoRoutes', desc: 'Tema WordPress con Leaflet maps y soporte GPX.', tech: 'WordPress · Leaflet' },
+  { num: '05', name: 'Portfolio 3D', desc: 'Tema WordPress con integración Three.js y WebGL.', tech: 'Three.js · WebGL' },
+  { num: '06', name: 'Processing Sketches', desc: 'Animaciones generativas y arte algorítmico.', tech: 'Processing · Java' },
 ]
 
 function ProjectRow({ project, index }) {
-  const [hovered, setHovered] = React.useState(false)
+  const [hovered, setHovered] = useState(false)
   
   return (
     <div
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      className={`grid grid-cols-1 md:grid-cols-[80px_1fr_1fr_auto] gap-4 md:gap-8 py-6 md:py-8 border-b border-border transition-colors duration-300 cursor-default ${
-        hovered ? 'bg-accent/[0.03]' : ''
+      className={`group grid grid-cols-1 md:grid-cols-[100px_1fr_1fr_auto] gap-4 md:gap-8 py-8 border-b border-border/30 transition-all duration-300 ${
+        hovered ? 'bg-surface/50' : ''
       }`}
     >
-      <span className="font-mono text-xs tracking-widest text-textMuted hidden md:block">
+      <span className="font-mono text-xs text-textMuted/40">
         {project.num}
       </span>
-      <div className={`font-sans text-xl md:text-2xl font-semibold transition-colors duration-300 ${
-        hovered ? 'text-accent italic' : 'text-text'
+      <div className={`font-display text-xl md:text-2xl transition-colors duration-300 ${
+        hovered ? 'text-accent' : 'text-text'
       }`}>
         {project.name}
       </div>
-      <div className="font-mono text-xs md:text-sm text-textMuted md:col-span-1">
+      <div className="font-sans text-sm text-textMuted md:max-w-md">
         {project.desc}
       </div>
-      <div className="font-mono text-[10px] md:text-xs tracking-wider text-textMuted text-right whitespace-nowrap hidden md:block">
+      <div className="font-mono text-[10px] tracking-wider text-textMuted/50 text-right hidden md:block">
         {project.tech}
       </div>
     </div>
   )
 }
 
-import React from 'react'
-
 export default function Projects() {
   return (
-    <section id="work" className="py-20 px-6 md:px-12 bg-surface border-y border-border">
-      <div className="max-w-7xl mx-auto">
-        <div className="font-mono text-xs tracking-widest uppercase text-accent mb-2">
-          Proyectos
+    <section id="work" className="py-24 lg:py-32 px-6 md:px-12 lg:px-20 bg-surface/50">
+      <div className="max-w-[1600px] mx-auto">
+        <div className="mb-16 lg:mb-24">
+          <p className="font-mono text-xs tracking-[0.25em] uppercase text-accent/60 mb-4">
+            Proyectos
+          </p>
+          <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-semibold text-text">
+            Trabajo
+            <br />
+            <em className="text-accent italic font-normal">seleccionado</em>
+          </h2>
         </div>
-        <h2 className="font-sans text-3xl md:text-4xl font-semibold text-text leading-tight mb-12">
-          Trabajo <em className="text-accent italic">seleccionado</em>
-        </h2>
-        <div>
+        
+        <div className="border-t border-border/30">
           {PROJECTS.map((project, i) => (
             <ProjectRow key={project.num} project={project} index={i} />
           ))}

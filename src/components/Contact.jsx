@@ -12,78 +12,70 @@ export default function Contact() {
   }
 
   return (
-    <section id="contact" className="py-20 px-6 md:px-12 bg-bg border-t border-border">
-      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+    <section id="contact" className="py-24 lg:py-32 px-6 md:px-12 lg:px-20 bg-bg">
+      <div className="max-w-[1600px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
         <div>
-          <div className="font-mono text-xs tracking-widest uppercase text-accent mb-2">
+          <p className="font-mono text-xs tracking-[0.25em] uppercase text-accent/60 mb-4">
             Contacto
-          </div>
-          <h2 className="font-sans text-4xl md:text-5xl font-semibold text-text leading-[0.95] mb-6 md:mb-10">
+          </p>
+          <h2 className="font-display text-5xl md:text-6xl lg:text-7xl font-semibold text-text leading-[0.9] mb-8">
             Trabajemos
             <br />
-            <em className="text-accent italic">juntos.</em>
+            <em className="text-accent italic font-normal">juntos.</em>
           </h2>
-          <p className="font-mono text-sm text-textMuted max-w-md mb-8 leading-relaxed">
-            Si tienes un proyecto de <span className="text-text font-normal">desarrollo web, automatización IA, instalación interactiva</span> o algo que todavía no tiene nombre — escríbeme. Me gustan los proyectos que combinan tecnología y criterio artístico.
+          <p className="font-sans text-lg text-textMuted max-w-md mb-12 leading-relaxed">
+            Si tienes un proyecto de <span className="text-text font-medium">desarrollo web, automatización IA, instalación interactiva</span> o algo que todavía no tiene nombre — escríbeme.
           </p>
           
-          <div className="flex flex-col gap-3">
+          <div className="flex flex-col gap-5">
             <a
               href={`mailto:${email}`}
-              className="font-mono text-sm text-accent no-underline border-b border-border pb-2 flex justify-between items-center hover:border-accent transition-colors"
+              className="group font-sans text-base text-text hover:text-accent transition-colors duration-300 flex items-center gap-3"
             >
-              {email}
-              <span className="font-mono text-[10px] tracking-widest uppercase text-textMuted">
-                Email →
-              </span>
+              <span className="font-mono text-xs tracking-widest uppercase text-textMuted/50">{email}</span>
+              <span className="opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">→</span>
             </a>
             <a
               href="https://github.com/Ricardbt"
               target="_blank"
               rel="noopener noreferrer"
-              className="font-mono text-sm text-textMuted no-underline border-b border-border pb-2 flex justify-between items-center hover:text-text transition-colors"
+              className="font-mono text-sm text-textMuted hover:text-text transition-colors duration-300"
             >
               github.com/Ricardbt
-              <span className="font-mono text-[10px] tracking-widest uppercase">
-                GitHub →
-              </span>
             </a>
             <a
               href="https://linkedin.com/in/ricardboixeda"
               target="_blank"
               rel="noopener noreferrer"
-              className="font-mono text-sm text-textMuted no-underline border-b border-border pb-2 flex justify-between items-center hover:text-text transition-colors"
+              className="font-mono text-sm text-textMuted hover:text-text transition-colors duration-300"
             >
               linkedin.com/in/ricardboixeda
-              <span className="font-mono text-[10px] tracking-widest uppercase">
-                LinkedIn →
-              </span>
             </a>
           </div>
         </div>
         
         <div className="lg:pl-12">
-          <div className="border border-border p-6 md:p-8 bg-surface">
-            <div className="font-mono text-[10px] tracking-widest uppercase text-textMuted mb-6">
-              Copia el email
+          <div className="border border-border/40 p-8 lg:p-12 bg-surface/30">
+            <div className="font-mono text-[10px] tracking-[0.2em] uppercase text-textMuted/50 mb-8">
+              Copiar email
             </div>
             <button
               onClick={handleCopy}
-              className={`w-full border px-5 py-4 font-mono text-sm transition-all duration-300 flex justify-between items-center cursor-pointer ${
+              className={`w-full text-left px-6 py-5 font-mono text-base transition-all duration-300 flex justify-between items-center border ${
                 copied 
                   ? 'bg-accent/10 border-accent text-accent' 
-                  : 'bg-transparent border-border text-accent hover:border-accent'
+                  : 'bg-transparent border-border/40 text-text hover:border-accent/50'
               }`}
             >
               {email}
-              <span className="font-mono text-[10px] tracking-widest uppercase">
+              <span className="font-mono text-xs tracking-widest uppercase">
                 {copied ? '✓ Copiado' : 'Copiar'}
               </span>
             </button>
-            <div className="mt-6 font-mono text-xs text-textMuted">
-              <div className="mb-1">📍 Barcelona, España</div>
-              <div className="mb-1">🌐 Disponible para proyectos remotos</div>
-              <div>⏱ Respuesta habitual en {'<'} 24h</div>
+            <div className="mt-8 font-sans text-sm text-textMuted flex flex-wrap gap-6">
+              <span>📍 Barcelona</span>
+              <span>🌐 Remoto</span>
+              <span>⏱ {'<'}24h</span>
             </div>
           </div>
         </div>
