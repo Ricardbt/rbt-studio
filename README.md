@@ -59,5 +59,5 @@ Every push will automatically deploy to Hostinger.
 
 ---
 
-**Contact**: ricardboixeda@gmail.com
+**Contact**: contact@rbt-studio.com
 **Location**: Barcelona, Spain

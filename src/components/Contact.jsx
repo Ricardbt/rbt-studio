@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-const email = 'ricardboixeda@gmail.com'
+const email = 'contact@rbt-studio.com'
 
 export default function Contact() {
   const [copied, setCopied] = useState(false)
@@ -36,20 +36,12 @@ export default function Contact() {
               <span className="opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">→</span>
             </a>
             <a
-              href="https://github.com/Ricardbt"
+              href="https://github.com/rbt-studio"
               target="_blank"
               rel="noopener noreferrer"
               className="font-mono text-sm text-textMuted hover:text-text transition-colors duration-300"
             >
-              github.com/Ricardbt
-            </a>
-            <a
-              href="https://linkedin.com/in/ricardboixeda"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="font-mono text-sm text-textMuted hover:text-text transition-colors duration-300"
-            >
-              linkedin.com/in/ricardboixeda
+              github.com/rbt-studio
             </a>
           </div>
         </div>
