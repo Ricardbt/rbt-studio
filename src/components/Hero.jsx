@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
+import p5 from 'p5'
 
 function splitText(text) {
   return text.split('').map((char, i) => (
@@ -10,6 +11,148 @@ function splitText(text) {
       <span className="inline-block char">{char === ' ' ? '\u00A0' : char}</span>
     </span>
   ))
+}
+
+function P5Canvas() {
+  const containerRef = useRef(null)
+
+  useEffect(() => {
+    const sketch = (p) => {
+      let particles = []
+      const particleCount = 80
+      const accent = [26, 93, 67]
+
+      class Particle {
+        constructor() {
+          this.reset()
+        }
+
+        reset() {
+          this.x = p.random(p.width)
+          this.y = p.random(p.height)
+          this.vx = p.random(-0.3, 0.3)
+          this.vy = p.random(-0.3, 0.3)
+          this.size = p.random(2, 6)
+          this.alpha = p.random(0.1, 0.4)
+          this.type = p.floor(p.random(3))
+        }
+
+        update() {
+          this.x += this.vx
+          this.y += this.vy
+
+          if (this.x < 0 || this.x > p.width) this.vx *= -1
+          if (this.y < 0 || this.y > p.height) this.vy *= -1
+        }
+
+        draw() {
+          p.push()
+          p.translate(this.x, this.y)
+          p.rotate(p.frameCount * 0.002)
+
+          p.stroke(accent[0], accent[1], accent[2], this.alpha * 255)
+          p.noFill()
+          p.strokeWeight(1)
+
+          if (this.type === 0) {
+            p.rectMode(p.CENTER)
+            p.rect(0, 0, this.size * 2, this.size * 2)
+          } else if (this.type === 1) {
+            p.beginShape()
+            for (let a = 0; a < p.TWO_PI; a += p.PI / 3) {
+              const r = this.size * 1.5
+              p.vertex(p.cos(a) * r, p.sin(a) * r)
+            }
+            p.endShape(p.CLOSE)
+          } else {
+            p.ellipse(0, 0, this.size * 2, this.size * 2)
+          }
+          p.pop()
+        }
+      }
+
+      p.setup = () => {
+        const canvas = p.createCanvas(p.windowWidth, p.windowHeight)
+        canvas.parent(containerRef.current)
+        canvas.style('position', 'absolute')
+        canvas.style('top', '0')
+        canvas.style('right', '0')
+        canvas.style('pointer-events', 'none')
+        canvas.style('opacity', '0.4')
+
+        for (let i = 0; i < particleCount; i++) {
+          particles.push(new Particle())
+        }
+      }
+
+      p.draw = () => {
+        p.clear()
+
+        const time = p.frameCount * 0.005
+
+        p.push()
+        p.translate(p.width, 0)
+        
+        p.stroke(accent[0], accent[1], accent[2], 15)
+        p.noFill()
+        p.strokeWeight(1)
+        p.drawingContext.setLineDash([5, 10])
+        
+        const ringCount = 5
+        for (let i = 0; i < ringCount; i++) {
+          const radius = 150 + i * 120
+          const offset = p.sin(time + i) * 20
+          p.circle(0, p.height / 2, radius * 2 + offset)
+        }
+
+        p.drawingContext.setLineDash([])
+
+        for (let i = 0; i < 3; i++) {
+          const startX = 0
+          const startY = p.height * (0.3 + i * 0.2)
+          const endX = p.width * 0.5
+          const endY = startY + p.sin(time * 2 + i) * 50
+          
+          p.stroke(accent[0], accent[1], accent[2], 20)
+          p.strokeWeight(1)
+          p.line(startX, startY, endX, endY)
+        }
+
+        p.pop()
+
+        particles.forEach(particle => {
+          particle.update()
+          particle.draw()
+        })
+
+        for (let i = 0; i < particles.length; i++) {
+          for (let j = i + 1; j < particles.length; j++) {
+            const dx = particles[i].x - particles[j].x
+            const dy = particles[i].y - particles[j].y
+            const dist = p.sqrt(dx * dx + dy * dy)
+            
+            if (dist < 150) {
+              p.stroke(accent[0], accent[1], accent[2], (1 - dist / 150) * 30)
+              p.strokeWeight(0.5)
+              p.line(particles[i].x, particles[i].y, particles[j].x, particles[j].y)
+            }
+          }
+        }
+      }
+
+      p.windowResized = () => {
+        p.resizeCanvas(p.windowWidth, p.windowHeight)
+      }
+    }
+
+    const p5Instance = new p5(sketch)
+
+    return () => {
+      p5Instance.remove()
+    }
+  }, [])
+
+  return <div ref={containerRef} className="absolute inset-0 pointer-events-none" />
 }
 
 export default function Hero() {
@@ -26,13 +169,11 @@ export default function Hero() {
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({ defaults: { ease: 'power3.out' } })
 
-      // Label - fade in
       tl.fromTo(labelRef.current, 
         { opacity: 0, y: 20 },
         { opacity: 1, y: 0, duration: 0.8 }
       )
 
-      // Title characters - typewriter effect
       const chars = titleRef.current.querySelectorAll('.char')
       tl.fromTo(chars,
         { opacity: 0, y: 50, rotateX: -90 },
@@ -40,14 +181,12 @@ export default function Hero() {
         '-=0.4'
       )
 
-      // Subtitle - clip reveal
       tl.fromTo(subtitleRef.current,
         { clipPath: 'inset(0 100% 0 0)', opacity: 0 },
         { clipPath: 'inset(0 0% 0 0)', opacity: 1, duration: 0.8, ease: 'power2.inOut' },
         '-=0.3'
       )
 
-      // Description lines
       const descLines = descRef.current.children
       tl.fromTo(descLines,
         { opacity: 0, y: 20, clipPath: 'inset(0 0 100% 0)' },
@@ -55,7 +194,6 @@ export default function Hero() {
         '-=0.4'
       )
 
-      // Buttons
       const buttons = buttonsRef.current.children
       tl.fromTo(buttons,
         { opacity: 0, y: 30, scale: 0.9 },
@@ -63,21 +201,18 @@ export default function Hero() {
         '-=0.2'
       )
 
-      // Meta info
       tl.fromTo(metaRef.current,
         { opacity: 0 },
         { opacity: 1, duration: 0.6 },
         '-=0.4'
       )
 
-      // Scroll indicator
       tl.fromTo(scrollRef.current,
         { opacity: 0, y: -10 },
         { opacity: 1, y: 0, duration: 0.5 },
         '-=0.2'
       )
 
-      // Continuous animations
       gsap.to(scrollRef.current.querySelector('.scroll-line'), {
         scaleY: 0.5,
         opacity: 0.3,
@@ -102,6 +237,9 @@ export default function Hero() {
           backgroundSize: '80px 80px'
         }}
       />
+
+      {/* p5.js Generative Canvas */}
+      <P5Canvas />
 
       {/* Animated geometric elements */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
