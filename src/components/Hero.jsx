@@ -1,13 +1,85 @@
-import { useRef, useEffect, useState } from 'react'
-import Robot3D from './Robot3D'
+import { useEffect, useState, useRef } from 'react'
 
-function GrainOverlay() {
+function FloatingGeometry() {
+  const canvasRef = useRef(null)
+
+  useEffect(() => {
+    const canvas = canvasRef.current
+    if (!canvas) return
+    const ctx = canvas.getContext('2d')
+    let animationId
+
+    const resize = () => {
+      canvas.width = window.innerWidth
+      canvas.height = window.innerHeight
+    }
+    resize()
+    window.addEventListener('resize', resize)
+
+    const shapes = Array.from({ length: 6 }, () => ({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      size: Math.random() * 80 + 40,
+      rotation: Math.random() * Math.PI * 2,
+      rotationSpeed: (Math.random() - 0.5) * 0.01,
+      type: Math.floor(Math.random() * 3),
+      opacity: Math.random() * 0.03 + 0.01,
+    }))
+
+    let t = 0
+    const draw = () => {
+      t += 0.003
+      ctx.clearRect(0, 0, canvas.width, canvas.height)
+
+      shapes.forEach((shape) => {
+        shape.rotation += shape.rotationSpeed
+        shape.x += Math.sin(t + shape.y * 0.001) * 0.3
+        shape.y += Math.cos(t + shape.x * 0.001) * 0.3
+
+        if (shape.x < -100) shape.x = canvas.width + 100
+        if (shape.x > canvas.width + 100) shape.x = -100
+        if (shape.y < -100) shape.y = canvas.height + 100
+        if (shape.y > canvas.height + 100) shape.y = -100
+
+        ctx.save()
+        ctx.translate(shape.x, shape.y)
+        ctx.rotate(shape.rotation)
+        ctx.strokeStyle = `rgba(26, 93, 67, ${shape.opacity})`
+        ctx.lineWidth = 1
+
+        if (shape.type === 0) {
+          ctx.beginPath()
+          ctx.rect(-shape.size / 2, -shape.size / 2, shape.size, shape.size)
+          ctx.stroke()
+        } else if (shape.type === 1) {
+          ctx.beginPath()
+          ctx.moveTo(0, -shape.size / 2)
+          ctx.lineTo(shape.size / 2, shape.size / 2)
+          ctx.lineTo(-shape.size / 2, shape.size / 2)
+          ctx.closePath()
+          ctx.stroke()
+        } else {
+          ctx.beginPath()
+          ctx.arc(0, 0, shape.size / 2, 0, Math.PI * 2)
+          ctx.stroke()
+        }
+        ctx.restore()
+      })
+
+      animationId = requestAnimationFrame(draw)
+    }
+    draw()
+
+    return () => {
+      cancelAnimationFrame(animationId)
+      window.removeEventListener('resize', resize)
+    }
+  }, [])
+
   return (
-    <div 
-      className="pointer-events-none fixed inset-0 z-[9999] opacity-[0.03]"
-      style={{
-        backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
-      }}
+    <canvas
+      ref={canvasRef}
+      className="absolute inset-0 w-full h-full pointer-events-none"
     />
   )
 }
@@ -20,85 +92,72 @@ export default function Hero() {
   }, [])
 
   return (
-    <>
-      <GrainOverlay />
-      <section className="min-h-screen relative overflow-hidden bg-bg">
-        {/* Ambient background */}
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-1/4 -left-1/4 w-[600px] h-[600px] rounded-full bg-accent/[0.02] blur-3xl" />
-          <div className="absolute bottom-1/4 -right-1/4 w-[400px] h-[400px] rounded-full bg-accentLight/[0.03] blur-3xl" />
-        </div>
+    <section className="relative min-h-screen flex items-center overflow-hidden bg-bg">
+      {/* Grid Pattern */}
+      <div 
+        className="absolute inset-0 opacity-[0.04] pointer-events-none"
+        style={{
+          backgroundImage: `linear-gradient(#1A5D43 1px, transparent 1px), linear-gradient(90deg, #1A5D43 1px, transparent 1px)`,
+          backgroundSize: '80px 80px'
+        }}
+      />
 
-        {/* Grid pattern */}
-        <div 
-          className="absolute inset-0 opacity-[0.03]"
-          style={{
-            backgroundImage: `linear-gradient(${`#1A5D43`} 1px, transparent 1px), linear-gradient(90deg, ${`#1A5D43`} 1px, transparent 1px)`,
-            backgroundSize: '60px 60px'
-          }}
-        />
+      {/* Floating Geometry */}
+      <FloatingGeometry />
 
-        <div className="relative z-10 min-h-screen grid grid-cols-1 lg:grid-cols-12 gap-8 px-6 md:px-12 lg:px-20 py-20">
-          {/* Left Content */}
-          <div className="lg:col-span-7 flex flex-col justify-center">
-            <div className={`transition-all duration-1000 ease-out ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-              <p className="font-mono text-xs tracking-[0.3em] uppercase text-accent mb-8">
-                Developer & Creative Technologist
-              </p>
-              
-              <h1 className="font-display text-6xl md:text-7xl lg:text-8xl font-semibold text-text leading-[0.88] mb-8">
-                <span className="block">RBT</span>
-                <span className="block text-accent italic font-normal">Studio</span>
-              </h1>
-              
-              <p className="font-sans text-lg text-textMuted max-w-md mb-10 leading-relaxed">
-                Donde la <span className="text-text font-medium">ingeniería</span> y la <span className="text-text font-medium">sensibilidad artística</span> coexisten. 
-                IA, web, código generativo y electrónica física.
-              </p>
-              
-              <div className="flex flex-wrap gap-4">
-                <a 
-                  href="#services" 
-                  className="group relative font-mono text-xs tracking-widest uppercase px-8 py-4 bg-accent text-white overflow-hidden"
-                >
-                  <span className="relative z-10 group-hover:text-white transition-colors">Servicios</span>
-                  <div className="absolute inset-0 bg-accentLight transform -translate-x-full group-hover:translate-x-0 transition-transform duration-300 ease-out" />
-                </a>
-                <a 
-                  href="#contact" 
-                  className="font-mono text-xs tracking-widest uppercase px-8 py-4 border border-text/20 text-text hover:border-accent hover:text-accent transition-all duration-300"
-                >
-                  Contactar
-                </a>
-              </div>
-            </div>
-          </div>
+      {/* Gradient Overlays */}
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-bg/50 pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-r from-bg/30 via-transparent to-transparent pointer-events-none" />
 
-          {/* Right - 3D Robot */}
-          <div className="lg:col-span-5 relative flex items-center justify-center lg:justify-end">
-            <div className="w-full h-[400px] lg:h-full relative">
-              <div className="absolute inset-0">
-                <Robot3D />
-              </div>
-              
-              {/* Decorative elements */}
-              <div className="absolute bottom-20 left-0 right-0 flex justify-center">
-                <span className="font-mono text-[10px] tracking-[0.2em] uppercase text-textMuted/50">
-                  Barcelona · ES · 2025
-                </span>
-              </div>
-            </div>
+      {/* Content */}
+      <div className="relative z-10 w-full px-6 md:px-12 lg:px-16 xl:px-24">
+        <div className={`max-w-[900px] transition-all duration-1000 ease-out ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+          <p className="font-mono text-[11px] tracking-[0.25em] uppercase text-accent mb-6 md:mb-8">
+            Digital Studio · Barcelona
+          </p>
+          
+          <h1 className="font-display text-6xl sm:text-7xl md:text-8xl lg:text-9xl xl:text-[10rem] font-semibold text-text leading-[0.85] tracking-tight mb-6 md:mb-8">
+            RBT
+            <br />
+            <em className="not-italic text-accent">Studio</em>
+          </h1>
+          
+          <p className="font-sans text-base md:text-lg text-textMuted max-w-lg mb-10 md:mb-12 leading-relaxed">
+            Ingeniería de precisión y sensibilidad artística. 
+            Desarrollo web, automatización IA, código generativo y electrónica física.
+          </p>
+          
+          <div className="flex flex-wrap gap-4 md:gap-6">
+            <a 
+              href="#services" 
+              className="inline-block font-mono text-[11px] tracking-[0.15em] uppercase px-8 md:px-10 py-4 bg-accent text-white hover:bg-accentLight transition-colors duration-300"
+            >
+              Servicios
+            </a>
+            <a 
+              href="#contact" 
+              className="inline-block font-mono text-[11px] tracking-[0.15em] uppercase px-8 md:px-10 py-4 bg-transparent text-text border border-text/30 hover:border-accent hover:text-accent transition-all duration-300"
+            >
+              Contactar
+            </a>
           </div>
         </div>
+      </div>
 
-        {/* Scroll indicator */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3">
-          <span className="font-mono text-[9px] tracking-[0.25em] uppercase text-textMuted/40 writing-vertical-lr">
-            Scroll
-          </span>
-          <div className="w-px h-12 bg-gradient-to-b from-accent/60 to-transparent" />
-        </div>
-      </section>
-    </>
+      {/* Bottom Info */}
+      <div className="absolute bottom-8 left-6 md:left-12 lg:left-16 flex items-center gap-6">
+        <span className="font-mono text-[10px] tracking-[0.15em] uppercase text-textMuted/50">
+          Barcelona · ES · 2025
+        </span>
+      </div>
+
+      {/* Scroll Indicator */}
+      <div className="absolute bottom-8 right-6 md:right-12 lg:right-16 flex flex-col items-center gap-2">
+        <span className="font-mono text-[9px] tracking-[0.2em] uppercase text-textMuted/40">
+          Scroll
+        </span>
+        <div className="w-px h-12 bg-gradient-to-b from-accent/60 to-transparent" />
+      </div>
+    </section>
   )
 }

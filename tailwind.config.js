@@ -17,9 +17,14 @@ export default {
         accentWarm: '#8B4513',
       },
       fontFamily: {
-        display: ['Playfair Display', 'Georgia', 'serif'],
-        sans: ['DM Sans', 'system-ui', 'sans-serif'],
+        display: ['Barlow Condensed', 'Arial Narrow', 'sans-serif'],
+        sans: ['Barlow', 'system-ui', 'sans-serif'],
         mono: ['JetBrains Mono', 'monospace'],
+      },
+      letterSpacing: {
+        'ultra': '0.25em',
+        'mega': '0.15em',
+        'wide-custom': '0.96px',
       },
       animation: {
         'slide-up': 'slideUp 0.8s ease-out both',
