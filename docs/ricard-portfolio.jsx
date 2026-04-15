@@ -187,7 +187,7 @@ const SERVICES = [
     name: "Web Development & SaaS",
     desc: "Aplicaciones web de producción con React, Next.js y arquitecturas headless. Desde MVPs ágiles hasta plataformas escalables con auth, base de datos y APIs propias.",
     tags: ["React", "Next.js", "Supabase", "TypeScript", "Node.js"],
-    href: "mailto:ricardboixeda@gmail.com?subject=Web Development",
+    href: "mailto:contact@rbt-studio.com?subject=Web Development",
   },
   {
     num: "02",
@@ -201,7 +201,7 @@ const SERVICES = [
     name: "AI Agents & Automatización",
     desc: "Diseño e implementación de agentes autónomos, pipelines LLM y flujos de automatización con n8n / Make. Integraciones con OpenAI, Anthropic y APIs de terceros.",
     tags: ["LLMs", "MCP", "n8n", "Python", "Anthropic API"],
-    href: "mailto:ricardboixeda@gmail.com?subject=AI Automation",
+    href: "mailto:contact@rbt-studio.com?subject=AI Automation",
   },
   {
     num: "03",
@@ -214,7 +214,7 @@ const SERVICES = [
     name: "3D & Animación Creativa",
     desc: "Experiencias web inmersivas con Three.js, WebGL y React Three Fiber. Animaciones generativas con Processing y GSAP para proyectos que quieren romper con lo genérico.",
     tags: ["Three.js", "WebGL", "Processing", "GSAP", "R3F"],
-    href: "mailto:ricardboixeda@gmail.com?subject=3D Creative",
+    href: "mailto:contact@rbt-studio.com?subject=3D Creative",
   },
   {
     num: "04",
@@ -228,7 +228,7 @@ const SERVICES = [
     name: "Prototipado & Arduino",
     desc: "Desarrollo de prototipos físico-digitales: sensores, actuadores, comunicación serial con interfaces web. Del concepto al prototipo funcional para productos innovadores.",
     tags: ["Arduino", "Sensors", "Serial", "Processing", "IoT"],
-    href: "mailto:ricardboixeda@gmail.com?subject=Arduino Prototype",
+    href: "mailto:contact@rbt-studio.com?subject=Arduino Prototype",
   },
   {
     num: "05",
@@ -240,7 +240,7 @@ const SERVICES = [
     name: "Consultoría Técnica",
     desc: "Auditorías de arquitectura, revisión de código y roadmap técnico para startups y equipos. Especializado en stack React, infraestructura AWS y estrategias de integración IA.",
     tags: ["Architecture", "AWS", "Code Review", "AI Strategy"],
-    href: "mailto:ricardboixeda@gmail.com?subject=Technical Consulting",
+    href: "mailto:contact@rbt-studio.com?subject=Technical Consulting",
   },
   {
     num: "06",
@@ -253,7 +253,7 @@ const SERVICES = [
     name: "Instalaciones Interactivas",
     desc: "Arte computacional e instalaciones físico-digitales para espacios culturales, eventos y marcas. Combinando código generativo, hardware y diseño de experiencia.",
     tags: ["Generative Art", "Interactive", "Hardware", "Creative Code"],
-    href: "mailto:ricardboixeda@gmail.com?subject=Interactive Installation",
+    href: "mailto:contact@rbt-studio.com?subject=Interactive Installation",
   },
 ];
 
@@ -384,7 +384,7 @@ function ArtCanvas() {
 /* ─── CONTACT ─── */
 function ContactSection() {
   const [copied, setCopied] = useState(false);
-  const email = "ricardboixeda@gmail.com";
+  const email = "contact@rbt-studio.com";
   const handleCopy = () => {
     navigator.clipboard.writeText(email);
     setCopied(true);
@@ -412,26 +412,15 @@ function ContactSection() {
               <span style={{ fontSize: "0.65rem", letterSpacing: "0.15em", textTransform: "uppercase", color: COLORS.muted }}>Email →</span>
             </a>
             <a
-              href="https://github.com/Ricardbt"
+              href="https://github.com/rbt-studio"
               target="_blank"
               rel="noopener noreferrer"
               style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: "0.8rem", color: COLORS.muted, textDecoration: "none", letterSpacing: "0.05em", borderBottom: `1px solid ${COLORS.border}`, paddingBottom: "0.8rem", display: "flex", justifyContent: "space-between", alignItems: "center", transition: "color 0.3s, border-color 0.3s" }}
               onMouseEnter={e => { e.currentTarget.style.color = COLORS.text; e.currentTarget.style.borderColor = COLORS.border; }}
               onMouseLeave={e => { e.currentTarget.style.color = COLORS.muted; }}
             >
-              github.com/Ricardbt
+              github.com/rbt-studio
               <span style={{ fontSize: "0.65rem", letterSpacing: "0.15em", textTransform: "uppercase" }}>GitHub →</span>
-            </a>
-            <a
-              href="https://linkedin.com/in/ricardboixeda"
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: "0.8rem", color: COLORS.muted, textDecoration: "none", letterSpacing: "0.05em", borderBottom: `1px solid ${COLORS.border}`, paddingBottom: "0.8rem", display: "flex", justifyContent: "space-between", alignItems: "center", transition: "color 0.3s" }}
-              onMouseEnter={e => e.currentTarget.style.color = COLORS.text}
-              onMouseLeave={e => e.currentTarget.style.color = COLORS.muted}
-            >
-              linkedin.com/in/ricardboixeda
-              <span style={{ fontSize: "0.65rem", letterSpacing: "0.15em", textTransform: "uppercase" }}>LinkedIn →</span>
             </a>
           </div>
         </div>
@@ -518,12 +507,11 @@ export default function App() {
         {/* LEFT */}
         <div style={{ display: "flex", flexDirection: "column", justifyContent: "flex-end", padding: "7rem 3rem 5rem", position: "relative", zIndex: 2 }}>
           <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: "0.67rem", letterSpacing: "0.25em", color: COLORS.gold, textTransform: "uppercase", marginBottom: "1.5rem", animation: "slideUp 0.8s 0.2s both" }}>
-            Developer & Creative Technologist · Barcelona
+            Digital Studio · Barcelona
           </div>
           <h1 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "clamp(3.5rem, 6vw, 7rem)", fontWeight: 900, lineHeight: 0.88, color: COLORS.cream, marginBottom: "2.2rem", animation: "slideUp 0.9s 0.4s both" }}>
-            Ricard<br />
-            <em style={{ fontStyle: "italic", color: COLORS.gold }}>Boixeda</em><br />
-            Tamburini
+            RBT<br />
+            <em style={{ fontStyle: "italic", color: COLORS.gold }}>Studio</em>
           </h1>
           <p style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: "0.78rem", lineHeight: 1.95, color: COLORS.muted, maxWidth: 400, marginBottom: "3rem", animation: "slideUp 1s 0.6s both" }}>
             Construyo productos digitales donde la <strong style={{ color: COLORS.text, fontWeight: 400 }}>ingeniería de precisión</strong> y la <strong style={{ color: COLORS.text, fontWeight: 400 }}>sensibilidad artística</strong> coexisten. IA, web, código generativo y electrónica física.
@@ -648,7 +636,7 @@ export default function App() {
 
       {/* FOOTER */}
       <footer style={{ padding: "2rem 3rem", background: COLORS.bg, borderTop: `1px solid ${COLORS.border}`, display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-        <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: "0.62rem", letterSpacing: "0.15em", color: COLORS.muted, textTransform: "uppercase" }}>© 2025 Ricard Boixeda Tamburini</span>
+        <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: "0.62rem", letterSpacing: "0.15em", color: COLORS.muted, textTransform: "uppercase" }}>© 2025 RBT Studio</span>
         <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: "0.62rem", letterSpacing: "0.1em", color: COLORS.muted }}>Barcelona · Spain</span>
       </footer>
     </>
