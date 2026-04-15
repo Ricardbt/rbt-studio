@@ -1,6 +1,40 @@
+import { useEffect, useRef } from 'react'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+gsap.registerPlugin(ScrollTrigger)
+
 export default function About() {
+  const sectionRef = useRef(null)
+  const itemsRef = useRef([])
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      itemsRef.current.forEach((item, i) => {
+        gsap.fromTo(item,
+          { opacity: 0, y: 30, rotateY: -10 },
+          {
+            opacity: 1,
+            y: 0,
+            rotateY: 0,
+            duration: 0.7,
+            ease: 'power2.out',
+            scrollTrigger: {
+              trigger: item,
+              start: 'top 85%',
+              toggleActions: 'play none none reverse'
+            },
+            delay: i * 0.1
+          }
+        )
+      })
+    }, sectionRef)
+
+    return () => ctx.revert()
+  }, [])
+
   return (
-    <section className="bg-surface/30">
+    <section ref={sectionRef} className="bg-surface/30">
       {/* Grid Pattern */}
       <div 
         className="absolute inset-0 opacity-[0.02] pointer-events-none"
@@ -12,7 +46,10 @@ export default function About() {
 
       <div className="relative z-10 px-6 md:px-12 lg:px-16 xl:px-24 py-20 md:py-28 lg:py-32">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-20 max-w-[1400px]">
-          <div>
+          <div 
+            ref={el => itemsRef.current[0] = el}
+            className="opacity-0"
+          >
             <div className="font-mono text-[10px] tracking-[0.2em] uppercase text-textMuted/50 mb-4 md:mb-6">
               Formación
             </div>
@@ -24,7 +61,10 @@ export default function About() {
             </p>
           </div>
           
-          <div>
+          <div 
+            ref={el => itemsRef.current[1] = el}
+            className="opacity-0"
+          >
             <div className="font-mono text-[10px] tracking-[0.2em] uppercase text-textMuted/50 mb-4 md:mb-6">
               Experiencia
             </div>
@@ -36,7 +76,10 @@ export default function About() {
             </p>
           </div>
           
-          <div>
+          <div 
+            ref={el => itemsRef.current[2] = el}
+            className="opacity-0"
+          >
             <div className="font-mono text-[10px] tracking-[0.2em] uppercase text-textMuted/50 mb-4 md:mb-6">
               Ubicación
             </div>
