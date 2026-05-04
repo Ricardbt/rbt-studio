@@ -2,6 +2,7 @@ import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import Marquee from './components/Marquee'
 import Services from './components/Services'
+import Generativos from './components/Generativos'
 import ProjectGallery from './components/ProjectGallery'
 import Artistic from './components/Artistic'
 import About from './components/About'
@@ -18,6 +19,7 @@ export default function App() {
         <Services />
         <ProjectGallery />
         <Artistic />
+        <Generativos />
         <About />
         <Contact />
       </main>
