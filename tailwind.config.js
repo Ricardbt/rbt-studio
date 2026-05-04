@@ -7,18 +7,16 @@ export default {
   theme: {
     extend: {
       colors: {
-        bg: '#F7F9F8',
-        surface: '#EDF2EF',
-        border: '#D1D9D4',
-        text: '#0F1211',
-        textMuted: '#4A5854',
-        accent: '#1A5D43',
-        accentLight: '#2E8B5E',
-        accentWarm: '#8B4513',
+        bg: '#F2EFE6',
+        surface: '#F8F5EC',
+        border: '#C9C5B6',
+        text: '#14140F',
+        textMuted: '#6E6E64',
+        accent: '#0E4A35',
+        paper: '#FBF9F2',
       },
       fontFamily: {
-        display: ['Barlow Condensed', 'Arial Narrow', 'sans-serif'],
-        sans: ['Barlow', 'system-ui', 'sans-serif'],
+        sans: ['Inter', 'system-ui', 'sans-serif'],
         mono: ['JetBrains Mono', 'monospace'],
       },
       letterSpacing: {

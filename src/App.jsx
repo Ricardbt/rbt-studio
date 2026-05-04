@@ -2,7 +2,7 @@ import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import Marquee from './components/Marquee'
 import Services from './components/Services'
-import Projects from './components/Projects'
+import ProjectGallery from './components/ProjectGallery'
 import Artistic from './components/Artistic'
 import About from './components/About'
 import Contact from './components/Contact'
@@ -16,7 +16,7 @@ export default function App() {
         <Hero />
         <Marquee />
         <Services />
-        <Projects />
+        <ProjectGallery />
         <Artistic />
         <About />
         <Contact />

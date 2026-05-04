@@ -1,0 +1,285 @@
+/* =========================================================
+   RBT STUDIO — DESIGN TOKENS
+   Two-color brand: forest green on warm cream
+   Sharp corners. Editorial numbering. Generative line accents.
+   ========================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Roboto+Slab:wght@500;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+:root {
+  /* ---- Brand pair ---------------------------------------- */
+  --rbt-green:        #0E4A35;   /* primary — deep forest */
+  --rbt-green-ink:    #0A3527;   /* shadow / press state */
+  --rbt-green-haze:   #C7D6CF;   /* tint, line-art on cream */
+  --rbt-green-mist:   #E4ECE7;   /* faintest tint, surfaces */
+
+  --rbt-cream:        #F2EFE6;   /* primary surface */
+  --rbt-cream-deep:   #E8E3D5;   /* card edge / divider */
+  --rbt-cream-soft:   #F8F5EC;   /* raised surface */
+  --rbt-paper:        #FBF9F2;   /* lightest, near-white */
+
+  --rbt-ink:          #14140F;   /* body text on cream */
+  --rbt-ink-soft:     #3A3A33;   /* secondary text */
+  --rbt-ink-mute:     #6E6E64;   /* tertiary / labels */
+  --rbt-ink-line:     #C9C5B6;   /* hairlines on cream */
+
+  /* ---- Functional accents (used sparingly) --------------- */
+  --rbt-warn:         #B8651A;   /* terracotta — warnings */
+  --rbt-alert:        #8E2B1E;   /* burnt red — destructive */
+  --rbt-ok:           var(--rbt-green);
+
+  /* ---- Type ---------------------------------------------- */
+  --font-sans:  'Inter', system-ui, -apple-system, sans-serif;
+  --font-slab:  'Roboto Slab', 'Inter', serif;   /* RBT./Studio wordmark */
+  --font-mono:  'JetBrains Mono', ui-monospace, monospace;
+
+  /* Display ramp — fluid */
+  --t-mega:   clamp(72px, 11vw, 168px);   /* hero RBT */
+  --t-display:clamp(48px, 7vw, 96px);     /* section openers */
+  --t-h1:     clamp(36px, 4.5vw, 64px);
+  --t-h2:     clamp(28px, 3vw, 44px);
+  --t-h3:     22px;
+  --t-h4:     18px;
+  --t-body:   16px;
+  --t-small:  14px;
+  --t-micro:  12px;
+  --t-label:  11px;   /* tracked all-caps */
+
+  --lh-tight: 0.96;
+  --lh-snug:  1.1;
+  --lh-body:  1.55;
+  --lh-loose: 1.7;
+
+  --tr-label: 0.18em;   /* tracked caps labels */
+  --tr-tight: -0.02em;  /* display headlines */
+
+  /* ---- Spacing (4px base) -------------------------------- */
+  --s-1:  4px;
+  --s-2:  8px;
+  --s-3:  12px;
+  --s-4:  16px;
+  --s-5:  24px;
+  --s-6:  32px;
+  --s-7:  48px;
+  --s-8:  64px;
+  --s-9:  96px;
+  --s-10: 128px;
+
+  /* ---- Geometry ------------------------------------------ */
+  --radius:       0px;       /* SHARP. don't change. */
+  --radius-pill:  999px;     /* tags & pills only */
+  --hairline:     1px solid var(--rbt-ink-line);
+  --hairline-d:   1px solid var(--rbt-green);
+
+  /* ---- Motion -------------------------------------------- */
+  --ease-snap:    cubic-bezier(0.2, 0.7, 0.1, 1);   /* default */
+  --ease-out:     cubic-bezier(0.16, 1, 0.3, 1);    /* exits */
+  --ease-in:      cubic-bezier(0.7, 0, 0.84, 0);    /* enters */
+  --dur-instant:  100ms;
+  --dur-quick:    180ms;
+  --dur-base:     240ms;
+  --dur-slow:     420ms;
+
+  /* ---- Layout -------------------------------------------- */
+  --container:    1280px;
+  --gutter:       var(--s-5);
+}
+
+/* =========================================================
+   GLOBAL RESET / DEFAULTS
+   ========================================================= */
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  background: var(--rbt-cream);
+  color: var(--rbt-ink);
+  font-family: var(--font-sans);
+  font-size: var(--t-body);
+  line-height: var(--lh-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+h1,h2,h3,h4,h5,h6,p { margin: 0; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; cursor: pointer; border: 0; background: none; padding: 0; color: inherit; }
+img, svg { display: block; max-width: 100%; }
+
+/* =========================================================
+   TYPOGRAPHIC PRIMITIVES (helper classes)
+   ========================================================= */
+.t-mega    { font-family: var(--font-sans); font-weight: 800; font-size: var(--t-mega);    line-height: var(--lh-tight); letter-spacing: var(--tr-tight); }
+.t-display { font-family: var(--font-sans); font-weight: 800; font-size: var(--t-display); line-height: var(--lh-tight); letter-spacing: var(--tr-tight); }
+.t-display-slab { font-family: var(--font-slab); font-weight: 800; font-size: var(--t-display); line-height: var(--lh-tight); letter-spacing: -0.01em; }
+.t-h1      { font-family: var(--font-sans); font-weight: 800; font-size: var(--t-h1);      line-height: var(--lh-snug);  letter-spacing: var(--tr-tight); }
+.t-h2      { font-family: var(--font-sans); font-weight: 700; font-size: var(--t-h2);      line-height: var(--lh-snug); }
+.t-h3      { font-family: var(--font-sans); font-weight: 700; font-size: var(--t-h3);      line-height: var(--lh-snug); }
+.t-body    { font-family: var(--font-sans); font-weight: 400; font-size: var(--t-body);    line-height: var(--lh-body); }
+.t-small   { font-family: var(--font-sans); font-weight: 400; font-size: var(--t-small);   line-height: var(--lh-body); }
+.t-mono    { font-family: var(--font-mono); font-weight: 500; font-size: var(--t-small);   line-height: var(--lh-body); }
+.t-label   {
+  font-family: var(--font-sans); font-weight: 600;
+  font-size: var(--t-label); line-height: 1;
+  letter-spacing: var(--tr-label); text-transform: uppercase;
+}
+.t-num {
+  font-family: var(--font-mono); font-weight: 500;
+  font-size: var(--t-label); letter-spacing: 0.05em;
+}
+
+.muted   { color: var(--rbt-ink-mute); }
+.soft    { color: var(--rbt-ink-soft); }
+.brand   { color: var(--rbt-green); }
+.invert  { color: var(--rbt-cream); }
+
+/* =========================================================
+   PAGE CHROME — used across system docs
+   ========================================================= */
+.doc {
+  min-height: 100vh;
+  background: var(--rbt-cream);
+  position: relative;
+}
+.doc-wrap {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: var(--s-7) var(--s-5);
+}
+.doc-wrap--wide { max-width: 1440px; }
+
+.doc-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--s-4) var(--s-5);
+  border-bottom: var(--hairline);
+  background: var(--rbt-cream);
+  position: sticky; top: 0; z-index: 50;
+  font-family: var(--font-mono);
+  font-size: var(--t-small);
+}
+.doc-header .crumbs { display: flex; align-items: center; gap: var(--s-3); color: var(--rbt-ink-mute); }
+.doc-header .crumbs .now { color: var(--rbt-green); font-weight: 600; }
+.doc-header nav { display: flex; gap: var(--s-5); }
+.doc-header nav a { color: var(--rbt-ink-mute); transition: color var(--dur-quick) var(--ease-snap); }
+.doc-header nav a:hover { color: var(--rbt-green); }
+.doc-header nav a.active { color: var(--rbt-ink); }
+
+.doc-foot {
+  display: flex; justify-content: space-between; align-items: baseline;
+  padding: var(--s-7) var(--s-5);
+  border-top: var(--hairline);
+  font-family: var(--font-mono);
+  font-size: var(--t-small);
+  color: var(--rbt-ink-mute);
+  margin-top: var(--s-9);
+}
+
+/* RBT wordmark — the slab "RBT." */
+.rbt-mark {
+  font-family: var(--font-slab);
+  font-weight: 800;
+  font-size: 22px;
+  letter-spacing: -0.02em;
+  color: var(--rbt-green);
+  line-height: 1;
+}
+.rbt-mark--lg { font-size: 40px; }
+.rbt-mark--sm { font-size: 16px; }
+
+/* Section opener — numbered block */
+.section-open {
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  gap: var(--s-5);
+  align-items: end;
+  padding-top: var(--s-9);
+  padding-bottom: var(--s-6);
+  border-bottom: var(--hairline-d);
+}
+.section-open__num {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--rbt-green);
+  letter-spacing: 0.1em;
+  padding-bottom: 14px;
+}
+.section-open__title { color: var(--rbt-ink); }
+.section-open__sub  { font-family: var(--font-mono); font-size: var(--t-small); color: var(--rbt-ink-mute); margin-top: var(--s-3); }
+
+/* Card / spec frames */
+.frame {
+  background: var(--rbt-paper);
+  border: var(--hairline);
+  padding: var(--s-5);
+}
+.frame--ink { background: var(--rbt-ink); color: var(--rbt-cream); border-color: var(--rbt-ink); }
+.frame--green { background: var(--rbt-green); color: var(--rbt-cream); border-color: var(--rbt-green); }
+.frame--soft { background: var(--rbt-cream-soft); }
+
+.spec-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: var(--s-1);
+  background: var(--rbt-ink-line);
+  border: var(--hairline);
+}
+.spec-grid > * { background: var(--rbt-paper); padding: var(--s-5); }
+
+/* Asterisk / sparkle motif from the site */
+.spark {
+  display: inline-block;
+  width: 1em; height: 1em;
+  vertical-align: -0.1em;
+  color: var(--rbt-green);
+}
+
+/* Tagged code-style label */
+.tag {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 4px 10px;
+  border: 1px solid var(--rbt-green);
+  color: var(--rbt-green);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 1;
+  white-space: nowrap;
+}
+.tag--solid { background: var(--rbt-green); color: var(--rbt-cream); }
+.tag--ghost { border-color: var(--rbt-ink-line); color: var(--rbt-ink-mute); }
+.tag--pill  { border-radius: var(--radius-pill); }
+
+/* Buttons */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  padding: 14px 22px;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: var(--tr-label);
+  text-transform: uppercase;
+  line-height: 1;
+  border: 1.5px solid var(--rbt-green);
+  background: var(--rbt-green);
+  color: var(--rbt-cream);
+  transition: transform var(--dur-quick) var(--ease-snap), background var(--dur-quick), color var(--dur-quick);
+  cursor: pointer;
+  border-radius: var(--radius);
+}
+.btn:hover { background: var(--rbt-green-ink); border-color: var(--rbt-green-ink); transform: translate(-1px, -1px); box-shadow: 3px 3px 0 var(--rbt-ink); }
+.btn:active { transform: translate(0,0); box-shadow: none; }
+.btn--ghost { background: transparent; color: var(--rbt-green); }
+.btn--ghost:hover { background: var(--rbt-green); color: var(--rbt-cream); box-shadow: 3px 3px 0 var(--rbt-ink); }
+.btn--ink { background: var(--rbt-ink); border-color: var(--rbt-ink); color: var(--rbt-cream); }
+.btn--ink:hover { background: var(--rbt-green); border-color: var(--rbt-green); }
+.btn--sm { padding: 10px 16px; font-size: 11px; }
+.btn--lg { padding: 18px 28px; font-size: 14px; }
+
+/* Generative line-art canvas placeholder */
+.lineart {
+  position: absolute; inset: 0;
+  pointer-events: none;
+  opacity: 0.55;
+  z-index: 0;
+}
