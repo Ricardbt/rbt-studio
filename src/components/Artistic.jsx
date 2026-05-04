@@ -22,7 +22,7 @@ function ArtCanvas() {
     
     const draw = () => {
       time += 0.006
-      ctx.fillStyle = 'rgba(247, 249, 248, 0.06)'
+      ctx.fillStyle = 'rgba(242, 239, 230, 0.06)'
       ctx.fillRect(0, 0, width, height)
 
       for (let i = 0; i < 4; i++) {
@@ -33,7 +33,7 @@ function ArtCanvas() {
           const y = height / 2 + Math.sin(a * 2 + time * (0.25 - i * 0.08)) * r * 0.5
           a === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y)
         }
-        ctx.strokeStyle = `rgba(26, 93, 67, ${0.15 - i * 0.025})`
+        ctx.strokeStyle = `rgba(14, 74, 53, ${0.15 - i * 0.025})`
         ctx.lineWidth = 0.8
         ctx.stroke()
       }
@@ -46,7 +46,7 @@ function ArtCanvas() {
         const y = height / 2 + Math.sin(a * 1.5) * r * 0.5
         ctx.beginPath()
         ctx.arc(x, y, 2.5, 0, Math.PI * 2)
-        ctx.fillStyle = 'rgba(26, 93, 67, 0.6)'
+        ctx.fillStyle = 'rgba(14, 74, 53, 0.6)'
         ctx.fill()
       }
 
@@ -94,20 +94,24 @@ function ArtisticItem({ item, index }) {
   }, [])
 
   return (
-    <div 
+    <div
       ref={itemRef}
-      className="py-10 md:py-12 border-b border-border/30 last:border-b-0 cursor-pointer group opacity-0"
+      className="py-10 md:py-12 last:border-b-0 cursor-pointer group opacity-0"
+      style={{ borderBottom: '1px solid #C9C5B6' }}
     >
-      <div className="font-mono text-[10px] tracking-[0.15em] uppercase text-accent/60 mb-3">
+      <div className="font-mono text-[10px] tracking-[0.15em] uppercase mb-3" style={{ color: 'rgba(14, 74, 53, 0.6)' }}>
         {item.label}
       </div>
-      <div 
+      <div
         ref={contentRef}
-        className="font-display text-xl md:text-2xl lg:text-3xl text-text mb-3 group-hover:text-accent transition-colors duration-300"
+        className="text-xl md:text-2xl lg:text-3xl mb-3 group-hover:transition-colors group-hover:duration-300 font-semibold"
+        style={{ color: '#14140F' }}
+        onMouseEnter={(e) => (e.currentTarget.style.color = '#0E4A35')}
+        onMouseLeave={(e) => (e.currentTarget.style.color = '#14140F')}
       >
         {item.title}
       </div>
-      <div className="font-sans text-sm md:text-base text-textMuted leading-relaxed">
+      <div className="font-sans text-sm md:text-base leading-relaxed" style={{ color: '#3A3A33' }}>
         {item.desc}
       </div>
     </div>
@@ -178,42 +182,42 @@ export default function Artistic() {
   }, [])
 
   return (
-    <section ref={sectionRef} id="artistic" className="bg-bg">
+    <section ref={sectionRef} id="artistic" style={{ backgroundColor: '#F2EFE6' }}>
       {/* Grid Pattern */}
-      <div 
+      <div
         className="absolute inset-0 opacity-[0.02] pointer-events-none"
         style={{
-          backgroundImage: `linear-gradient(#1A5D43 1px, transparent 1px), linear-gradient(90deg, #1A5D43 1px, transparent 1px)`,
+          backgroundImage: `linear-gradient(#0E4A35 1px, transparent 1px), linear-gradient(90deg, #0E4A35 1px, transparent 1px)`,
           backgroundSize: '80px 80px'
         }}
       />
 
       <div className="relative z-10 px-6 md:px-12 lg:px-16 xl:px-24 py-24 md:py-32 lg:py-40">
         <div ref={titleRef} className="mb-16 md:mb-20">
-          <p className="font-mono text-[11px] tracking-[0.25em] uppercase text-accent mb-4 md:mb-6 opacity-0">
-            Arte & Código
+          <p className="font-mono text-[12px] tracking-[0.18em] uppercase mb-4 md:mb-6 opacity-0" style={{ color: '#0E4A35' }}>
+            04 / 05 · Arte & Código
           </p>
-          <h2 className="font-display text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-semibold text-text leading-[0.9] opacity-0">
+          <h2 className="font-sans text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-semibold leading-[0.9] opacity-0" style={{ color: '#14140F' }}>
             Donde el código
             <br />
-            <em className="not-italic text-accent">se vuelve imagen</em>
+            <em className="not-italic" style={{ color: '#0E4A35' }}>se vuelve imagen</em>
           </h2>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-start max-w-[1400px]">
           <div ref={textRef} className="lg:sticky lg:top-32 opacity-0">
-            <p className="font-sans text-base md:text-lg text-textMuted mb-10 leading-relaxed">
-              La formación en <span className="text-text font-medium">Bellas Artes</span> nunca ha estado separada de la práctica técnica. 
+            <p className="font-sans text-base md:text-lg mb-10 leading-relaxed" style={{ color: '#3A3A33' }}>
+              La formación en <span className="font-medium" style={{ color: '#14140F' }}>Bellas Artes</span> nunca ha estado separada de la práctica técnica.
               El código generativo y las instalaciones interactivas son extensiones naturales de ese lenguaje visual.
             </p>
             <div ref={canvasRef} className="relative overflow-hidden opacity-0">
               <ArtCanvas />
-              <span className="absolute bottom-3 left-4 font-mono text-[10px] tracking-[0.12em] uppercase text-textMuted/40">
+              <span className="absolute bottom-3 left-4 font-mono text-[10px] tracking-[0.12em] uppercase" style={{ color: 'rgba(110, 110, 100, 0.4)' }}>
                 Generative · Live Canvas
               </span>
             </div>
           </div>
-          
+
           <div className="space-y-0">
             {ARTISTIC_ITEMS.map((item, i) => (
               <ArtisticItem key={i} item={item} index={i} />

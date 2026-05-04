@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(Expand-Archive *)",
+      "Bash(Get-ChildItem *)",
+      "Bash(npm run *)",
+      "Bash(curl -s http://localhost:5173/)",
+      "Bash(curl -s http://localhost:5173)",
+      "Bash(node -c \"D:\\\\RBT\\\\rbt-studio\\\\src\\\\components\\\\ProjectGallery.jsx\")"
+    ]
+  }
+}

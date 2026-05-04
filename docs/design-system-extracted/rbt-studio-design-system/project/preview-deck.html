@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>RBT Studio · Deck template</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="tokens.css">
+<script src="deck-stage.js"></script>
+<style>
+  body { background: #1a1a14; margin: 0; }
+
+  deck-stage section {
+    background: var(--rbt-cream);
+    color: var(--rbt-ink);
+    padding: 80px 96px;
+    font-family: var(--font-sans);
+    position: relative;
+    overflow: hidden;
+  }
+  /* slide chrome — corner labels on every slide */
+  deck-stage section::before {
+    content: 'RBT.'; font-family: var(--font-slab); font-weight: 800;
+    position: absolute; top: 40px; left: 96px;
+    font-size: 22px; color: var(--rbt-green); letter-spacing: -0.02em;
+  }
+  deck-stage section::after {
+    content: attr(data-num) ' · RBT STUDIO · 2025';
+    position: absolute; bottom: 40px; right: 96px;
+    font-family: var(--font-mono); font-size: 13px;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--rbt-ink-mute);
+  }
+
+  /* ----- slide 1 — cover ----- */
+  .s-cover { display: flex; flex-direction: column; justify-content: center; }
+  .s-cover .eye { display: flex; align-items: center; gap: 14px; margin-bottom: 56px; }
+  .s-cover .eye .dot { width: 12px; height: 12px; background: var(--rbt-green); }
+  .s-cover .eye .lbl { font-family: var(--font-mono); font-size: 14px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--rbt-ink-soft); }
+  .s-cover h1 { font-size: 180px; font-weight: 800; line-height: 0.92; letter-spacing: -0.04em; }
+  .s-cover h1 em { font-family: var(--font-slab); font-style: normal; color: var(--rbt-green); }
+  .s-cover .sub { margin-top: 48px; font-size: 32px; color: var(--rbt-ink-soft); line-height: 1.3; max-width: 1100px; }
+  .s-cover .meta { position: absolute; bottom: 96px; left: 96px; right: 96px; display: flex; justify-content: space-between; align-items: end; }
+  .s-cover .meta .who { font-size: 18px; color: var(--rbt-ink); }
+  .s-cover .meta .who b { display: block; font-size: 22px; font-weight: 700; }
+  .s-cover .lineart-svg { position: absolute; right: 0; top: 0; width: 50%; height: 100%; opacity: 0.7; pointer-events: none; }
+
+  /* ----- slide 2 — agenda ----- */
+  .s-agenda { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; padding-top: 140px; }
+  .s-agenda h2 { font-size: 96px; font-weight: 800; line-height: 0.95; letter-spacing: -0.03em; }
+  .s-agenda h2 em { font-family: var(--font-slab); font-style: normal; color: var(--rbt-green); }
+  .s-agenda .intro { margin-top: 32px; font-size: 22px; color: var(--rbt-ink-soft); line-height: 1.4; max-width: 480px; }
+  .s-agenda ol { list-style: none; padding: 0; margin: 0; counter-reset: ag; }
+  .s-agenda ol li { counter-increment: ag; padding: 20px 0; border-bottom: 1px solid var(--rbt-ink-line); display: grid; grid-template-columns: 80px 1fr 80px; align-items: baseline; gap: 16px; }
+  .s-agenda ol li::before { content: counter(ag, decimal-leading-zero); font-family: var(--font-mono); font-size: 14px; color: var(--rbt-green); letter-spacing: 0.1em; }
+  .s-agenda ol li .ttl { font-size: 26px; font-weight: 700; }
+  .s-agenda ol li .min { font-family: var(--font-mono); font-size: 14px; color: var(--rbt-ink-mute); text-align: right; }
+  .s-agenda ol li.now .ttl { color: var(--rbt-green); }
+
+  /* ----- slide 3 — section header ----- */
+  .s-section { background: var(--rbt-green) !important; color: var(--rbt-cream) !important; display: flex; flex-direction: column; justify-content: center; }
+  .s-section::before { color: var(--rbt-cream) !important; }
+  .s-section::after { color: rgba(242,239,230,0.5) !important; }
+  .s-section .num { font-family: var(--font-mono); font-size: 22px; letter-spacing: 0.2em; opacity: 0.7; }
+  .s-section h2 { font-size: 220px; font-weight: 800; line-height: 0.9; letter-spacing: -0.04em; margin-top: 32px; color: var(--rbt-cream); }
+  .s-section h2 em { font-family: var(--font-slab); font-style: normal; color: #C7D6CF; }
+  .s-section .blurb { margin-top: 56px; font-size: 28px; line-height: 1.3; max-width: 900px; opacity: 0.9; }
+
+  /* ----- slide 4 — three-column ----- */
+  .s-three { padding-top: 140px; }
+  .s-three h2 { font-size: 80px; font-weight: 800; line-height: 0.95; letter-spacing: -0.03em; }
+  .s-three h2 em { font-family: var(--font-slab); font-style: normal; color: var(--rbt-green); }
+  .s-three .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--rbt-ink-line); border: 1px solid var(--rbt-ink-line); margin-top: 64px; }
+  .s-three .col { background: var(--rbt-paper); padding: 40px; min-height: 380px; display: flex; flex-direction: column; gap: 20px; }
+  .s-three .col .num { font-family: var(--font-mono); font-size: 14px; color: var(--rbt-green); letter-spacing: 0.1em; }
+  .s-three .col .icon { color: var(--rbt-green); }
+  .s-three .col .icon svg { width: 64px; height: 64px; }
+  .s-three .col h3 { font-size: 32px; font-weight: 700; line-height: 1.15; }
+  .s-three .col p { font-size: 18px; color: var(--rbt-ink-soft); line-height: 1.5; flex: 1; }
+  .s-three .col .tags { display: flex; gap: 8px; flex-wrap: wrap; }
+  .s-three .col .tags .tag { font-size: 13px; padding: 5px 12px; }
+
+  /* ----- slide 5 — stat ----- */
+  .s-stat { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; padding-top: 140px; align-items: center; }
+  .s-stat__l h2 { font-size: 64px; font-weight: 800; line-height: 1.05; letter-spacing: -0.02em; max-width: 600px; }
+  .s-stat__l h2 em { font-family: var(--font-slab); font-style: normal; color: var(--rbt-green); }
+  .s-stat__l p { margin-top: 32px; font-size: 22px; color: var(--rbt-ink-soft); line-height: 1.4; max-width: 540px; }
+  .s-stat__r { display: flex; flex-direction: column; gap: 24px; }
+  .s-stat__big { font-size: 280px; font-weight: 800; line-height: 0.85; letter-spacing: -0.05em; color: var(--rbt-green); font-family: var(--font-slab); }
+  .s-stat__big small { font-family: var(--font-sans); font-size: 80px; color: var(--rbt-ink); margin-left: 8px; vertical-align: 0.4em; }
+  .s-stat__r .cap { font-family: var(--font-mono); font-size: 16px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--rbt-ink-mute); }
+
+  /* ----- slide 6 — quote ----- */
+  .s-quote { display: flex; flex-direction: column; justify-content: center; padding: 96px; }
+  .s-quote .mark { font-family: var(--font-slab); font-size: 280px; line-height: 0.6; color: var(--rbt-green); opacity: 0.4; height: 80px; }
+  .s-quote blockquote { font-family: var(--font-sans); font-size: 64px; font-weight: 700; line-height: 1.15; letter-spacing: -0.02em; max-width: 1200px; margin-top: 24px; }
+  .s-quote blockquote em { font-family: var(--font-slab); font-style: normal; color: var(--rbt-green); }
+  .s-quote .by { margin-top: 56px; display: flex; align-items: center; gap: 20px; }
+  .s-quote .by .avatar { width: 64px; height: 64px; background: var(--rbt-green); color: var(--rbt-cream); display: grid; place-items: center; font-family: var(--font-slab); font-weight: 800; font-size: 24px; }
+  .s-quote .by .who { font-size: 22px; font-weight: 700; }
+  .s-quote .by .role { font-family: var(--font-mono); font-size: 14px; color: var(--rbt-ink-mute); letter-spacing: 0.1em; text-transform: uppercase; }
+
+  /* ----- slide 7 — data ----- */
+  .s-data { padding-top: 140px; }
+  .s-data h2 { font-size: 64px; font-weight: 800; line-height: 1; letter-spacing: -0.02em; }
+  .s-data h2 em { font-family: var(--font-slab); font-style: normal; color: var(--rbt-green); }
+  .s-data .sub { font-family: var(--font-mono); font-size: 16px; color: var(--rbt-ink-mute); margin-top: 16px; }
+  .s-data .chart-wrap { margin-top: 56px; background: var(--rbt-paper); border: 1px solid var(--rbt-ink-line); padding: 40px; }
+  .s-data .legend { display: flex; gap: 32px; font-family: var(--font-mono); font-size: 14px; color: var(--rbt-ink-soft); margin-top: 20px; }
+  .s-data .legend .sw { display: inline-block; width: 14px; height: 14px; margin-right: 8px; vertical-align: -2px; }
+
+  /* ----- slide 8 — closing ----- */
+  .s-close { background: var(--rbt-ink) !important; color: var(--rbt-cream) !important; display: flex; flex-direction: column; justify-content: center; }
+  .s-close::before { color: var(--rbt-cream) !important; }
+  .s-close::after { color: rgba(242,239,230,0.4) !important; }
+  .s-close h2 { font-size: 160px; font-weight: 800; line-height: 0.95; letter-spacing: -0.04em; color: var(--rbt-cream); }
+  .s-close h2 em { font-family: var(--font-slab); font-style: normal; color: #C7D6CF; }
+  .s-close .email { margin-top: 64px; font-family: var(--font-slab); font-weight: 700; font-size: 64px; color: #C7D6CF; }
+  .s-close .meta { margin-top: 64px; padding-top: 32px; border-top: 1px solid rgba(242,239,230,0.3); display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; max-width: 800px; }
+  .s-close .meta dt { font-family: var(--font-mono); font-size: 12px; color: rgba(242,239,230,0.6); letter-spacing: 0.18em; text-transform: uppercase; }
+  .s-close .meta dd { margin: 8px 0 0; font-size: 22px; }
+</style>
+</head>
+<body>
+
+<deck-stage>
+
+<!-- 01 — COVER -->
+<section class="s-cover" data-screen-label="01 Cover" data-num="01 / 08">
+  <svg class="lineart-svg" viewBox="0 0 600 1080" preserveAspectRatio="xMidYMid slice">
+    <defs><pattern id="d1" width="22" height="22" patternUnits="userSpaceOnUse"><circle cx="11" cy="11" r="0.7" fill="#0E4A35" opacity="0.18"/></pattern></defs>
+    <rect width="100%" height="100%" fill="url(#d1)"/>
+    <g stroke="#0E4A35" stroke-width="1" fill="none" opacity="0.55">
+      <circle cx="400" cy="280" r="180"/><circle cx="400" cy="280" r="130"/><circle cx="400" cy="280" r="80"/><circle cx="400" cy="280" r="32"/>
+      <polygon points="500,640 560,670 560,740 500,770 440,740 440,670"/>
+      <polygon points="280,720 340,690 400,720 400,780 340,810 280,780"/>
+      <path d="M320 320 L400 280 L460 380 L560 340"/>
+      <line x1="200" y1="200" x2="320" y2="320"/>
+      <g fill="#0E4A35" opacity="0.7">
+        <path d="M220 380 l4 -16 l4 16 l16 4 l-16 4 l-4 16 l-4 -16 l-16 -4 z"/>
+        <path d="M520 480 l3 -12 l3 12 l12 3 l-12 3 l-3 12 l-3 -12 l-12 -3 z"/>
+      </g>
+    </g>
+  </svg>
+  <div class="eye"><span class="dot"></span><span class="lbl">Capabilities · Q3 2025 · Confidential</span></div>
+  <h1>RBT<br><em>Studio.</em></h1>
+  <p class="sub">Ingeniería de precisión y sensibilidad artística.<br>Desarrollo web, IA y código generativo.</p>
+  <div class="meta">
+    <div class="who"><b>Para Aurora Estudio</b>Capability deck · Mayo 2026</div>
+    <div class="t-mono muted" style="font-size: 14px; text-align: right;">Barcelona · ES<br>contact@rbt-studio.com</div>
+  </div>
+</section>
+
+<!-- 02 — AGENDA -->
+<section class="s-agenda" data-screen-label="02 Agenda" data-num="02 / 08">
+  <div>
+    <span class="t-num brand" style="font-size: 14px;">SECTION 00</span>
+    <h2 style="margin-top: 16px;">Lo que vamos<br>a <em>cubrir</em>.</h2>
+    <p class="intro">Una hora. Cinco bloques. Salidas concretas — no slides genéricas.</p>
+  </div>
+  <ol>
+    <li class="now"><span class="ttl">Quiénes somos</span><span class="min">5 min</span></li>
+    <li><span class="ttl">Servicios &amp; método</span><span class="min">15 min</span></li>
+    <li><span class="ttl">Proyectos seleccionados</span><span class="min">20 min</span></li>
+    <li><span class="ttl">Propuesta para Aurora</span><span class="min">15 min</span></li>
+    <li><span class="ttl">Q&amp;A &amp; próximos pasos</span><span class="min">5 min</span></li>
+  </ol>
+</section>
+
+<!-- 03 — SECTION HEADER -->
+<section class="s-section" data-screen-label="03 Section · Servicios" data-num="03 / 08">
+  <span class="num">SECTION 02</span>
+  <h2>Lo que<br><em>creamos.</em></h2>
+  <p class="blurb">Seis líneas, un mismo enfoque: ingeniería con criterio.</p>
+</section>
+
+<!-- 04 — THREE COL -->
+<section class="s-three" data-screen-label="04 Servicios · grid" data-num="04 / 08">
+  <h2>Tres bloques de <em>oferta</em>.</h2>
+  <div class="grid">
+    <div class="col">
+      <span class="num">01 / WEB</span>
+      <span class="icon">
+        <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="15" y="20" width="70" height="55"/><path d="M15 32 H85"/><circle cx="22" cy="26" r="1.5" fill="currentColor"/><circle cx="28" cy="26" r="1.5" fill="currentColor"/><circle cx="34" cy="26" r="1.5" fill="currentColor"/><path d="M30 50 L40 60 L30 70 M70 50 L60 60 L70 70 M52 47 L48 73"/></svg>
+      </span>
+      <h3>Producto digital</h3>
+      <p>Aplicaciones web de producción con React y Next.js. MVPs en 6 semanas, plataformas en 3 meses.</p>
+      <div class="tags"><span class="tag">React</span><span class="tag">Next.js</span><span class="tag">Supabase</span></div>
+    </div>
+    <div class="col">
+      <span class="num">02 / AI</span>
+      <span class="icon">
+        <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="50" cy="50" r="32"/><circle cx="50" cy="50" r="20"/><circle cx="50" cy="50" r="8"/><circle cx="50" cy="50" r="2" fill="currentColor"/><path d="M50 18 V8 M50 92 V82 M18 50 H8 M92 50 H82"/></svg>
+      </span>
+      <h3>Automatización IA</h3>
+      <p>Agentes autónomos, pipelines LLM y MCP. Conectamos tus herramientas existentes en lugar de reemplazarlas.</p>
+      <div class="tags"><span class="tag">LLMs</span><span class="tag">MCP</span><span class="tag">n8n</span></div>
+    </div>
+    <div class="col">
+      <span class="num">03 / 3D</span>
+      <span class="icon">
+        <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M50 15 L85 35 V65 L50 85 L15 65 V35 Z"/><path d="M50 15 V50 M15 35 L50 50 M85 35 L50 50 M50 50 V85"/></svg>
+      </span>
+      <h3>3D &amp; experiencias</h3>
+      <p>Three.js, WebGL y arte generativo. Para sites donde el contenido por sí solo no comunica.</p>
+      <div class="tags"><span class="tag">Three.js</span><span class="tag">WebGL</span><span class="tag">GSAP</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 05 — STAT -->
+<section class="s-stat" data-screen-label="05 Stat hero" data-num="05 / 08">
+  <div class="s-stat__l">
+    <span class="t-num brand" style="font-size: 14px;">DATAPOINT</span>
+    <h2 style="margin-top: 16px;">Diez años entregando<br>código que <em>funciona</em>.</h2>
+    <p>De la Universidad de Barcelona a proyectos propios. Startups, agencias e instituciones culturales — sin un solo producto sin desplegar.</p>
+  </div>
+  <div class="s-stat__r">
+    <span class="cap">Años de práctica</span>
+    <div class="s-stat__big">10<small>+</small></div>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--rbt-ink-line);">
+      <div><div class="cap">Proyectos vivos</div><div style="font-size: 48px; font-weight: 800; color: var(--rbt-ink); margin-top: 8px;">14</div></div>
+      <div><div class="cap">Clientes únicos</div><div style="font-size: 48px; font-weight: 800; color: var(--rbt-ink); margin-top: 8px;">42</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 06 — QUOTE -->
+<section class="s-quote" data-screen-label="06 Quote" data-num="06 / 08">
+  <div class="mark">"</div>
+  <blockquote>RBT entendió la pieza en una llamada y la entregó en tres semanas. <em>Lo que más nos sorprendió fue lo poco que tuvimos que iterar.</em></blockquote>
+  <div class="by">
+    <div class="avatar">M</div>
+    <div>
+      <div class="who">Marta Oliver</div>
+      <div class="role">Head of Product · Vitae S.L.</div>
+    </div>
+  </div>
+</section>
+
+<!-- 07 — DATA -->
+<section class="s-data" data-screen-label="07 Data" data-num="07 / 08">
+  <span class="t-num brand" style="font-size: 14px;">PERFORMANCE</span>
+  <h2 style="margin-top: 16px;">Token spend &amp; <em>uptime</em>.</h2>
+  <p class="sub">// 14 días · brandboard, storyprint, nutrai · production</p>
+  <div class="chart-wrap">
+    <svg viewBox="0 0 1200 380" preserveAspectRatio="none" style="width:100%;height:380px;">
+      <g stroke="#C9C5B6" stroke-width="0.5" stroke-dasharray="3 6">
+        <line x1="0" y1="80" x2="1200" y2="80"/><line x1="0" y1="160" x2="1200" y2="160"/>
+        <line x1="0" y1="240" x2="1200" y2="240"/><line x1="0" y1="320" x2="1200" y2="320"/>
+      </g>
+      <path d="M0 280 L80 250 L160 240 L240 200 L320 215 L400 170 L480 180 L560 130 L640 145 L720 110 L800 100 L880 130 L960 90 L1040 105 L1120 70 L1200 90 L1200 380 L0 380 Z" fill="#0E4A35" opacity="0.1"/>
+      <polyline fill="none" stroke="#0E4A35" stroke-width="2" points="0,280 80,250 160,240 240,200 320,215 400,170 480,180 560,130 640,145 720,110 800,100 880,130 960,90 1040,105 1120,70 1200,90"/>
+      <polyline fill="none" stroke="#B8651A" stroke-width="1.5" stroke-dasharray="4 4" points="0,300 80,290 160,275 240,260 320,265 400,250 480,235 560,230 640,225 720,210 800,200 880,205 960,195 1040,185 1120,175 1200,170"/>
+      <g fill="#0E4A35"><circle cx="560" cy="130" r="5"/><circle cx="800" cy="100" r="5"/><circle cx="1120" cy="70" r="5"/></g>
+      <g font-family="JetBrains Mono" font-size="13" fill="#6E6E64">
+        <text x="0" y="370">May 18</text><text x="400" y="370">May 22</text><text x="800" y="370">May 26</text><text x="1120" y="370">May 30</text>
+      </g>
+    </svg>
+    <div class="legend">
+      <span><span class="sw" style="background: var(--rbt-green);"></span>Tokens consumed</span>
+      <span><span class="sw" style="background: var(--rbt-warn);"></span>Budget allocated</span>
+      <span style="margin-left: auto;"><span class="brand">●</span> Uptime 99.97%</span>
+    </div>
+  </div>
+</section>
+
+<!-- 08 — CLOSE -->
+<section class="s-close" data-screen-label="08 Close" data-num="08 / 08">
+  <span class="t-num" style="color: rgba(242,239,230,0.5); font-size: 14px;">CONTACT</span>
+  <h2 style="margin-top: 24px;">Trabajemos<br><em>juntos.</em></h2>
+  <div class="email">contact@rbt-studio.com</div>
+  <dl class="meta">
+    <div><dt>Ubicación</dt><dd>Barcelona · ES</dd></div>
+    <div><dt>Modo</dt><dd>Remoto global</dd></div>
+    <div><dt>Respuesta</dt><dd>&lt; 24h</dd></div>
+  </dl>
+</section>
+
+</deck-stage>
+
+</body>
+</html>

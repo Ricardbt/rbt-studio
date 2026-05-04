@@ -1,0 +1,459 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>RBT Studio — Marketing site preview</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="tokens.css">
+<style>
+  body { background: var(--rbt-cream); }
+  .site { position: relative; }
+
+  /* HEADER */
+  .site-head {
+    position: sticky; top: 0; z-index: 30;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 18px 32px;
+    background: rgba(242, 239, 230, 0.92);
+    backdrop-filter: blur(8px);
+    border-bottom: var(--hairline);
+  }
+  .site-head__nav { display: flex; gap: 28px; font-family: var(--font-mono); font-size: 13px; }
+  .site-head__nav a { color: var(--rbt-ink-soft); transition: color var(--dur-quick); }
+  .site-head__nav a:hover { color: var(--rbt-green); }
+  .site-head__cta { display: flex; gap: 10px; align-items: center; }
+  .menu-icon { width: 24px; height: 24px; display: grid; gap: 4px; align-content: center; }
+  .menu-icon span { display: block; height: 1.5px; background: var(--rbt-ink); }
+
+  /* HERO */
+  .hero {
+    position: relative;
+    min-height: 720px;
+    padding: 80px 32px 64px;
+    overflow: hidden;
+    border-bottom: var(--hairline-d);
+  }
+  .hero__lineart { position: absolute; inset: 0; pointer-events: none; opacity: 0.85; }
+  .hero__inner { position: relative; max-width: 1200px; margin: 0 auto; z-index: 2; }
+  .hero__eye { display: flex; align-items: center; gap: 12px; margin-bottom: 56px; }
+  .hero__eye .dot { width: 8px; height: 8px; background: var(--rbt-green); }
+  .hero__eye .label { font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--rbt-ink-soft); }
+  .hero h1 { font-family: var(--font-sans); font-weight: 800; font-size: clamp(72px, 11vw, 168px); line-height: 0.92; letter-spacing: -0.04em; }
+  .hero h1 em { font-family: var(--font-slab); font-weight: 800; font-style: normal; color: var(--rbt-green); }
+  .hero__tag { margin-top: 40px; font-size: 22px; color: var(--rbt-ink-soft); max-width: 560px; line-height: 1.4; }
+  .hero__sub { margin-top: 16px; font-size: 16px; color: var(--rbt-ink-mute); max-width: 560px; line-height: 1.5; }
+  .hero__cta { margin-top: 48px; display: flex; gap: 16px; }
+  .hero__bottom { position: absolute; bottom: 24px; left: 32px; right: 32px; display: flex; justify-content: space-between; align-items: end; z-index: 2; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--rbt-ink-mute); }
+  .scroll-indicator { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+  .scroll-indicator .line { width: 1px; height: 32px; background: var(--rbt-ink-mute); animation: pulse 2s ease-in-out infinite; }
+  @keyframes pulse { 0%, 100% { opacity: 0.3; transform: scaleY(0.6); transform-origin: top; } 50% { opacity: 1; transform: scaleY(1); } }
+
+  /* MARQUEE */
+  .marq { overflow: hidden; padding: 18px 0; border-bottom: var(--hairline); background: var(--rbt-cream); }
+  .marq__track { display: flex; gap: 36px; font-family: var(--font-mono); font-size: 14px; white-space: nowrap; animation: scroll 40s linear infinite; }
+  .marq__track span.spk { color: var(--rbt-green); }
+  @keyframes scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  /* SECTIONS */
+  .section { padding: 96px 32px; max-width: 1280px; margin: 0 auto; }
+  .section__head { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: end; padding-bottom: 56px; border-bottom: var(--hairline-d); }
+  .section__eye { font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--rbt-green); }
+  .section__title { font-size: clamp(48px, 7vw, 88px); font-weight: 800; line-height: 0.95; letter-spacing: -0.03em; margin-top: 24px; }
+  .section__title em { font-family: var(--font-slab); font-style: normal; color: var(--rbt-green); }
+  .section__sub { font-size: 16px; color: var(--rbt-ink-soft); line-height: 1.55; max-width: 420px; }
+
+  /* SERVICES */
+  .services { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border-top: var(--hairline); border-left: var(--hairline); margin-top: 48px; }
+  .service { border-right: var(--hairline); border-bottom: var(--hairline); padding: 32px; min-height: 320px; display: flex; flex-direction: column; gap: 16px; transition: background var(--dur-quick) var(--ease-snap); cursor: pointer; }
+  .service:hover { background: var(--rbt-paper); }
+  .service__num { font-family: var(--font-mono); font-size: 12px; color: var(--rbt-green); letter-spacing: 0.1em; }
+  .service__icon { color: var(--rbt-green); margin: 8px 0; }
+  .service__icon svg { width: 56px; height: 56px; }
+  .service h3 { font-size: 26px; font-weight: 700; line-height: 1.15; }
+  .service p { font-size: 14px; color: var(--rbt-ink-soft); line-height: 1.5; flex: 1; }
+  .service__tags { display: flex; gap: 6px; flex-wrap: wrap; }
+
+  /* PROJECTS */
+  .projects-section { background: var(--rbt-ink); color: var(--rbt-cream); padding: 96px 32px; }
+  .projects-section .section__title { color: var(--rbt-cream); }
+  .projects-section .section__title em { color: #7DB89F; }
+  .projects-section .section__eye { color: #7DB89F; }
+  .projects-section .section__sub { color: rgba(242, 239, 230, 0.7); }
+  .projects-section .section__head { border-bottom-color: rgba(242, 239, 230, 0.2); }
+
+  .projects { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: rgba(242, 239, 230, 0.15); margin-top: 48px; max-width: 1280px; margin: 48px auto 0; border: 1px solid rgba(242, 239, 230, 0.15); }
+  .project { background: var(--rbt-ink); padding: 40px 32px; min-height: 320px; display: flex; flex-direction: column; justify-content: space-between; cursor: pointer; transition: background var(--dur-quick); position: relative; overflow: hidden; }
+  .project:hover { background: #1f1f17; }
+  .project__num { font-family: var(--font-mono); font-size: 12px; color: #7DB89F; letter-spacing: 0.1em; }
+  .project h3 { font-size: 36px; font-weight: 800; line-height: 1.05; letter-spacing: -0.02em; margin-top: 24px; color: var(--rbt-cream); }
+  .project h3 em { font-family: var(--font-slab); font-style: normal; color: #7DB89F; }
+  .project p { font-size: 14px; color: rgba(242, 239, 230, 0.65); line-height: 1.5; margin-top: 16px; max-width: 380px; }
+  .project__foot { display: flex; justify-content: space-between; align-items: center; margin-top: 32px; padding-top: 16px; border-top: 1px solid rgba(242, 239, 230, 0.15); font-family: var(--font-mono); font-size: 11px; color: rgba(242, 239, 230, 0.5); letter-spacing: 0.1em; text-transform: uppercase; }
+  .project__foot .arrow { color: #7DB89F; }
+
+  /* ART */
+  .art-section { padding: 96px 32px; max-width: 1280px; margin: 0 auto; }
+  .art-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-top: 56px; }
+  .art-card { border: var(--hairline); padding: 32px; background: var(--rbt-paper); display: flex; flex-direction: column; gap: 16px; min-height: 280px; }
+  .art-card .label { font-family: var(--font-mono); font-size: 11px; color: var(--rbt-green); letter-spacing: 0.18em; text-transform: uppercase; }
+  .art-card h4 { font-size: 24px; font-weight: 700; line-height: 1.2; }
+  .art-card p { font-size: 14px; color: var(--rbt-ink-soft); line-height: 1.55; flex: 1; }
+  .art-card__viz { height: 120px; background: var(--rbt-cream-soft); border: 1px solid var(--rbt-cream-deep); position: relative; overflow: hidden; }
+
+  /* CONTACT */
+  .contact-section { padding: 96px 32px; border-top: var(--hairline-d); position: relative; overflow: hidden; }
+  .contact-section .section__title { font-size: clamp(72px, 10vw, 144px); }
+  .contact-card { display: grid; grid-template-columns: 1fr 1fr; gap: 0; max-width: 1280px; margin: 56px auto 0; border: var(--hairline-d); }
+  .contact-card > div { padding: 40px; }
+  .contact-card .left { background: var(--rbt-green); color: var(--rbt-cream); }
+  .contact-card .left .email { font-family: var(--font-slab); font-weight: 700; font-size: clamp(28px, 3.5vw, 48px); margin-top: 24px; word-break: break-all; line-height: 1.1; }
+  .contact-card .left .meta { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; margin-top: 56px; padding-top: 24px; border-top: 1px solid rgba(242, 239, 230, 0.3); font-family: var(--font-mono); font-size: 12px; }
+  .contact-card .left .meta dt { color: rgba(242, 239, 230, 0.7); letter-spacing: 0.1em; text-transform: uppercase; font-size: 10px; margin-bottom: 6px; }
+  .contact-card .right { background: var(--rbt-paper); }
+  .contact-card .right form { display: flex; flex-direction: column; gap: 20px; }
+  .contact-card .right .field { display: flex; flex-direction: column; gap: 6px; }
+  .contact-card .right label { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--rbt-ink-mute); }
+  .contact-card .right input, .contact-card .right textarea { padding: 12px 0; border: 0; border-bottom: 1.5px solid var(--rbt-ink-line); background: transparent; font-family: var(--font-sans); font-size: 16px; color: var(--rbt-ink); border-radius: 0; }
+  .contact-card .right input:focus, .contact-card .right textarea:focus { outline: none; border-bottom-color: var(--rbt-green); }
+  .contact-card .right textarea { resize: none; height: 80px; }
+
+  /* FOOT */
+  .site-foot { padding: 32px; border-top: var(--hairline); display: flex; justify-content: space-between; align-items: center; font-family: var(--font-mono); font-size: 12px; color: var(--rbt-ink-mute); }
+  .site-foot__icons { display: flex; gap: 16px; }
+
+  @media (max-width: 900px) {
+    .services, .projects, .art-grid, .contact-card, .section__head, .contact-card .left .meta { grid-template-columns: 1fr; }
+    .site-head__nav { display: none; }
+    .hero { padding: 56px 24px; min-height: 600px; }
+    .section { padding: 64px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="doc-header" style="position: relative;">
+  <div class="crumbs">
+    <span class="rbt-mark">RBT.</span><span>·</span><span>Design System</span><span>·</span><span class="now">Marketing preview</span>
+  </div>
+  <nav>
+    <a href="index.html">Index</a>
+    <a href="foundations.html">Foundations</a>
+    <a href="components.html">Components</a>
+    <a href="iconography.html">Iconography</a>
+    <a href="preview-marketing.html" class="active">Web</a>
+    <a href="preview-dashboard.html">App</a>
+    <a href="preview-deck.html">Deck</a>
+  </nav>
+</header>
+
+<div style="max-width: 1440px; margin: 24px auto; border: var(--hairline-d); background: var(--rbt-cream); box-shadow: 8px 8px 0 var(--rbt-ink);">
+
+<div class="site">
+
+<!-- ============ SITE HEADER ============ -->
+<header class="site-head">
+  <span class="rbt-mark">RBT.</span>
+  <nav class="site-head__nav">
+    <a>Servicios</a><a>Proyectos</a><a>Arte</a><a>Contacto</a>
+  </nav>
+  <div class="menu-icon"><span></span><span></span></div>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <svg class="hero__lineart" viewBox="0 0 1400 720" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <defs>
+      <pattern id="hd" width="22" height="22" patternUnits="userSpaceOnUse">
+        <circle cx="11" cy="11" r="0.7" fill="#0E4A35" opacity="0.18"/>
+      </pattern>
+    </defs>
+    <rect width="100%" height="100%" fill="url(#hd)"/>
+    <g stroke="#0E4A35" stroke-width="1" fill="none" opacity="0.55">
+      <circle cx="1180" cy="180" r="140"/><circle cx="1180" cy="180" r="100"/>
+      <circle cx="1180" cy="180" r="60"/><circle cx="1180" cy="180" r="22"/>
+      <polygon points="1280,440 1340,470 1340,540 1280,570 1220,540 1220,470"/>
+      <polygon points="1080,520 1140,490 1200,520 1200,580 1140,610 1080,580"/>
+      <polygon points="940,360 1000,335 1060,360 1060,415 1000,440 940,415"/>
+      <path d="M1100 220 L1180 180 L1240 280 L1340 240"/>
+      <path d="M1280 440 L1180 520 L1100 600"/>
+      <line x1="900" y1="120" x2="1080" y2="180"/>
+      <line x1="900" y1="640" x2="1080" y2="580"/>
+      <line x1="850" y1="380" x2="940" y2="395"/>
+      <g fill="#0E4A35" opacity="0.75">
+        <path d="M1000 250 l4 -16 l4 16 l16 4 l-16 4 l-4 16 l-4 -16 l-16 -4 z"/>
+        <path d="M1300 350 l3 -12 l3 12 l12 3 l-12 3 l-3 12 l-3 -12 l-12 -3 z"/>
+        <path d="M1080 660 l2 -10 l2 10 l10 2 l-10 2 l-2 10 l-2 -10 l-10 -2 z"/>
+      </g>
+    </g>
+  </svg>
+  <div class="hero__inner">
+    <div class="hero__eye"><span class="dot"></span><span class="label">Digital Studio · Barcelona</span></div>
+    <h1>RBT<br><em>Studio</em></h1>
+    <p class="hero__tag">Ingeniería de precisión y sensibilidad artística.</p>
+    <p class="hero__sub">Desarrollo web, automatización IA, código generativo y electrónica física.</p>
+    <div class="hero__cta">
+      <button class="btn btn--lg">Servicios</button>
+      <button class="btn btn--ghost btn--lg">Contactar</button>
+    </div>
+  </div>
+  <div class="hero__bottom">
+    <span>Barcelona · ES · 2025</span>
+    <div class="scroll-indicator"><span>Scroll</span><span class="line"></span></div>
+  </div>
+</section>
+
+<!-- ============ MARQUEE ============ -->
+<div class="marq">
+  <div class="marq__track">
+    <span class="spk">✦</span><span>React / Next.js</span><span>·</span><span>AI Agents</span><span>·</span><span>LLM</span>
+    <span class="spk">✦</span><span>MCP</span><span>·</span><span>Three.js</span><span>·</span><span>Processing</span>
+    <span class="spk">✦</span><span>Arduino</span><span>·</span><span>n8n</span><span>·</span><span>Supabase</span>
+    <span class="spk">✦</span><span>AWS</span><span>·</span><span>Node.js</span><span>·</span><span>Python</span>
+    <span class="spk">✦</span><span>React / Next.js</span><span>·</span><span>AI Agents</span><span>·</span><span>LLM</span>
+    <span class="spk">✦</span><span>MCP</span><span>·</span><span>Three.js</span><span>·</span><span>Processing</span>
+    <span class="spk">✦</span><span>Arduino</span><span>·</span><span>n8n</span><span>·</span><span>Supabase</span>
+    <span class="spk">✦</span><span>AWS</span><span>·</span><span>Node.js</span><span>·</span><span>Python</span>
+  </div>
+</div>
+
+<!-- ============ SERVICES ============ -->
+<section class="section">
+  <div class="section__head">
+    <div>
+      <span class="section__eye">Servicios</span>
+      <h2 class="section__title">Lo que <em>creamos</em> para ti.</h2>
+    </div>
+    <p class="section__sub">Seis líneas, un mismo enfoque: ingeniería con criterio. Trabajamos con startups, agencias y instituciones culturales.</p>
+  </div>
+
+  <div class="services">
+    <div class="service">
+      <span class="service__num">01</span>
+      <span class="service__icon">
+        <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="15" y="20" width="70" height="55"/><path d="M15 32 H85"/><circle cx="22" cy="26" r="1.5" fill="currentColor"/><circle cx="28" cy="26" r="1.5" fill="currentColor"/><circle cx="34" cy="26" r="1.5" fill="currentColor"/><path d="M30 50 L40 60 L30 70 M70 50 L60 60 L70 70 M52 47 L48 73"/></svg>
+      </span>
+      <h3>Web Development</h3>
+      <p>Aplicaciones web de producción con React, Next.js y arquitecturas headless. Desde MVPs hasta plataformas escalables.</p>
+      <div class="service__tags"><span class="tag">React</span><span class="tag">Next.js</span><span class="tag">Supabase</span><span class="tag">TypeScript</span></div>
+    </div>
+    <div class="service">
+      <span class="service__num">02</span>
+      <span class="service__icon">
+        <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="50" cy="50" r="32"/><circle cx="50" cy="50" r="20"/><circle cx="50" cy="50" r="8"/><circle cx="50" cy="50" r="2" fill="currentColor"/><path d="M50 18 V8 M50 92 V82 M18 50 H8 M92 50 H82"/></svg>
+      </span>
+      <h3>AI &amp; Automatización</h3>
+      <p>Agentes autónomos, pipelines LLM y flujos de automatización con n8n. Integraciones con APIs y MCP.</p>
+      <div class="service__tags"><span class="tag">LLMs</span><span class="tag">MCP</span><span class="tag">n8n</span><span class="tag">Python</span></div>
+    </div>
+    <div class="service">
+      <span class="service__num">03</span>
+      <span class="service__icon">
+        <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M50 15 L85 35 V65 L50 85 L15 65 V35 Z"/><path d="M50 15 V50 M15 35 L50 50 M85 35 L50 50 M50 50 V85"/></svg>
+      </span>
+      <h3>3D &amp; Creativo</h3>
+      <p>Experiencias web inmersivas con Three.js, WebGL y React Three Fiber. Shaders y geometría procedural.</p>
+      <div class="service__tags"><span class="tag">Three.js</span><span class="tag">WebGL</span><span class="tag">GSAP</span><span class="tag">R3F</span></div>
+    </div>
+    <div class="service">
+      <span class="service__num">04</span>
+      <span class="service__icon">
+        <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="20" y="35" width="60" height="40"/><rect x="32" y="47" width="8" height="8"/><rect x="46" y="47" width="8" height="8"/><rect x="60" y="47" width="8" height="8"/><path d="M30 35 V25 M50 35 V18 M70 35 V25 M30 75 V85 M50 75 V85 M70 75 V85"/></svg>
+      </span>
+      <h3>Hardware &amp; IoT</h3>
+      <p>Prototipos físico-digitales: sensores, actuadores y comunicación serial para instalaciones y producto.</p>
+      <div class="service__tags"><span class="tag">Arduino</span><span class="tag">Sensors</span><span class="tag">Serial</span><span class="tag">IoT</span></div>
+    </div>
+    <div class="service">
+      <span class="service__num">05</span>
+      <span class="service__icon">
+        <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 20 H80 V80 H20 Z"/><path d="M30 35 H70 M30 45 H60 M30 55 H70 M30 65 H50"/><path d="M75 75 L88 88" stroke-width="2"/><circle cx="72" cy="72" r="10"/></svg>
+      </span>
+      <h3>Consultoría</h3>
+      <p>Auditorías de arquitectura, revisión de código y roadmap técnico. Acompañamiento por sprints.</p>
+      <div class="service__tags"><span class="tag">Architecture</span><span class="tag">AWS</span><span class="tag">Code Review</span></div>
+    </div>
+    <div class="service">
+      <span class="service__num">06</span>
+      <span class="service__icon">
+        <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M15 75 L35 35 L55 60 L75 25 L88 50"/><circle cx="35" cy="35" r="3" fill="currentColor"/><circle cx="55" cy="60" r="3" fill="currentColor"/><circle cx="75" cy="25" r="3" fill="currentColor"/><path d="M15 85 H88"/></svg>
+      </span>
+      <h3>Instalaciones</h3>
+      <p>Arte computacional e instalaciones para espacios culturales. Proyección, audiovisual e interactivo.</p>
+      <div class="service__tags"><span class="tag">Generative</span><span class="tag">Interactive</span><span class="tag">Creative</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROJECTS ============ -->
+<section class="projects-section">
+  <div class="section__head" style="max-width: 1280px; margin: 0 auto;">
+    <div>
+      <span class="section__eye">Proyectos</span>
+      <h2 class="section__title">Trabajo<br><em>seleccionado</em>.</h2>
+    </div>
+    <p class="section__sub">Una selección de los últimos doce meses. Producto, plataformas, arte computacional.</p>
+  </div>
+
+  <div class="projects">
+    <div class="project">
+      <span class="project__num">01 / SAAS</span>
+      <h3>StoryPrint <em>AI</em></h3>
+      <p>SaaS de cuentos ilustrados personalizados con generación LLM y exportación a print bajo demanda.</p>
+      <div class="project__foot"><span>2025 · Live</span><span class="arrow">→ Ver caso</span></div>
+    </div>
+    <div class="project">
+      <span class="project__num">02 / PLATFORM</span>
+      <h3>Brandboard <em>AI</em></h3>
+      <p>Plataforma de identidad de marca con pipeline multi-agente y revisión humana en cada etapa.</p>
+      <div class="project__foot"><span>2025 · Beta</span><span class="arrow">→ Ver caso</span></div>
+    </div>
+    <div class="project">
+      <span class="project__num">03 / SAAS</span>
+      <h3>NutrAI</h3>
+      <p>Formulador de suplementos personalizado con parsing JSON estructurado y validación clínica.</p>
+      <div class="project__foot"><span>2024 · Live</span><span class="arrow">→ Ver caso</span></div>
+    </div>
+    <div class="project">
+      <span class="project__num">04 / SITE</span>
+      <h3>GeoRoutes</h3>
+      <p>Tema WordPress con Leaflet maps y soporte GPX. Para una comunidad de senderistas catalanes.</p>
+      <div class="project__foot"><span>2024</span><span class="arrow">→ Ver caso</span></div>
+    </div>
+    <div class="project">
+      <span class="project__num">05 / SITE</span>
+      <h3>Portfolio 3D</h3>
+      <p>Tema WordPress con integración Three.js y WebGL. Shaders personalizados para la galería.</p>
+      <div class="project__foot"><span>2024</span><span class="arrow">→ Ver caso</span></div>
+    </div>
+    <div class="project">
+      <span class="project__num">06 / ART</span>
+      <h3>Processing Sketches</h3>
+      <p>Animaciones generativas y arte algorítmico. Sistemas de partículas, fluidos, autómatas celulares.</p>
+      <div class="project__foot"><span>2023—2025 · Open</span><span class="arrow">→ Galería</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ART ============ -->
+<section class="art-section">
+  <div class="section__head">
+    <div>
+      <span class="section__eye">Arte &amp; Código</span>
+      <h2 class="section__title">Donde el <em>código</em><br>se vuelve imagen.</h2>
+    </div>
+    <p class="section__sub">La formación en Bellas Artes nunca ha estado separada de la práctica técnica. El código generativo y las instalaciones interactivas son extensiones naturales de ese lenguaje visual.</p>
+  </div>
+
+  <div class="art-grid">
+    <div class="art-card">
+      <div class="art-card__viz">
+        <svg viewBox="0 0 400 120" preserveAspectRatio="none" style="width:100%;height:100%;">
+          <g stroke="#0E4A35" stroke-width="0.6" fill="none" opacity="0.55">
+            <path d="M0 100 Q 50 60 100 80 T 200 70 T 300 60 T 400 80"/>
+            <path d="M0 90 Q 50 50 100 70 T 200 60 T 300 50 T 400 70"/>
+            <path d="M0 110 Q 50 80 100 100 T 200 90 T 300 80 T 400 100"/>
+            <g fill="#0E4A35"><circle cx="100" cy="80" r="2"/><circle cx="200" cy="70" r="2"/><circle cx="300" cy="60" r="2"/></g>
+          </g>
+        </svg>
+      </div>
+      <span class="label">Generative · Live Canvas</span>
+      <h4>Sistemas de partículas</h4>
+      <p>Exploración de patrones naturales mediante código. Árboles fractal, fluidos y autómatas celulares.</p>
+    </div>
+    <div class="art-card">
+      <div class="art-card__viz">
+        <svg viewBox="0 0 400 120" preserveAspectRatio="none" style="width:100%;height:100%;">
+          <g stroke="#0E4A35" stroke-width="0.8" fill="none" opacity="0.55">
+            <rect x="40" y="30" width="80" height="60"/>
+            <rect x="60" y="50" width="40" height="20"/>
+            <circle cx="200" cy="60" r="30"/>
+            <circle cx="200" cy="60" r="15"/>
+            <path d="M280 30 L340 60 L280 90 Z"/>
+            <line x1="40" y1="100" x2="340" y2="100"/>
+          </g>
+        </svg>
+      </div>
+      <span class="label">Hardware</span>
+      <h4>Arduino &amp; IoT</h4>
+      <p>Proyectos que conectan el mundo físico y digital: sensores, actuadores y comunicación serial.</p>
+    </div>
+    <div class="art-card">
+      <div class="art-card__viz">
+        <svg viewBox="0 0 400 120" preserveAspectRatio="none" style="width:100%;height:100%;">
+          <g stroke="#0E4A35" stroke-width="0.6" fill="none" opacity="0.55">
+            <path d="M40 60 L120 20 L200 60 L120 100 Z"/>
+            <path d="M120 20 V100 M40 60 H200"/>
+            <circle cx="280" cy="60" r="40"/><circle cx="280" cy="60" r="25"/><circle cx="280" cy="60" r="10"/>
+            <line x1="220" y1="60" x2="340" y2="60"/>
+            <line x1="280" y1="10" x2="280" y2="110"/>
+          </g>
+        </svg>
+      </div>
+      <span class="label">3D Web</span>
+      <h4>Three.js &amp; WebGL</h4>
+      <p>Shaders personalizados y geometrías procedurales reactivas a usuario, audio y datos en vivo.</p>
+    </div>
+    <div class="art-card">
+      <div class="art-card__viz">
+        <svg viewBox="0 0 400 120" preserveAspectRatio="none" style="width:100%;height:100%;">
+          <g stroke="#0E4A35" stroke-width="0.6" fill="none" opacity="0.55">
+            <rect x="20" y="20" width="100" height="80"/>
+            <rect x="150" y="20" width="100" height="80"/>
+            <rect x="280" y="20" width="100" height="80"/>
+            <g fill="#0E4A35" opacity="0.7">
+              <path d="M70 50 l3 -10 l3 10 l10 3 l-10 3 l-3 10 l-3 -10 l-10 -3 z"/>
+              <path d="M200 70 l3 -10 l3 10 l10 3 l-10 3 l-3 10 l-3 -10 l-10 -3 z"/>
+            </g>
+          </g>
+        </svg>
+      </div>
+      <span class="label">Instalaciones</span>
+      <h4>Arte Computacional</h4>
+      <p>Proyecciones, audiovisual y entornos interactivos para espacios culturales y festivales.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section class="contact-section">
+  <div style="max-width: 1280px; margin: 0 auto;">
+    <span class="section__eye" style="color: var(--rbt-green);">Contacto</span>
+    <h2 class="section__title" style="margin-top: 16px;">Trabajemos<br><em>juntos</em>.</h2>
+    <p class="section__sub" style="margin-top: 24px; max-width: 560px;">Desarrollo web, automatización IA, instalación interactiva o algo que todavía no tiene nombre — escríbenos.</p>
+  </div>
+
+  <div class="contact-card">
+    <div class="left">
+      <span class="t-label" style="color: rgba(242, 239, 230, 0.7);">Email directo</span>
+      <p class="email">contact@<br>rbt-studio.com</p>
+      <dl class="meta">
+        <div><dt>Ubicación</dt><dd style="margin: 0;">Barcelona · ES</dd></div>
+        <div><dt>Modo</dt><dd style="margin: 0;">Remoto global</dd></div>
+        <div><dt>Respuesta</dt><dd style="margin: 0;">&lt; 24h</dd></div>
+      </dl>
+    </div>
+    <div class="right">
+      <span class="t-label muted">O envíanos un brief</span>
+      <form style="margin-top: 24px;">
+        <div class="field"><label>Nombre</label><input type="text" placeholder="Cómo te llamas"></div>
+        <div class="field"><label>Email</label><input type="email" placeholder="tu@email.com"></div>
+        <div class="field"><label>Proyecto</label><textarea placeholder="Cuéntanos en dos líneas qué tienes en mente"></textarea></div>
+        <button type="button" class="btn" style="margin-top: 8px; align-self: flex-start;">Enviar →</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="site-foot">
+  <span>© 2025 RBT Studio · Barcelona · Spain</span>
+  <div class="site-foot__icons">
+    <span>📍 Barcelona</span><span>🌐 Remoto</span><span>⏱ &lt;24h</span>
+  </div>
+</footer>
+
+</div>
+</div>
+
+</body>
+</html>

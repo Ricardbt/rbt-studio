@@ -21,7 +21,7 @@ function P5Canvas() {
       let particles = []
       let mouseParticles = []
       const particleCount = 120
-      const accent = [26, 93, 67]
+      const accent = [14, 74, 53]
       let mouseX = 0
       let mouseY = 0
       let targetX = 0
@@ -356,12 +356,12 @@ export default function Hero() {
   }, [])
 
   return (
-    <section ref={containerRef} className="relative min-h-screen flex items-center overflow-hidden bg-bg">
+    <section ref={containerRef} className="relative min-h-screen flex items-center overflow-hidden" style={{ background: '#F2EFE6' }}>
       {/* Grid Pattern */}
-      <div 
+      <div
         className="absolute inset-0 opacity-[0.03] pointer-events-none"
         style={{
-          backgroundImage: `linear-gradient(#1A5D43 1px, transparent 1px), linear-gradient(90deg, #1A5D43 1px, transparent 1px)`,
+          backgroundImage: `linear-gradient(#0E4A35 1px, transparent 1px), linear-gradient(90deg, #0E4A35 1px, transparent 1px)`,
           backgroundSize: '60px 60px'
         }}
       />
@@ -370,59 +370,61 @@ export default function Hero() {
       <P5Canvas />
 
       {/* Gradient overlay for text readability */}
-      <div 
+      <div
         className="absolute inset-0 pointer-events-none z-[5]"
         style={{
-          background: 'linear-gradient(to right, rgba(247, 249, 248, 1) 0%, rgba(247, 249, 248, 0.9) 30%, rgba(247, 249, 248, 0.3) 60%, rgba(247, 249, 248, 0) 100%)'
+          background: 'linear-gradient(to right, rgba(242, 239, 230, 1) 0%, rgba(242, 239, 230, 0.9) 30%, rgba(242, 239, 230, 0.3) 60%, rgba(242, 239, 230, 0) 100%)'
         }}
       />
 
       <div className="relative z-10 w-full px-6 md:px-12 lg:px-16 xl:px-24">
         <div className="max-w-[900px]">
           {/* Label */}
-          <p 
+          <p
             ref={labelRef}
-            className="font-mono text-[11px] tracking-[0.25em] uppercase text-accent mb-6 md:mb-8 opacity-0"
+            className="font-mono text-[12px] tracking-[0.18em] uppercase mb-6 md:mb-8 opacity-0"
+            style={{ color: '#0E4A35' }}
           >
             Digital Studio · Barcelona
           </p>
-          
+
           {/* Title */}
-          <h1 
+          <h1
             ref={titleRef}
-            className="font-display text-6xl sm:text-7xl md:text-8xl lg:text-9xl xl:text-[10rem] font-semibold text-text leading-[0.85] tracking-tight mb-6 md:mb-8 perspective-[1000px]"
+            className="font-sans text-6xl sm:text-7xl md:text-8xl lg:text-9xl xl:text-[10rem] font-semibold leading-[0.92] tracking-tight mb-6 md:mb-8 perspective-[1000px]"
+            style={{ color: '#14140F' }}
           >
             {splitText('RBT')}
           </h1>
-          
+
           {/* Subtitle */}
           <div ref={subtitleRef} className="overflow-hidden mb-6 md:mb-8 opacity-0">
-            <h2 className="font-display text-6xl sm:text-7xl md:text-8xl lg:text-9xl xl:text-[10rem] font-semibold text-accent leading-[0.85] tracking-tight not-italic">
+            <h2 className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl xl:text-[10rem] font-semibold leading-[0.92] tracking-tight not-italic" style={{ fontFamily: "'Roboto Slab', serif", color: '#0E4A35', fontSize: 'clamp(72px, 11vw, 168px)' }}>
               Studio
             </h2>
           </div>
           
           {/* Description */}
           <div ref={descRef} className="space-y-2 mb-10 md:mb-12">
-            <p className="font-sans text-base md:text-lg text-textMuted max-w-lg leading-relaxed opacity-0">
+            <p className="font-sans text-base md:text-lg max-w-lg leading-relaxed opacity-0" style={{ color: '#3A3A33' }}>
               Ingeniería de precisión y sensibilidad artística.
             </p>
-            <p className="font-sans text-base md:text-lg text-textMuted max-w-lg leading-relaxed opacity-0">
+            <p className="font-sans text-base md:text-lg max-w-lg leading-relaxed opacity-0" style={{ color: '#3A3A33' }}>
               Desarrollo web, automatización IA, código generativo y electrónica física.
             </p>
           </div>
-          
+
           {/* Buttons */}
           <div ref={buttonsRef} className="flex flex-wrap gap-4 md:gap-6">
-            <a 
-              href="#services" 
-              className="inline-block font-mono text-[11px] tracking-[0.15em] uppercase px-8 md:px-10 py-4 bg-accent text-white hover:bg-accentLight transition-colors duration-300 opacity-0"
+            <a
+              href="#services"
+              className="btn btn--lg opacity-0"
             >
               Servicios
             </a>
-            <a 
-              href="#contact" 
-              className="inline-block font-mono text-[11px] tracking-[0.15em] uppercase px-8 md:px-10 py-4 bg-transparent text-text border border-text/30 hover:border-accent hover:text-accent transition-all duration-300 opacity-0"
+            <a
+              href="#contact"
+              className="btn btn--ghost btn--lg opacity-0"
             >
               Contactar
             </a>
@@ -432,17 +434,17 @@ export default function Hero() {
 
       {/* Meta info */}
       <div ref={metaRef} className="absolute bottom-8 left-6 md:left-12 lg:left-16 opacity-0 z-10">
-        <span className="font-mono text-[10px] tracking-[0.15em] uppercase text-textMuted/50">
+        <span className="font-mono text-[10px] tracking-[0.15em] uppercase" style={{ color: 'rgba(110, 110, 100, 0.5)' }}>
           Barcelona · ES · 2025
         </span>
       </div>
 
       {/* Scroll indicator */}
       <div ref={scrollRef} className="absolute bottom-8 right-6 md:right-12 lg:right-16 flex flex-col items-center gap-2 opacity-0 z-10">
-        <span className="font-mono text-[9px] tracking-[0.2em] uppercase text-textMuted/40">
+        <span className="font-mono text-[9px] tracking-[0.2em] uppercase" style={{ color: 'rgba(110, 110, 100, 0.4)' }}>
           Scroll
         </span>
-        <div className="scroll-line w-px h-12 bg-gradient-to-b from-accent/60 to-transparent" />
+        <div className="scroll-line w-px h-12" style={{ background: 'linear-gradient(to bottom, rgba(14, 74, 53, 0.6), transparent)' }} />
       </div>
     </section>
   )

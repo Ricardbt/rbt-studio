@@ -1,0 +1,656 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>RBT Studio · Components</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="tokens.css">
+<style>
+  /* Component showcase frames */
+  .demo {
+    margin-top: var(--s-5);
+    border: var(--hairline);
+    background: var(--rbt-paper);
+  }
+  .demo__head {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 12px var(--s-4);
+    border-bottom: var(--hairline);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--rbt-ink-mute);
+    letter-spacing: 0.05em;
+  }
+  .demo__head .name { color: var(--rbt-green); font-weight: 600; }
+  .demo__body {
+    padding: var(--s-7) var(--s-5);
+    display: flex; align-items: center; justify-content: center;
+    flex-wrap: wrap;
+    gap: var(--s-4);
+    background:
+      linear-gradient(var(--rbt-cream-soft), var(--rbt-cream-soft)),
+      repeating-linear-gradient(45deg, var(--rbt-cream) 0 8px, var(--rbt-paper) 8px 16px);
+    background: var(--rbt-cream-soft);
+    background-image:
+      radial-gradient(circle, var(--rbt-ink-line) 1px, transparent 1px);
+    background-size: 16px 16px;
+    background-position: 0 0;
+    min-height: 160px;
+  }
+  .demo__body--start { justify-content: flex-start; align-items: stretch; }
+  .demo__body--col { flex-direction: column; align-items: stretch; padding: var(--s-5); }
+
+  .col-2 { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-5); }
+  .col-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: var(--s-5); }
+  @media (max-width: 800px) { .col-2, .col-3 { grid-template-columns: 1fr; } }
+
+  /* ============ INPUTS ============ */
+  .input {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1.5px solid var(--rbt-ink-line);
+    background: var(--rbt-paper);
+    font-family: var(--font-sans); font-size: 14px;
+    color: var(--rbt-ink);
+    border-radius: 0;
+    transition: border-color var(--dur-quick) var(--ease-snap);
+  }
+  .input:hover { border-color: var(--rbt-ink-mute); }
+  .input:focus { outline: none; border-color: var(--rbt-green); }
+  .input::placeholder { color: var(--rbt-ink-mute); }
+  .field { display: flex; flex-direction: column; gap: 6px; }
+  .field label { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--rbt-ink-mute); }
+  .field .hint { font-family: var(--font-mono); font-size: 11px; color: var(--rbt-ink-mute); margin-top: 2px; }
+  .field--err .input { border-color: var(--rbt-alert); }
+  .field--err .hint { color: var(--rbt-alert); }
+
+  .checkbox, .radio { display: inline-flex; align-items: center; gap: 10px; cursor: pointer; font-size: 14px; }
+  .checkbox input, .radio input { position: absolute; opacity: 0; pointer-events: none; }
+  .checkbox .box { width: 18px; height: 18px; border: 1.5px solid var(--rbt-ink); display: grid; place-items: center; transition: all var(--dur-quick); }
+  .checkbox input:checked + .box { background: var(--rbt-green); border-color: var(--rbt-green); }
+  .checkbox input:checked + .box::after { content: ''; width: 10px; height: 5px; border-left: 2px solid var(--rbt-cream); border-bottom: 2px solid var(--rbt-cream); transform: rotate(-45deg) translate(2px, -1px); }
+
+  .radio .box { width: 18px; height: 18px; border: 1.5px solid var(--rbt-ink); border-radius: 50%; display: grid; place-items: center; transition: all var(--dur-quick); }
+  .radio input:checked + .box::after { content: ''; width: 8px; height: 8px; background: var(--rbt-green); border-radius: 50%; }
+
+  .toggle { position: relative; display: inline-flex; align-items: center; gap: 10px; cursor: pointer; font-size: 14px; }
+  .toggle input { position: absolute; opacity: 0; }
+  .toggle .track { width: 40px; height: 22px; background: var(--rbt-ink-line); position: relative; transition: background var(--dur-quick); }
+  .toggle .track::after { content: ''; position: absolute; top: 2px; left: 2px; width: 18px; height: 18px; background: var(--rbt-paper); transition: transform var(--dur-quick) var(--ease-snap); }
+  .toggle input:checked + .track { background: var(--rbt-green); }
+  .toggle input:checked + .track::after { transform: translateX(18px); }
+
+  /* ============ TABS ============ */
+  .tabs { display: flex; gap: 0; border-bottom: var(--hairline); }
+  .tabs button {
+    padding: 14px 20px;
+    font-family: var(--font-sans); font-size: 13px; font-weight: 600;
+    color: var(--rbt-ink-mute);
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    transition: color var(--dur-quick), border-color var(--dur-quick);
+  }
+  .tabs button:hover { color: var(--rbt-ink); }
+  .tabs button.is-active { color: var(--rbt-green); border-bottom-color: var(--rbt-green); }
+
+  /* ============ NAV BAR ============ */
+  .nav-bar {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 16px 24px;
+    background: var(--rbt-cream);
+    border-bottom: var(--hairline);
+    width: 100%;
+  }
+  .nav-bar__left { display: flex; align-items: center; gap: var(--s-5); }
+  .nav-bar__menu { display: flex; gap: var(--s-5); font-family: var(--font-mono); font-size: 13px; }
+  .nav-bar__menu a { color: var(--rbt-ink-soft); }
+  .nav-bar__menu a.active { color: var(--rbt-green); font-weight: 600; }
+
+  /* ============ SIDEBAR ============ */
+  .sidebar {
+    width: 240px;
+    border-right: var(--hairline);
+    padding: var(--s-4) 0;
+    background: var(--rbt-cream);
+    align-self: stretch;
+  }
+  .sidebar__group { padding: 0 var(--s-4) var(--s-4); }
+  .sidebar__group-label { font-family: var(--font-mono); font-size: 10px; color: var(--rbt-ink-mute); letter-spacing: 0.15em; text-transform: uppercase; padding: 0 var(--s-3) 8px; }
+  .sidebar__item {
+    display: flex; align-items: center; gap: 12px;
+    padding: 9px var(--s-3);
+    font-family: var(--font-sans); font-size: 14px;
+    color: var(--rbt-ink-soft);
+    border-left: 2px solid transparent;
+    transition: all var(--dur-quick);
+  }
+  .sidebar__item:hover { color: var(--rbt-ink); background: var(--rbt-cream-deep); }
+  .sidebar__item.active { color: var(--rbt-green); background: var(--rbt-green-mist); border-left-color: var(--rbt-green); font-weight: 600; }
+  .sidebar__item .num { font-family: var(--font-mono); font-size: 11px; color: var(--rbt-ink-mute); margin-left: auto; }
+
+  /* ============ CARDS ============ */
+  .card {
+    border: var(--hairline);
+    background: var(--rbt-paper);
+    padding: var(--s-5);
+    transition: transform var(--dur-quick) var(--ease-snap), border-color var(--dur-quick);
+    cursor: pointer;
+    text-align: left;
+    width: 100%;
+    display: block;
+  }
+  .card:hover { border-color: var(--rbt-green); transform: translate(-2px, -2px); box-shadow: 4px 4px 0 var(--rbt-green); }
+  .card__num { font-family: var(--font-mono); font-size: 11px; color: var(--rbt-green); letter-spacing: 0.1em; }
+  .card__title { font-size: 22px; font-weight: 700; margin-top: var(--s-3); line-height: 1.2; }
+  .card__desc { font-size: 14px; color: var(--rbt-ink-soft); margin-top: var(--s-3); line-height: 1.5; }
+  .card__tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: var(--s-4); }
+
+  /* ============ STAT ============ */
+  .stat { display: flex; flex-direction: column; gap: 6px; padding: var(--s-5); border: var(--hairline); background: var(--rbt-paper); }
+  .stat__label { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--rbt-ink-mute); }
+  .stat__value { font-family: var(--font-sans); font-size: 40px; font-weight: 800; line-height: 1; letter-spacing: -0.02em; color: var(--rbt-green); }
+  .stat__delta { font-family: var(--font-mono); font-size: 12px; color: var(--rbt-ink-soft); display: flex; align-items: center; gap: 6px; }
+  .stat__delta.up::before { content: '↗'; color: var(--rbt-green); }
+  .stat__delta.dn::before { content: '↘'; color: var(--rbt-warn); }
+
+  /* ============ TABLE ============ */
+  .table { width: 100%; border-collapse: collapse; font-size: 14px; background: var(--rbt-paper); border: var(--hairline); }
+  .table thead { background: var(--rbt-cream-soft); }
+  .table th, .table td { padding: 12px var(--s-4); border-bottom: var(--hairline); text-align: left; }
+  .table th { font-family: var(--font-mono); font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--rbt-ink-mute); }
+  .table td { color: var(--rbt-ink-soft); }
+  .table td.num { font-family: var(--font-mono); text-align: right; color: var(--rbt-ink); }
+  .table tr:hover td { background: var(--rbt-green-mist); }
+  .table tbody tr:last-child td { border-bottom: 0; }
+
+  /* ============ STATUS PILLS ============ */
+  .pill {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 4px 10px;
+    border-radius: var(--radius-pill);
+    font-family: var(--font-mono); font-size: 11px; font-weight: 600;
+    line-height: 1.2;
+  }
+  .pill::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+  .pill--ok    { background: var(--rbt-green-mist); color: var(--rbt-green); }
+  .pill--warn  { background: #F4E0CC; color: var(--rbt-warn); }
+  .pill--err   { background: #F1D8D4; color: var(--rbt-alert); }
+  .pill--mute  { background: var(--rbt-cream-deep); color: var(--rbt-ink-mute); }
+
+  /* ============ ALERT ============ */
+  .alert { display: flex; gap: var(--s-4); padding: var(--s-4); border-left: 3px solid; background: var(--rbt-paper); border-top: var(--hairline); border-right: var(--hairline); border-bottom: var(--hairline); }
+  .alert__icon { font-family: var(--font-mono); font-weight: 600; flex-shrink: 0; }
+  .alert__body h5 { font-size: 14px; margin-bottom: 4px; }
+  .alert__body p { font-size: 13px; color: var(--rbt-ink-soft); }
+  .alert--ok    { border-left-color: var(--rbt-green); }
+  .alert--warn  { border-left-color: var(--rbt-warn); }
+  .alert--err   { border-left-color: var(--rbt-alert); }
+  .alert--info  { border-left-color: var(--rbt-ink); }
+
+  /* ============ MODAL ============ */
+  .modal-shell { position: relative; background: rgba(20,20,15,0.4); padding: var(--s-7); display: flex; align-items: center; justify-content: center; min-height: 320px; width: 100%; }
+  .modal {
+    background: var(--rbt-paper);
+    border: var(--hairline-d);
+    width: 100%; max-width: 480px;
+    box-shadow: 8px 8px 0 var(--rbt-ink);
+  }
+  .modal__head { display: flex; justify-content: space-between; align-items: center; padding: var(--s-4); border-bottom: var(--hairline); }
+  .modal__head h4 { font-size: 16px; font-weight: 700; }
+  .modal__head .close { font-family: var(--font-mono); font-size: 18px; }
+  .modal__body { padding: var(--s-5); font-size: 14px; color: var(--rbt-ink-soft); line-height: 1.6; }
+  .modal__foot { display: flex; justify-content: flex-end; gap: 10px; padding: var(--s-4); border-top: var(--hairline); }
+
+  /* ============ PROGRESS / BAR ============ */
+  .progress { width: 100%; height: 8px; background: var(--rbt-cream-deep); }
+  .progress span { display: block; height: 100%; background: var(--rbt-green); }
+
+  /* ============ AVATAR ============ */
+  .avatar {
+    width: 40px; height: 40px;
+    background: var(--rbt-green); color: var(--rbt-cream);
+    display: grid; place-items: center;
+    font-family: var(--font-slab); font-weight: 800; font-size: 16px;
+  }
+  .avatar--lg { width: 56px; height: 56px; font-size: 22px; }
+  .avatar--sm { width: 28px; height: 28px; font-size: 12px; }
+  .avatar-stack { display: flex; }
+  .avatar-stack .avatar { border: 2px solid var(--rbt-paper); }
+  .avatar-stack .avatar + .avatar { margin-left: -10px; }
+
+  /* ============ BREADCRUMBS ============ */
+  .crumbs-c { display: flex; align-items: center; gap: 8px; font-family: var(--font-mono); font-size: 12px; color: var(--rbt-ink-mute); }
+  .crumbs-c a { color: var(--rbt-ink-mute); }
+  .crumbs-c a:hover { color: var(--rbt-green); }
+  .crumbs-c .sep { color: var(--rbt-ink-line); }
+  .crumbs-c .here { color: var(--rbt-ink); font-weight: 600; }
+
+  /* ============ EMPTY STATE ============ */
+  .empty { text-align: center; padding: var(--s-8) var(--s-5); border: 1px dashed var(--rbt-ink-line); background: var(--rbt-cream-soft); }
+  .empty__glyph { font-family: var(--font-slab); font-weight: 800; font-size: 56px; color: var(--rbt-green); }
+  .empty__title { font-size: 18px; font-weight: 700; margin-top: var(--s-3); }
+  .empty__sub { font-size: 14px; color: var(--rbt-ink-mute); margin-top: 8px; }
+
+  /* ============ DROPDOWN MENU ============ */
+  .menu { background: var(--rbt-paper); border: var(--hairline); width: 220px; box-shadow: 4px 4px 0 var(--rbt-ink); }
+  .menu__item { display: flex; align-items: center; gap: 10px; padding: 10px var(--s-4); font-size: 13px; color: var(--rbt-ink-soft); transition: background var(--dur-quick); cursor: pointer; }
+  .menu__item:hover { background: var(--rbt-green-mist); color: var(--rbt-green); }
+  .menu__item .key { margin-left: auto; font-family: var(--font-mono); font-size: 11px; color: var(--rbt-ink-mute); }
+  .menu__sep { height: 1px; background: var(--rbt-ink-line); }
+
+  /* tech marquee */
+  .marquee {
+    overflow: hidden;
+    border-top: var(--hairline);
+    border-bottom: var(--hairline);
+    padding: 14px 0;
+    background: var(--rbt-cream);
+  }
+  .marquee__track {
+    display: flex; gap: 32px;
+    font-family: var(--font-mono); font-size: 14px;
+    white-space: nowrap;
+    animation: scroll 30s linear infinite;
+  }
+  .marquee__track span.spk { color: var(--rbt-green); }
+  @keyframes scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+</style>
+</head>
+<body>
+
+<header class="doc-header">
+  <div class="crumbs">
+    <span class="rbt-mark">RBT.</span>
+    <span>·</span>
+    <span>Design System</span>
+    <span>·</span>
+    <span class="now">Components</span>
+  </div>
+  <nav>
+    <a href="index.html">Index</a>
+    <a href="foundations.html">Foundations</a>
+    <a href="components.html" class="active">Components</a>
+    <a href="iconography.html">Iconography</a>
+    <a href="preview-marketing.html">Web</a>
+    <a href="preview-dashboard.html">App</a>
+    <a href="preview-deck.html">Deck</a>
+  </nav>
+</header>
+
+<main class="doc">
+<div class="doc-wrap doc-wrap--wide">
+
+<!-- HEADER -->
+<div style="display: grid; grid-template-columns: 1fr auto; align-items: end; padding-top: var(--s-7); padding-bottom: var(--s-6); border-bottom: var(--hairline-d);">
+  <div>
+    <span class="t-num brand">02 / 07 · COMPONENTS</span>
+    <h1 class="t-display" style="margin-top: var(--s-3);">Component <em style="font-family: var(--font-slab); font-style: normal; color: var(--rbt-green);">library</em>.</h1>
+    <p class="muted t-mono" style="margin-top: var(--s-3); font-size: 13px;">// 16 components. Sharp. Functional. Built on tokens.</p>
+  </div>
+  <div class="t-mono soft" style="font-size: 12px; text-align: right;">
+    <div>v1.0 · stable</div>
+    <div class="muted">May 2026</div>
+  </div>
+</div>
+
+<!-- ============ BUTTONS ============ -->
+<div class="demo">
+  <div class="demo__head"><span class="name">// 01 · Button</span><span>btn · btn--ghost · btn--ink · btn--sm · btn--lg</span></div>
+  <div class="demo__body">
+    <button class="btn">Servicios</button>
+    <button class="btn btn--ghost">Contactar</button>
+    <button class="btn btn--ink">Ver todos →</button>
+    <button class="btn btn--sm">Small</button>
+    <button class="btn btn--lg">Large CTA</button>
+    <button class="btn" disabled style="opacity: 0.4; cursor: not-allowed;">Disabled</button>
+  </div>
+</div>
+
+<!-- ============ TAGS ============ -->
+<div class="demo">
+  <div class="demo__head"><span class="name">// 02 · Tag / chip</span><span>Tech labels, pills</span></div>
+  <div class="demo__body">
+    <span class="tag">React</span>
+    <span class="tag">Next.js</span>
+    <span class="tag">Three.js</span>
+    <span class="tag tag--solid">Featured</span>
+    <span class="tag tag--ghost">Draft</span>
+    <span class="tag tag--pill">Arduino</span>
+    <span class="tag tag--pill tag--solid">Live</span>
+  </div>
+</div>
+
+<!-- ============ INPUTS ============ -->
+<div class="demo">
+  <div class="demo__head"><span class="name">// 03 · Form fields</span><span>input · field · checkbox · radio · toggle</span></div>
+  <div class="demo__body demo__body--col">
+    <div class="col-2">
+      <div class="field">
+        <label>Nombre</label>
+        <input class="input" type="text" placeholder="Tu nombre" value="Aurora Estudio">
+      </div>
+      <div class="field">
+        <label>Email</label>
+        <input class="input" type="email" placeholder="hello@studio.com">
+        <span class="hint">// Te respondemos en &lt;24h</span>
+      </div>
+      <div class="field field--err">
+        <label>Presupuesto</label>
+        <input class="input" type="text" value="abc" />
+        <span class="hint">→ Solo números, en EUR.</span>
+      </div>
+      <div class="field">
+        <label>Servicio</label>
+        <select class="input">
+          <option>Web Development</option><option>AI Automation</option><option>3D / Creative</option>
+        </select>
+      </div>
+    </div>
+    <div style="display: flex; gap: var(--s-7); margin-top: var(--s-4); padding-top: var(--s-4); border-top: var(--hairline); flex-wrap: wrap;">
+      <label class="checkbox"><input type="checkbox" checked><span class="box"></span>Acepto los términos</label>
+      <label class="checkbox"><input type="checkbox"><span class="box"></span>Newsletter mensual</label>
+      <label class="radio"><input type="radio" name="r" checked><span class="box"></span>MVP</label>
+      <label class="radio"><input type="radio" name="r"><span class="box"></span>Producción</label>
+      <label class="toggle"><input type="checkbox" checked><span class="track"></span>NDA activo</label>
+    </div>
+  </div>
+</div>
+
+<!-- ============ TABS ============ -->
+<div class="demo">
+  <div class="demo__head"><span class="name">// 04 · Tabs</span><span>Inline horizontal tabs</span></div>
+  <div class="demo__body demo__body--col" style="padding: 0;">
+    <div class="tabs">
+      <button class="is-active">Servicios</button>
+      <button>Proyectos</button>
+      <button>Arte</button>
+      <button>Sobre</button>
+      <button>Contacto</button>
+    </div>
+    <div style="padding: var(--s-5); font-size: 14px; color: var(--rbt-ink-soft);">
+      Aplicaciones web de producción con React, Next.js y arquitecturas headless.
+    </div>
+  </div>
+</div>
+
+<!-- ============ NAV / SIDEBAR ============ -->
+<div class="col-2">
+  <div class="demo">
+    <div class="demo__head"><span class="name">// 05 · Top nav</span><span>marketing site header</span></div>
+    <div class="demo__body" style="padding: 0; min-height: auto;">
+      <div class="nav-bar">
+        <div class="nav-bar__left">
+          <span class="rbt-mark">RBT.</span>
+          <span class="t-mono soft" style="font-size: 11px; padding-left: 12px; border-left: 1px solid var(--rbt-ink-line);">Digital Studio</span>
+        </div>
+        <div class="nav-bar__menu">
+          <a class="active">Servicios</a><a>Proyectos</a><a>Arte</a><a>Contacto</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="demo">
+    <div class="demo__head"><span class="name">// 06 · Sidebar</span><span>dashboard navigation</span></div>
+    <div class="demo__body" style="padding: 0; min-height: 280px; align-items: stretch;">
+      <div class="sidebar">
+        <div class="sidebar__group">
+          <div class="sidebar__group-label">Workspace</div>
+          <a class="sidebar__item">Dashboard <span class="num">⌘1</span></a>
+          <a class="sidebar__item active">Projects <span class="num">⌘2</span></a>
+          <a class="sidebar__item">Pipelines <span class="num">⌘3</span></a>
+        </div>
+        <div class="sidebar__group">
+          <div class="sidebar__group-label">Studio</div>
+          <a class="sidebar__item">Agents</a>
+          <a class="sidebar__item">Devices</a>
+          <a class="sidebar__item">Logs</a>
+        </div>
+      </div>
+      <div style="flex: 1; padding: var(--s-5); display: flex; align-items: center; justify-content: center; color: var(--rbt-ink-mute); font-family: var(--font-mono); font-size: 12px;">
+        ← active item carries left rule + green mist
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ BREADCRUMBS + DROPDOWN ============ -->
+<div class="col-2">
+  <div class="demo">
+    <div class="demo__head"><span class="name">// 07 · Breadcrumbs</span><span>nav · monospace</span></div>
+    <div class="demo__body" style="min-height: auto;">
+      <nav class="crumbs-c">
+        <a>Studio</a><span class="sep">/</span><a>Projects</a><span class="sep">/</span><a>StoryPrint AI</a><span class="sep">/</span><span class="here">Pipeline</span>
+      </nav>
+    </div>
+  </div>
+  <div class="demo">
+    <div class="demo__head"><span class="name">// 08 · Menu</span><span>contextual dropdown</span></div>
+    <div class="demo__body">
+      <div class="menu">
+        <div class="menu__item">Open <span class="key">⏎</span></div>
+        <div class="menu__item">Duplicate <span class="key">⌘D</span></div>
+        <div class="menu__item">Rename <span class="key">F2</span></div>
+        <div class="menu__sep"></div>
+        <div class="menu__item">Share…</div>
+        <div class="menu__item">Export</div>
+        <div class="menu__sep"></div>
+        <div class="menu__item" style="color: var(--rbt-alert);">Delete <span class="key">⌫</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ CARDS ============ -->
+<div class="demo">
+  <div class="demo__head"><span class="name">// 09 · Project card</span><span>numbered editorial style</span></div>
+  <div class="demo__body" style="padding: var(--s-5);">
+    <div class="col-3" style="width: 100%;">
+      <a class="card">
+        <span class="card__num">01 / SAAS</span>
+        <h3 class="card__title">StoryPrint <em style="font-family: var(--font-slab); font-style: normal; color: var(--rbt-green);">AI</em></h3>
+        <p class="card__desc">SaaS de cuentos ilustrados personalizados con generación LLM y exportación a print.</p>
+        <div class="card__tags"><span class="tag">Next.js</span><span class="tag">Stripe</span><span class="tag">Replicate</span></div>
+      </a>
+      <a class="card">
+        <span class="card__num">02 / PLATFORM</span>
+        <h3 class="card__title">Brandboard <em style="font-family: var(--font-slab); font-style: normal; color: var(--rbt-green);">AI</em></h3>
+        <p class="card__desc">Plataforma de identidad de marca con pipeline multi-agente y revisión humana.</p>
+        <div class="card__tags"><span class="tag">MCP</span><span class="tag">n8n</span><span class="tag">Supabase</span></div>
+      </a>
+      <a class="card">
+        <span class="card__num">03 / INSTALLATION</span>
+        <h3 class="card__title">Generative Forest</h3>
+        <p class="card__desc">Instalación interactiva con sensores serial y proyección a tres muros para el MACBA.</p>
+        <div class="card__tags"><span class="tag">Arduino</span><span class="tag">Processing</span></div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- ============ STATS / TABLE ============ -->
+<div class="col-2">
+  <div class="demo">
+    <div class="demo__head"><span class="name">// 10 · Stat block</span><span>KPI · compact</span></div>
+    <div class="demo__body" style="padding: var(--s-4);">
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-3); width: 100%;">
+        <div class="stat">
+          <span class="stat__label">Active projects</span>
+          <span class="stat__value">14</span>
+          <span class="stat__delta up">+3 vs prev. month</span>
+        </div>
+        <div class="stat">
+          <span class="stat__label">LLM tokens · 30d</span>
+          <span class="stat__value">2.4M</span>
+          <span class="stat__delta dn">−12% spend</span>
+        </div>
+        <div class="stat">
+          <span class="stat__label">Uptime</span>
+          <span class="stat__value">99.97<span style="font-size: 24px;">%</span></span>
+          <span class="stat__delta up">SLA met</span>
+        </div>
+        <div class="stat">
+          <span class="stat__label">Avg response</span>
+          <span class="stat__value">18<span style="font-size: 24px;">h</span></span>
+          <span class="stat__delta">target &lt;24h</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="demo">
+    <div class="demo__head"><span class="name">// 11 · Table</span><span>tabular data</span></div>
+    <div class="demo__body" style="padding: var(--s-4); align-items: flex-start;">
+      <table class="table">
+        <thead><tr><th>Project</th><th>Status</th><th>Stack</th><th class="num">Tokens</th></tr></thead>
+        <tbody>
+          <tr><td><b>StoryPrint AI</b></td><td><span class="pill pill--ok">Live</span></td><td>Next · GPT-4</td><td class="num">820k</td></tr>
+          <tr><td><b>Brandboard</b></td><td><span class="pill pill--warn">Review</span></td><td>n8n · Claude</td><td class="num">410k</td></tr>
+          <tr><td><b>NutrAI</b></td><td><span class="pill pill--ok">Live</span></td><td>Python · GPT-4</td><td class="num">1.1M</td></tr>
+          <tr><td><b>GeoRoutes</b></td><td><span class="pill pill--mute">Archived</span></td><td>WP · Leaflet</td><td class="num">—</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ============ STATUS PILLS ============ -->
+<div class="demo">
+  <div class="demo__head"><span class="name">// 12 · Status pills</span><span>state indicators</span></div>
+  <div class="demo__body">
+    <span class="pill pill--ok">Live</span>
+    <span class="pill pill--ok">Deployed</span>
+    <span class="pill pill--warn">Review</span>
+    <span class="pill pill--warn">Pending</span>
+    <span class="pill pill--err">Failed</span>
+    <span class="pill pill--err">Blocker</span>
+    <span class="pill pill--mute">Draft</span>
+    <span class="pill pill--mute">Archived</span>
+  </div>
+</div>
+
+<!-- ============ ALERTS ============ -->
+<div class="demo">
+  <div class="demo__head"><span class="name">// 13 · Alert</span><span>system message</span></div>
+  <div class="demo__body demo__body--col">
+    <div class="alert alert--ok">
+      <span class="alert__icon brand">✦</span>
+      <div class="alert__body"><h5>Pipeline desplegado</h5><p>brandboard-prod-v2 está en producción. 14 agentes activos.</p></div>
+    </div>
+    <div class="alert alert--warn">
+      <span class="alert__icon" style="color: var(--rbt-warn);">!</span>
+      <div class="alert__body"><h5>Cuota LLM al 84%</h5><p>2.4M / 2.85M tokens consumidos este mes. El pipeline de StoryPrint domina el gasto.</p></div>
+    </div>
+    <div class="alert alert--err">
+      <span class="alert__icon" style="color: var(--rbt-alert);">×</span>
+      <div class="alert__body"><h5>Webhook fallido</h5><p>Stripe → Supabase devuelve 502 desde hace 6 minutos. Revisa el endpoint.</p></div>
+    </div>
+    <div class="alert alert--info">
+      <span class="alert__icon">i</span>
+      <div class="alert__body"><h5>Mantenimiento programado</h5><p>Migración a AWS eu-west-3 el sábado 02:00–04:00 CET.</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ MODAL + EMPTY ============ -->
+<div class="col-2">
+  <div class="demo">
+    <div class="demo__head"><span class="name">// 14 · Modal</span><span>dialog · sharp shadow</span></div>
+    <div class="demo__body" style="padding: 0; min-height: auto;">
+      <div class="modal-shell">
+        <div class="modal">
+          <div class="modal__head">
+            <h4>Eliminar proyecto?</h4>
+            <span class="close">×</span>
+          </div>
+          <div class="modal__body">
+            Esto eliminará permanentemente <b>StoryPrint AI</b> y todos sus pipelines asociados. Esta acción no puede deshacerse.
+          </div>
+          <div class="modal__foot">
+            <button class="btn btn--ghost btn--sm">Cancelar</button>
+            <button class="btn btn--sm" style="background: var(--rbt-alert); border-color: var(--rbt-alert);">Eliminar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="demo">
+    <div class="demo__head"><span class="name">// 15 · Empty state</span><span>no-data placeholder</span></div>
+    <div class="demo__body">
+      <div class="empty" style="width: 100%;">
+        <div class="empty__glyph">∅</div>
+        <h4 class="empty__title">Sin proyectos todavía</h4>
+        <p class="empty__sub">Crea tu primer pipeline para empezar a recibir métricas.</p>
+        <button class="btn btn--sm" style="margin-top: var(--s-4);">+ Nuevo proyecto</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ AVATAR + PROGRESS ============ -->
+<div class="col-2">
+  <div class="demo">
+    <div class="demo__head"><span class="name">// 16 · Avatar</span><span>monogram · slab</span></div>
+    <div class="demo__body" style="gap: var(--s-7);">
+      <div class="avatar avatar--lg">R</div>
+      <div class="avatar">AB</div>
+      <div class="avatar avatar--sm">N</div>
+      <div class="avatar-stack">
+        <div class="avatar">R</div>
+        <div class="avatar" style="background: var(--rbt-ink);">A</div>
+        <div class="avatar" style="background: var(--rbt-warn);">M</div>
+        <div class="avatar" style="background: var(--rbt-cream-deep); color: var(--rbt-ink);">+4</div>
+      </div>
+    </div>
+  </div>
+  <div class="demo">
+    <div class="demo__head"><span class="name">// 17 · Progress</span><span>bar + steps</span></div>
+    <div class="demo__body demo__body--col">
+      <div>
+        <div style="display: flex; justify-content: space-between; font-family: var(--font-mono); font-size: 12px; margin-bottom: 6px;">
+          <span class="muted">Pipeline · brandboard</span><span class="brand">68%</span>
+        </div>
+        <div class="progress"><span style="width: 68%;"></span></div>
+      </div>
+      <div style="display: flex; gap: 0; align-items: center; margin-top: var(--s-3);">
+        <div style="display: flex; align-items: center; gap: 8px;"><span style="width: 24px; height: 24px; background: var(--rbt-green); color: var(--rbt-cream); display: grid; place-items: center; font-family: var(--font-mono); font-size: 11px;">1</span><span class="t-mono" style="font-size: 12px;">Brief</span></div>
+        <span style="flex: 1; height: 1px; background: var(--rbt-green); margin: 0 12px;"></span>
+        <div style="display: flex; align-items: center; gap: 8px;"><span style="width: 24px; height: 24px; background: var(--rbt-green); color: var(--rbt-cream); display: grid; place-items: center; font-family: var(--font-mono); font-size: 11px;">2</span><span class="t-mono" style="font-size: 12px;">Mood</span></div>
+        <span style="flex: 1; height: 1px; background: var(--rbt-ink-line); margin: 0 12px;"></span>
+        <div style="display: flex; align-items: center; gap: 8px;"><span style="width: 24px; height: 24px; border: 1.5px solid var(--rbt-ink-line); display: grid; place-items: center; font-family: var(--font-mono); font-size: 11px; color: var(--rbt-ink-mute);">3</span><span class="t-mono soft" style="font-size: 12px;">Logo</span></div>
+        <span style="flex: 1; height: 1px; background: var(--rbt-ink-line); margin: 0 12px;"></span>
+        <div style="display: flex; align-items: center; gap: 8px;"><span style="width: 24px; height: 24px; border: 1.5px solid var(--rbt-ink-line); display: grid; place-items: center; font-family: var(--font-mono); font-size: 11px; color: var(--rbt-ink-mute);">4</span><span class="t-mono soft" style="font-size: 12px;">Export</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ MARQUEE ============ -->
+<div class="demo">
+  <div class="demo__head"><span class="name">// 18 · Tech marquee</span><span>infinite scroller — site signature</span></div>
+  <div class="demo__body" style="padding: 0; min-height: auto;">
+    <div class="marquee" style="width: 100%;">
+      <div class="marquee__track">
+        <span class="spk">✦</span><span>React / Next.js</span><span>·</span><span>AI Agents</span><span>·</span><span>LLM</span>
+        <span class="spk">✦</span><span>MCP</span><span>·</span><span>Three.js</span><span>·</span><span>Processing</span>
+        <span class="spk">✦</span><span>Arduino</span><span>·</span><span>n8n</span><span>·</span><span>Supabase</span>
+        <span class="spk">✦</span><span>AWS</span><span>·</span><span>Node.js</span><span>·</span><span>Python</span>
+        <span class="spk">✦</span><span>React / Next.js</span><span>·</span><span>AI Agents</span><span>·</span><span>LLM</span>
+        <span class="spk">✦</span><span>MCP</span><span>·</span><span>Three.js</span><span>·</span><span>Processing</span>
+        <span class="spk">✦</span><span>Arduino</span><span>·</span><span>n8n</span><span>·</span><span>Supabase</span>
+        <span class="spk">✦</span><span>AWS</span><span>·</span><span>Node.js</span><span>·</span><span>Python</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<footer class="doc-foot">
+  <span>RBT. · 18 components · v1.0</span>
+  <span><a href="iconography.html" class="brand">Iconography →</a></span>
+</footer>
+
+</main>
+</body>
+</html>

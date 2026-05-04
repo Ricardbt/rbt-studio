@@ -1,0 +1,332 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>RBT Studio · Iconography & Motif</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="tokens.css">
+<style>
+  .icon-grid { display: grid; grid-template-columns: repeat(8, 1fr); gap: 1px; background: var(--rbt-ink-line); border: var(--hairline); }
+  .icon-grid > * { background: var(--rbt-paper); padding: var(--s-4); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; aspect-ratio: 1; }
+  .icon-grid svg { width: 28px; height: 28px; color: var(--rbt-ink); }
+  .icon-grid figcaption { font-family: var(--font-mono); font-size: 10px; color: var(--rbt-ink-mute); letter-spacing: 0.05em; text-align: center; }
+  @media (max-width: 800px) { .icon-grid { grid-template-columns: repeat(4, 1fr); } }
+
+  .pictogram-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--rbt-ink-line); border: var(--hairline); }
+  .pictogram-grid > * { background: var(--rbt-paper); padding: var(--s-5); aspect-ratio: 1.2/1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: var(--s-3); }
+  .pictogram-grid svg { width: 80px; height: 80px; color: var(--rbt-green); }
+  @media (max-width: 800px) { .pictogram-grid { grid-template-columns: repeat(2, 1fr); } }
+
+  .motif {
+    position: relative;
+    aspect-ratio: 16/9;
+    border: var(--hairline);
+    background: var(--rbt-paper);
+    overflow: hidden;
+  }
+  .motif svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+
+  .glyph-row { display: flex; gap: var(--s-5); align-items: center; flex-wrap: wrap; }
+  .glyph-card { background: var(--rbt-paper); border: var(--hairline); padding: var(--s-5); display: flex; align-items: center; gap: var(--s-4); min-width: 200px; }
+  .glyph-card svg { width: 40px; height: 40px; color: var(--rbt-green); }
+  .glyph-card .meta { font-family: var(--font-mono); font-size: 11px; color: var(--rbt-ink-mute); line-height: 1.4; }
+  .glyph-card .meta b { display: block; color: var(--rbt-ink); font-size: 13px; }
+</style>
+</head>
+<body>
+
+<header class="doc-header">
+  <div class="crumbs">
+    <span class="rbt-mark">RBT.</span><span>·</span><span>Design System</span><span>·</span><span class="now">Iconography</span>
+  </div>
+  <nav>
+    <a href="index.html">Index</a>
+    <a href="foundations.html">Foundations</a>
+    <a href="components.html">Components</a>
+    <a href="iconography.html" class="active">Iconography</a>
+    <a href="preview-marketing.html">Web</a>
+    <a href="preview-dashboard.html">App</a>
+    <a href="preview-deck.html">Deck</a>
+  </nav>
+</header>
+
+<main class="doc">
+<div class="doc-wrap">
+
+<div style="padding-top: var(--s-7); padding-bottom: var(--s-6); border-bottom: var(--hairline-d);">
+  <span class="t-num brand">03 / 07 · ICONOGRAPHY</span>
+  <h1 class="t-display" style="margin-top: var(--s-3);">Pictograms &amp; <em style="font-family: var(--font-slab); font-style: normal; color: var(--rbt-green);">motif</em>.</h1>
+  <p class="muted t-mono" style="margin-top: var(--s-3); font-size: 13px; max-width: 640px;">// Two layers — a UI icon set (1.5px stroke, sharp corners) and a generative line-art motif drawn from geometric primitives. The four-point sparkle ✦ is the brand's signature glyph.</p>
+</div>
+
+<!-- 01 SIGNATURE GLYPHS -->
+<section class="section-open">
+  <div class="section-open__num">01</div>
+  <div>
+    <h2 class="t-display">Signature glyphs</h2>
+    <p class="section-open__sub">// The four-point sparkle, the dot, the period. Used as wordmark accents and section dividers.</p>
+  </div>
+</section>
+
+<div class="glyph-row" style="margin-top: var(--s-6);">
+  <div class="glyph-card">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 L13.5 10.5 L22 12 L13.5 13.5 L12 22 L10.5 13.5 L2 12 L10.5 10.5 Z"/></svg>
+    <div class="meta"><b>Sparkle ✦</b>brand mark · accents</div>
+  </div>
+  <div class="glyph-card">
+    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="6" fill="currentColor"/></svg>
+    <div class="meta"><b>Dot ●</b>status · prefix</div>
+  </div>
+  <div class="glyph-card">
+    <svg viewBox="0 0 24 24" fill="currentColor"><rect x="9" y="16" width="6" height="6"/></svg>
+    <div class="meta"><b>Square ■</b>list bullet</div>
+  </div>
+  <div class="glyph-card">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 12 L20 12 M14 6 L20 12 L14 18"/></svg>
+    <div class="meta"><b>Arrow →</b>direction · cta</div>
+  </div>
+</div>
+
+<!-- 02 UI ICONS -->
+<section class="section-open">
+  <div class="section-open__num">02</div>
+  <div>
+    <h2 class="t-display">UI icon set</h2>
+    <p class="section-open__sub">// 24px viewbox · 1.5px stroke · sharp corners · square caps. Built to feel engineered.</p>
+  </div>
+</section>
+
+<div class="icon-grid" style="margin-top: var(--s-6);">
+  <!-- 32 icons, all 24x24, 1.5 stroke, no rounded -->
+  <figure><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18"/><path d="M3 9 H21 M9 3 V21"/></svg><figcaption>dashboard</figcaption></figure>
+  <figure><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 6 H21 M3 12 H21 M3 18 H15"/></svg><figcaption>list</figcaption></figure>
+  <figure><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M11 4 L4 12 L11 20 M4 12 H20"/></svg><figcaption>arrow-left</figcaption></figure>
+  <figure><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 4 L20 12 L13 20 M20 12 H4"/></svg><figcaption>arrow-right</figcaption></figure>
+  <figure><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 7 L12 15 L20 7"/></svg><figcaption>chevron-down</figcaption></figure>
+  <figure><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 17 L12 9 L20 17"/></svg><figcaption>chevron-up</figcaption></figure>
+  <figure><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 5 L19 19 M19 5 L5 19"/></svg><figcaption>close</figcaption></figure>
+  <figure><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12 L10 17 L19 7"/></svg><figcaption>check</figcaption></figure>
+
+  <figure><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="6"/><path d="M16 16 L21 21"/></svg><figcaption>search</figcaption></figure>
+  <figure><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 5 H19 V19 H5 Z M5 9 H19 M9 5 V9"/></svg><figcaption>folder</figcaption></figure>
+  <figure><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 3 H15 L20 8 V21 H6 Z M14 3 V9 H20"/></svg><figcaption>file</figcaption></figure>
+  <figure><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 12 H21 M12 3 V21"/></svg><figcaption>plus</figcaption></figure>
+  <figure><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 12 H21"/></svg><figcaption>minus</figcaption></figure>
+  <figure><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M12 7 V12 L16 14"/></svg><figcaption>clock</figcaption></figure>
+  <figure><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3 L21 8 V16 L12 21 L3 16 V8 Z M3 8 L12 13 L21 8 M12 13 V21"/></svg><figcaption>cube</figcaption></figure>
+  <figure><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="3.5"/><path d="M5 21 C5 16 8 14 12 14 C16 14 19 16 19 21"/></svg><figcaption>user</figcaption></figure>
+
+  <figure><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 5 H19 V19 H5 Z"/><path d="M9 9 H15 V15 H9 Z"/></svg><figcaption>frame</figcaption></figure>
+  <figure><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 6 H21 V18 H3 Z M3 10 H21"/></svg><figcaption>card</figcaption></figure>
+  <figure><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M3 12 H21 M12 3 C15 7 15 17 12 21 M12 3 C9 7 9 17 12 21"/></svg><figcaption>globe</figcaption></figure>
+  <figure><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3 V21 M5 8 L12 3 L19 8 M5 16 L12 21 L19 16"/></svg><figcaption>git-branch</figcaption></figure>
+  <figure><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="12"/><path d="M8 20 H16 M12 16 V20"/></svg><figcaption>monitor</figcaption></figure>
+  <figure><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="6" y="3" width="12" height="18"/><path d="M10 17 H14"/></svg><figcaption>phone</figcaption></figure>
+  <figure><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4 L20 4 L20 20 L4 20 Z M4 9 H20 M9 9 V20"/></svg><figcaption>layout</figcaption></figure>
+  <figure><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="12" cy="18" r="2.5"/><path d="M7.7 8 L11 16 M16.3 8 L13 16"/></svg><figcaption>nodes</figcaption></figure>
+
+  <figure><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 17 L9 12 L13 16 L20 7"/><path d="M14 7 H20 V13"/></svg><figcaption>trend</figcaption></figure>
+  <figure><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 20 V10 H8 V20 M11 20 V4 H15 V20 M18 20 V13 H22"/></svg><figcaption>chart</figcaption></figure>
+  <figure><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 12 L8 7 L13 12 L21 4 M21 4 V10 M21 4 H15"/></svg><figcaption>spike</figcaption></figure>
+  <figure><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3.5"/><path d="M12 3 V6 M12 18 V21 M3 12 H6 M18 12 H21 M5.6 5.6 L7.7 7.7 M16.3 16.3 L18.4 18.4 M5.6 18.4 L7.7 16.3 M16.3 7.7 L18.4 5.6"/></svg><figcaption>settings</figcaption></figure>
+  <figure><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 7 H20 M4 12 H20 M4 17 H20 M8 4 V7 M16 9 V12 M11 14 V17"/></svg><figcaption>sliders</figcaption></figure>
+  <figure><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 7 L9 3 L19 13 L15 17 Z M3 21 L7 17 M5 7 L11 13 M9 3 L15 9"/></svg><figcaption>tool</figcaption></figure>
+  <figure><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 3 H4 V8 M16 3 H20 V8 M8 21 H4 V16 M16 21 H20 V16"/></svg><figcaption>expand</figcaption></figure>
+  <figure><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M12 7 V13 M12 16 V17"/></svg><figcaption>info</figcaption></figure>
+</div>
+
+<div style="margin-top: var(--s-5); display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--s-3);">
+  <div class="frame"><h4 class="t-label muted" style="margin-bottom: var(--s-2);">Stroke</h4><p class="t-small soft">1.5px constant. Square caps and joins. Never rounded.</p></div>
+  <div class="frame"><h4 class="t-label muted" style="margin-bottom: var(--s-2);">Grid</h4><p class="t-small soft">24×24 viewbox · 2px clear-space margin · pixel-aligned.</p></div>
+  <div class="frame"><h4 class="t-label muted" style="margin-bottom: var(--s-2);">Color</h4><p class="t-small soft">Inherit from text. Use brand green only on tap targets and active states.</p></div>
+</div>
+
+<!-- 03 LARGE PICTOGRAMS -->
+<section class="section-open">
+  <div class="section-open__num">03</div>
+  <div>
+    <h2 class="t-display">Service pictograms</h2>
+    <p class="section-open__sub">// One pictogram per service line. Geometric, generative-feeling, drawn from primitives.</p>
+  </div>
+</section>
+
+<div class="pictogram-grid" style="margin-top: var(--s-6);">
+  <figure>
+    <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.5">
+      <rect x="15" y="20" width="70" height="55"/>
+      <path d="M15 32 H85"/>
+      <circle cx="22" cy="26" r="1.5" fill="currentColor"/><circle cx="28" cy="26" r="1.5" fill="currentColor"/><circle cx="34" cy="26" r="1.5" fill="currentColor"/>
+      <path d="M30 50 L40 60 L30 70 M70 50 L60 60 L70 70 M52 47 L48 73"/>
+    </svg>
+    <span class="t-label muted">Web Development</span>
+  </figure>
+  <figure>
+    <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.5">
+      <circle cx="50" cy="50" r="32"/>
+      <circle cx="50" cy="50" r="20"/>
+      <circle cx="50" cy="50" r="8"/>
+      <circle cx="50" cy="50" r="2" fill="currentColor"/>
+      <path d="M50 18 V8 M50 92 V82 M18 50 H8 M92 50 H82"/>
+    </svg>
+    <span class="t-label muted">AI &amp; Automatización</span>
+  </figure>
+  <figure>
+    <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.5">
+      <path d="M50 15 L85 35 V65 L50 85 L15 65 V35 Z"/>
+      <path d="M50 15 V50 M15 35 L50 50 M85 35 L50 50 M50 50 V85"/>
+      <path d="M30 25 L70 75 M70 25 L30 75" opacity="0.4"/>
+    </svg>
+    <span class="t-label muted">3D &amp; Creative</span>
+  </figure>
+  <figure>
+    <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.5">
+      <rect x="20" y="35" width="60" height="40"/>
+      <rect x="32" y="47" width="8" height="8"/>
+      <rect x="46" y="47" width="8" height="8"/>
+      <rect x="60" y="47" width="8" height="8"/>
+      <path d="M30 35 V25 M50 35 V18 M70 35 V25 M30 75 V85 M50 75 V85 M70 75 V85"/>
+      <circle cx="36" cy="65" r="2" fill="currentColor"/><circle cx="50" cy="65" r="2" fill="currentColor"/><circle cx="64" cy="65" r="2" fill="currentColor"/>
+    </svg>
+    <span class="t-label muted">Hardware &amp; IoT</span>
+  </figure>
+  <figure>
+    <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.5">
+      <path d="M20 20 H80 V80 H20 Z"/>
+      <path d="M30 35 H70 M30 45 H60 M30 55 H70 M30 65 H50"/>
+      <path d="M75 75 L88 88" stroke-width="2"/>
+      <circle cx="72" cy="72" r="10"/>
+    </svg>
+    <span class="t-label muted">Consultoría</span>
+  </figure>
+  <figure>
+    <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.5">
+      <path d="M15 75 L35 35 L55 60 L75 25 L88 50"/>
+      <circle cx="35" cy="35" r="3" fill="currentColor"/><circle cx="55" cy="60" r="3" fill="currentColor"/><circle cx="75" cy="25" r="3" fill="currentColor"/>
+      <path d="M15 85 H88"/>
+      <path d="M15 75 V20" opacity="0.4"/>
+    </svg>
+    <span class="t-label muted">Instalaciones</span>
+  </figure>
+  <figure>
+    <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.5">
+      <path d="M50 10 L60 30 L82 33 L66 50 L70 72 L50 62 L30 72 L34 50 L18 33 L40 30 Z"/>
+    </svg>
+    <span class="t-label muted">Featured Project</span>
+  </figure>
+  <figure>
+    <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.5">
+      <circle cx="30" cy="30" r="12"/>
+      <circle cx="70" cy="30" r="12"/>
+      <circle cx="30" cy="70" r="12"/>
+      <circle cx="70" cy="70" r="12"/>
+      <path d="M30 42 V58 M42 30 H58 M58 70 H42 M70 42 V58 M42 70 H58 M30 42 V58"/>
+      <path d="M40 40 L60 60 M60 40 L40 60" opacity="0.5"/>
+    </svg>
+    <span class="t-label muted">Pipelines / Agents</span>
+  </figure>
+</div>
+
+<!-- 04 GENERATIVE MOTIF -->
+<section class="section-open">
+  <div class="section-open__num">04</div>
+  <div>
+    <h2 class="t-display">Generative motif</h2>
+    <p class="section-open__sub">// Hairline geometry — circles, hexagons, sparkles, connectors. The visual signature of every hero moment.</p>
+  </div>
+</section>
+
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-5); margin-top: var(--s-6);">
+  <div class="motif">
+    <svg viewBox="0 0 800 450" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <pattern id="dots-a" width="20" height="20" patternUnits="userSpaceOnUse">
+          <circle cx="10" cy="10" r="0.6" fill="#0E4A35" opacity="0.18"/>
+        </pattern>
+      </defs>
+      <rect width="100%" height="100%" fill="url(#dots-a)"/>
+      <g stroke="#0E4A35" stroke-width="1" fill="none" opacity="0.5">
+        <circle cx="600" cy="120" r="80"/>
+        <circle cx="600" cy="120" r="50"/>
+        <circle cx="600" cy="120" r="20"/>
+        <polygon points="650,280 690,300 690,340 650,360 610,340 610,300"/>
+        <polygon points="500,330 530,310 560,330 560,360 530,380 500,360"/>
+        <path d="M520 130 L600 120 L650 200 L720 170"/>
+        <line x1="430" y1="80" x2="520" y2="130"/>
+        <line x1="430" y1="380" x2="500" y2="330"/>
+        <g fill="#0E4A35" opacity="0.7">
+          <path d="M460 180 l3 -12 l3 12 l12 3 l-12 3 l-3 12 l-3 -12 l-12 -3 z"/>
+          <path d="M680 230 l2 -8 l2 8 l8 2 l-8 2 l-2 8 l-2 -8 l-8 -2 z"/>
+        </g>
+      </g>
+    </svg>
+    <span class="t-label muted" style="position: absolute; bottom: 12px; left: 16px;">cluster · default hero</span>
+  </div>
+  <div class="motif">
+    <svg viewBox="0 0 800 450" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <pattern id="grid-a" width="32" height="32" patternUnits="userSpaceOnUse">
+          <path d="M32 0 H0 V32" fill="none" stroke="#0E4A35" stroke-width="0.5" opacity="0.2"/>
+        </pattern>
+      </defs>
+      <rect width="100%" height="100%" fill="url(#grid-a)"/>
+      <g stroke="#0E4A35" stroke-width="1" fill="none" opacity="0.55">
+        <path d="M40 380 L120 220 L200 320 L280 100 L360 240 L440 160 L520 300 L600 80 L680 260 L760 180"/>
+        <g fill="#0E4A35">
+          <circle cx="120" cy="220" r="3"/><circle cx="280" cy="100" r="3"/>
+          <circle cx="440" cy="160" r="3"/><circle cx="600" cy="80" r="3"/>
+          <circle cx="760" cy="180" r="3"/>
+        </g>
+      </g>
+    </svg>
+    <span class="t-label muted" style="position: absolute; bottom: 12px; left: 16px;">signal · data hero</span>
+  </div>
+  <div class="motif">
+    <svg viewBox="0 0 800 450" preserveAspectRatio="xMidYMid slice">
+      <rect width="100%" height="100%" fill="#FBF9F2"/>
+      <g stroke="#0E4A35" stroke-width="0.8" fill="none" opacity="0.5">
+        <g transform="translate(400 225)">
+          <circle r="40"/><circle r="80"/><circle r="120"/><circle r="160"/><circle r="200"/>
+          <line x1="-220" y1="0" x2="220" y2="0"/>
+          <line x1="0" y1="-220" x2="0" y2="220"/>
+          <line x1="-180" y1="-180" x2="180" y2="180"/>
+          <line x1="-180" y1="180" x2="180" y2="-180"/>
+        </g>
+      </g>
+    </svg>
+    <span class="t-label muted" style="position: absolute; bottom: 12px; left: 16px;">orbit · contact hero</span>
+  </div>
+  <div class="motif">
+    <svg viewBox="0 0 800 450" preserveAspectRatio="xMidYMid slice">
+      <rect width="100%" height="100%" fill="#FBF9F2"/>
+      <g stroke="#0E4A35" stroke-width="0.8" fill="none" opacity="0.5">
+        <path d="M100 100 L200 250 L300 100 L400 250 L500 100 L600 250 L700 100"/>
+        <path d="M100 250 L200 400 L300 250 L400 400 L500 250 L600 400 L700 250"/>
+        <g fill="#0E4A35" opacity="0.5">
+          <circle cx="200" cy="250" r="3"/><circle cx="400" cy="250" r="3"/><circle cx="600" cy="250" r="3"/>
+        </g>
+      </g>
+    </svg>
+    <span class="t-label muted" style="position: absolute; bottom: 12px; left: 16px;">wave · arts hero</span>
+  </div>
+</div>
+
+<div style="margin-top: var(--s-5); padding: var(--s-5); background: var(--rbt-cream-soft); border: var(--hairline);">
+  <h4 class="t-label muted" style="margin-bottom: var(--s-3);">Motif rules</h4>
+  <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--s-5); font-size: 13px; color: var(--rbt-ink-soft); line-height: 1.5;">
+    <p>→ Always 1px or hairline stroke at &lt;0.6 opacity. Never filled large.</p>
+    <p>→ Anchor on right or top-right of hero compositions. Never centered behind text.</p>
+    <p>→ Use a dotted or fine-grid backdrop. Never solid.</p>
+    <p>→ Sparkles ✦ are the only filled element — sparingly, max 3 per composition.</p>
+  </div>
+</div>
+
+</div>
+
+<footer class="doc-foot">
+  <span>RBT. · Iconography v1.0</span>
+  <span><a href="preview-marketing.html" class="brand">Marketing preview →</a></span>
+</footer>
+
+</main>
+</body>
+</html>

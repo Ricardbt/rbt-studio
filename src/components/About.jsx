@@ -34,59 +34,59 @@ export default function About() {
   }, [])
 
   return (
-    <section ref={sectionRef} className="bg-surface/30">
+    <section ref={sectionRef} style={{ backgroundColor: '#F8F5EC' }}>
       {/* Grid Pattern */}
-      <div 
+      <div
         className="absolute inset-0 opacity-[0.02] pointer-events-none"
         style={{
-          backgroundImage: `linear-gradient(#1A5D43 1px, transparent 1px), linear-gradient(90deg, #1A5D43 1px, transparent 1px)`,
+          backgroundImage: `linear-gradient(#0E4A35 1px, transparent 1px), linear-gradient(90deg, #0E4A35 1px, transparent 1px)`,
           backgroundSize: '80px 80px'
         }}
       />
 
       <div className="relative z-10 px-6 md:px-12 lg:px-16 xl:px-24 py-20 md:py-28 lg:py-32">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-20 max-w-[1400px]">
-          <div 
+          <div
             ref={el => itemsRef.current[0] = el}
             className="opacity-0"
           >
-            <div className="font-mono text-[10px] tracking-[0.2em] uppercase text-textMuted/50 mb-4 md:mb-6">
+            <div className="font-mono text-[10px] tracking-[0.2em] uppercase mb-4 md:mb-6" style={{ color: '#6E6E64' }}>
               Formación
             </div>
-            <h3 className="font-display text-2xl md:text-3xl text-text mb-3">
+            <h3 className="font-sans text-2xl md:text-3xl font-semibold mb-3" style={{ color: '#14140F' }}>
               Bellas Artes
             </h3>
-            <p className="font-sans text-sm md:text-base text-textMuted leading-relaxed">
+            <p className="font-sans text-sm md:text-base leading-relaxed" style={{ color: '#3A3A33' }}>
               Imagen & Diseño · Universidad de Barcelona. Base conceptual y visual que impregna cada proyecto técnico.
             </p>
           </div>
-          
-          <div 
+
+          <div
             ref={el => itemsRef.current[1] = el}
             className="opacity-0"
           >
-            <div className="font-mono text-[10px] tracking-[0.2em] uppercase text-textMuted/50 mb-4 md:mb-6">
+            <div className="font-mono text-[10px] tracking-[0.2em] uppercase mb-4 md:mb-6" style={{ color: '#6E6E64' }}>
               Experiencia
             </div>
-            <h3 className="font-display text-2xl md:text-3xl text-text mb-3">
+            <h3 className="font-sans text-2xl md:text-3xl font-semibold mb-3" style={{ color: '#14140F' }}>
               10+ años
             </h3>
-            <p className="font-sans text-sm md:text-base text-textMuted leading-relaxed">
+            <p className="font-sans text-sm md:text-base leading-relaxed" style={{ color: '#3A3A33' }}>
               De la Universidad de Barcelona a proyectos propios. Startups, agencias e instituciones.
             </p>
           </div>
-          
-          <div 
+
+          <div
             ref={el => itemsRef.current[2] = el}
             className="opacity-0"
           >
-            <div className="font-mono text-[10px] tracking-[0.2em] uppercase text-textMuted/50 mb-4 md:mb-6">
+            <div className="font-mono text-[10px] tracking-[0.2em] uppercase mb-4 md:mb-6" style={{ color: '#6E6E64' }}>
               Ubicación
             </div>
-            <h3 className="font-display text-2xl md:text-3xl text-text mb-3">
+            <h3 className="font-sans text-2xl md:text-3xl font-semibold mb-3" style={{ color: '#14140F' }}>
               Barcelona
             </h3>
-            <p className="font-sans text-sm md:text-base text-textMuted leading-relaxed">
+            <p className="font-sans text-sm md:text-base leading-relaxed" style={{ color: '#3A3A33' }}>
               Disponible globalmente en remoto. Español, Catalán, Inglés (B2).
             </p>
           </div>
