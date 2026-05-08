@@ -103,14 +103,56 @@ export default function Services() {
 
       <div className="relative z-10" style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 32px' }}>
         <div ref={titleRef} style={{ marginBottom: '96px', opacity: 0 }}>
-          <p className="font-mono text-[12px] tracking-[0.18em] uppercase mb-6" style={{ color: '#0E4A35' }}>
-            01 / 05 · Servicios
-          </p>
-          <h2 className="font-sans text-5xl lg:text-6xl font-semibold leading-[0.95] tracking-tight" style={{ color: '#14140F' }}>
-            Lo que creamos
-            <br />
-            <em className="not-italic" style={{ color: '#0E4A35' }}>para ti</em>
-          </h2>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '32px' }}>
+            <div>
+              <p className="font-mono text-[12px] tracking-[0.18em] uppercase mb-6" style={{ color: '#0E4A35' }}>
+                01 / 05 · Servicios
+              </p>
+              <h2 className="font-sans text-5xl lg:text-6xl font-semibold leading-[0.95] tracking-tight" style={{ color: '#14140F' }}>
+                Lo que creamos
+                <br />
+                <em className="not-italic" style={{ color: '#0E4A35' }}>para ti</em>
+              </h2>
+            </div>
+            <a
+              href="/RBT-ServicesDeck.html"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={(e) => {
+                e.preventDefault()
+                window.open('/RBT-ServicesDeck.html', 'Services Deck')
+              }}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+                padding: '12px 20px',
+                backgroundColor: '#0E4A35',
+                color: '#F2EFE6',
+                border: 'none',
+                textDecoration: 'none',
+                fontFamily: "'JetBrains Mono', monospace",
+                fontSize: '11px',
+                fontWeight: '600',
+                textTransform: 'uppercase',
+                letterSpacing: '0.1em',
+                cursor: 'pointer',
+                transition: 'all 240ms cubic-bezier(0.2, 0.7, 0.1, 1)',
+                whiteSpace: 'nowrap',
+                height: 'fit-content',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = 'translate(4px, -4px)'
+                e.currentTarget.style.boxShadow = '8px 8px 0 rgba(14, 74, 53, 0.3)'
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = 'translate(0, 0)'
+                e.currentTarget.style.boxShadow = 'none'
+              }}
+            >
+              ↓ Descargar Deck
+            </a>
+          </div>
         </div>
 
         <div

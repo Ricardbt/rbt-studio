@@ -6,7 +6,8 @@
       "Bash(npm run *)",
       "Bash(curl -s http://localhost:5173/)",
       "Bash(curl -s http://localhost:5173)",
-      "Bash(node -c \"D:\\\\RBT\\\\rbt-studio\\\\src\\\\components\\\\ProjectGallery.jsx\")"
+      "Bash(node -c \"D:\\\\RBT\\\\rbt-studio\\\\src\\\\components\\\\ProjectGallery.jsx\")",
+      "Read(//tmp/interactiveprojects/**)"
     ]
   }
 }
