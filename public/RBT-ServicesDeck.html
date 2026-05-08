@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RBT Studio - Servicios Informativos</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #F2EFE6;
+      color: #14140F;
+      line-height: 1.6;
+    }
+
+    .deck {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .slide {
+      page-break-after: always;
+      min-height: 100vh;
+      padding: 60px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      background: #F2EFE6;
+      border-bottom: 1px solid #C9C5B6;
+    }
+
+    .slide:last-child {
+      border-bottom: none;
+    }
+
+    .slide.dark {
+      background: #14140F;
+      color: #F2EFE6;
+    }
+
+    .slide h1 {
+      font-size: 64px;
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 24px;
+      letter-spacing: -0.02em;
+    }
+
+    .slide h2 {
+      font-size: 48px;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 32px;
+    }
+
+    .slide h3 {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .slide p {
+      font-size: 18px;
+      margin-bottom: 16px;
+      line-height: 1.8;
+    }
+
+    .accent {
+      color: #0E4A35;
+    }
+
+    .slide.dark .accent {
+      color: #7DB89F;
+    }
+
+    .tagline {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      margin-bottom: 32px;
+      color: #0E4A35;
+    }
+
+    .slide.dark .tagline {
+      color: #7DB89F;
+    }
+
+    .services-list {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      margin-top: 32px;
+    }
+
+    .service-item {
+      border-left: 2px solid #0E4A35;
+      padding-left: 16px;
+    }
+
+    .slide.dark .service-item {
+      border-left-color: #7DB89F;
+    }
+
+    .service-item h4 {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .service-item p {
+      font-size: 14px;
+      color: #6E6E64;
+      margin-bottom: 0;
+    }
+
+    .slide.dark .service-item p {
+      color: #A8A89A;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+      margin-top: 48px;
+      padding-top: 48px;
+      border-top: 1px solid #C9C5B6;
+    }
+
+    .slide.dark .stats {
+      border-top-color: rgba(242, 239, 230, 0.2);
+    }
+
+    .stat {
+      text-align: center;
+    }
+
+    .stat-number {
+      font-size: 48px;
+      font-weight: 800;
+      color: #0E4A35;
+      margin-bottom: 8px;
+    }
+
+    .slide.dark .stat-number {
+      color: #7DB89F;
+    }
+
+    .stat-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #6E6E64;
+    }
+
+    .slide.dark .stat-label {
+      color: #A8A89A;
+    }
+
+    .technologies {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .tech-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      padding: 8px 12px;
+      background: #FBF9F2;
+      color: #0E4A35;
+      border: 1px solid #C9C5B6;
+    }
+
+    .slide.dark .tech-tag {
+      background: rgba(125, 184, 159, 0.1);
+      border-color: rgba(125, 184, 159, 0.3);
+      color: #7DB89F;
+    }
+
+    .cta-section {
+      margin-top: 64px;
+      padding-top: 48px;
+      border-top: 1px solid #C9C5B6;
+    }
+
+    .slide.dark .cta-section {
+      border-top-color: rgba(242, 239, 230, 0.2);
+    }
+
+    .cta-section p {
+      font-size: 16px;
+      margin-bottom: 12px;
+    }
+
+    .footer-note {
+      position: absolute;
+      bottom: 32px;
+      left: 60px;
+      right: 60px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #6E6E64;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .slide.dark .footer-note {
+      color: #A8A89A;
+    }
+
+    .slide {
+      position: relative;
+    }
+
+    @media print {
+      body {
+        background: white;
+      }
+
+      .slide {
+        page-break-after: always;
+        min-height: 100vh;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .slide {
+        padding: 40px;
+        min-height: auto;
+      }
+
+      .slide h1 {
+        font-size: 42px;
+      }
+
+      .slide h2 {
+        font-size: 32px;
+      }
+
+      .services-list {
+        grid-template-columns: 1fr;
+      }
+
+      .stats {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-note {
+        flex-direction: column;
+        gap: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="deck">
+    <!-- Slide 1: Portada -->
+    <div class="slide dark">
+      <div class="tagline">RBT Studio</div>
+      <h1>Transformamos <span class="accent">ideas</span> en experiencias digitales</h1>
+      <p style="margin-top: 32px; font-size: 20px;">Fullstack engineering, creative technology y automatización inteligente para marcas que quieren ir más allá.</p>
+      <div class="footer-note">
+        <span>Barcelona, Spain</span>
+        <span>2025</span>
+      </div>
+    </div>
+
+    <!-- Slide 2: Sobre RBT -->
+    <div class="slide">
+      <div class="tagline">Quiénes Somos</div>
+      <h2>Ingeniería fullstack con <span class="accent">alma creativa</span></h2>
+      <p>Con más de 10 años de experiencia, construimos aplicaciones web de producción, sistemas de automatización inteligente e instalaciones interactivas para clientes que entienden que la tecnología es un medio creativo.</p>
+      <div class="stats">
+        <div class="stat">
+          <div class="stat-number">10+</div>
+          <div class="stat-label">Años de experiencia</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number">50+</div>
+          <div class="stat-label">Proyectos completados</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number">30+</div>
+          <div class="stat-label">Clientes globales</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 3: Servicios Overview -->
+    <div class="slide">
+      <div class="tagline">Servicios</div>
+      <h2>Lo que creamos <span class="accent">para ti</span></h2>
+      <div class="services-list">
+        <div class="service-item">
+          <h4>Web Development</h4>
+          <p>Aplicaciones React/Next.js escalables, headless, production-ready.</p>
+        </div>
+        <div class="service-item">
+          <h4>AI & Automatización</h4>
+          <p>Agentes LLM, pipelines automáticos y flujos inteligentes.</p>
+        </div>
+        <div class="service-item">
+          <h4>3D & Creativo</h4>
+          <p>Experiencias WebGL, Three.js e instalaciones interactivas.</p>
+        </div>
+        <div class="service-item">
+          <h4>Hardware & IoT</h4>
+          <p>Prototipos físico-digitales, sensores y comunicación serial.</p>
+        </div>
+        <div class="service-item">
+          <h4>Consultoría Técnica</h4>
+          <p>Auditorías de arquitectura, code review y roadmap técnico.</p>
+        </div>
+        <div class="service-item">
+          <h4>Instalaciones</h4>
+          <p>Arte computacional para espacios culturales y corporativos.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 4: Stack Tecnológico -->
+    <div class="slide">
+      <div class="tagline">Tech Stack</div>
+      <h2>Herramientas que usamos <span class="accent">todos los días</span></h2>
+
+      <h3 style="margin-top: 48px;">Frontend</h3>
+      <div class="technologies">
+        <span class="tech-tag">React.js</span>
+        <span class="tech-tag">Next.js</span>
+        <span class="tech-tag">TypeScript</span>
+        <span class="tech-tag">Tailwind CSS</span>
+        <span class="tech-tag">GSAP</span>
+        <span class="tech-tag">Three.js</span>
+      </div>
+
+      <h3 style="margin-top: 32px;">Backend & Infrastructure</h3>
+      <div class="technologies">
+        <span class="tech-tag">Node.js</span>
+        <span class="tech-tag">Python</span>
+        <span class="tech-tag">PostgreSQL</span>
+        <span class="tech-tag">Supabase</span>
+        <span class="tech-tag">AWS</span>
+        <span class="tech-tag">Docker</span>
+      </div>
+
+      <h3 style="margin-top: 32px;">Automation & AI</h3>
+      <div class="technologies">
+        <span class="tech-tag">n8n</span>
+        <span class="tech-tag">LLM APIs</span>
+        <span class="tech-tag">MCP</span>
+        <span class="tech-tag">GitHub Actions</span>
+        <span class="tech-tag">Make</span>
+      </div>
+    </div>
+
+    <!-- Slide 5: Metodología -->
+    <div class="slide">
+      <div class="tagline">Cómo Trabajamos</div>
+      <h2>Proceso <span class="accent">ágil y colaborativo</span></h2>
+
+      <div style="margin-top: 48px;">
+        <h3>01. Discovery & Strategy</h3>
+        <p>Entendemos tu visión, usuarios y objetivos. Definimos arquitectura y roadmap.</p>
+
+        <h3 style="margin-top: 32px;">02. Design & Development</h3>
+        <p>Prototipamos, desarrollamos con iteraciones frecuentes y feedback continuo.</p>
+
+        <h3 style="margin-top: 32px;">03. Testing & Deployment</h3>
+        <p>QA exhaustivo, CI/CD pipelines y deployment automático a producción.</p>
+
+        <h3 style="margin-top: 32px;">04. Ownership</h3>
+        <p>Mantenimiento, monitoreo y evolución del proyecto. Tú lo construyes, lo posees.</p>
+      </div>
+    </div>
+
+    <!-- Slide 6: Proyectos Destacados -->
+    <div class="slide">
+      <div class="tagline">Portfolio</div>
+      <h2>Casos de éxito <span class="accent">y proyectos destacados</span></h2>
+
+      <div style="margin-top: 48px;">
+        <h3>StoryPrint AI</h3>
+        <p>Plataforma SaaS para generar libros infantiles personalizados con IA. Next.js + Node.js + Supabase + integración LLM.</p>
+
+        <h3 style="margin-top: 32px;">Branding AI SaaS</h3>
+        <p>Suite de herramientas para generación automática de identidades visuales. Arquitectura completa end-to-end: frontend, backend, integraciones API externas.</p>
+
+        <h3 style="margin-top: 32px;">Migraciones Drupal @ Scale</h3>
+        <p>Liderazgo de migrations 7→9/10 para múltiples clientes empresariales. Zero downtime, data integrity garantizada, CI/CD automático.</p>
+      </div>
+    </div>
+
+    <!-- Slide 7: Por qué elegirnos -->
+    <div class="slide">
+      <div class="tagline">Ventajas</div>
+      <h2>Por qué trabajar <span class="accent">con nosotros</span></h2>
+
+      <div class="services-list" style="margin-top: 48px;">
+        <div class="service-item">
+          <h4>Full Ownership</h4>
+          <p>No delegamos. Nosotros diseñamos, desarrollamos, deplegar y mantenemos.</p>
+        </div>
+        <div class="service-item">
+          <h4>Arquitectura Escalable</h4>
+          <p>Sistemas preparados para crecer. Desde MVP hasta millones de usuarios.</p>
+        </div>
+        <div class="service-item">
+          <h4>Innovation First</h4>
+          <p>Siempre explorando nuevas tecnologías para dar valor a tus proyectos.</p>
+        </div>
+        <div class="service-item">
+          <h4>Transparencia Total</h4>
+          <p>Comunicación clara, reportes regulares y decisiones documentadas.</p>
+        </div>
+        <div class="service-item">
+          <h4>Soporte 24/7</h4>
+          <p>Para proyectos en producción: monitoreo, alertas y respuesta inmediata.</p>
+        </div>
+        <div class="service-item">
+          <h4>Mentoring Incluido</h4>
+          <p>Transferencia de conocimiento a tu equipo. Te enseñamos el camino.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 8: Contacto & CTA -->
+    <div class="slide dark">
+      <div class="tagline">Hablemos</div>
+      <h1>¿Tienes un proyecto en mente?</h1>
+      <p style="margin-top: 32px; font-size: 20px;">Conversemos sobre tu idea. Sin compromisos, sin jerga técnica innecesaria.</p>
+
+      <div class="cta-section">
+        <p><strong>Email:</strong> ricardboixeda@gmail.com</p>
+        <p><strong>Teléfono:</strong> +34 635 642 322</p>
+        <p><strong>Web:</strong> rbt-studio.com</p>
+        <p style="margin-top: 24px;"><strong>Barcelona, Spain</strong></p>
+      </div>
+
+      <div class="footer-note">
+        <span>RBT Studio 2025</span>
+        <span>Transformando ideas en realidad digital</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Permite descargar como PDF con Ctrl+P o a través de navegador
+    document.addEventListener('keydown', (e) => {
+      if (e.ctrlKey && e.key === 'p') {
+        window.print()
+      }
+    })
+  </script>
+</body>
+</html>
