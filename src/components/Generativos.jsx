@@ -21,17 +21,24 @@ function LorenzCanvas() {
     const rho = 28
     const beta = 8 / 3
     const dt = 0.01
+    const MAX_FRAMES = 600
 
-    let x = 0.1, y = 1, z = 1.05
+    let x, y, z, frame, animationId
 
-    ctx.fillStyle = 'rgba(242, 239, 230, 0.1)'
-    ctx.fillRect(0, 0, width, height)
-    ctx.strokeStyle = 'rgba(14, 74, 53, 0.6)'
-    ctx.lineWidth = 0.5
-
-    let animationId
+    const reset = () => {
+      x = 0.1; y = 1; z = 1.05; frame = 0
+      ctx.fillStyle = '#F2EFE6'
+      ctx.fillRect(0, 0, width, height)
+      ctx.strokeStyle = 'rgba(14, 74, 53, 0.6)'
+      ctx.lineWidth = 0.5
+    }
 
     const draw = () => {
+      if (frame >= MAX_FRAMES) {
+        reset()
+      }
+      frame++
+
       for (let step = 0; step < 50; step++) {
         const dx = sigma * (y - x)
         const dy = x * (rho - z) - y
@@ -56,6 +63,7 @@ function LorenzCanvas() {
       animationId = requestAnimationFrame(draw)
     }
 
+    reset()
     draw()
     return () => cancelAnimationFrame(animationId)
   }, [])
@@ -96,6 +104,13 @@ function PhyllotaxisCanvas() {
 
     let n = 0
     let animationId
+    const MAX_N = 500
+
+    const reset = () => {
+      n = 0
+      ctx.fillStyle = '#F2EFE6'
+      ctx.fillRect(0, 0, width, height)
+    }
 
     const draw = () => {
       n += 1
@@ -107,14 +122,18 @@ function PhyllotaxisCanvas() {
       const x = centerX + r * Math.cos(theta)
       const y = centerY + r * Math.sin(theta)
 
-      const color = Math.min(255, 14 + (distToMouse / 100) * 200)
       ctx.fillStyle = `rgba(14, 74, 53, ${0.3 + (distToMouse / 300)})`
       ctx.beginPath()
       ctx.arc(x, y, 3, 0, Math.PI * 2)
       ctx.fill()
 
-      if (n < 500) {
+      if (n < MAX_N) {
         animationId = requestAnimationFrame(draw)
+      } else {
+        animationId = setTimeout(() => {
+          reset()
+          animationId = requestAnimationFrame(draw)
+        }, 1200)
       }
     }
 
@@ -122,6 +141,7 @@ function PhyllotaxisCanvas() {
 
     return () => {
       cancelAnimationFrame(animationId)
+      clearTimeout(animationId)
       canvas.removeEventListener('mousemove', handleMouseMove)
     }
   }, [])
@@ -696,9 +716,9 @@ export default function Generativos() {
   }, [])
 
   return (
-    <section ref={sectionRef} style={{ backgroundColor: '#F2EFE6', paddingTop: '96px', paddingBottom: '96px' }}>
-      <div className="relative z-10" style={{ maxWidth: '1400px', margin: '0 auto', padding: '0 32px' }}>
-        <div ref={titleRef} style={{ marginBottom: '96px', opacity: 0 }}>
+    <section ref={sectionRef} className="py-16 md:py-20 lg:py-24" style={{ backgroundColor: '#F2EFE6' }}>
+      <div className="relative z-10 w-full mx-auto px-4 sm:px-8 lg:px-16" style={{ maxWidth: '1400px' }}>
+        <div ref={titleRef} className="mb-12 md:mb-16 lg:mb-24" style={{ opacity: 0 }}>
           <p className="font-mono text-[12px] tracking-[0.18em] uppercase mb-6" style={{ color: '#0E4A35' }}>
             03 / 05 · Generativos
           </p>

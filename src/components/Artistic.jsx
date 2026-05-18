@@ -61,10 +61,10 @@ function ArtCanvas() {
 }
 
 const ARTISTIC_ITEMS = [
-  { label: 'Generativa', title: 'Sistemas de partículas', desc: 'Exploración de patrones naturales mediante código. Árboles fractal, fluidos y autómatas celulares.' },
-  { label: 'Hardware', title: 'Arduino & IoT', desc: 'Proyectos que conectan el mundo físico y digital: sensores, actuadores y comunicación serial.' },
-  { label: '3D Web', title: 'Three.js & WebGL', desc: 'Shaders personalizados y geometrías procedurales reactivas.' },
-  { label: 'Instalaciones', title: 'Arte Computacional', desc: 'Proyecciones, audiovisual y entornos interactivos para espacios culturales.' },
+  { label: 'Código Generativo', title: 'Sistemas y patrones vivos', desc: 'Exploración de fenómenos naturales mediante algoritmos: atractores, filotaxis, campos de flujo y autómatas celulares.' },
+  { label: 'Motion & Interaction', title: 'Animación con propósito', desc: 'Microinteracciones, transiciones y feedback que refuerzan la narrativa del producto. GSAP, Framer Motion y WebGL.' },
+  { label: 'Creative Technology', title: 'Instalaciones interactivas', desc: 'Entornos audiovisuales y proyecciones para espacios culturales. Donde la tecnología desaparece y queda la experiencia.' },
+  { label: 'Fine Arts', title: 'Base conceptual y visual', desc: 'Bellas Artes en la Universidad de Barcelona. La sensibilidad estética y el pensamiento crítico que informa cada decisión técnica.' },
 ]
 
 function ArtisticItem({ item, index }) {
@@ -195,20 +195,20 @@ export default function Artistic() {
       <div className="relative z-10 px-6 md:px-12 lg:px-16 xl:px-24 py-24 md:py-32 lg:py-40">
         <div ref={titleRef} className="mb-16 md:mb-20">
           <p className="font-mono text-[12px] tracking-[0.18em] uppercase mb-4 md:mb-6 opacity-0" style={{ color: '#0E4A35' }}>
-            04 / 05 · Arte & Código
+            04 / 05 · Creative Technology
           </p>
           <h2 className="font-sans text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-semibold leading-[0.9] opacity-0" style={{ color: '#14140F' }}>
-            Donde el código
+            Donde la técnica
             <br />
-            <em className="not-italic" style={{ color: '#0E4A35' }}>se vuelve imagen</em>
+            <em className="not-italic" style={{ color: '#0E4A35' }}>genera experiencia</em>
           </h2>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-start max-w-[1400px]">
           <div ref={textRef} className="lg:sticky lg:top-32 opacity-0">
             <p className="font-sans text-base md:text-lg mb-10 leading-relaxed" style={{ color: '#3A3A33' }}>
-              La formación en <span className="font-medium" style={{ color: '#14140F' }}>Bellas Artes</span> nunca ha estado separada de la práctica técnica.
-              El código generativo y las instalaciones interactivas son extensiones naturales de ese lenguaje visual.
+              La formación en <span className="font-medium" style={{ color: '#14140F' }}>Bellas Artes</span> no es un antecedente al trabajo técnico — es parte de él.
+              El código generativo, el motion y las instalaciones son el mismo lenguaje visual con otras herramientas.
             </p>
             <div ref={canvasRef} className="relative overflow-hidden opacity-0">
               <ArtCanvas />

@@ -16,8 +16,9 @@ export default {
         paper: '#FBF9F2',
       },
       fontFamily: {
-        sans: ['Inter', 'system-ui', 'sans-serif'],
+        sans: ['DM Sans', 'system-ui', 'sans-serif'],
         mono: ['JetBrains Mono', 'monospace'],
+        serif: ['DM Serif Display', 'Georgia', 'serif'],
       },
       letterSpacing: {
         'ultra': '0.25em',

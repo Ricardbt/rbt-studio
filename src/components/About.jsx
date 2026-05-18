@@ -34,7 +34,7 @@ export default function About() {
   }, [])
 
   return (
-    <section ref={sectionRef} style={{ backgroundColor: '#F8F5EC' }}>
+    <section ref={sectionRef} className="relative" style={{ backgroundColor: '#F8F5EC' }}>
       {/* Grid Pattern */}
       <div
         className="absolute inset-0 opacity-[0.02] pointer-events-none"
@@ -51,13 +51,13 @@ export default function About() {
             className="opacity-0"
           >
             <div className="font-mono text-[10px] tracking-[0.2em] uppercase mb-4 md:mb-6" style={{ color: '#6E6E64' }}>
-              Formación
+              Origen
             </div>
             <h3 className="font-sans text-2xl md:text-3xl font-semibold mb-3" style={{ color: '#14140F' }}>
-              Bellas Artes
+              Fine Arts → Frontend
             </h3>
             <p className="font-sans text-sm md:text-base leading-relaxed" style={{ color: '#3A3A33' }}>
-              Imagen & Diseño · Universidad de Barcelona. Base conceptual y visual que impregna cada proyecto técnico.
+              Bellas Artes en la Universidad de Barcelona. La sensibilidad visual y el pensamiento conceptual son la base de cada decisión técnica.
             </p>
           </div>
 
@@ -66,13 +66,13 @@ export default function About() {
             className="opacity-0"
           >
             <div className="font-mono text-[10px] tracking-[0.2em] uppercase mb-4 md:mb-6" style={{ color: '#6E6E64' }}>
-              Experiencia
+              Perfil diferencial
             </div>
             <h3 className="font-sans text-2xl md:text-3xl font-semibold mb-3" style={{ color: '#14140F' }}>
-              10+ años
+              Product + UX + AI
             </h3>
             <p className="font-sans text-sm md:text-base leading-relaxed" style={{ color: '#3A3A33' }}>
-              De la Universidad de Barcelona a proyectos propios. Startups, agencias e instituciones.
+              10+ años traduciendo complejidad técnica en experiencias utilizables. Startups, agencias y productos propios. Criterio, no solo código.
             </p>
           </div>
 
@@ -81,13 +81,13 @@ export default function About() {
             className="opacity-0"
           >
             <div className="font-mono text-[10px] tracking-[0.2em] uppercase mb-4 md:mb-6" style={{ color: '#6E6E64' }}>
-              Ubicación
+              Disponibilidad
             </div>
             <h3 className="font-sans text-2xl md:text-3xl font-semibold mb-3" style={{ color: '#14140F' }}>
-              Barcelona
+              Barcelona · Global
             </h3>
             <p className="font-sans text-sm md:text-base leading-relaxed" style={{ color: '#3A3A33' }}>
-              Disponible globalmente en remoto. Español, Catalán, Inglés (B2).
+              Disponible en remoto globalmente. Español, Catalán, Inglés (B2). Abierto a proyectos de producto, agencias y equipos de diseño.
             </p>
           </div>
         </div>

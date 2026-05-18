@@ -1,6 +1,7 @@
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import Marquee from './components/Marquee'
+import Statement from './components/Statement'
 import Services from './components/Services'
 import Generativos from './components/Generativos'
 import ProjectGallery from './components/ProjectGallery'
@@ -17,6 +18,7 @@ export default function App() {
       <main>
         <Hero />
         <Marquee />
+        <Statement />
         <Services />
         <ProjectGallery />
         <Artistic />
