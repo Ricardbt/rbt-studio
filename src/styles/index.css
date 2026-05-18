@@ -461,6 +461,41 @@ img, svg { display: block; max-width: 100%; }
   z-index: 0;
 }
 
+/* =========================================================
+   FORM ELEMENTS — aligned with design system
+   ========================================================= */
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.field label {
+  font-family: var(--font-mono);
+  font-size: var(--t-label);
+  letter-spacing: var(--tr-label);
+  text-transform: uppercase;
+  color: var(--rbt-ink-mute);
+}
+
+.input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1.5px solid var(--rbt-ink-line);
+  background: var(--rbt-paper);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  color: var(--rbt-ink);
+  border-radius: 0;
+  transition: border-color var(--dur-quick) var(--ease-snap);
+  outline: none;
+}
+
+.input:hover { border-color: var(--rbt-ink-mute); }
+.input:focus { border-color: var(--rbt-green); }
+.input::placeholder { color: var(--rbt-ink-mute); }
+
 /* Utility: text balance */
 @layer utilities {
   .text-balance {

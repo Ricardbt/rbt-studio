@@ -1,9 +1,11 @@
 export default function Footer() {
   return (
-    <footer className="font-mono text-[12px] tracking-[0.1em] uppercase" style={{ backgroundColor: '#F2EFE6', borderTop: '1px solid #C9C5B6', padding: '32px', color: '#6E6E64' }}>
-      <div className="max-w-[1600px] mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
-        <span>© 2025 RBT Studio</span>
-        <span>Barcelona · Spain</span>
+    <footer style={{ backgroundColor: '#F2EFE6', borderTop: '1px solid #C9C5B6' }}>
+      <div className="w-full mx-auto px-4 sm:px-8 lg:px-16 py-8 flex flex-col md:flex-row justify-between items-center gap-4" style={{ maxWidth: '1600px' }}>
+        <span className="rbt-mark">RBT.</span>
+        <span className="font-mono text-[11px] tracking-[0.1em] uppercase" style={{ color: '#6E6E64' }}>
+          © 2025 · Barcelona · Spain
+        </span>
       </div>
     </footer>
   )

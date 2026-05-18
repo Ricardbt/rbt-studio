@@ -112,78 +112,28 @@ export default function Contact() {
           </div>
 
           {/* Right: Cream paper background with form */}
-          <div className="p-6 md:p-10" style={{ backgroundColor: '#FBF9F2', color: '#14140F', display: 'flex', flexDirection: 'column', gap: '24px' }}>
-            <div>
-              <label className="font-mono text-[11px] tracking-[0.1em] uppercase text-[#6E6E64] block" style={{ marginBottom: '4px' }}>
-                Nombre
-              </label>
-              <input
-                type="text"
-                placeholder="Tu nombre"
-                style={{
-                  width: '100%',
-                  padding: '12px 0',
-                  border: 'none',
-                  borderBottom: '1.5px solid #C9C5B6',
-                  background: 'transparent',
-                  fontFamily: "'Inter', sans-serif",
-                  fontSize: '16px',
-                  color: '#14140F',
-                }}
-                onFocus={(e) => (e.target.style.borderBottomColor = '#0E4A35')}
-                onBlur={(e) => (e.target.style.borderBottomColor = '#C9C5B6')}
-              />
+          <div className="p-6 md:p-10" style={{ backgroundColor: '#FBF9F2', color: '#14140F', display: 'flex', flexDirection: 'column', gap: '20px' }}>
+            <div className="field">
+              <label>Nombre</label>
+              <input className="input" type="text" placeholder="Tu nombre" />
             </div>
 
-            <div>
-              <label className="font-mono text-[11px] tracking-[0.1em] uppercase text-[#6E6E64] block" style={{ marginBottom: '4px' }}>
-                Email
-              </label>
-              <input
-                type="email"
-                placeholder="tu@email.com"
-                style={{
-                  width: '100%',
-                  padding: '12px 0',
-                  border: 'none',
-                  borderBottom: '1.5px solid #C9C5B6',
-                  background: 'transparent',
-                  fontFamily: "'Inter', sans-serif",
-                  fontSize: '16px',
-                  color: '#14140F',
-                }}
-                onFocus={(e) => (e.target.style.borderBottomColor = '#0E4A35')}
-                onBlur={(e) => (e.target.style.borderBottomColor = '#C9C5B6')}
-              />
+            <div className="field">
+              <label>Email</label>
+              <input className="input" type="email" placeholder="tu@email.com" />
             </div>
 
-            <div>
-              <label className="font-mono text-[11px] tracking-[0.1em] uppercase text-[#6E6E64] block" style={{ marginBottom: '4px' }}>
-                Mensaje
-              </label>
+            <div className="field">
+              <label>Mensaje</label>
               <textarea
+                className="input"
                 placeholder="Cuéntanos sobre tu proyecto..."
                 rows={4}
-                style={{
-                  width: '100%',
-                  padding: '12px 0',
-                  border: 'none',
-                  borderBottom: '1.5px solid #C9C5B6',
-                  background: 'transparent',
-                  fontFamily: "'Inter', sans-serif",
-                  fontSize: '16px',
-                  color: '#14140F',
-                  resize: 'none',
-                }}
-                onFocus={(e) => (e.target.style.borderBottomColor = '#0E4A35')}
-                onBlur={(e) => (e.target.style.borderBottomColor = '#C9C5B6')}
+                style={{ resize: 'none' }}
               />
             </div>
 
-            <button
-              className="btn btn--lg"
-              style={{ marginTop: '16px' }}
-            >
+            <button className="btn btn--lg" style={{ marginTop: '8px' }}>
               Enviar
             </button>
           </div>
