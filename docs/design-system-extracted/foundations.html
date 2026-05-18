@@ -1,0 +1,635 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>RBT Studio · Foundations</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="tokens.css">
+<style>
+  /* Page-specific */
+  .hero {
+    position: relative;
+    border-bottom: var(--hairline-d);
+    overflow: hidden;
+    padding: var(--s-9) 0 var(--s-9);
+  }
+  .hero__inner { position: relative; z-index: 1; max-width: var(--container); margin: 0 auto; padding: 0 var(--s-5); }
+  .hero__eyebrow { display: flex; align-items: center; gap: var(--s-3); margin-bottom: var(--s-7); }
+  .hero__eyebrow .dot { width: 8px; height: 8px; background: var(--rbt-green); }
+  .hero h1 { font-size: var(--t-mega); line-height: 0.92; font-weight: 800; letter-spacing: -0.04em; }
+  .hero h1 em { font-family: var(--font-slab); font-style: normal; font-weight: 800; color: var(--rbt-green); }
+  .hero__sub { margin-top: var(--s-6); max-width: 640px; font-size: 19px; line-height: 1.5; color: var(--rbt-ink-soft); }
+  .hero__meta { margin-top: var(--s-7); display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--s-5); padding-top: var(--s-5); border-top: var(--hairline); }
+  .hero__meta dt { font-family: var(--font-mono); font-size: 11px; color: var(--rbt-ink-mute); letter-spacing: var(--tr-label); text-transform: uppercase; margin-bottom: 6px; }
+  .hero__meta dd { font-family: var(--font-sans); font-size: 14px; color: var(--rbt-ink); margin: 0; }
+
+  /* Color */
+  .swatch { display: flex; flex-direction: column; min-height: 200px; border: var(--hairline); }
+  .swatch__pad { flex: 1; padding: var(--s-5); display: flex; align-items: flex-start; justify-content: space-between; }
+  .swatch__pad .name { font-family: var(--font-mono); font-size: 13px; font-weight: 600; }
+  .swatch__pad .num  { font-family: var(--font-mono); font-size: 11px; opacity: 0.7; }
+  .swatch__meta { background: var(--rbt-paper); padding: 12px var(--s-4); border-top: var(--hairline); display: flex; justify-content: space-between; align-items: center; font-family: var(--font-mono); font-size: 11px; color: var(--rbt-ink-mute); }
+
+  .color-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--s-3); }
+  .color-grid--accents { grid-template-columns: repeat(3, 1fr); }
+  @media (max-width: 800px) { .color-grid { grid-template-columns: repeat(2,1fr); } }
+
+  /* Type */
+  .type-spec { display: grid; grid-template-columns: 180px 1fr 280px; gap: var(--s-5); align-items: baseline; padding: var(--s-5) 0; border-top: var(--hairline); }
+  .type-spec:first-of-type { border-top: 0; }
+  .type-spec__label { font-family: var(--font-mono); font-size: 12px; color: var(--rbt-ink-mute); letter-spacing: 0.05em; }
+  .type-spec__sample { color: var(--rbt-ink); }
+  .type-spec__meta { font-family: var(--font-mono); font-size: 12px; color: var(--rbt-ink-mute); display: flex; flex-direction: column; gap: 4px; text-align: right; }
+  .type-spec__meta b { color: var(--rbt-ink); font-weight: 600; }
+
+  /* Spacing scale */
+  .spacing-row { display: grid; grid-template-columns: 80px 80px 1fr; align-items: center; gap: var(--s-4); padding: var(--s-3) 0; border-top: var(--hairline); }
+  .spacing-row:first-of-type { border-top: 0; }
+  .spacing-row code { font-family: var(--font-mono); font-size: 12px; color: var(--rbt-green); }
+  .spacing-row .px { font-family: var(--font-mono); font-size: 12px; color: var(--rbt-ink-mute); }
+  .spacing-row .bar { height: 14px; background: var(--rbt-green); }
+
+  /* Motion */
+  .motion-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--s-3); }
+  .motion-card { background: var(--rbt-paper); border: var(--hairline); padding: var(--s-4); cursor: pointer; }
+  .motion-card .name { font-family: var(--font-mono); font-size: 12px; color: var(--rbt-green); margin-bottom: var(--s-3); letter-spacing: 0.05em; }
+  .motion-card .stage { height: 60px; position: relative; background: var(--rbt-cream); border: 1px dashed var(--rbt-ink-line); margin-bottom: var(--s-2); overflow: hidden; }
+  .motion-card .ball { position: absolute; top: 50%; left: 8px; width: 14px; height: 14px; background: var(--rbt-green); transform: translateY(-50%); }
+  .motion-card.run .ball { animation: slide var(--motion-dur, 600ms) var(--motion-ease, ease) infinite alternate; }
+  .motion-card .desc { font-family: var(--font-mono); font-size: 11px; color: var(--rbt-ink-mute); }
+  @keyframes slide { from { left: 8px; } to { left: calc(100% - 22px); } }
+
+  /* Voice */
+  .voice-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-1); background: var(--rbt-ink-line); border: var(--hairline); }
+  .voice-grid > div { padding: var(--s-5); background: var(--rbt-paper); }
+  .voice-grid .yes { background: var(--rbt-green-mist); }
+  .voice-grid .label { font-family: var(--font-mono); font-size: 11px; letter-spacing: var(--tr-label); text-transform: uppercase; color: var(--rbt-green); margin-bottom: var(--s-3); display: flex; align-items: center; gap: 8px; }
+  .voice-grid .no .label { color: var(--rbt-alert); }
+  .voice-grid p { font-size: 15px; line-height: 1.5; }
+  .voice-grid p + p { margin-top: var(--s-3); }
+  .voice-grid .no p { color: var(--rbt-ink-mute); text-decoration: line-through; text-decoration-color: var(--rbt-ink-line); }
+
+  /* Logo lockups */
+  .logo-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--s-3); }
+  .logo-cell { aspect-ratio: 1.2/1; border: var(--hairline); display: grid; place-items: center; position: relative; }
+  .logo-cell__label { position: absolute; bottom: 10px; left: 12px; font-family: var(--font-mono); font-size: 10px; color: var(--rbt-ink-mute); letter-spacing: 0.05em; }
+  .logo-cell--cream { background: var(--rbt-cream); }
+  .logo-cell--green { background: var(--rbt-green); color: var(--rbt-cream); }
+  .logo-cell--ink   { background: var(--rbt-ink);   color: var(--rbt-cream); }
+  .logo-cell--paper { background: var(--rbt-paper); }
+  .logo-cell .rbt-mark--lg { font-size: 56px; }
+  .logo-cell--green .rbt-mark, .logo-cell--ink .rbt-mark { color: inherit; }
+
+  /* Grid system viz */
+  .grid-viz { position: relative; height: 220px; border: var(--hairline); background: var(--rbt-paper);
+    background-image:
+      linear-gradient(to right, var(--rbt-green-mist) 1px, transparent 1px);
+    background-size: calc(100%/12) 100%;
+  }
+  .grid-viz::after {
+    content: ''; position: absolute; inset: 0;
+    background-image: repeating-linear-gradient(to bottom, transparent 0 7px, var(--rbt-green-haze) 7px 8px);
+    opacity: 0.4;
+  }
+
+  @media (max-width: 800px) {
+    .hero__meta { grid-template-columns: repeat(2,1fr); }
+    .type-spec { grid-template-columns: 1fr; }
+    .type-spec__meta { text-align: left; flex-direction: row; gap: var(--s-4); flex-wrap: wrap; }
+    .motion-grid, .logo-grid { grid-template-columns: repeat(2,1fr); }
+    .voice-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- =========================================================
+     HEADER
+     ========================================================= -->
+<header class="doc-header">
+  <div class="crumbs">
+    <span class="rbt-mark">RBT.</span>
+    <span>·</span>
+    <span>Design System</span>
+    <span>·</span>
+    <span class="now">Foundations</span>
+  </div>
+  <nav>
+    <a href="index.html">Index</a>
+    <a href="foundations.html" class="active">Foundations</a>
+    <a href="components.html">Components</a>
+    <a href="iconography.html">Iconography</a>
+    <a href="preview-marketing.html">Web</a>
+    <a href="preview-dashboard.html">App</a>
+    <a href="preview-deck.html">Deck</a>
+  </nav>
+</header>
+
+<main class="doc">
+
+<!-- =========================================================
+     HERO
+     ========================================================= -->
+<section class="hero">
+  <svg class="lineart" viewBox="0 0 1440 700" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <defs>
+      <pattern id="dots" width="22" height="22" patternUnits="userSpaceOnUse">
+        <circle cx="11" cy="11" r="0.6" fill="#0E4A35" opacity="0.18"/>
+      </pattern>
+    </defs>
+    <rect width="100%" height="100%" fill="url(#dots)"/>
+    <!-- generative drawing -->
+    <g stroke="#0E4A35" stroke-width="1" fill="none" opacity="0.5">
+      <circle cx="1180" cy="180" r="120"/>
+      <circle cx="1180" cy="180" r="80"/>
+      <circle cx="1180" cy="180" r="40"/>
+      <polygon points="1280,420 1340,455 1340,525 1280,560 1220,525 1220,455"/>
+      <polygon points="1080,500 1130,470 1180,500 1180,560 1130,590 1080,560"/>
+      <path d="M 1100 200 L 1180 180 L 1240 280 L 1340 230"/>
+      <path d="M 1280 420 L 1180 500"/>
+      <line x1="900" y1="100" x2="1080" y2="180"/>
+      <line x1="900" y1="600" x2="1080" y2="500"/>
+      <!-- sparks -->
+      <g fill="#0E4A35" opacity="0.6">
+        <path d="M1000 250 l4 -16 l4 16 l16 4 l-16 4 l-4 16 l-4 -16 l-16 -4 z"/>
+        <path d="M1300 350 l3 -12 l3 12 l12 3 l-12 3 l-3 12 l-3 -12 l-12 -3 z"/>
+        <path d="M1080 600 l3 -10 l3 10 l10 3 l-10 3 l-3 10 l-3 -10 l-10 -3 z"/>
+      </g>
+    </g>
+  </svg>
+
+  <div class="hero__inner">
+    <div class="hero__eyebrow">
+      <span class="dot"></span>
+      <span class="t-label muted">Digital Studio · Barcelona · 2025</span>
+    </div>
+
+    <h1>
+      Foundations<br>
+      of <em>RBT.</em>
+    </h1>
+    <p class="hero__sub">
+      Tokens, type, color, motion and voice. The atomic layer of every surface we build —
+      from production web apps to interactive installations.
+    </p>
+
+    <dl class="hero__meta">
+      <div><dt>System</dt><dd>v1.0 · May 2026</dd></div>
+      <div><dt>Owner</dt><dd>RBT Studio</dd></div>
+      <div><dt>Surfaces</dt><dd>Web · Dashboard · Deck</dd></div>
+      <div><dt>Status</dt><dd><span class="brand">●</span> Production</dd></div>
+    </dl>
+  </div>
+</section>
+
+<div class="doc-wrap">
+
+<!-- =========================================================
+     01 — PRINCIPLES
+     ========================================================= -->
+<section class="section-open">
+  <div class="section-open__num">01</div>
+  <div>
+    <h2 class="t-display">Principles</h2>
+    <p class="section-open__sub">// Five rules. Test every decision against them.</p>
+  </div>
+</section>
+
+<div style="display:grid; grid-template-columns: repeat(5, 1fr); gap: 1px; background: var(--rbt-ink-line); border: var(--hairline); margin-top: var(--s-6);">
+  <div style="background: var(--rbt-paper); padding: var(--s-6); display:flex; flex-direction:column; gap: var(--s-3); min-height: 240px;">
+    <span class="t-num brand">01 / 05</span>
+    <h3 class="t-h3" style="margin-top: var(--s-3);">Engineered, not decorated</h3>
+    <p class="t-small soft">Every element earns its place. If it has no function, remove it. Precision is the aesthetic.</p>
+  </div>
+  <div style="background: var(--rbt-paper); padding: var(--s-6); display:flex; flex-direction:column; gap: var(--s-3);">
+    <span class="t-num brand">02 / 05</span>
+    <h3 class="t-h3" style="margin-top: var(--s-3);">Two colors are enough</h3>
+    <p class="t-small soft">Forest green on cream. Restraint signals confidence. Functional accents only when meaning demands it.</p>
+  </div>
+  <div style="background: var(--rbt-paper); padding: var(--s-6); display:flex; flex-direction:column; gap: var(--s-3);">
+    <span class="t-num brand">03 / 05</span>
+    <h3 class="t-h3" style="margin-top: var(--s-3);">Sharp by default</h3>
+    <p class="t-small soft">Zero radius. Hairline borders. Editorial numbering. Round shapes are reserved for tags and the generative motif.</p>
+  </div>
+  <div style="background: var(--rbt-paper); padding: var(--s-6); display:flex; flex-direction:column; gap: var(--s-3);">
+    <span class="t-num brand">04 / 05</span>
+    <h3 class="t-h3" style="margin-top: var(--s-3);">Code is image</h3>
+    <p class="t-small soft">Generative line-art accompanies hero moments. The system speaks fluent both technical and artistic.</p>
+  </div>
+  <div style="background: var(--rbt-paper); padding: var(--s-6); display:flex; flex-direction:column; gap: var(--s-3);">
+    <span class="t-num brand">05 / 05</span>
+    <h3 class="t-h3" style="margin-top: var(--s-3);">Snappy motion</h3>
+    <p class="t-small soft">Confident, short, easy out. 180–240ms. Never bouncy, never sluggish. The interface responds before you blink.</p>
+  </div>
+</div>
+
+<!-- =========================================================
+     02 — COLOR
+     ========================================================= -->
+<section class="section-open">
+  <div class="section-open__num">02</div>
+  <div>
+    <h2 class="t-display">Color</h2>
+    <p class="section-open__sub">// Two-color brand. Forest green on warm cream. Functional accents reserved for system meaning.</p>
+  </div>
+</section>
+
+<h3 class="t-label muted" style="margin: var(--s-7) 0 var(--s-4);">Primary pair</h3>
+<div class="color-grid" style="grid-template-columns: 1fr 1fr;">
+  <div class="swatch" style="min-height: 280px;">
+    <div class="swatch__pad" style="background: var(--rbt-green); color: var(--rbt-cream);">
+      <span class="name">RBT Green</span>
+      <span class="num">PRIMARY</span>
+    </div>
+    <div class="swatch__meta"><span>#0E4A35</span><span>oklch(0.36 0.07 159)</span></div>
+  </div>
+  <div class="swatch" style="min-height: 280px;">
+    <div class="swatch__pad" style="background: var(--rbt-cream); color: var(--rbt-ink);">
+      <span class="name">RBT Cream</span>
+      <span class="num">SURFACE</span>
+    </div>
+    <div class="swatch__meta"><span>#F2EFE6</span><span>oklch(0.95 0.01 90)</span></div>
+  </div>
+</div>
+
+<h3 class="t-label muted" style="margin: var(--s-7) 0 var(--s-4);">Surface tints</h3>
+<div class="color-grid">
+  <div class="swatch">
+    <div class="swatch__pad" style="background: var(--rbt-paper); color: var(--rbt-ink);">
+      <span class="name">Paper</span><span class="num">--rbt-paper</span>
+    </div>
+    <div class="swatch__meta"><span>#FBF9F2</span><span>raised surface</span></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch__pad" style="background: var(--rbt-cream-soft); color: var(--rbt-ink);">
+      <span class="name">Cream Soft</span><span class="num">--rbt-cream-soft</span>
+    </div>
+    <div class="swatch__meta"><span>#F8F5EC</span><span>card</span></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch__pad" style="background: var(--rbt-cream-deep); color: var(--rbt-ink);">
+      <span class="name">Cream Deep</span><span class="num">--rbt-cream-deep</span>
+    </div>
+    <div class="swatch__meta"><span>#E8E3D5</span><span>divider</span></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch__pad" style="background: var(--rbt-green-mist); color: var(--rbt-ink);">
+      <span class="name">Green Mist</span><span class="num">--rbt-green-mist</span>
+    </div>
+    <div class="swatch__meta"><span>#E4ECE7</span><span>tint</span></div>
+  </div>
+</div>
+
+<h3 class="t-label muted" style="margin: var(--s-7) 0 var(--s-4);">Ink (text)</h3>
+<div class="color-grid">
+  <div class="swatch">
+    <div class="swatch__pad" style="background: var(--rbt-ink); color: var(--rbt-cream);">
+      <span class="name">Ink</span><span class="num">body</span>
+    </div>
+    <div class="swatch__meta"><span>#14140F</span><span>--rbt-ink</span></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch__pad" style="background: var(--rbt-ink-soft); color: var(--rbt-cream);">
+      <span class="name">Ink Soft</span><span class="num">secondary</span>
+    </div>
+    <div class="swatch__meta"><span>#3A3A33</span><span>--rbt-ink-soft</span></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch__pad" style="background: var(--rbt-ink-mute); color: var(--rbt-cream);">
+      <span class="name">Ink Mute</span><span class="num">tertiary</span>
+    </div>
+    <div class="swatch__meta"><span>#6E6E64</span><span>--rbt-ink-mute</span></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch__pad" style="background: var(--rbt-ink-line); color: var(--rbt-ink);">
+      <span class="name">Ink Line</span><span class="num">hairline</span>
+    </div>
+    <div class="swatch__meta"><span>#C9C5B6</span><span>--rbt-ink-line</span></div>
+  </div>
+</div>
+
+<h3 class="t-label muted" style="margin: var(--s-7) 0 var(--s-4);">Functional accents · use sparingly</h3>
+<div class="color-grid color-grid--accents">
+  <div class="swatch">
+    <div class="swatch__pad" style="background: var(--rbt-warn); color: var(--rbt-cream);">
+      <span class="name">Warn</span><span class="num">terracotta</span>
+    </div>
+    <div class="swatch__meta"><span>#B8651A</span><span>--rbt-warn</span></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch__pad" style="background: var(--rbt-alert); color: var(--rbt-cream);">
+      <span class="name">Alert</span><span class="num">destructive</span>
+    </div>
+    <div class="swatch__meta"><span>#8E2B1E</span><span>--rbt-alert</span></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch__pad" style="background: var(--rbt-ok); color: var(--rbt-cream);">
+      <span class="name">OK</span><span class="num">success = green</span>
+    </div>
+    <div class="swatch__meta"><span>#0E4A35</span><span>--rbt-ok</span></div>
+  </div>
+</div>
+
+<!-- =========================================================
+     03 — TYPE
+     ========================================================= -->
+<section class="section-open">
+  <div class="section-open__num">03</div>
+  <div>
+    <h2 class="t-display">Type</h2>
+    <p class="section-open__sub">// Three families. Inter for everything, Roboto Slab for the wordmark, JetBrains Mono for technical labels.</p>
+  </div>
+</section>
+
+<div class="frame frame--soft" style="margin-top: var(--s-6); padding: var(--s-7);">
+  <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--s-1); background: var(--rbt-ink-line); margin-bottom: var(--s-7);">
+    <div style="background: var(--rbt-cream-soft); padding: var(--s-5); min-height: 180px; display: flex; flex-direction: column; justify-content: space-between;">
+      <span class="t-label muted">Display & UI</span>
+      <div>
+        <div style="font-family: var(--font-sans); font-weight: 800; font-size: 56px; line-height: 1; letter-spacing: -0.03em;">Inter</div>
+        <p class="t-small muted" style="margin-top: 8px;">Variable · 400—900 · Used everywhere</p>
+      </div>
+    </div>
+    <div style="background: var(--rbt-cream-soft); padding: var(--s-5); min-height: 180px; display: flex; flex-direction: column; justify-content: space-between;">
+      <span class="t-label muted">Wordmark & accent</span>
+      <div>
+        <div style="font-family: var(--font-slab); font-weight: 800; font-size: 56px; line-height: 1; letter-spacing: -0.02em; color: var(--rbt-green);">Roboto Slab</div>
+        <p class="t-small muted" style="margin-top: 8px;">800 · Wordmark, hero accents only</p>
+      </div>
+    </div>
+    <div style="background: var(--rbt-cream-soft); padding: var(--s-5); min-height: 180px; display: flex; flex-direction: column; justify-content: space-between;">
+      <span class="t-label muted">Code & labels</span>
+      <div>
+        <div style="font-family: var(--font-mono); font-weight: 500; font-size: 40px; line-height: 1;">JetBrains Mono</div>
+        <p class="t-small muted" style="margin-top: 8px;">400/500/600 · Numbers, labels, code</p>
+      </div>
+    </div>
+  </div>
+
+  <h3 class="t-label muted" style="margin-bottom: var(--s-4);">Display ramp</h3>
+  <div>
+    <div class="type-spec">
+      <span class="type-spec__label">t-mega</span>
+      <span class="type-spec__sample" style="font-family: var(--font-sans); font-weight: 800; font-size: 96px; line-height: 0.95; letter-spacing: -0.04em;">RBT Studio</span>
+      <span class="type-spec__meta"><b>Inter 800</b><span>96/0.95 · -0.04em</span><span>hero only</span></span>
+    </div>
+    <div class="type-spec">
+      <span class="type-spec__label">t-display</span>
+      <span class="type-spec__sample" style="font-family: var(--font-sans); font-weight: 800; font-size: 64px; line-height: 1; letter-spacing: -0.02em;">Donde el código se vuelve imagen.</span>
+      <span class="type-spec__meta"><b>Inter 800</b><span>64/1.0 · -0.02em</span><span>section openers</span></span>
+    </div>
+    <div class="type-spec">
+      <span class="type-spec__label">t-h1</span>
+      <span class="type-spec__sample" style="font-family: var(--font-sans); font-weight: 800; font-size: 48px; line-height: 1.05; letter-spacing: -0.02em;">Lo que creamos para ti.</span>
+      <span class="type-spec__meta"><b>Inter 800</b><span>48/1.05</span><span>page heads</span></span>
+    </div>
+    <div class="type-spec">
+      <span class="type-spec__label">t-h2</span>
+      <span class="type-spec__sample" style="font-family: var(--font-sans); font-weight: 700; font-size: 32px; line-height: 1.15;">Web Development</span>
+      <span class="type-spec__meta"><b>Inter 700</b><span>32/1.15</span><span>section subheads</span></span>
+    </div>
+    <div class="type-spec">
+      <span class="type-spec__label">t-h3</span>
+      <span class="type-spec__sample" style="font-family: var(--font-sans); font-weight: 700; font-size: 22px; line-height: 1.2;">Aplicaciones web de producción</span>
+      <span class="type-spec__meta"><b>Inter 700</b><span>22/1.2</span><span>card titles</span></span>
+    </div>
+    <div class="type-spec">
+      <span class="type-spec__label">t-body</span>
+      <span class="type-spec__sample" style="font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 1.55;">Aplicaciones web de producción con React, Next.js y arquitecturas headless. Desde MVPs hasta plataformas escalables.</span>
+      <span class="type-spec__meta"><b>Inter 400</b><span>16/1.55</span><span>body copy</span></span>
+    </div>
+    <div class="type-spec">
+      <span class="type-spec__label">t-mono</span>
+      <span class="type-spec__sample" style="font-family: var(--font-mono); font-weight: 500; font-size: 14px;"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="e1828e8f95808295a1938395cc92959485888ecf828e8c">[email&#160;protected]</a> / 41.3851° N · 2.1734° E</span>
+      <span class="type-spec__meta"><b>JetBrains 500</b><span>14/1.55</span><span>code, coords, ids</span></span>
+    </div>
+    <div class="type-spec">
+      <span class="type-spec__label">t-label</span>
+      <span class="type-spec__sample" style="font-family: var(--font-sans); font-weight: 600; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--rbt-green);">Digital Studio · Barcelona · 2025</span>
+      <span class="type-spec__meta"><b>Inter 600</b><span>11 · +0.18em</span><span>tracked caps eyebrow</span></span>
+    </div>
+    <div class="type-spec">
+      <span class="type-spec__label">t-num</span>
+      <span class="type-spec__sample" style="font-family: var(--font-mono); font-weight: 500; font-size: 11px; letter-spacing: 0.05em; color: var(--rbt-green);">01 / 06 · 02 / 06 · 03 / 06</span>
+      <span class="type-spec__meta"><b>JetBrains 500</b><span>11 · +0.05em</span><span>section numbers</span></span>
+    </div>
+  </div>
+</div>
+
+<!-- =========================================================
+     04 — SPACING & GRID
+     ========================================================= -->
+<section class="section-open">
+  <div class="section-open__num">04</div>
+  <div>
+    <h2 class="t-display">Spacing & Grid</h2>
+    <p class="section-open__sub">// 4-pixel base unit. 12-column grid. Generous gutters. Hairlines, never shadows.</p>
+  </div>
+</section>
+
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-5); margin-top: var(--s-6);">
+  <div class="frame">
+    <h3 class="t-label muted" style="margin-bottom: var(--s-4);">Spacing scale · 4px base</h3>
+    <div class="spacing-row"><code>--s-1</code><span class="px">4</span><div class="bar" style="width: 4px;"></div></div>
+    <div class="spacing-row"><code>--s-2</code><span class="px">8</span><div class="bar" style="width: 8px;"></div></div>
+    <div class="spacing-row"><code>--s-3</code><span class="px">12</span><div class="bar" style="width: 12px;"></div></div>
+    <div class="spacing-row"><code>--s-4</code><span class="px">16</span><div class="bar" style="width: 16px;"></div></div>
+    <div class="spacing-row"><code>--s-5</code><span class="px">24</span><div class="bar" style="width: 24px;"></div></div>
+    <div class="spacing-row"><code>--s-6</code><span class="px">32</span><div class="bar" style="width: 32px;"></div></div>
+    <div class="spacing-row"><code>--s-7</code><span class="px">48</span><div class="bar" style="width: 48px;"></div></div>
+    <div class="spacing-row"><code>--s-8</code><span class="px">64</span><div class="bar" style="width: 64px;"></div></div>
+    <div class="spacing-row"><code>--s-9</code><span class="px">96</span><div class="bar" style="width: 96px;"></div></div>
+    <div class="spacing-row"><code>--s-10</code><span class="px">128</span><div class="bar" style="width: 128px;"></div></div>
+  </div>
+
+  <div class="frame">
+    <h3 class="t-label muted" style="margin-bottom: var(--s-4);">12-column grid</h3>
+    <div class="grid-viz"></div>
+    <dl style="margin-top: var(--s-5); display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-4); font-family: var(--font-mono); font-size: 12px;">
+      <div><dt class="t-label muted" style="margin-bottom:4px;">Container</dt><dd style="margin:0;">1280px max</dd></div>
+      <div><dt class="t-label muted" style="margin-bottom:4px;">Columns</dt><dd style="margin:0;">12 · fluid</dd></div>
+      <div><dt class="t-label muted" style="margin-bottom:4px;">Gutter</dt><dd style="margin:0;">24px (--s-5)</dd></div>
+      <div><dt class="t-label muted" style="margin-bottom:4px;">Margin</dt><dd style="margin:0;">24px (mobile) → 64px</dd></div>
+    </dl>
+    <div style="margin-top: var(--s-5); padding-top: var(--s-5); border-top: var(--hairline);">
+      <h4 class="t-label muted" style="margin-bottom: var(--s-3);">Geometry rules</h4>
+      <ul style="list-style: none; padding: 0; margin: 0; font-size: 13px; color: var(--rbt-ink-soft); line-height: 1.6;">
+        <li>→ Border-radius is <b>0px</b> for everything except tags & status pills.</li>
+        <li>→ Use 1px hairlines, never drop shadows.</li>
+        <li>→ Dividers are full-bleed when separating major sections.</li>
+        <li>→ Section openers always carry a <span class="t-num brand">01</span>-style number.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- =========================================================
+     05 — MOTION
+     ========================================================= -->
+<section class="section-open">
+  <div class="section-open__num">05</div>
+  <div>
+    <h2 class="t-display">Motion</h2>
+    <p class="section-open__sub">// Snappy, confident, restrained. Motion communicates response — never decorates.</p>
+  </div>
+</section>
+
+<div class="motion-grid" style="margin-top: var(--s-6);">
+  <div class="motion-card run" style="--motion-dur: 100ms; --motion-ease: var(--ease-snap);">
+    <div class="name">--dur-instant</div>
+    <div class="stage"><div class="ball"></div></div>
+    <div class="desc">100ms · hover, focus rings, button press feedback</div>
+  </div>
+  <div class="motion-card run" style="--motion-dur: 180ms; --motion-ease: var(--ease-snap);">
+    <div class="name">--dur-quick</div>
+    <div class="stage"><div class="ball"></div></div>
+    <div class="desc">180ms · default UI · most state changes</div>
+  </div>
+  <div class="motion-card run" style="--motion-dur: 240ms; --motion-ease: var(--ease-snap);">
+    <div class="name">--dur-base</div>
+    <div class="stage"><div class="ball"></div></div>
+    <div class="desc">240ms · panels, drawers, accordions</div>
+  </div>
+  <div class="motion-card run" style="--motion-dur: 420ms; --motion-ease: var(--ease-out);">
+    <div class="name">--dur-slow</div>
+    <div class="stage"><div class="ball"></div></div>
+    <div class="desc">420ms · page transitions, hero reveals</div>
+  </div>
+</div>
+
+<div style="margin-top: var(--s-5); display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--s-3);">
+  <div class="frame">
+    <h4 class="t-label muted" style="margin-bottom: var(--s-3);">--ease-snap</h4>
+    <code class="t-mono brand" style="font-size: 11px;">cubic-bezier(0.2, 0.7, 0.1, 1)</code>
+    <p class="t-small soft" style="margin-top: var(--s-3);">Default. Quick exit, confident landing. The studio's signature curve.</p>
+  </div>
+  <div class="frame">
+    <h4 class="t-label muted" style="margin-bottom: var(--s-3);">--ease-out</h4>
+    <code class="t-mono brand" style="font-size: 11px;">cubic-bezier(0.16, 1, 0.3, 1)</code>
+    <p class="t-small soft" style="margin-top: var(--s-3);">Decisive arrivals. Modal opens, page transitions, hero reveals.</p>
+  </div>
+  <div class="frame">
+    <h4 class="t-label muted" style="margin-bottom: var(--s-3);">--ease-in</h4>
+    <code class="t-mono brand" style="font-size: 11px;">cubic-bezier(0.7, 0, 0.84, 0)</code>
+    <p class="t-small soft" style="margin-top: var(--s-3);">Anticipation. Dismissals and elements leaving the viewport.</p>
+  </div>
+</div>
+
+<!-- =========================================================
+     06 — VOICE
+     ========================================================= -->
+<section class="section-open">
+  <div class="section-open__num">06</div>
+  <div>
+    <h2 class="t-display">Voice</h2>
+    <p class="section-open__sub">// Bilingual (ES/EN). Direct sentences. Technical when accuracy matters; warm when humans are listening.</p>
+  </div>
+</section>
+
+<div class="voice-grid" style="margin-top: var(--s-6);">
+  <div class="yes">
+    <div class="label">✦ &nbsp; Do</div>
+    <p>"Aplicaciones web de producción. Desde MVPs hasta plataformas escalables."</p>
+    <p>"Ingeniería de precisión y sensibilidad artística."</p>
+    <p>"Proyectos que conectan el mundo físico y digital."</p>
+    <p>"Disponible globalmente en remoto. Respuesta &lt;24h."</p>
+  </div>
+  <div class="no">
+    <div class="label">× &nbsp; Don't</div>
+    <p>"We are passionate about leveraging cutting-edge solutions to disrupt..."</p>
+    <p>"🚀 Take your business to the next level! 💪"</p>
+    <p>"Innovative, world-class, best-in-breed AI synergies."</p>
+    <p>"Drop us a line and let's grab a coffee!! ☕"</p>
+  </div>
+</div>
+
+<div style="margin-top: var(--s-5); display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--s-3);">
+  <div class="frame">
+    <h4 class="t-label muted" style="margin-bottom: var(--s-2);">Specific</h4>
+    <p class="t-small soft">Name the tools, not the buzzword. <span class="brand">React, n8n, Three.js</span> — not "AI-powered solutions".</p>
+  </div>
+  <div class="frame">
+    <h4 class="t-label muted" style="margin-bottom: var(--s-2);">Bilingual</h4>
+    <p class="t-small soft">Spanish primary, English secondary. Both in production. Catalan welcomed.</p>
+  </div>
+  <div class="frame">
+    <h4 class="t-label muted" style="margin-bottom: var(--s-2);">Restraint</h4>
+    <p class="t-small soft">No exclamation marks. Maximum one emoji per page (✦). Periods do the work.</p>
+  </div>
+  <div class="frame">
+    <h4 class="t-label muted" style="margin-bottom: var(--s-2);">Numbered</h4>
+    <p class="t-small soft">Lists are <span class="t-num brand">01 / 02 / 03</span>. Editorial. Ordered. Confident.</p>
+  </div>
+</div>
+
+<!-- =========================================================
+     07 — LOGO LOCKUPS
+     ========================================================= -->
+<section class="section-open">
+  <div class="section-open__num">07</div>
+  <div>
+    <h2 class="t-display">Wordmark</h2>
+    <p class="section-open__sub">// "RBT." in Roboto Slab 800. The period is part of the mark — never omit it.</p>
+  </div>
+</section>
+
+<div class="logo-grid" style="margin-top: var(--s-6);">
+  <div class="logo-cell logo-cell--cream">
+    <span class="rbt-mark rbt-mark--lg">RBT.</span>
+    <span class="logo-cell__label">primary · cream bg</span>
+  </div>
+  <div class="logo-cell logo-cell--paper">
+    <span class="rbt-mark rbt-mark--lg">RBT.</span>
+    <span class="logo-cell__label">paper bg</span>
+  </div>
+  <div class="logo-cell logo-cell--green">
+    <span class="rbt-mark rbt-mark--lg">RBT.</span>
+    <span class="logo-cell__label">reverse · green bg</span>
+  </div>
+  <div class="logo-cell logo-cell--ink">
+    <span class="rbt-mark rbt-mark--lg">RBT.</span>
+    <span class="logo-cell__label">reverse · ink bg</span>
+  </div>
+</div>
+
+<div style="margin-top: var(--s-5); display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-3);">
+  <div class="frame">
+    <h4 class="t-label muted" style="margin-bottom: var(--s-3);">Sizing</h4>
+    <div style="display: flex; align-items: baseline; gap: var(--s-5); flex-wrap: wrap;">
+      <span class="rbt-mark" style="font-size: 56px;">RBT.</span>
+      <span class="rbt-mark" style="font-size: 32px;">RBT.</span>
+      <span class="rbt-mark" style="font-size: 22px;">RBT.</span>
+      <span class="rbt-mark" style="font-size: 16px;">RBT.</span>
+    </div>
+    <p class="t-small soft" style="margin-top: var(--s-4);">Minimum: 14px. Below that, drop the period and use the <span class="t-mono brand">●</span> dot mark.</p>
+  </div>
+  <div class="frame">
+    <h4 class="t-label muted" style="margin-bottom: var(--s-3);">Lockup variants</h4>
+    <div style="display: flex; flex-direction: column; gap: var(--s-4);">
+      <div style="display: flex; align-items: baseline; gap: var(--s-3);">
+        <span class="rbt-mark" style="font-size: 28px;">RBT.</span>
+        <span class="t-label muted">Studio</span>
+      </div>
+      <div style="display: flex; align-items: center; gap: var(--s-3);">
+        <span class="rbt-mark" style="font-size: 22px;">RBT.</span>
+        <span style="height: 18px; width: 1px; background: var(--rbt-ink-line);"></span>
+        <span class="t-mono soft" style="font-size: 12px;">Digital Studio · Barcelona</span>
+      </div>
+      <div style="display: flex; align-items: center; gap: var(--s-2);">
+        <span style="width: 10px; height: 10px; background: var(--rbt-green);"></span>
+        <span class="rbt-mark" style="font-size: 18px;">RBT.</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /doc-wrap -->
+
+<footer class="doc-foot">
+  <span>RBT. · Foundations v1.0 · 2026.05</span>
+  <span><a href="components.html" class="brand">Components →</a></span>
+</footer>
+
+</main>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script></body>
+</html>

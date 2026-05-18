@@ -147,7 +147,7 @@ export default function Services() {
                 e.currentTarget.style.backgroundColor = '#FBF9F2'
               }}
             >
-              <span className="font-mono text-[11px] tracking-[0.1em] uppercase" style={{ color: '#0E4A35' }}>
+              <span className="t-num" style={{ color: '#0E4A35' }}>
                 {service.num}
               </span>
               <div style={{ marginTop: '8px', color: '#0E4A35' }}>
