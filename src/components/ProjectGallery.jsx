@@ -116,9 +116,9 @@ export default function ProjectGallery() {
   }, [])
 
   return (
-    <section ref={sectionRef} style={{ backgroundColor: '#F2EFE6', paddingTop: '96px', paddingBottom: '96px' }}>
-      <div className="relative z-10" style={{ maxWidth: '1400px', margin: '0 auto', padding: '0 32px' }}>
-        <div ref={titleRef} style={{ marginBottom: '96px', opacity: 0 }}>
+    <section ref={sectionRef} id="projects" className="py-16 md:py-20 lg:py-24" style={{ backgroundColor: '#F2EFE6' }}>
+      <div className="relative z-10 w-full mx-auto px-4 sm:px-8 lg:px-16" style={{ maxWidth: '1400px' }}>
+        <div ref={titleRef} className="mb-12 md:mb-16 lg:mb-24" style={{ opacity: 0 }}>
           <p className="font-mono text-[12px] tracking-[0.18em] uppercase mb-6" style={{ color: '#0E4A35' }}>
             05 / 05 · Galería Visual
           </p>
@@ -201,6 +201,7 @@ export default function ProjectGallery() {
       {/* Carousel Modal */}
       {selectedProject && (
         <div
+          className="p-4 md:p-8"
           style={{
             position: 'fixed',
             inset: 0,
@@ -209,7 +210,6 @@ export default function ProjectGallery() {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            padding: '32px',
           }}
           onClick={() => setSelectedProject(null)}
         >

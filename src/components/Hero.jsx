@@ -407,20 +407,20 @@ export default function Hero() {
           {/* Description */}
           <div ref={descRef} className="space-y-2 mb-10 md:mb-12">
             <p className="font-sans text-base md:text-lg max-w-lg leading-relaxed opacity-0" style={{ color: '#3A3A33' }}>
-              Ingeniería de precisión y sensibilidad artística.
+              Designing intelligent digital experiences.
             </p>
             <p className="font-sans text-base md:text-lg max-w-lg leading-relaxed opacity-0" style={{ color: '#3A3A33' }}>
-              Desarrollo web, automatización IA, código generativo y electrónica física.
+              Frontend sofisticado, producto, UX y sistemas AI-native.
             </p>
           </div>
 
           {/* Buttons */}
           <div ref={buttonsRef} className="flex flex-wrap gap-4 md:gap-6">
             <a
-              href="#services"
+              href="#projects"
               className="btn btn--lg opacity-0"
             >
-              Servicios
+              Ver proyectos
             </a>
             <a
               href="#contact"

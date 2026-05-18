@@ -1,6 +1,7 @@
 const items = [
-  'React / Next.js', 'AI Agents', 'LLM', 'MCP', 'Three.js', 'Processing', 
-  'Arduino', 'n8n', 'Supabase', 'AWS', 'Node.js', 'Python',
+  'Experience Engineering', 'AI-native Products', 'Design Systems', 'Frontend Sofisticado',
+  'Motion & Interaction', 'Product Thinking', 'UX Sensitivity', 'Creative Technology',
+  'React / Next.js', 'TypeScript', 'GSAP', 'Three.js',
 ]
 
 export default function Marquee() {

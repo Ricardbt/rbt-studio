@@ -47,18 +47,18 @@ export default function CV() {
   }, [])
 
   return (
-    <section ref={sectionRef} style={{ backgroundColor: '#F2EFE6', paddingTop: '96px', paddingBottom: '96px' }}>
-      <div className="relative z-10" style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 32px' }}>
+    <section ref={sectionRef} className="py-16 md:py-20 lg:py-24" style={{ backgroundColor: '#F2EFE6' }}>
+      <div className="relative z-10 w-full mx-auto px-4 sm:px-8 lg:px-16" style={{ maxWidth: '1200px' }}>
         {/* Header */}
-        <div ref={headerRef} style={{ marginBottom: '96px', paddingBottom: '64px', borderBottom: '1px solid #C9C5B6' }}>
+        <div ref={headerRef} className="mb-12 md:mb-16 lg:mb-24 pb-10 md:pb-16" style={{ borderBottom: '1px solid #C9C5B6' }}>
           <p className="font-mono text-[12px] tracking-[0.18em] uppercase mb-4" style={{ color: '#0E4A35' }}>
             Curriculum Vitae
           </p>
-          <h1 className="font-sans text-5xl lg:text-6xl font-semibold leading-[0.95] mb-2" style={{ color: '#14140F' }}>
+          <h1 className="font-sans text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-semibold leading-[0.95] mb-2" style={{ color: '#14140F' }}>
             Ricard Boixeda Tamburini
           </h1>
           <p className="font-sans text-lg mb-8" style={{ color: '#6E6E64' }}>
-            Fullstack Engineer · Node.js / React / TypeScript · CI/CD & Automation · AWS
+            Experience Engineer · Frontend · Product · AI-native systems · UX
           </p>
 
           {/* Contact Info */}
@@ -71,17 +71,17 @@ export default function CV() {
         </div>
 
         {/* Professional Summary */}
-        <div className="cv-section opacity-0" style={{ marginBottom: '80px', paddingBottom: '64px', borderBottom: '1px solid #C9C5B6' }}>
+        <div className="cv-section opacity-0 mb-12 md:mb-16 pb-10 md:pb-14" style={{ borderBottom: '1px solid #C9C5B6' }}>
           <p className="font-mono text-[11px] tracking-[0.12em] uppercase mb-6" style={{ color: '#0E4A35' }}>
             Professional Summary
           </p>
           <p className="font-sans text-base leading-relaxed" style={{ color: '#3A3A33', maxWidth: '900px' }}>
-            Fullstack Engineer with 10+ years of experience building and modernising production-grade applications, with deep expertise in Node.js, React, and TypeScript across complex integration landscapes. I have designed and implemented automation pipelines, REST and GraphQL API integrations, and event-driven architectures in environments where reliability and scalability are non-negotiable. My background in AWS, CI/CD (GitHub Actions, GitLab CI), and DevOps practices means I approach every system with a "you build it, you own it" mindset — from architecture definition through deployment and ongoing maintenance.
+            Experience Engineer with 10+ years translating complex systems into clear, usable and sophisticated digital products. My background combines Fine Arts, frontend engineering, product thinking and AI-native interfaces — a profile built around understanding how things should <em>feel</em> to use, not just how they work. I design and build frontend systems where interaction, motion and UX clarity are as deliberate as the architecture behind them. Comfortable owning the full product surface: from design systems and component architecture to AI-powered interfaces and creative technology.
           </p>
         </div>
 
         {/* CV Content */}
-        <div className="cv-content" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '64px', marginBottom: '80px' }}>
+        <div className="cv-content grid grid-cols-1 lg:grid-cols-2" style={{ gap: '64px', marginBottom: '80px' }}>
           {/* Left Column */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '64px' }}>
             {/* Experiencia */}

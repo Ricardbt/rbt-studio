@@ -49,9 +49,9 @@ export default function Contact() {
   }, [])
 
   return (
-    <section ref={sectionRef} id="contact" className="relative" style={{ backgroundColor: '#F2EFE6', paddingTop: '96px', paddingBottom: '96px' }}>
-      <div className="relative z-10" style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 32px' }}>
-        <div ref={titleRef} style={{ marginBottom: '96px', opacity: 0 }}>
+    <section ref={sectionRef} id="contact" className="relative py-16 md:py-20 lg:py-24" style={{ backgroundColor: '#F2EFE6' }}>
+      <div className="relative z-10 w-full mx-auto px-4 sm:px-8 lg:px-16" style={{ maxWidth: '1280px' }}>
+        <div ref={titleRef} className="mb-12 md:mb-16 lg:mb-24" style={{ opacity: 0 }}>
           <p className="font-mono text-[12px] tracking-[0.18em] uppercase mb-6" style={{ color: '#0E4A35' }}>
             03 / 05 · Contacto
           </p>
@@ -64,15 +64,14 @@ export default function Contact() {
 
         <div
           ref={cardRef}
+          className="grid grid-cols-1 md:grid-cols-2"
           style={{
-            display: 'grid',
-            gridTemplateColumns: '1fr 1fr',
             border: '1px solid #0E4A35',
             opacity: 0,
           }}
         >
           {/* Left: Green background with email */}
-          <div style={{ backgroundColor: '#0E4A35', color: '#F2EFE6', padding: '40px' }}>
+          <div className="p-6 md:p-10" style={{ backgroundColor: '#0E4A35', color: '#F2EFE6' }}>
             <span className="font-mono text-[11px] tracking-[0.1em] uppercase" style={{ opacity: 0.8 }}>
               Email
             </span>
@@ -91,9 +90,8 @@ export default function Contact() {
             </a>
 
             <div
+              className="grid grid-cols-3"
               style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(3, 1fr)',
                 gap: '24px',
                 paddingTop: '24px',
                 borderTop: '1px solid rgba(242, 239, 230, 0.3)',
@@ -114,7 +112,7 @@ export default function Contact() {
           </div>
 
           {/* Right: Cream paper background with form */}
-          <div style={{ backgroundColor: '#FBF9F2', color: '#14140F', padding: '40px', display: 'flex', flexDirection: 'column', gap: '24px' }}>
+          <div className="p-6 md:p-10" style={{ backgroundColor: '#FBF9F2', color: '#14140F', display: 'flex', flexDirection: 'column', gap: '24px' }}>
             <div>
               <label className="font-mono text-[11px] tracking-[0.1em] uppercase text-[#6E6E64] block" style={{ marginBottom: '4px' }}>
                 Nombre

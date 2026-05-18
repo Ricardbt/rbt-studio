@@ -8,44 +8,44 @@ gsap.registerPlugin(ScrollTrigger)
 const SERVICES = [
   {
     num: '01',
-    name: 'Web Development',
-    desc: 'Aplicaciones web de producción con React, Next.js y arquitecturas headless. Desde MVPs hasta plataformas escalables.',
-    tags: ['React', 'Next.js', 'Supabase', 'TypeScript'],
+    name: 'Experience Engineering',
+    desc: 'Frontend sofisticado donde cada interacción tiene intención. Interfaces que se sienten bien, no solo que funcionan.',
+    tags: ['React', 'Next.js', 'TypeScript', 'Motion'],
     icon: WebDevIcon,
   },
   {
     num: '02',
-    name: 'AI & Automatización',
-    desc: 'Agentes autónomos, pipelines LLM y flujos de automatización con n8n.',
-    tags: ['LLMs', 'MCP', 'n8n', 'Python'],
+    name: 'AI-native Products',
+    desc: 'Interfaces para sistemas inteligentes: claras, predecibles y humanas. La IA como comportamiento útil, no como feature.',
+    tags: ['LLMs', 'AI UI', 'Product', 'UX'],
     icon: AIIcon,
   },
   {
     num: '03',
-    name: '3D & Creativo',
-    desc: 'Experiencias web inmersivas con Three.js, WebGL y React Three Fiber.',
-    tags: ['Three.js', 'WebGL', 'GSAP', 'R3F'],
+    name: 'Design Systems',
+    desc: 'Sistemas de componentes con criterio visual y consistencia a escala. De tokens a experiencia coherente.',
+    tags: ['Tokens', 'Components', 'Storybook', 'Figma'],
     icon: ThreeDIcon,
   },
   {
     num: '04',
-    name: 'Hardware & IoT',
-    desc: 'Prototipos físico-digitales: sensores, actuadores y comunicación serial.',
-    tags: ['Arduino', 'Sensors', 'Serial', 'IoT'],
+    name: 'Motion & Interaction',
+    desc: 'Animación con propósito: microinteracciones, transiciones y feedback que refuerzan la narrativa del producto.',
+    tags: ['GSAP', 'Framer Motion', 'WebGL', 'R3F'],
     icon: HardwareIcon,
   },
   {
     num: '05',
-    name: 'Consultoría',
-    desc: 'Auditorías de arquitectura, revisión de código y roadmap técnico.',
-    tags: ['Architecture', 'AWS', 'Code Review'],
+    name: 'Product Consulting',
+    desc: 'Arquitectura de frontend, auditorías UX y roadmap técnico orientado a experiencia de usuario.',
+    tags: ['Architecture', 'UX Audit', 'Roadmap'],
     icon: ConsultingIcon,
   },
   {
     num: '06',
-    name: 'Instalaciones',
-    desc: 'Arte computacional e instalaciones para espacios culturales.',
-    tags: ['Generative', 'Interactive', 'Creative'],
+    name: 'Creative Technology',
+    desc: 'Código generativo, instalaciones interactivas y piezas computacionales para espacios culturales y digitales.',
+    tags: ['Generative', 'p5.js', 'Interactive', 'Creative'],
     icon: InstallationsIcon,
   },
 ]
@@ -92,7 +92,7 @@ export default function Services() {
   }, [])
 
   return (
-    <section ref={sectionRef} id="services" className="relative" style={{ backgroundColor: '#F2EFE6', paddingTop: '96px', paddingBottom: '96px' }}>
+    <section ref={sectionRef} id="services" className="relative py-16 md:py-20 lg:py-24" style={{ backgroundColor: '#F2EFE6' }}>
       <div
         className="absolute inset-0 opacity-[0.02] pointer-events-none"
         style={{
@@ -101,65 +101,23 @@ export default function Services() {
         }}
       />
 
-      <div className="relative z-10" style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 32px' }}>
-        <div ref={titleRef} style={{ marginBottom: '96px', opacity: 0 }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '32px' }}>
-            <div>
-              <p className="font-mono text-[12px] tracking-[0.18em] uppercase mb-6" style={{ color: '#0E4A35' }}>
-                01 / 05 · Servicios
-              </p>
-              <h2 className="font-sans text-5xl lg:text-6xl font-semibold leading-[0.95] tracking-tight" style={{ color: '#14140F' }}>
-                Lo que creamos
-                <br />
-                <em className="not-italic" style={{ color: '#0E4A35' }}>para ti</em>
-              </h2>
-            </div>
-            <a
-              href="/RBT-ServicesDeck.html"
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={(e) => {
-                e.preventDefault()
-                window.open('/RBT-ServicesDeck.html', 'Services Deck')
-              }}
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '8px',
-                padding: '12px 20px',
-                backgroundColor: '#0E4A35',
-                color: '#F2EFE6',
-                border: 'none',
-                textDecoration: 'none',
-                fontFamily: "'JetBrains Mono', monospace",
-                fontSize: '11px',
-                fontWeight: '600',
-                textTransform: 'uppercase',
-                letterSpacing: '0.1em',
-                cursor: 'pointer',
-                transition: 'all 240ms cubic-bezier(0.2, 0.7, 0.1, 1)',
-                whiteSpace: 'nowrap',
-                height: 'fit-content',
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.transform = 'translate(4px, -4px)'
-                e.currentTarget.style.boxShadow = '8px 8px 0 rgba(14, 74, 53, 0.3)'
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.transform = 'translate(0, 0)'
-                e.currentTarget.style.boxShadow = 'none'
-              }}
-            >
-              ↓ Descargar Deck
-            </a>
+      <div className="relative z-10 w-full mx-auto px-4 sm:px-8 lg:px-16" style={{ maxWidth: '1280px' }}>
+        <div ref={titleRef} className="mb-12 md:mb-16 lg:mb-24" style={{ opacity: 0 }}>
+          <div style={{ marginBottom: '32px' }}>
+            <p className="font-mono text-[12px] tracking-[0.18em] uppercase mb-6" style={{ color: '#0E4A35' }}>
+              01 / 05 · Servicios
+            </p>
+            <h2 className="font-sans text-5xl lg:text-6xl font-semibold leading-[0.95] tracking-tight" style={{ color: '#14140F' }}>
+              Cómo construimos
+              <br />
+              <em className="not-italic" style={{ color: '#0E4A35' }}>experiencias</em>
+            </h2>
           </div>
         </div>
 
         <div
-          className="services-grid"
+          className="services-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
           style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(3, 1fr)',
             gap: '1px',
             borderTop: '1px solid #C9C5B6',
             borderLeft: '1px solid #C9C5B6',

@@ -3,8 +3,8 @@ import gsap from 'gsap'
 
 const navLinks = [
   { href: '#services', label: 'Servicios' },
-  { href: '#work', label: 'Proyectos' },
-  { href: '#artistic', label: 'Arte' },
+  { href: '#projects', label: 'Proyectos' },
+  { href: '#artistic', label: 'Creative' },
   { href: '#contact', label: 'Contacto' },
 ]
 
@@ -55,7 +55,7 @@ export default function Navbar() {
           borderBottom: '1px solid #C9C5B6',
         }}
       >
-        <div className="px-6 md:px-12 lg:px-16 xl:px-24 flex justify-between items-center" style={{ padding: '18px 32px' }}>
+        <div className="px-6 md:px-12 lg:px-16 xl:px-24 flex justify-between items-center" style={{ paddingTop: '18px', paddingBottom: '18px' }}>
           <a
             href="#"
             className="rbt-mark hover:opacity-75 transition-opacity"
