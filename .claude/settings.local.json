@@ -7,7 +7,11 @@
       "Bash(curl -s http://localhost:5173/)",
       "Bash(curl -s http://localhost:5173)",
       "Bash(node -c \"D:\\\\RBT\\\\rbt-studio\\\\src\\\\components\\\\ProjectGallery.jsx\")",
-      "Read(//tmp/interactiveprojects/**)"
+      "Read(//tmp/interactiveprojects/**)",
+      "Bash(curl *)",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git push *)"
     ]
   }
 }
