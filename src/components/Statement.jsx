@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+﻿import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
@@ -68,7 +68,7 @@ export default function Statement() {
         >
           "Most products know what they want to do.
           <br />
-          <span style={{ color: '#0E4A35' }}>Few know how they should feel to use."</span>
+          <span style={{ color: '#15C1C1' }}>Few know how they should feel to use."</span>
         </blockquote>
       </div>
     </section>

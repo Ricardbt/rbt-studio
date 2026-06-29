@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+﻿import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
@@ -51,7 +51,7 @@ export default function CV() {
       <div className="relative z-10 w-full mx-auto px-4 sm:px-8 lg:px-16" style={{ maxWidth: '1200px' }}>
         {/* Header */}
         <div ref={headerRef} className="mb-12 md:mb-16 lg:mb-24 pb-10 md:pb-16" style={{ borderBottom: '1px solid #C9C5B6' }}>
-          <p className="font-mono text-[12px] tracking-[0.18em] uppercase mb-4" style={{ color: '#0E4A35' }}>
+          <p className="font-mono text-[12px] tracking-[0.18em] uppercase mb-4" style={{ color: '#15C1C1' }}>
             Curriculum Vitae
           </p>
           <h1 className="font-sans text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-semibold leading-[0.95] mb-2" style={{ color: '#14140F' }}>
@@ -66,13 +66,13 @@ export default function CV() {
             <span style={{ color: '#3A3A33' }}>Barcelona, Spain</span>
             <span style={{ color: '#3A3A33' }}>ricardboixeda@gmail.com</span>
             <span style={{ color: '#3A3A33' }}>+34 635 642 322</span>
-            <span style={{ color: '#0E4A35' }}>github.com/Ricardbt</span>
+            <span style={{ color: '#15C1C1' }}>github.com/Ricardbt</span>
           </div>
         </div>
 
         {/* Professional Summary */}
         <div className="cv-section opacity-0 mb-12 md:mb-16 pb-10 md:pb-14" style={{ borderBottom: '1px solid #C9C5B6' }}>
-          <p className="font-mono text-[11px] tracking-[0.12em] uppercase mb-6" style={{ color: '#0E4A35' }}>
+          <p className="font-mono text-[11px] tracking-[0.12em] uppercase mb-6" style={{ color: '#15C1C1' }}>
             Professional Summary
           </p>
           <p className="font-sans text-base leading-relaxed" style={{ color: '#3A3A33', maxWidth: '900px' }}>
@@ -87,7 +87,7 @@ export default function CV() {
             {/* Experiencia */}
             <div className="cv-section opacity-0">
               <div style={{ marginBottom: '32px', paddingBottom: '16px', borderBottom: '1px solid #C9C5B6' }}>
-                <p className="font-mono text-[11px] tracking-[0.12em] uppercase" style={{ color: '#0E4A35' }}>
+                <p className="font-mono text-[11px] tracking-[0.12em] uppercase" style={{ color: '#15C1C1' }}>
                   Professional Experience
                 </p>
               </div>
@@ -96,8 +96,8 @@ export default function CV() {
                   <h3 className="font-sans text-lg font-semibold mb-1" style={{ color: '#14140F' }}>
                     Lead Full Stack Developer
                   </h3>
-                  <p className="font-mono text-sm mb-3" style={{ color: '#0E4A35' }}>
-                    Paladini Digital Solutions · 2024 – Present
+                  <p className="font-mono text-sm mb-3" style={{ color: '#15C1C1' }}>
+                    Paladini Digital Solutions · 2024 – 2026
                   </p>
                   <ul className="font-sans text-sm space-y-2 leading-relaxed" style={{ color: '#3A3A33' }}>
                     <li>• Defined and evolved solution architecture for Node.js / React / Next.js platforms</li>
@@ -111,7 +111,7 @@ export default function CV() {
                   <h3 className="font-sans text-lg font-semibold mb-1" style={{ color: '#14140F' }}>
                     Senior Full Stack Developer & Consultant
                   </h3>
-                  <p className="font-mono text-sm mb-3" style={{ color: '#0E4A35' }}>
+                  <p className="font-mono text-sm mb-3" style={{ color: '#15C1C1' }}>
                     Freelance · 2019 – 2024
                   </p>
                   <ul className="font-sans text-sm space-y-2 leading-relaxed" style={{ color: '#3A3A33' }}>
@@ -126,7 +126,7 @@ export default function CV() {
                   <h3 className="font-sans text-lg font-semibold mb-1" style={{ color: '#14140F' }}>
                     Web Developer
                   </h3>
-                  <p className="font-mono text-sm mb-3" style={{ color: '#0E4A35' }}>
+                  <p className="font-mono text-sm mb-3" style={{ color: '#15C1C1' }}>
                     University of Barcelona · 2014 – 2019
                   </p>
                   <ul className="font-sans text-sm space-y-2 leading-relaxed" style={{ color: '#3A3A33' }}>
@@ -144,13 +144,13 @@ export default function CV() {
             {/* Technical Skills */}
             <div className="cv-section opacity-0">
               <div style={{ marginBottom: '32px', paddingBottom: '16px', borderBottom: '1px solid #C9C5B6' }}>
-                <p className="font-mono text-[11px] tracking-[0.12em] uppercase" style={{ color: '#0E4A35' }}>
+                <p className="font-mono text-[11px] tracking-[0.12em] uppercase" style={{ color: '#15C1C1' }}>
                   Technical Skills
                 </p>
               </div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
                 <div>
-                  <p className="font-mono text-[10px] tracking-[0.1em] uppercase mb-3" style={{ color: '#0E4A35' }}>
+                  <p className="font-mono text-[10px] tracking-[0.1em] uppercase mb-3" style={{ color: '#15C1C1' }}>
                     Core Stack
                   </p>
                   <p className="font-sans text-sm" style={{ color: '#3A3A33' }}>
@@ -159,7 +159,7 @@ export default function CV() {
                 </div>
 
                 <div>
-                  <p className="font-mono text-[10px] tracking-[0.1em] uppercase mb-3" style={{ color: '#0E4A35' }}>
+                  <p className="font-mono text-[10px] tracking-[0.1em] uppercase mb-3" style={{ color: '#15C1C1' }}>
                     Frontend
                   </p>
                   <p className="font-sans text-sm" style={{ color: '#3A3A33' }}>
@@ -168,7 +168,7 @@ export default function CV() {
                 </div>
 
                 <div>
-                  <p className="font-mono text-[10px] tracking-[0.1em] uppercase mb-3" style={{ color: '#0E4A35' }}>
+                  <p className="font-mono text-[10px] tracking-[0.1em] uppercase mb-3" style={{ color: '#15C1C1' }}>
                     Backend & DB
                   </p>
                   <p className="font-sans text-sm" style={{ color: '#3A3A33' }}>
@@ -177,7 +177,7 @@ export default function CV() {
                 </div>
 
                 <div>
-                  <p className="font-mono text-[10px] tracking-[0.1em] uppercase mb-3" style={{ color: '#0E4A35' }}>
+                  <p className="font-mono text-[10px] tracking-[0.1em] uppercase mb-3" style={{ color: '#15C1C1' }}>
                     Cloud / DevOps
                   </p>
                   <p className="font-sans text-sm" style={{ color: '#3A3A33' }}>
@@ -186,7 +186,7 @@ export default function CV() {
                 </div>
 
                 <div>
-                  <p className="font-mono text-[10px] tracking-[0.1em] uppercase mb-3" style={{ color: '#0E4A35' }}>
+                  <p className="font-mono text-[10px] tracking-[0.1em] uppercase mb-3" style={{ color: '#15C1C1' }}>
                     CMS & Platforms
                   </p>
                   <p className="font-sans text-sm" style={{ color: '#3A3A33' }}>
@@ -195,7 +195,7 @@ export default function CV() {
                 </div>
 
                 <div>
-                  <p className="font-mono text-[10px] tracking-[0.1em] uppercase mb-3" style={{ color: '#0E4A35' }}>
+                  <p className="font-mono text-[10px] tracking-[0.1em] uppercase mb-3" style={{ color: '#15C1C1' }}>
                     AI & Automation
                   </p>
                   <p className="font-sans text-sm" style={{ color: '#3A3A33' }}>
@@ -208,7 +208,7 @@ export default function CV() {
             {/* Projects */}
             <div className="cv-section opacity-0">
               <div style={{ marginBottom: '32px', paddingBottom: '16px', borderBottom: '1px solid #C9C5B6' }}>
-                <p className="font-mono text-[11px] tracking-[0.12em] uppercase" style={{ color: '#0E4A35' }}>
+                <p className="font-mono text-[11px] tracking-[0.12em] uppercase" style={{ color: '#15C1C1' }}>
                   Selected Projects
                 </p>
               </div>
@@ -242,7 +242,7 @@ export default function CV() {
             {/* Languages */}
             <div className="cv-section opacity-0">
               <div style={{ marginBottom: '32px', paddingBottom: '16px', borderBottom: '1px solid #C9C5B6' }}>
-                <p className="font-mono text-[11px] tracking-[0.12em] uppercase" style={{ color: '#0E4A35' }}>
+                <p className="font-mono text-[11px] tracking-[0.12em] uppercase" style={{ color: '#15C1C1' }}>
                   Languages
                 </p>
               </div>

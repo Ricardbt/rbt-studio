@@ -1,4 +1,4 @@
-import { useRef, useEffect } from 'react'
+﻿import { useRef, useEffect } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
@@ -719,85 +719,85 @@ export default function Generativos() {
     <section ref={sectionRef} className="py-16 md:py-20 lg:py-24" style={{ backgroundColor: '#F2EFE6' }}>
       <div className="relative z-10 w-full mx-auto px-4 sm:px-8 lg:px-16" style={{ maxWidth: '1400px' }}>
         <div ref={titleRef} className="mb-12 md:mb-16 lg:mb-24" style={{ opacity: 0 }}>
-          <p className="font-mono text-[12px] tracking-[0.18em] uppercase mb-6" style={{ color: '#0E4A35' }}>
+          <p className="font-mono text-[12px] tracking-[0.18em] uppercase mb-6" style={{ color: '#15C1C1' }}>
             03 / 05 · Generativos
           </p>
           <h2 className="font-sans text-5xl lg:text-6xl font-semibold leading-[0.95] tracking-tight" style={{ color: '#14140F' }}>
             Sistemas
             <br />
-            <em className="not-italic" style={{ color: '#0E4A35' }}>generativos en vivo</em>
+            <em className="not-italic" style={{ color: '#15C1C1' }}>generativos en vivo</em>
           </h2>
         </div>
 
         <div className="generativos-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '48px' }}>
-          <div className="generativo-item opacity-0" style={{ border: '1px solid #C9C5B6', padding: '24px', backgroundColor: '#FBF9F2' }}>
+          <div className="generativo-item opacity-0" style={{ padding: '24px', backgroundColor: '#FBF9F2' }}>
             <h3 className="font-sans text-xl font-semibold mb-2" style={{ color: '#14140F' }}>Atractor de Lorenz</h3>
             <p className="font-sans text-sm mb-4" style={{ color: '#6E6E64' }}>Sistema caótico y determinista. Movimiento impredecible pero con patrón subyacente.</p>
-            <div style={{ border: '1px solid #C9C5B6' }}>
+            <div style={{}}>
               <LorenzCanvas />
             </div>
           </div>
 
-          <div className="generativo-item opacity-0" style={{ border: '1px solid #C9C5B6', padding: '24px', backgroundColor: '#FBF9F2' }}>
+          <div className="generativo-item opacity-0" style={{ padding: '24px', backgroundColor: '#FBF9F2' }}>
             <h3 className="font-sans text-xl font-semibold mb-2" style={{ color: '#14140F' }}>Phyllotaxis</h3>
             <p className="font-sans text-sm mb-4" style={{ color: '#6E6E64' }}>Patrón natural del ángulo dorado. Mueve el mouse para ver la interacción.</p>
-            <div style={{ border: '1px solid #C9C5B6' }}>
+            <div style={{}}>
               <PhyllotaxisCanvas />
             </div>
           </div>
 
-          <div className="generativo-item opacity-0" style={{ border: '1px solid #C9C5B6', padding: '24px', backgroundColor: '#FBF9F2' }}>
+          <div className="generativo-item opacity-0" style={{ padding: '24px', backgroundColor: '#FBF9F2' }}>
             <h3 className="font-sans text-xl font-semibold mb-2" style={{ color: '#14140F' }}>Sistema de Partículas</h3>
             <p className="font-sans text-sm mb-4" style={{ color: '#6E6E64' }}>Partículas que rebotan y se conectan. Generador de patrones emergentes.</p>
-            <div style={{ border: '1px solid #C9C5B6' }}>
+            <div style={{}}>
               <ParticlesCanvas />
             </div>
           </div>
 
-          <div className="generativo-item opacity-0" style={{ border: '1px solid #C9C5B6', padding: '24px', backgroundColor: '#FBF9F2' }}>
+          <div className="generativo-item opacity-0" style={{ padding: '24px', backgroundColor: '#FBF9F2' }}>
             <h3 className="font-sans text-xl font-semibold mb-2" style={{ color: '#14140F' }}>Árbol Fractal</h3>
             <p className="font-sans text-sm mb-4" style={{ color: '#6E6E64' }}>Crecimiento recursivo de ramas que oscilan. Naturaleza al máximo.</p>
-            <div style={{ border: '1px solid #C9C5B6' }}>
+            <div style={{}}>
               <FractalTreeCanvas />
             </div>
           </div>
 
-          <div className="generativo-item opacity-0" style={{ border: '1px solid #C9C5B6', padding: '24px', backgroundColor: '#FBF9F2' }}>
+          <div className="generativo-item opacity-0" style={{ padding: '24px', backgroundColor: '#FBF9F2' }}>
             <h3 className="font-sans text-xl font-semibold mb-2" style={{ color: '#14140F' }}>Flow Field</h3>
             <p className="font-sans text-sm mb-4" style={{ color: '#6E6E64' }}>Campo de flujo Perlin. Partículas que siguen vectores emergentes.</p>
-            <div style={{ border: '1px solid #C9C5B6' }}>
+            <div style={{}}>
               <FlowFieldCanvas />
             </div>
           </div>
 
-          <div className="generativo-item opacity-0" style={{ border: '1px solid #C9C5B6', padding: '24px', backgroundColor: '#FBF9F2' }}>
+          <div className="generativo-item opacity-0" style={{ padding: '24px', backgroundColor: '#FBF9F2' }}>
             <h3 className="font-sans text-xl font-semibold mb-2" style={{ color: '#14140F' }}>Lemniscata</h3>
             <p className="font-sans text-sm mb-4" style={{ color: '#6E6E64' }}>Curva matemática hermosa. Respira en infinito oscilante.</p>
-            <div style={{ border: '1px solid #C9C5B6' }}>
+            <div style={{}}>
               <LemniscataCanvas />
             </div>
           </div>
 
-          <div className="generativo-item opacity-0" style={{ border: '1px solid #C9C5B6', padding: '24px', backgroundColor: '#FBF9F2' }}>
+          <div className="generativo-item opacity-0" style={{ padding: '24px', backgroundColor: '#FBF9F2' }}>
             <h3 className="font-sans text-xl font-semibold mb-2" style={{ color: '#14140F' }}>Dispersión Radial</h3>
             <p className="font-sans text-sm mb-4" style={{ color: '#6E6E64' }}>Transformaciones radiales con ruido. Expansión controlada.</p>
-            <div style={{ border: '1px solid #C9C5B6' }}>
+            <div style={{}}>
               <DispersionCanvas />
             </div>
           </div>
 
-          <div className="generativo-item opacity-0" style={{ border: '1px solid #C9C5B6', padding: '24px', backgroundColor: '#FBF9F2' }}>
+          <div className="generativo-item opacity-0" style={{ padding: '24px', backgroundColor: '#FBF9F2' }}>
             <h3 className="font-sans text-xl font-semibold mb-2" style={{ color: '#14140F' }}>Espiral de Giros</h3>
             <p className="font-sans text-sm mb-4" style={{ color: '#6E6E64' }}>Rectángulos en rotación. Geometría hipnótica que crece.</p>
-            <div style={{ border: '1px solid #C9C5B6' }}>
+            <div style={{}}>
               <SpiralGirosCanvas />
             </div>
           </div>
 
-          <div className="generativo-item opacity-0" style={{ border: '1px solid #C9C5B6', padding: '24px', backgroundColor: '#FBF9F2' }}>
+          <div className="generativo-item opacity-0" style={{ padding: '24px', backgroundColor: '#FBF9F2' }}>
             <h3 className="font-sans text-xl font-semibold mb-2" style={{ color: '#14140F' }}>Curvas de Bézier</h3>
             <p className="font-sans text-sm mb-4" style={{ color: '#6E6E64' }}>Curves suaves y elásticas. Control de puntos oscilantes.</p>
-            <div style={{ border: '1px solid #C9C5B6' }}>
+            <div style={{}}>
               <BezierCurvesCanvas />
             </div>
           </div>

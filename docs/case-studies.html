@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Product Work — RBT Studio</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Fraunces:ital,opsz,wght@0,9..144,200;0,9..144,400;1,9..144,200;1,9..144,400&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: #0b0d14;
+  color: #b8ccec;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: inherit; text-decoration: none; }
+
+/* NAV */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1rem 2.5rem;
+  background: #0b0d14;
+  border-bottom: 1px solid #1a2030;
+}
+.nav-logo { color: #ffffff; font-size: 11px; letter-spacing: .12em; }
+.nav-links { display: flex; gap: 2rem; }
+.nav-links a {
+  font-size: 11px; color: #445068; letter-spacing: .08em;
+  transition: color .2s;
+  display: flex; align-items: center; gap: .5rem;
+}
+.nav-links a:hover { color: #c8dcf8; }
+.dot { width: 5px; height: 5px; border-radius: 50%; display: inline-block; }
+
+/* HERO */
+.hero {
+  padding: 8rem 2.5rem 5rem;
+  max-width: 1080px; margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 4rem; align-items: end;
+  border-bottom: 1px solid #1a2030;
+}
+.hero-left {}
+.hero-eyebrow {
+  font-size: 10px; color: #445068; letter-spacing: .2em;
+  text-transform: uppercase; margin-bottom: 1.5rem;
+}
+.hero h1 {
+  font-family: 'Fraunces', serif; font-weight: 200;
+  font-size: clamp(2.8rem, 5vw, 4.2rem);
+  color: #ffffff; line-height: 1.08; letter-spacing: -.01em;
+}
+.hero h1 em { font-style: italic; color: #445068; }
+.hero-right {
+  display: flex; flex-direction: column; gap: 2rem;
+  padding-left: 2rem; border-left: 1px solid #1a2030;
+}
+.hero-stat {}
+.hs-num {
+  font-family: 'Fraunces', serif; font-weight: 200;
+  font-size: 2.8rem; color: #ffffff; line-height: 1;
+  margin-bottom: .2rem;
+}
+.hs-label { font-size: 10px; color: #445068; letter-spacing: .1em; }
+
+/* INDEX */
+.index {
+  max-width: 1080px; margin: 0 auto;
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  border-bottom: 1px solid #1a2030;
+}
+.ix {
+  padding: 2rem 2.5rem; border-right: 1px solid #1a2030;
+  transition: background .2s; display: block;
+}
+.ix:last-child { border-right: none; }
+.ix:hover { background: #0e1018; }
+.ix-n { font-size: 10px; color: #2a3448; margin-bottom: .75rem; }
+.ix-name {
+  font-family: 'Fraunces', serif; font-weight: 200;
+  font-size: 1.5rem; color: #ffffff; margin-bottom: .4rem;
+}
+.ix-line { font-size: 11px; color: #5a6a88; line-height: 1.6; margin-bottom: 1.25rem; }
+.ix-bar { height: 1px; width: 32px; }
+
+/* CASE */
+.case {
+  max-width: 1080px; margin: 0 auto;
+  padding: 5rem 2.5rem;
+  border-bottom: 1px solid #1a2030;
+}
+
+/* Header */
+.ch {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 4rem; margin-bottom: 4rem;
+  padding-bottom: 4rem; border-bottom: 1px solid #1a2030;
+}
+.ch-left {}
+.ch-num { font-size: 10px; letter-spacing: .15em; margin-bottom: 1rem; }
+.ch-title {
+  font-family: 'Fraunces', serif; font-weight: 200;
+  font-size: clamp(2rem, 3.5vw, 3.2rem);
+  color: #ffffff; line-height: 1.08; margin-bottom: .75rem;
+}
+.ch-sub {
+  font-family: 'Fraunces', serif; font-style: italic; font-weight: 200;
+  font-size: 1rem; color: #445068; margin-bottom: 2rem;
+}
+.ch-body { font-size: 12px; color: #8a9ec0; line-height: 1.85; }
+.ch-right {
+  display: flex; flex-direction: column; gap: 1.5rem;
+  justify-content: flex-start;
+}
+
+/* Tags */
+.tags { display: flex; flex-wrap: wrap; gap: .35rem; margin-bottom: 2rem; }
+.tag {
+  font-size: 10px; padding: 2px 8px;
+  border: 1px solid #1a2030; border-radius: 2px;
+  color: #4a5a78; letter-spacing: .04em;
+}
+
+/* Right column blocks */
+.rb {
+  border-top: 1px solid #1a2030; padding-top: 1.25rem;
+}
+.rb-label { font-size: 10px; color: #2a3448; letter-spacing: .15em; margin-bottom: .6rem; }
+.rb-val { font-size: 12px; color: #7a8eae; line-height: 1.8; }
+.rb-val strong { color: #b0c4e8; font-weight: 500; }
+
+/* Metrics row */
+.metrics {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 1px; background: #1a2030; border-radius: 4px;
+  overflow: hidden; margin: 3rem 0;
+}
+.metric { background: #0e1018; padding: 1.75rem 1.5rem; }
+.m-val {
+  font-family: 'Fraunces', serif; font-weight: 200;
+  font-size: 2.5rem; color: #ffffff; line-height: 1;
+  margin-bottom: .4rem;
+}
+.m-label { font-size: 10px; color: #445068; line-height: 1.5; }
+
+/* Problem / Solution grid */
+.ps {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 1px; background: #1a2030;
+  border-radius: 4px; overflow: hidden; margin: 3rem 0;
+}
+.ps-block { background: #0e1018; padding: 2rem; }
+.ps-label { font-size: 10px; color: #2a3448; letter-spacing: .15em; margin-bottom: .75rem; }
+.ps-title {
+  font-family: 'Fraunces', serif; font-weight: 200;
+  font-size: 1.2rem; color: #ffffff; margin-bottom: .75rem; line-height: 1.2;
+}
+.ps-body { font-size: 11px; color: #6a7e9e; line-height: 1.85; }
+
+/* Learnings */
+.learnings { margin: 3rem 0; }
+.l {
+  display: flex; gap: 1.25rem;
+  padding: 1.1rem 0; border-bottom: 1px solid #141824;
+  font-size: 11px; color: #6a7e9e; line-height: 1.8;
+}
+.l:last-child { border-bottom: none; }
+.l-n { color: #2a3448; flex-shrink: 0; padding-top: 2px; }
+.l strong { color: #b0c4e8; font-weight: 500; }
+
+/* Quote */
+.quote {
+  border-left: 2px solid #1a2030;
+  padding: 1.5rem 1.75rem; margin: 3rem 0;
+  background: #0e1018; border-radius: 0 4px 4px 0;
+}
+.q-text {
+  font-family: 'Fraunces', serif; font-style: italic; font-weight: 200;
+  font-size: 1.2rem; color: #c8dcf8; line-height: 1.5; margin-bottom: .5rem;
+}
+.q-attr { font-size: 10px; color: #2a3448; letter-spacing: .08em; }
+
+/* Pipeline — visual only */
+.pipeline {
+  background: #0e1018; border: 1px solid #1a2030;
+  border-radius: 4px; overflow: hidden; margin: 3rem 0;
+}
+.pipe-title {
+  padding: .65rem 1.25rem; background: #111520;
+  border-bottom: 1px solid #1a2030;
+  font-size: 10px; color: #2a3448; letter-spacing: .12em;
+}
+.pipe-body {
+  padding: 1.5rem 1.25rem;
+  display: flex; flex-wrap: wrap;
+  align-items: center; gap: 0; row-gap: .6rem;
+}
+.pipe-node {
+  padding: .4rem .85rem; border: 1px solid #1a2030;
+  border-radius: 3px; font-size: 10px; color: #8a9ec0;
+  background: #111828; white-space: nowrap;
+}
+.pipe-arr { font-size: 11px; color: #2a3448; padding: 0 .5rem; }
+.pipe-break { width: 100%; }
+
+/* Section divider */
+.sdiv {
+  max-width: 1080px; margin: 0 auto;
+  display: flex; align-items: center; gap: 1.5rem;
+  padding: 3rem 2.5rem 0;
+}
+.sdiv-n { font-size: 10px; color: #2a3448; letter-spacing: .1em; }
+.sdiv-line { flex: 1; height: 1px; background: #1a2030; }
+.sdiv-tag {
+  font-size: 10px; padding: 3px 10px; border: 1px solid #1a2030;
+  border-radius: 2px; color: #445068; letter-spacing: .1em;
+}
+
+/* Footer */
+.footer {
+  max-width: 1080px; margin: 0 auto;
+  padding: 2.5rem;
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 10px; color: #2a3448; letter-spacing: .08em;
+  border-top: 1px solid #1a2030;
+}
+
+@media (max-width: 800px) {
+  .hero, .ch, .ps { grid-template-columns: 1fr; gap: 2rem; }
+  .hero-right { border-left: none; padding-left: 0; border-top: 1px solid #1a2030; padding-top: 2rem; flex-direction: row; flex-wrap: wrap; }
+  .index { grid-template-columns: 1fr; }
+  .ix { border-right: none; border-bottom: 1px solid #1a2030; }
+  .metrics { grid-template-columns: 1fr 1fr; }
+  nav { padding: .75rem 1.25rem; }
+  .nav-links { gap: 1.25rem; }
+  .case, .sdiv { padding-left: 1.25rem; padding-right: 1.25rem; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">RBT.studio</div>
+  <div class="nav-links">
+    <a href="#sp"><span class="dot" style="background:#e8a07a"></span>StoryPrints</a>
+    <a href="#ba"><span class="dot" style="background:#6db89a"></span>BrandAI</a>
+    <a href="#vm"><span class="dot" style="background:#b07dc4"></span>Vampmaker</a>
+    <a href="#portfolio"><span class="dot" style="background:#7aa4d4"></span>RBT.studio</a>
+    <a href="#jarvis"><span class="dot" style="background:#e8d06a"></span>microJarvis</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow">AI Product Experience · 2024–2025</div>
+    <h1>Full-stack<br>AI products,<br><em>end to end</em></h1>
+  </div>
+  <div class="hero-right">
+    <div class="hero-stat">
+      <div class="hs-num">3</div>
+      <div class="hs-label">products shipped</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hs-num">6+</div>
+      <div class="hs-label">AI agents designed &amp; built</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hs-num">1</div>
+      <div class="hs-label">engineer, end to end</div>
+    </div>
+  </div>
+</div>
+
+<!-- INDEX -->
+<div class="index" style="grid-template-columns:repeat(5,1fr)">
+  <a class="ix" href="#sp">
+    <div class="ix-n">01 ——</div>
+    <div class="ix-name">StoryPrints</div>
+    <div class="ix-line">SaaS for children's creative storytelling. Multi-layer AI generation + SVG illustration + subscription payments.</div>
+    <div class="ix-bar" style="background:#e8a07a"></div>
+  </a>
+  <a class="ix" href="#ba">
+    <div class="ix-n">02 ——</div>
+    <div class="ix-name">BrandAI</div>
+    <div class="ix-line">Multi-agent design system generator. Portable Markdown output for any AI tool. Versioned brand identity.</div>
+    <div class="ix-bar" style="background:#6db89a"></div>
+  </a>
+  <a class="ix" href="#vm">
+    <div class="ix-n">03 ——</div>
+    <div class="ix-name">Vampmaker</div>
+    <div class="ix-line">AI copilot for tabletop RPG game masters. Researcher + Creator agent pipeline with full campaign memory.</div>
+    <div class="ix-bar" style="background:#b07dc4"></div>
+  </a>
+  <a class="ix" href="#portfolio">
+    <div class="ix-n">04 ——</div>
+    <div class="ix-name">RBT.studio</div>
+    <div class="ix-line">Personal portfolio as creative argument. Generative Lissajous canvas + particle field. Canvas 2D, zero dependencies.</div>
+    <div class="ix-bar" style="background:#7aa4d4"></div>
+  </a>
+  <a class="ix" href="#jarvis">
+    <div class="ix-n">05 ——</div>
+    <div class="ix-name">microJarvis</div>
+    <div class="ix-line">Physical AI assistant on Raspberry Pi. RFID mode switching, Telegram interface, n8n automation pipelines, OpenRouter compute.</div>
+    <div class="ix-bar" style="background:#e8d06a"></div>
+  </a>
+</div>
+
+
+<!-- ══════════════ STORYPRINTS ══════════════ -->
+<div class="sdiv" id="sp">
+  <span class="sdiv-n">01</span>
+  <div class="sdiv-line"></div>
+  <span class="sdiv-tag">STORYPRINTS</span>
+</div>
+
+<div class="case">
+  <div class="ch">
+    <div class="ch-left">
+      <div class="ch-num" style="color:#e8a07a">SaaS · B2C + B2B2C · EdTech</div>
+      <h2 class="ch-title">Ser el autor<br>del propio cuento</h2>
+      <p class="ch-sub">Cuando jugar y crear son la misma cosa</p>
+      <div class="tags">
+        <span class="tag">Next.js</span><span class="tag">Supabase</span>
+        <span class="tag">OpenRouter</span><span class="tag">Upstash Redis</span>
+        <span class="tag">LemonSqueezy</span><span class="tag">SVG generativo</span>
+      </div>
+      <p class="ch-body">
+        Los productos digitales para niños los tratan como consumidores pasivos. StoryPrints invierte esa lógica — el producto es el acto de crear, no el resultado. Un wizard visual de cuatro pasos lleva al niño desde la idea hasta un cuento ilustrado completo en menos de cuatro minutos, sin leer ni escribir hasta el momento clave: el giro final, donde la historia se vuelve suya de verdad.
+      </p>
+    </div>
+    <div class="ch-right">
+      <div class="rb">
+        <div class="rb-label">// mi rol</div>
+        <div class="rb-val">Product design · Full-stack · Prompt engineering · Payments integration</div>
+      </div>
+      <div class="rb">
+        <div class="rb-label">// usuarios</div>
+        <div class="rb-val">
+          <strong>Niños 5–9 años</strong> — flujo autónomo sin texto<br>
+          <strong>Padres</strong> — modo regalo, checkout desde móvil<br>
+          <strong>Maestras</strong> — modo aula, panel de sesión
+        </div>
+      </div>
+      <div class="rb">
+        <div class="rb-label">// modelo de negocio</div>
+        <div class="rb-val">Freemium + suscripción familiar + licencia escolar. Pagos y IVA europeo gestionados por LemonSqueezy.</div>
+      </div>
+      <div class="rb">
+        <div class="rb-label">// decisión de IA clave</div>
+        <div class="rb-val">OpenRouter como gateway unificado — modelo distinto por tarea, A/B sin tocar código, fallback automático entre proveedores.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ps">
+    <div class="ps-block">
+      <div class="ps-label">// el problema</div>
+      <div class="ps-title">La creatividad infantil no tenía un lienzo digital</div>
+      <div class="ps-body">
+        Cada app existente para niños produce contenido para consumir, no para crear. El reto no era técnico — era encontrar el punto exacto donde la IA hace suficiente para que el resultado sea impresionante, pero el niño siente que la historia es suya. Demasiada IA lo automatiza todo. Muy poca, y el niño abandona.
+      </div>
+    </div>
+    <div class="ps-block">
+      <div class="ps-label">// la solución</div>
+      <div class="ps-title">Autoría guiada con un giro final de texto libre</div>
+      <div class="ps-body">
+        Cuatro pasos de selección visual — sin leer, sin escribir. La IA genera el cuento completo con ilustraciones SVG editoriales. Solo entonces aparece el momento de escritura: el niño añade su propio giro al final. Colocado después del cuento generado, cuando ya le importa la historia, la tasa de uso del giro alcanza el 68%.
+      </div>
+    </div>
+  </div>
+
+  <div class="pipeline">
+    <div class="pipe-title">// user → story pipeline</div>
+    <div class="pipe-body">
+      <div class="pipe-node">Wizard visual (4 pasos)</div><div class="pipe-arr">→</div>
+      <div class="pipe-node">Caché de sesión Redis</div><div class="pipe-arr">→</div>
+      <div class="pipe-node">Rate limiting por plan</div><div class="pipe-arr">→</div>
+      <div class="pipe-node" style="color:#e8a07a; border-color:#3a2010">OpenRouter · generación narrativa</div><div class="pipe-arr">→</div>
+      <div class="pipe-node">Streaming al cliente</div><div class="pipe-arr">→</div>
+      <div class="pipe-node">SVG illustration render</div><div class="pipe-arr">→</div>
+      <div class="pipe-node">Giro del autor</div><div class="pipe-arr">→</div>
+      <div class="pipe-node">Supabase · persistencia</div><div class="pipe-arr">→</div>
+      <div class="pipe-node">Export PDF A5 / LemonSqueezy</div>
+    </div>
+  </div>
+
+  <div class="metrics">
+    <div class="metric">
+      <div class="m-val" style="color:#e8a07a">&lt;4 min</div>
+      <div class="m-label">de entrada al primer cuento completo</div>
+    </div>
+    <div class="metric">
+      <div class="m-val" style="color:#e8a07a">68%</div>
+      <div class="m-label">de sesiones usan el giro final del autor</div>
+    </div>
+    <div class="metric">
+      <div class="m-val" style="color:#e8a07a">+72</div>
+      <div class="m-label">NPS padres en beta</div>
+    </div>
+  </div>
+
+  <div class="quote" style="border-left-color:#e8a07a">
+    <div class="q-text">"La sensación de autoría no viene de cuánto decide el niño, sino de cuándo. El giro final, después del cuento generado, tiene un impacto emocional desproporcionado a su peso técnico."</div>
+    <div class="q-attr">// design insight · validación beta</div>
+  </div>
+
+  <div class="learnings">
+    <div class="l"><span class="l-n">[01]</span><span><strong>Ilustración SVG generativa frente a imagen generativa.</strong> SVG procedural es instantáneo, consistente entre páginas, y los niños perciben el personaje como suyo más fácilmente que con imagen fotorrealista. Cero latencia adicional, cero coste de imagen.</span></div>
+    <div class="l"><span class="l-n">[02]</span><span><strong>Tres funnels distintos dentro del mismo producto.</strong> El niño, el padre y la maestra son tres usuarios con flujos, métricas y modelos de negocio separados. Tratarlos como uno solo produce una experiencia mediocre para todos.</span></div>
+    <div class="l"><span class="l-n">[03]</span><span><strong>Rate limiting en Redis es el seguro más barato del stack.</strong> Sin él, un plan gratuito sin límites genera facturas de API inmanejables en la primera semana de beta pública.</span></div>
+  </div>
+</div>
+
+
+<!-- ══════════════ BRANDAI ══════════════ -->
+<div class="sdiv" id="ba">
+  <span class="sdiv-n">02</span>
+  <div class="sdiv-line"></div>
+  <span class="sdiv-tag">BRANDAI</span>
+</div>
+
+<div class="case">
+  <div class="ch">
+    <div class="ch-left">
+      <div class="ch-num" style="color:#6db89a">SaaS · B2C · Freelancers &amp; Creators</div>
+      <h2 class="ch-title">El sistema de diseño<br>que viaja contigo</h2>
+      <p class="ch-sub">Identidad de marca portable entre herramientas de IA</p>
+      <div class="tags">
+        <span class="tag">Next.js</span><span class="tag">Supabase</span>
+        <span class="tag">OpenRouter</span><span class="tag">Upstash Redis</span>
+        <span class="tag">Multi-agent</span><span class="tag">Markdown</span>
+      </div>
+      <p class="ch-body">
+        El problema de coherencia visual en proyectos pequeños no es de talento — es de memoria. Cada vez que usas un LLM para generar algo para tu marca, empiezas desde cero. BrandAI orquesta cinco agentes especializados para generar un <code style="font-size:11px;background:#111520;border:1px solid #1a2030;padding:1px 5px;border-radius:2px;color:#a0b4d0">design.md</code> completo: paleta, tipografía, tono verbal, espaciado, tokens. Un archivo Markdown que viaja contigo a cualquier LLM, Cursor o pipeline.
+      </p>
+    </div>
+    <div class="ch-right">
+      <div class="rb">
+        <div class="rb-label">// mi rol</div>
+        <div class="rb-val">Product design · Full-stack · Arquitectura multi-agente · Prompt engineering</div>
+      </div>
+      <div class="rb">
+        <div class="rb-label">// usuarios</div>
+        <div class="rb-val">
+          <strong>Fundadoras wellness</strong> — sin presupuesto de diseño<br>
+          <strong>Freelancers</strong> — coherencia entre clientes<br>
+          <strong>Content creators</strong> — múltiples marcas propias
+        </div>
+      </div>
+      <div class="rb">
+        <div class="rb-label">// decisión de producto clave</div>
+        <div class="rb-val">Markdown como formato de salida. No Figma, no Notion, no JSON. El archivo más portable del ecosistema digital — funciona en cualquier editor, cualquier LLM, cualquier CI/CD.</div>
+      </div>
+      <div class="rb">
+        <div class="rb-label">// decisión de IA clave</div>
+        <div class="rb-val">Modelo distinto por agente: haiku para paleta y tipografía, sonnet para orquestador y validador, gpt-4o-mini para tono verbal. ~30% reducción de coste con caché Redis por hash semántico.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ps">
+    <div class="ps-block">
+      <div class="ps-label">// el problema</div>
+      <div class="ps-title">Los LLMs no recuerdan quién eres</div>
+      <div class="ps-body">
+        Un design system completo en Figma o Notion es inaccesible para proyectos pequeños en tiempo y dinero. Pero sin contexto de marca, cada generación de IA produce algo inconsistente con lo anterior. El resultado es una identidad visual que se fragmenta con cada herramienta que usas.
+      </div>
+    </div>
+    <div class="ps-block">
+      <div class="ps-label">// la solución</div>
+      <div class="ps-title">Un artefacto portable generado por agentes especializados</div>
+      <div class="ps-body">
+        Cinco agentes en pipeline — orquestador, paleta, tipografía, tono verbal, validador de consistencia — generan un design.md completo en 60–90 segundos. El validador detecta inconsistencias entre capas y relanza los agentes afectados. El resultado viaja al IDE, al chat, al prompt del generador de imagen.
+      </div>
+    </div>
+  </div>
+
+  <div class="pipeline">
+    <div class="pipe-title">// orchestration pipeline — 5 agents</div>
+    <div class="pipe-body">
+      <div class="pipe-node">Input lenguaje natural</div><div class="pipe-arr">→</div>
+      <div class="pipe-node" style="color:#6db89a;border-color:#0d2e20">Orquestador</div><div class="pipe-arr">→</div>
+      <div class="pipe-break"></div>
+      <div class="pipe-node">Agente Paleta</div><div class="pipe-arr">+</div>
+      <div class="pipe-node">Agente Tipografía</div><div class="pipe-arr">+</div>
+      <div class="pipe-node">Agente Tono verbal</div><div class="pipe-arr">←</div>
+      <div class="pipe-node">Redis · caché por hash</div>
+      <div class="pipe-break"></div>
+      <div class="pipe-node" style="color:#6db89a;border-color:#0d2e20">Validador de consistencia</div><div class="pipe-arr">→</div>
+      <div class="pipe-node">Ensamblado design.md</div><div class="pipe-arr">→</div>
+      <div class="pipe-node">Supabase · v+1</div>
+    </div>
+  </div>
+
+  <div class="metrics">
+    <div class="metric">
+      <div class="m-val" style="color:#6db89a">60–90s</div>
+      <div class="m-label">generación design.md completo</div>
+    </div>
+    <div class="metric">
+      <div class="m-val" style="color:#6db89a">~30%</div>
+      <div class="m-label">reducción de coste vía caché Redis</div>
+    </div>
+    <div class="metric">
+      <div class="m-val" style="color:#6db89a">40%</div>
+      <div class="m-label">retorno para modo evolución en 30 días</div>
+    </div>
+  </div>
+
+  <div class="quote" style="border-left-color:#6db89a">
+    <div class="q-text">"La decisión más importante del producto no fue técnica — fue de formato. Markdown es el artefacto más portable del ecosistema digital."</div>
+    <div class="q-attr">// product insight · beta cerrada</div>
+  </div>
+
+  <div class="learnings">
+    <div class="l"><span class="l-n">[01]</span><span><strong>El validador de consistencia es el agente más caro y el más valioso.</strong> Sin él, el orquestador ensambla secciones que se contradicen — paleta fría con tono "cálido y terroso". Con él, la satisfacción media sube 0.8 puntos sobre 5.</span></div>
+    <div class="l"><span class="l-n">[02]</span><span><strong>El modo evolución retiene más que el modo generación.</strong> Con el design.md versionado en Supabase, el coste de cambiar de herramienta es alto. Cada actualización de marca que vuelve a BrandAI es un ciclo de retención natural.</span></div>
+    <div class="l"><span class="l-n">[03]</span><span><strong>Diferentes modelos por agente via OpenRouter fue decisivo.</strong> GPT-4o-mini superó a Claude Haiku en tono verbal para marcas wellness en inglés. Un cambio de una línea en el config, sin refactor.</span></div>
+  </div>
+</div>
+
+
+<!-- ══════════════ VAMPMAKER ══════════════ -->
+<div class="sdiv" id="vm">
+  <span class="sdiv-n">03</span>
+  <div class="sdiv-line"></div>
+  <span class="sdiv-tag">VAMPMAKER</span>
+</div>
+
+<div class="case">
+  <div class="ch">
+    <div class="ch-left">
+      <div class="ch-num" style="color:#b07dc4">Herramienta creativa · Niche B2C · TRPG</div>
+      <h2 class="ch-title">El copiloto del<br>narrador de tinieblas</h2>
+      <p class="ch-sub">Agentes de IA para el Director de Juego de Mundo de Tinieblas</p>
+      <div class="tags">
+        <span class="tag">Next.js</span><span class="tag">NestJS</span>
+        <span class="tag">PostgreSQL</span><span class="tag">Prisma</span>
+        <span class="tag">OpenRouter</span><span class="tag">Cloudflare R2</span>
+      </div>
+      <p class="ch-body">
+        Dirigir una partida de Mundo de Tinieblas es improvisación sostenida bajo presión. El Director de Juego puede invertir 6–8 horas preparando una sesión de 3. Vampmaker es el asistente que nunca tuvo: memoria canónica perfecta, NPCs generados en menos de 2 minutos, y opciones de escena accionables en 10 segundos cuando los jugadores se salen del guión.
+      </p>
+    </div>
+    <div class="ch-right">
+      <div class="rb">
+        <div class="rb-label">// mi rol</div>
+        <div class="rb-val">Arquitectura full-stack · Diseño del sistema de agentes · Product design · UX</div>
+      </div>
+      <div class="rb">
+        <div class="rb-label">// usuario</div>
+        <div class="rb-val">
+          <strong>Director de Juego de Mundo de Tinieblas</strong> — veterano o novel, con partidas activas y necesidad de preparación rápida y coherente con el canon.
+        </div>
+      </div>
+      <div class="rb">
+        <div class="rb-label">// decisión de arquitectura clave</div>
+        <div class="rb-val">Orquestación de agentes en NestJS separado de Next.js. El contexto acumulado de campaña es lógica de servidor pura — no pertenece a un Route Handler.</div>
+      </div>
+      <div class="rb">
+        <div class="rb-label">// ventaja competitiva</div>
+        <div class="rb-val">Especificidad canónica. Ningún LLM general reproduce la coherencia con clanes, política de la Cámara y Disciplines que da un sistema afinado para este universo.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ps">
+    <div class="ps-block">
+      <div class="ps-label">// el problema</div>
+      <div class="ps-title">La preparación consume más que la sesión en sí</div>
+      <div class="ps-body">
+        Fichas de NPCs, mapas de relaciones entre clanes, líneas de tiempo de la Cámara, ganchos narrativos — todo debe ser coherente con décadas de canon. Los LLMs generales conocen Mundo de Tinieblas de forma superficial y producen personajes que rompen la inmersión.
+      </div>
+    </div>
+    <div class="ps-block">
+      <div class="ps-label">// la solución</div>
+      <div class="ps-title">Dos agentes: Researcher extrae canon, Creator genera ficha</div>
+      <div class="ps-body">
+        El Researcher extrae arquetipos coherentes con el clan, la ciudad, los conflictos activos y las Disciplines disponibles. El Creator genera la ficha completa — atributos, trasfondo, secretos solo visibles para el DJ, y tres ganchos narrativos para los jugadores. La campaña acumula contexto sesión a sesión.
+      </div>
+    </div>
+  </div>
+
+  <div class="pipeline">
+    <div class="pipe-title">// NPC generation pipeline — NestJS</div>
+    <div class="pipe-body">
+      <div class="pipe-node">Input DJ (clan, ciudad, rol dramático)</div><div class="pipe-arr">→</div>
+      <div class="pipe-node" style="color:#b07dc4;border-color:#25103a">Researcher Agent</div><div class="pipe-arr">→</div>
+      <div class="pipe-node">Contexto canónico</div><div class="pipe-arr">→</div>
+      <div class="pipe-node" style="color:#b07dc4;border-color:#25103a">Creator Agent</div><div class="pipe-arr">→</div>
+      <div class="pipe-node">Ficha + ganchos narrativos</div><div class="pipe-arr">→</div>
+      <div class="pipe-node">PostgreSQL · Prisma</div><div class="pipe-arr">→</div>
+      <div class="pipe-node">Campaña activa</div>
+    </div>
+  </div>
+
+  <div class="metrics">
+    <div class="metric">
+      <div class="m-val" style="color:#b07dc4">&lt;2 min</div>
+      <div class="m-label">NPC completo con ganchos narrativos</div>
+    </div>
+    <div class="metric">
+      <div class="m-val" style="color:#b07dc4">3</div>
+      <div class="m-label">modos: preparación · mid-sesión · entre sesiones</div>
+    </div>
+    <div class="metric">
+      <div class="m-val" style="color:#b07dc4">60%</div>
+      <div class="m-label">adopción del modo mid-sesión tras 2 sesiones</div>
+    </div>
+  </div>
+
+  <div class="quote" style="border-left-color:#b07dc4">
+    <div class="q-text">"El Diario de la Corte — resumen post-sesión desde la perspectiva de los NPCs — es el feature de retención más potente. Con tres sesiones registradas, el switching cost hacia otra herramienta se vuelve muy alto."</div>
+    <div class="q-attr">// product insight · alpha con DJs reales</div>
+  </div>
+
+  <div class="learnings">
+    <div class="l"><span class="l-n">[01]</span><span><strong>El modo mid-sesión necesita formato, no texto.</strong> El Director no puede leer mientras narra. Tres opciones de escena con consecuencias mecánicas incluidas — el DJ decide en 10 segundos. Un párrafo de texto lo rompe todo.</span></div>
+    <div class="l"><span class="l-n">[02]</span><span><strong>La especificidad de nicho es la ventaja defensible.</strong> Un producto para "creadores de contenido de rol" no tiene moat. Un producto que conoce el canon de Mundo de Tinieblas mejor que cualquier LLM general — sí.</span></div>
+    <div class="l"><span class="l-n">[03]</span><span><strong>NestJS separado de Next.js fue la decisión correcta.</strong> El contexto acumulado de campaña, la validación canónica y la orquestación de agentes son lógica de servidor pura. Mezclarla con Route Handlers habría limitado la escalabilidad desde el primer día.</span></div>
+  </div>
+</div>
+
+<!-- ══════════════ RBT STUDIO PORTFOLIO ══════════════ -->
+<div class="sdiv" id="portfolio">
+  <span class="sdiv-n">04</span>
+  <div class="sdiv-line"></div>
+  <span class="sdiv-tag">RBT.STUDIO PORTFOLIO</span>
+</div>
+
+<div class="case">
+  <div class="ch">
+    <div class="ch-left">
+      <div class="ch-num" style="color:#7aa4d4">Portfolio · Identidad digital · Creative Dev</div>
+      <h2 class="ch-title">El portfolio como<br>declaración de intenciones</h2>
+      <p class="ch-sub">Cuando el producto eres tú mismo</p>
+      <div class="tags">
+        <span class="tag">React</span><span class="tag">Next.js</span>
+        <span class="tag">Canvas API</span><span class="tag">WebGL</span>
+        <span class="tag">Generative art</span><span class="tag">GSAP</span>
+      </div>
+      <p class="ch-body">
+        Un portfolio no es un CV con CSS. Es el argumento más completo que puedes hacer sobre quién eres como profesional. El rbt.studio fue diseñado desde el fondo de las artes visuales — un background de Bellas Artes que informa cada decisión técnica. Particle field en el hero, canvas Lissajous generativo, paleta dark con acentos en oro y sage. El código es el diseño.
+      </p>
+    </div>
+    <div class="ch-right">
+      <div class="rb">
+        <div class="rb-label">// mi rol</div>
+        <div class="rb-val">Diseño de identidad · Frontend · Generative art · Motion</div>
+      </div>
+      <div class="rb">
+        <div class="rb-label">// contexto</div>
+        <div class="rb-val">10+ años de experiencia full stack. Background en Bellas Artes (Universitat de Barcelona). El portfolio tiene que mostrar los dos mundos a la vez — técnico y creativo.</div>
+      </div>
+      <div class="rb">
+        <div class="rb-label">// decisión estética clave</div>
+        <div class="rb-val">Paleta dark con gold como acento primario y sage como secundario. Sin colores de marca genéricos. Tipografía Cormorant Garamond para display — serif que cruza lo editorial con lo técnico.</div>
+      </div>
+      <div class="rb">
+        <div class="rb-label">// diferenciador técnico</div>
+        <div class="rb-val">Canvas Lissajous generativo — figura paramétrica que varía en tiempo real. Particle field en el hero con física de atracción. Todo renderizado en Canvas 2D sin librerías externas.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ps">
+    <div class="ps-block">
+      <div class="ps-label">// el problema</div>
+      <div class="ps-title">Posicionarse en la intersección de AI engineer y creative dev</div>
+      <div class="ps-body">
+        Un portfolio estándar de developer no comunica la dimensión creativa. Un portfolio de diseñador no comunica la profundidad técnica. El perfil de Ricard vive exactamente en esa intersección — y el portfolio tiene que demostrarlo sin explicarlo. Si tienes que explicar que eres creativo, ya has perdido.
+      </div>
+    </div>
+    <div class="ps-block">
+      <div class="ps-label">// la solución</div>
+      <div class="ps-title">El propio código como pieza de portfolio</div>
+      <div class="ps-body">
+        El generative canvas no es decoración — es la primera prueba de que el autor entiende sistemas visuales complejos. La particle field del hero responde al cursor con física de atracción. El canvas Lissajous dibuja figuras de Bowditch en tiempo real. Un recruiter técnico lo abre en DevTools y ve el código. Un recruiter de diseño ve el resultado. Ambos entienden el mensaje.
+      </div>
+    </div>
+  </div>
+
+  <div class="pipeline">
+    <div class="pipe-title">// capas del sistema visual</div>
+    <div class="pipe-body">
+      <div class="pipe-node">Identidad de marca — dark / gold / sage</div><div class="pipe-arr">→</div>
+      <div class="pipe-node">Tipografía — Cormorant display + mono body</div><div class="pipe-arr">→</div>
+      <div class="pipe-node" style="color:#7aa4d4;border-color:#0d2040">Particle field hero — Canvas 2D + física</div><div class="pipe-arr">→</div>
+      <div class="pipe-node" style="color:#7aa4d4;border-color:#0d2040">Lissajous canvas — paramétrico en tiempo real</div><div class="pipe-arr">→</div>
+      <div class="pipe-node">Casos de trabajo — grid editorial</div><div class="pipe-arr">→</div>
+      <div class="pipe-node">Stack visual por capas (AI · Frontend · Systems)</div>
+    </div>
+  </div>
+
+  <div class="metrics">
+    <div class="metric">
+      <div class="m-val" style="color:#7aa4d4">10+</div>
+      <div class="m-label">años de experiencia condensados en una sola página</div>
+    </div>
+    <div class="metric">
+      <div class="m-val" style="color:#7aa4d4">0</div>
+      <div class="m-label">librerías externas para los efectos generativos</div>
+    </div>
+    <div class="metric">
+      <div class="m-val" style="color:#7aa4d4">2</div>
+      <div class="m-label">perfiles en uno — AI engineer y creative technologist</div>
+    </div>
+  </div>
+
+  <div class="quote" style="border-left-color:#7aa4d4">
+    <div class="q-text">"Technical depth from 10+ years of full stack engineering. Creative precision from a fine arts background. The intersection is where I work."</div>
+    <div class="q-attr">// hero copy · rbt.studio</div>
+  </div>
+
+  <div class="learnings">
+    <div class="l"><span class="l-n">[01]</span><span><strong>El portfolio es el argumento, no el resumen.</strong> No lista proyectos — demuestra un punto de vista. La particle field no es decoración, es la primera frase del argumento: este developer entiende sistemas visuales en tiempo real.</span></div>
+    <div class="l"><span class="l-n">[02]</span><span><strong>Canvas 2D sin dependencias externas es una decisión deliberada.</strong> Three.js habría sido más rápido. La elección de implementar la física de partículas y las curvas de Lissajous desde cero demuestra comprensión matemática del sistema, no solo uso de una librería.</span></div>
+    <div class="l"><span class="l-n">[03]</span><span><strong>La paleta dark/gold comunica antes de que se lea una palabra.</strong> Los portfolios de developers suelen ser blancos con azul. El contraste de este sistema visual señala desde el primer segundo que el autor tiene criterio estético propio.</span></div>
+  </div>
+</div>
+
+<!-- ══════════════ MICROJARVIS ══════════════ -->
+<div class="sdiv" id="jarvis">
+  <span class="sdiv-n">05</span>
+  <div class="sdiv-line"></div>
+  <span class="sdiv-tag">MICROJARVIS</span>
+</div>
+
+<div class="case">
+  <div class="ch">
+    <div class="ch-left">
+      <div class="ch-num" style="color:#e8d06a">Producto físico · IoT · AI edge computing</div>
+      <h2 class="ch-title">Un asistente AI<br>que puedes tocar</h2>
+      <p class="ch-sub">Raspberry Pi como nodo de automatización personal con modos activables por RFID</p>
+      <div class="tags">
+        <span class="tag">Raspberry Pi</span><span class="tag">Python</span>
+        <span class="tag">Telegram Bot</span><span class="tag">n8n</span>
+        <span class="tag">OpenRouter</span><span class="tag">Vite.js</span>
+        <span class="tag">RFID</span>
+      </div>
+      <p class="ch-body">
+        microJarvis es un asistente de automatización personal encarnado en hardware físico. Una Raspberry Pi que vive en el escritorio, se controla por Telegram, muestra estado en un dashboard web y cambia de modo de comportamiento pasando una tarjeta RFID. Cada modo activa un pipeline de n8n distinto. El cómputo pesado — los LLMs — corre en la nube vía OpenRouter. La Raspberry solo orquesta, nunca computa.
+      </p>
+    </div>
+    <div class="ch-right">
+      <div class="rb">
+        <div class="rb-label">// mi rol</div>
+        <div class="rb-val">Hardware · Firmware Python · Backend de automatización · Dashboard frontend · Diseño del sistema de modos</div>
+      </div>
+      <div class="rb">
+        <div class="rb-label">// modos RFID</div>
+        <div class="rb-val">
+          <strong>Secretario</strong> — gestión de agenda, recordatorios, emails<br>
+          <strong>Profesor</strong> — sesiones de aprendizaje guiado, flashcards<br>
+          <strong>Aprendiz</strong> — modo práctica, ejercicios, evaluación<br>
+          Cada tarjeta RFID = un perfil de comportamiento distinto
+        </div>
+      </div>
+      <div class="rb">
+        <div class="rb-label">// decisión de arquitectura clave</div>
+        <div class="rb-val">Compute offloading total. La Raspberry no ejecuta ningún modelo — solo recibe input, enruta a n8n, y muestra output. OpenRouter gestiona el modelo según el modo activo. El dispositivo puede funcionar con hardware mínimo de forma indefinida.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ps">
+    <div class="ps-block">
+      <div class="ps-label">// el problema</div>
+      <div class="ps-title">Los asistentes AI viven en pantallas, no en el espacio</div>
+      <div class="ps-body">
+        Abrir una app o una pestaña para activar un asistente tiene fricción. Requiere intención consciente. Un dispositivo físico en el escritorio es siempre visible, siempre accesible, y puede cambiar de modo de forma tangible — pasar una tarjeta es más inmediato que navegar un menú. La interacción física reduce la fricción cognitiva a cero.
+      </div>
+    </div>
+    <div class="ps-block">
+      <div class="ps-label">// la solución</div>
+      <div class="ps-title">Hardware mínimo, automatización máxima</div>
+      <div class="ps-body">
+        Un lector RFID detecta la tarjeta, identifica el modo, dispara el pipeline de n8n correspondiente. Telegram es la interfaz de conversación — sin app propia, sin login, sin fricción. El dashboard en Vite.js muestra el modo activo, el historial de tareas y el estado del sistema. OpenRouter selecciona el modelo óptimo según el tipo de tarea del modo activo.
+      </div>
+    </div>
+  </div>
+
+  <div class="pipeline">
+    <div class="pipe-title">// sistema de modos — flujo de activación</div>
+    <div class="pipe-body">
+      <div class="pipe-node">Tarjeta RFID detectada</div><div class="pipe-arr">→</div>
+      <div class="pipe-node">Raspberry Pi lee UID</div><div class="pipe-arr">→</div>
+      <div class="pipe-node">Modo identificado (secretario / profesor / aprendiz)</div><div class="pipe-arr">→</div>
+      <div class="pipe-node">Trigger webhook n8n</div><div class="pipe-arr">→</div>
+      <div class="pipe-node" style="color:#e8d06a;border-color:#3a3010">Pipeline n8n del modo</div><div class="pipe-arr">→</div>
+      <div class="pipe-node">OpenRouter · modelo por tarea</div><div class="pipe-arr">→</div>
+      <div class="pipe-node">Respuesta vía Telegram</div><div class="pipe-arr">+</div>
+      <div class="pipe-node">Dashboard Vite.js actualizado</div>
+    </div>
+  </div>
+
+  <div class="metrics">
+    <div class="metric">
+      <div class="m-val" style="color:#e8d06a">3+</div>
+      <div class="m-label">modos de comportamiento activables por RFID</div>
+    </div>
+    <div class="metric">
+      <div class="m-val" style="color:#e8d06a">0</div>
+      <div class="m-label">cómputo LLM local — todo offloading a OpenRouter</div>
+    </div>
+    <div class="metric">
+      <div class="m-val" style="color:#e8d06a">1</div>
+      <div class="m-label">interfaz física para controlar pipelines de automatización</div>
+    </div>
+  </div>
+
+  <div class="quote" style="border-left-color:#e8d06a">
+    <div class="q-text">"Pasar una tarjeta RFID para cambiar el modo de tu asistente AI es más inmediato que abrir una app. La fricción cero no es una metáfora — es literal."</div>
+    <div class="q-attr">// design insight · microJarvis</div>
+  </div>
+
+  <div class="learnings">
+    <div class="l"><span class="l-n">[01]</span><span><strong>Hardware mínimo + compute offloading = producto indefinidamente escalable.</strong> La Raspberry Pi no limita las capacidades del asistente porque no ejecuta ningún modelo. Añadir un nuevo modo es añadir un pipeline en n8n, no tocar el hardware.</span></div>
+    <div class="l"><span class="l-n">[02]</span><span><strong>Telegram como interfaz elimina la necesidad de una app propia.</strong> El usuario ya tiene Telegram instalado. Sin login, sin onboarding, sin fricción de distribución. La conversación es el producto — no el wrapper alrededor de la conversación.</span></div>
+    <div class="l"><span class="l-n">[03]</span><span><strong>n8n como capa de automatización desacopla los modos del firmware.</strong> Cada modo es un workflow independiente en n8n. Se pueden añadir, modificar o desactivar modos sin tocar el código Python de la Raspberry — el hardware y la lógica de negocio son completamente independientes.</span></div>
+  </div>
+</div>
+
+<div class="footer">
+  <span>Ricard Boixeda Tamburini · RBT Studio · Barcelona</span>
+  <span>Lead Full Stack · AI Engineer · Creative Technologist</span>
+</div>
+
+</body>
+</html>

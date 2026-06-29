@@ -1,4 +1,4 @@
-@tailwind base;
+﻿@tailwind base;
 @tailwind components;
 @tailwind utilities;
 
@@ -9,10 +9,18 @@
 
 :root {
   /* ---- Brand pair ---------------------------------------- */
-  --rbt-green:        #0E4A35;   /* primary — deep forest */
-  --rbt-green-ink:    #0A3527;   /* shadow / press state */
-  --rbt-green-haze:   #C7D6CF;   /* tint, line-art on cream */
-  --rbt-green-mist:   #E4ECE7;   /* faintest tint, surfaces */
+  --rbt-teal:         #151C1C;   /* primary — deep teal */
+  --rbt-teal-ink:     #0D1414;   /* shadow / press state */
+  --rbt-teal-haze:    #C2CBCB;   /* tint, line-art on cream */
+  --rbt-teal-mist:    #E1E6E6;   /* faintest tint, surfaces */
+
+  --rbt-green:        #0E4A35;   /* secondary — deep forest */
+  --rbt-green-ink:    #0A3527;   /* secondary shadow */
+  --rbt-green-haze:   #C7D6CF;   /* secondary tint */
+  --rbt-green-mist:   #E4ECE7;   /* secondary faintest tint */
+
+  /* ---- Brand gradient ------------------------------------ */
+  --rbt-gradient:     linear-gradient(180deg, #0E4A35 0%, #15C1C1 74.04%);
 
   --rbt-cream:        #F2EFE6;   /* primary surface */
   --rbt-cream-deep:   #E8E3D5;   /* card edge / divider */
@@ -27,7 +35,7 @@
   /* ---- Functional accents (used sparingly) --------------- */
   --rbt-warn:         #B8651A;   /* terracotta — warnings */
   --rbt-alert:        #8E2B1E;   /* burnt red — destructive */
-  --rbt-ok:           var(--rbt-green);
+  --rbt-ok:           var(--rbt-teal);
 
   /* ---- Type ---------------------------------------------- */
   --font-sans:  'DM Sans', system-ui, -apple-system, sans-serif;
@@ -70,7 +78,7 @@
   --radius:       0px;
   --radius-pill:  999px;
   --hairline:     1px solid var(--rbt-ink-line);
-  --hairline-d:   1px solid var(--rbt-green);
+  --hairline-d:   1px solid var(--rbt-teal);
 
   /* ---- Motion -------------------------------------------- */
   --ease-snap:    cubic-bezier(0.2, 0.7, 0.1, 1);
@@ -116,7 +124,7 @@ button { font: inherit; cursor: pointer; border: 0; background: none; padding: 0
 img, svg { display: block; max-width: 100%; }
 
 ::selection {
-  background: var(--rbt-green);
+  background: var(--rbt-teal);
   color: var(--rbt-cream);
 }
 
@@ -129,7 +137,7 @@ img, svg { display: block; max-width: 100%; }
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--rbt-green);
+  background: var(--rbt-teal);
 }
 
 /* =========================================================
@@ -221,7 +229,7 @@ img, svg { display: block; max-width: 100%; }
 
 .muted { color: var(--rbt-ink-mute); }
 .soft { color: var(--rbt-ink-soft); }
-.brand { color: var(--rbt-green); }
+.brand { color: var(--rbt-teal); }
 .invert { color: var(--rbt-cream); }
 
 /* =========================================================
@@ -234,7 +242,7 @@ img, svg { display: block; max-width: 100%; }
   font-weight: 800;
   font-size: 22px;
   letter-spacing: -0.02em;
-  color: var(--rbt-green);
+  color: var(--rbt-teal);
   line-height: 1;
 }
 
@@ -254,8 +262,8 @@ img, svg { display: block; max-width: 100%; }
   letter-spacing: var(--tr-label);
   text-transform: uppercase;
   line-height: 1;
-  border: 1.5px solid var(--rbt-green);
-  background: var(--rbt-green);
+  border: 1.5px solid var(--rbt-teal);
+  background: var(--rbt-teal);
   color: var(--rbt-cream);
   transition: transform var(--dur-quick) var(--ease-snap), background var(--dur-quick), color var(--dur-quick);
   cursor: pointer;
@@ -263,8 +271,8 @@ img, svg { display: block; max-width: 100%; }
 }
 
 .btn:hover {
-  background: var(--rbt-green-ink);
-  border-color: var(--rbt-green-ink);
+  background: var(--rbt-teal-ink);
+  border-color: var(--rbt-teal-ink);
   transform: translate(-1px, -1px);
   box-shadow: 3px 3px 0 var(--rbt-ink);
 }
@@ -276,11 +284,11 @@ img, svg { display: block; max-width: 100%; }
 
 .btn--ghost {
   background: transparent;
-  color: var(--rbt-green);
+  color: var(--rbt-teal);
 }
 
 .btn--ghost:hover {
-  background: var(--rbt-green);
+  background: var(--rbt-teal);
   color: var(--rbt-cream);
   box-shadow: 3px 3px 0 var(--rbt-ink);
 }
@@ -292,8 +300,8 @@ img, svg { display: block; max-width: 100%; }
 }
 
 .btn--ink:hover {
-  background: var(--rbt-green);
-  border-color: var(--rbt-green);
+  background: var(--rbt-teal);
+  border-color: var(--rbt-teal);
 }
 
 .btn--sm {
@@ -312,8 +320,8 @@ img, svg { display: block; max-width: 100%; }
   align-items: center;
   gap: 6px;
   padding: 4px 10px;
-  border: 1px solid var(--rbt-green);
-  color: var(--rbt-green);
+  border: 1px solid var(--rbt-teal);
+  color: var(--rbt-teal);
   font-family: var(--font-mono);
   font-size: 12px;
   line-height: 1;
@@ -321,7 +329,7 @@ img, svg { display: block; max-width: 100%; }
 }
 
 .tag--solid {
-  background: var(--rbt-green);
+  background: var(--rbt-teal);
   color: var(--rbt-cream);
 }
 
@@ -347,15 +355,15 @@ img, svg { display: block; max-width: 100%; }
 }
 
 .card:hover {
-  border-color: var(--rbt-green);
+  border-color: var(--rbt-teal);
   transform: translate(-2px, -2px);
-  box-shadow: 4px 4px 0 var(--rbt-green);
+  box-shadow: 4px 4px 0 var(--rbt-teal);
 }
 
 .card__num {
   font-family: var(--font-mono);
   font-size: 11px;
-  color: var(--rbt-green);
+  color: var(--rbt-teal);
   letter-spacing: 0.1em;
 }
 
@@ -404,7 +412,7 @@ img, svg { display: block; max-width: 100%; }
   font-weight: 800;
   line-height: 1;
   letter-spacing: -0.02em;
-  color: var(--rbt-green);
+  color: var(--rbt-teal);
 }
 
 /* Alerts */
@@ -419,7 +427,7 @@ img, svg { display: block; max-width: 100%; }
   border-bottom: var(--hairline);
 }
 
-.alert--ok { border-left-color: var(--rbt-green); }
+.alert--ok { border-left-color: var(--rbt-teal); }
 .alert--warn { border-left-color: var(--rbt-warn); }
 .alert--err { border-left-color: var(--rbt-alert); }
 .alert--info { border-left-color: var(--rbt-ink); }
@@ -439,7 +447,7 @@ img, svg { display: block; max-width: 100%; }
   font-family: var(--font-mono);
   font-size: 14px;
   font-weight: 500;
-  color: var(--rbt-green);
+  color: var(--rbt-teal);
   letter-spacing: 0.1em;
   padding-bottom: 14px;
 }
@@ -493,7 +501,7 @@ img, svg { display: block; max-width: 100%; }
 }
 
 .input:hover { border-color: var(--rbt-ink-mute); }
-.input:focus { border-color: var(--rbt-green); }
+.input:focus { border-color: var(--rbt-teal); }
 .input::placeholder { color: var(--rbt-ink-mute); }
 
 /* Utility: text balance */
@@ -501,4 +509,9 @@ img, svg { display: block; max-width: 100%; }
   .text-balance {
     text-wrap: balance;
   }
+}
+
+@keyframes rbt-hint-pulse {
+  0%, 100% { opacity: 0.85; transform: translateY(0); }
+  50%       { opacity: 1;    transform: translateY(-4px); }
 }

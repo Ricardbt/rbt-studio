@@ -1,0 +1,1590 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía para Editores - WordPress SJD</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --base: #FFFFFF;
+            --contrast: #343434;
+            --accent-1: #007fad;
+            --accent-2: #2fa2b8;
+            --accent-3: #e0f7ff;
+            --accent-4: #dd1115;
+            --accent-5: #5a5a5a;
+            --accent-6: #00000030;
+            --bg-cream: #fdf1e6;
+            --spacing-10: 8px;
+            --spacing-20: 10px;
+            --spacing-30: 20px;
+            --spacing-40: 30px;
+            --spacing-50: clamp(30px, 5vw, 50px);
+            --spacing-60: clamp(30px, 7vw, 70px);
+            --spacing-70: clamp(50px, 7vw, 90px);
+            --green-ok: #0a7c42;
+            --green-ok-bg: #edfaf3;
+            --red-ko: #b91c1c;
+            --red-ko-bg: #fff0f0;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: "Inter", system-ui, -apple-system, sans-serif;
+            background: var(--base);
+            color: var(--contrast);
+            line-height: 1.6;
+        }
+
+        .container { max-width: 1420px; margin: 0 auto; padding: 0 var(--spacing-40); }
+        a { color: var(--accent-1); text-decoration: none; transition: opacity 0.2s; }
+        a:hover { text-decoration: underline; }
+        .hide { display: none !important; }
+
+        header {
+            background: linear-gradient(135deg, rgba(0,159,222,0) 0%, var(--accent-1) 100%);
+            padding: var(--spacing-40) 0;
+            position: relative;
+        }
+        header::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-1), var(--accent-2));
+        }
+        header .container { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.5rem; font-weight: 700; color: var(--base); }
+        nav { display: flex; gap: var(--spacing-40); }
+        nav a { color: var(--base); font-weight: 500; opacity: 0.9; }
+        nav a:hover { opacity: 1; text-decoration: none; }
+
+        .hero {
+            padding: 80px 0 60px;
+            background: var(--accent-3);
+            text-align: center;
+        }
+        .hero h1 {
+            font-size: clamp(2.15rem, 5vw, 3rem);
+            font-weight: 900;
+            color: var(--accent-1);
+            margin-bottom: var(--spacing-30);
+            line-height: 1.2;
+        }
+        .hero p { font-size: clamp(1rem, 2vw, 1.375rem); color: var(--contrast); max-width: 640px; margin: 0 auto; }
+
+        .section { padding: var(--spacing-60) 0; }
+        .section-alt { background: var(--bg-cream); }
+        .section-alt h2, .section-alt h3, .section-alt h4 { color: var(--accent-1); }
+        .section-blue { background: var(--accent-1); color: var(--base); }
+        .section-blue h2, .section-blue h3, .section-blue h4 { color: var(--base); }
+        .section-pale { background: var(--accent-3); color: var(--accent-2); }
+        .section-dark { background: var(--contrast); color: var(--base); }
+        .section-dark h2, .section-dark h3, .section-dark h4 { color: var(--accent-1); }
+
+        .section-title {
+            font-size: clamp(1.75rem, 4vw, 2rem);
+            font-weight: 700;
+            color: var(--accent-1);
+            margin-bottom: var(--spacing-50);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-30);
+        }
+
+        .card {
+            background: var(--base);
+            border-radius: 0.5rem;
+            padding: var(--spacing-40);
+            margin-bottom: var(--spacing-40);
+            box-shadow: 0 4px 20px var(--accent-6);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .card:hover { transform: translateY(-2px); box-shadow: 0 8px 30px var(--accent-6); }
+        .card h3 { font-size: 1.375rem; font-weight: 600; color: var(--accent-1); margin-bottom: var(--spacing-30); display: flex; align-items: center; gap: var(--spacing-20); }
+        .card h4 { font-size: 1rem; font-weight: 600; margin: var(--spacing-40) 0 var(--spacing-20); color: var(--accent-1); }
+        .card p { color: var(--contrast); margin-bottom: var(--spacing-20); }
+        .card ul, .card ol { color: var(--contrast); padding-left: var(--spacing-30); margin-bottom: var(--spacing-20); }
+        .card ul li, .card ol li { margin-bottom: var(--spacing-20); }
+
+        .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--spacing-40); }
+        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--spacing-40); }
+        .grid-auto { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: var(--spacing-40); }
+
+        .btn {
+            display: inline-block;
+            background: var(--accent-1);
+            color: var(--base);
+            padding: 10px 20px 10px 30px;
+            border-radius: 2rem;
+            font-weight: 500;
+            transition: opacity 0.2s, background 0.2s;
+        }
+        .btn:hover { opacity: 0.85; text-decoration: none; background: #006a94; }
+
+        /* ═══════════════════════════════════════
+           PEDAGOGICAL COMPONENTS: bien/mal
+        ═══════════════════════════════════════ */
+
+        .bien-mal {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacing-30);
+            margin: var(--spacing-30) 0;
+        }
+
+        .bien-mal__item {
+            border-radius: 0.5rem;
+            padding: var(--spacing-30);
+            position: relative;
+        }
+
+        .bien-mal__item--bien {
+            background: var(--green-ok-bg);
+            border: 1.5px solid #6ee7b0;
+        }
+
+        .bien-mal__item--mal {
+            background: var(--red-ko-bg);
+            border: 1.5px solid #fca5a5;
+        }
+
+        .bien-mal__badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            border-radius: 2rem;
+            padding: 3px 12px;
+            margin-bottom: var(--spacing-20);
+        }
+
+        .bien-mal__badge--bien {
+            background: var(--green-ok);
+            color: #fff;
+        }
+
+        .bien-mal__badge--mal {
+            background: var(--red-ko);
+            color: #fff;
+        }
+
+        .bien-mal__item p,
+        .bien-mal__item ul,
+        .bien-mal__item li {
+            font-size: 0.9375rem;
+            color: var(--contrast);
+            margin-bottom: 0;
+        }
+
+        .bien-mal__item ul { padding-left: 18px; }
+        .bien-mal__item li { margin-bottom: 6px; }
+
+        .bien-mal__item strong {
+            color: var(--green-ok);
+        }
+
+        .bien-mal__item--mal strong {
+            color: var(--red-ko);
+        }
+
+        .caso-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.07em;
+            text-transform: uppercase;
+            color: var(--accent-2);
+            margin-bottom: var(--spacing-20);
+        }
+
+        .caso-label::before {
+            content: '→';
+            font-size: 1rem;
+        }
+
+        /* ═══════════════════════════════════════
+           EXISTING COMPONENT STYLES
+        ═══════════════════════════════════════ */
+
+        .tip {
+            background: rgba(0, 127, 173, 0.1);
+            border-left: 3px solid var(--accent-1);
+            padding: var(--spacing-30);
+            margin: var(--spacing-30) 0;
+            border-radius: 0 0.5rem 0.5rem 0;
+            color: var(--contrast);
+        }
+
+        .warning {
+            background: rgba(245, 158, 11, 0.1);
+            border-left: 3px solid #f59e0b;
+            padding: var(--spacing-30);
+            margin: var(--spacing-30) 0;
+            border-radius: 0 0.5rem 0.5rem 0;
+            color: var(--contrast);
+        }
+
+        .error-msg {
+            background: rgba(221, 17, 21, 0.1);
+            border-left: 3px solid var(--accent-4);
+            padding: var(--spacing-30);
+            margin: var(--spacing-30) 0;
+            border-radius: 0 0.5rem 0.5rem 0;
+            color: var(--accent-4);
+        }
+
+        code {
+            background: var(--bg-cream);
+            color: var(--accent-1);
+            padding: 2px 8px;
+            border-radius: 0.25rem;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.9em;
+        }
+
+        pre {
+            background: var(--bg-cream);
+            color: var(--accent-1);
+            padding: var(--spacing-30);
+            border-radius: 0.5rem;
+            overflow-x: auto;
+            margin: var(--spacing-30) 0;
+            font-family: 'Fira Code', monospace;
+        }
+
+        table { width: 100%; border-collapse: collapse; margin: var(--spacing-30) 0; }
+        th, td { text-align: left; padding: var(--spacing-20) var(--spacing-30); border-bottom: 1px solid var(--accent-6); }
+        th { background: var(--accent-3); color: var(--accent-2); font-weight: 600; font-size: 0.875rem; }
+        td { color: var(--contrast); font-size: 0.9375rem; }
+        tr:hover td { background: var(--accent-3); }
+
+        .toc {
+            background: var(--base);
+            border-radius: 0.5rem;
+            padding: var(--spacing-50);
+            margin-bottom: var(--spacing-50);
+            box-shadow: 0 4px 20px var(--accent-6);
+        }
+        .toc h2 { font-size: 1.5rem; font-weight: 700; margin-bottom: var(--spacing-30); color: var(--contrast); }
+        .toc ul { list-style: none; display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--spacing-20); }
+        .toc a { color: var(--contrast); display: flex; align-items: center; gap: var(--spacing-10); }
+        .toc a:hover { color: var(--accent-1); }
+        .toc .number { color: var(--accent-1); font-weight: 600; min-width: 24px; }
+
+        .step { display: flex; align-items: flex-start; gap: var(--spacing-20); margin-bottom: var(--spacing-20); }
+        .step-number {
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 28px; height: 28px;
+            background: var(--accent-1); border-radius: 50%;
+            font-weight: 600; color: var(--base); font-size: 0.875rem; flex-shrink: 0;
+        }
+        .step-content { flex: 1; }
+
+        video { width: 100%; border-radius: 0.5rem; margin: var(--spacing-30) 0; box-shadow: 0 4px 20px var(--accent-6); }
+
+        footer { background: var(--contrast); padding: var(--spacing-50) 0; text-align: center; margin-top: var(--spacing-70); }
+        footer p { color: var(--base); opacity: 0.8; }
+
+        .svg-reference { display: none; background: var(--base); padding: var(--spacing-30); border-radius: 8px; text-align: center; }
+        .svg-reference img { max-width: 100%; height: auto; border-radius: 4px; }
+        .card.show-svg .svg-reference { display: block; margin-top: var(--spacing-30); }
+
+        .btn-svg-ref {
+            background: var(--accent-2); color: var(--base); border: none;
+            padding: 8px 16px; border-radius: 4px; cursor: pointer;
+            font-size: 0.875rem; margin-top: var(--spacing-20); transition: background 0.3s;
+        }
+        .btn-svg-ref:hover { background: var(--accent-1); }
+
+        .video-modal {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9); z-index: 1000; justify-content: center; align-items: center;
+        }
+        .video-modal.active { display: flex; }
+        .video-modal video { max-width: 90%; max-height: 90%; border-radius: 8px; }
+        .video-modal .close-modal { position: absolute; top: 20px; right: 30px; color: var(--base); font-size: 40px; cursor: pointer; }
+
+        .btn-video {
+            background: var(--accent-1); color: var(--base); border: none;
+            padding: 10px 20px; border-radius: 4px; cursor: pointer;
+            font-size: 0.875rem; margin-top: var(--spacing-20);
+            display: inline-flex; align-items: center; gap: 8px;
+        }
+        .btn-video:hover { background: var(--accent-2); }
+
+        @media (max-width: 768px) {
+            .grid-2, .grid-3 { grid-template-columns: 1fr; }
+            .bien-mal { grid-template-columns: 1fr; }
+            .toc ul { grid-template-columns: 1fr; }
+            nav { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <a href="#" class="logo"><img src="assets/videos_formacionSJD/LOGO-SECUNDARIO-SJD-e1773238810467-768x295.png" alt="San Juan de Dios" height="50"></a>
+            <nav>
+                <a href="#introduccion">Introducción</a>
+                <a href="#tipos-contenido">Tipos de Contenido</a>
+                <a href="#estructura">Estructura</a>
+                <a href="#bloques">Bloques</a>
+                <a href="#patrones">Patrones</a>
+                <a href="#casos">Casos Comunes</a>
+                <a href="#estados">Estados</a>
+                <a href="#problemas">Problemas</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>Guía para Editores WordPress SJD</h1>
+            <p>Aprende a gestionar contenidos en el CMS de San Juan de Dios. Con ejemplos prácticos de lo que funciona y lo que se debe evitar.</p>
+        </div>
+    </section>
+
+    <!-- TOC -->
+    <section class="section">
+        <div class="container">
+            <div class="toc">
+                <h2>Contenido</h2>
+                <ul>
+                    <li><a href="#introduccion"><span class="number">1.</span> Introducción al Panel</a></li>
+                    <li><a href="#tipos-contenido"><span class="number">2.</span> Tipos de Contenido</a></li>
+                    <li><a href="#estructura"><span class="number">3.</span> Estructura de Página</a></li>
+                    <li><a href="#bloques"><span class="number">4.</span> Bloques Personalizados</a></li>
+                    <li><a href="#patrones"><span class="number">5.</span> Patrones Sincronizados</a></li>
+                    <li><a href="#casos"><span class="number">6.</span> Casos Comunes</a></li>
+                    <li><a href="#taxonomia"><span class="number">7.</span> Taxonomías</a></li>
+                    <li><a href="#practicas"><span class="number">8.</span> Mejores Prácticas</a></li>
+                    <li><a href="#estados"><span class="number">8.1.</span> Estados del Contenido</a></li>
+                    <li><a href="#plantillas"><span class="number">8.2.</span> Plantillas del Tema</a></li>
+                    <li><a href="#problemas"><span class="number">9.</span> Solución de Problemas</a></li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════
+         1. INTRODUCCIÓN
+    ═══════════════════════════════════════ -->
+    <section id="introduccion" class="section">
+        <div class="container">
+            <h2 class="section-title">1. Introducción al Panel</h2>
+
+            <div class="grid-2">
+                <div class="card">
+                    <h3>🔑 Acceder al Panel</h3>
+                    <ol>
+                        <li>Abre tu navegador y ve a la <strong>URL del admin (<code>/gestorweb</code>)</strong></li>
+                        <li>Inicia sesión con tu <strong>usuario y contraseña</strong></li>
+                        <li>Accederás al <strong>Panel de Control</strong></li>
+                    </ol>
+                    <div class="tip">Si no tienes acceso, contacta con el administrador del sistema.</div>
+
+                    <p class="caso-label">Caso de uso: primer acceso</p>
+                    <div class="bien-mal">
+                        <div class="bien-mal__item bien-mal__item--bien">
+                            <span class="bien-mal__badge bien-mal__badge--bien">✓ Bien</span>
+                            <p>Guardas la URL <code>/gestorweb</code> en favoritos y accedes siempre desde ahí. Si olvidas tu contraseña, usas "¿Olvidaste tu contraseña?" en la pantalla de login.</p>
+                        </div>
+                        <div class="bien-mal__item bien-mal__item--mal">
+                            <span class="bien-mal__badge bien-mal__badge--mal">✗ Mal</span>
+                            <p>Intentas acceder desde la URL pública del sitio o pides tu contraseña por email a otro editor. Cada usuario debe gestionar sus propias credenciales.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>🖥️ El Escritorio</h3>
+                    <ul>
+                        <li><strong>Escritorio:</strong> Resumen de actividad reciente</li>
+                        <li><strong>Entradas:</strong> Noticias/artículos del blog</li>
+                        <li><strong>Páginas:</strong> Páginas estáticas del sitio</li>
+                        <li><strong>Medios:</strong> Imágenes y archivos subidos</li>
+                        <li><strong>Publicaciones:</strong> Memorias institucionales</li>
+                        <li><strong>Locations:</strong> Centros SJD</li>
+                        <li><strong>Eventos:</strong> Calendario de eventos</li>
+                        <li><strong>Apariencia:</strong> Temas y menús (solo admin)</li>
+                    </ul>
+                    <div class="tip"><strong>Regla de oro:</strong> Cada tipo de contenido tiene su sección propia. Nunca uses "Páginas" para crear noticias, ni "Entradas" para crear centros.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════
+         2. TIPOS DE CONTENIDO
+    ═══════════════════════════════════════ -->
+    <section id="tipos-contenido" class="section section-alt">
+        <div class="container">
+            <h2 class="section-title">2. Tipos de Contenido</h2>
+
+            <div class="grid-2">
+
+                <!-- PÁGINAS -->
+                <div class="card">
+                    <h3>📄 Páginas</h3>
+                    <p>Contenido estático del sitio (secciones, landing pages, información institucional). Se accede en <strong>Páginas › Todas las páginas</strong>.</p>
+
+                    <h4>Cómo crear una nueva página:</h4>
+                    <ol>
+                        <li>Ir a <strong>Páginas › Añadir nueva</strong></li>
+                        <li>Añadir título y contenido con el editor de bloques</li>
+                        <li>Configurar en el panel derecho:
+                            <ul>
+                                <li><strong>Plantilla:</strong> Default, Full Width, etc.</li>
+                                <li><strong>Estado:</strong> Publicado / Borrador</li>
+                            </ul>
+                        </li>
+                        <li>Pulsar <strong>Publicar</strong></li>
+                    </ol>
+
+                    <h4>Páginas hija (subpáginas):</h4>
+                    <ol>
+                        <li>Edita la página que quieres que sea hija</li>
+                        <li>En <strong>Atributos de página</strong> (panel derecho): selecciona <strong>Padre</strong></li>
+                        <li>Ajusta el <strong>Orden</strong> para controlar la numeración en menús</li>
+                    </ol>
+
+                    <p class="caso-label">Caso de uso: título de página</p>
+                    <div class="bien-mal">
+                        <div class="bien-mal__item bien-mal__item--bien">
+                            <span class="bien-mal__badge bien-mal__badge--bien">✓ Bien</span>
+                            <p><strong>"Centros de atención en Cataluña"</strong> — descriptivo, indica de qué trata la página y ayuda al posicionamiento.</p>
+                        </div>
+                        <div class="bien-mal__item bien-mal__item--mal">
+                            <span class="bien-mal__badge bien-mal__badge--mal">✗ Mal</span>
+                            <p><strong>"Página nueva 3"</strong> o <strong>"test"</strong> — sin significado para el usuario ni para el buscador. Siempre ponle un título real antes de publicar.</p>
+                        </div>
+                    </div>
+                    <button class="btn-video" data-video="assets/videos_formacionSJD/opcionespagina.mov">▶ Ver vídeo</button>
+                </div>
+
+                <!-- NOTICIAS -->
+                <div class="card">
+                    <h3>📰 Noticias</h3>
+                    <p>Artículos con fecha, autor y categoría. Aparecen en listados automáticos. Se accede en <strong>Noticias › Todas las noticias</strong>.</p>
+
+                    <h4>Cómo crear una noticia:</h4>
+                    <ol>
+                        <li>Ir a <strong>Noticias › Añadir nueva</strong></li>
+                        <li>Completar:
+                            <ul>
+                                <li><strong>Título:</strong> Claro y orientado a la noticia</li>
+                                <li><strong>Contenido:</strong> Cuerpo del artículo</li>
+                                <li><strong>Extracto:</strong> Resumen breve para listados (150–200 caracteres)</li>
+                            </ul>
+                        </li>
+                        <li>En el panel derecho:
+                            <ul>
+                                <li><strong>Categoría:</strong> Una o varias</li>
+                                <li><strong>Etiquetas:</strong> Tags relevantes</li>
+                                <li><strong>Imagen destacada:</strong> Obligatoria (aparece en tarjetas)</li>
+                            </ul>
+                        </li>
+                        <li>Publicar</li>
+                    </ol>
+
+                    <p class="caso-label">Caso de uso: imagen destacada</p>
+                    <div class="bien-mal">
+                        <div class="bien-mal__item bien-mal__item--bien">
+                            <span class="bien-mal__badge bien-mal__badge--bien">✓ Bien</span>
+                            <p>Siempre añades una <strong>imagen destacada</strong> en WebP, optimizada a menos de 150KB, con texto alternativo descriptivo. La tarjeta de la noticia se muestra correctamente en todos los listados.</p>
+                        </div>
+                        <div class="bien-mal__item bien-mal__item--mal">
+                            <span class="bien-mal__badge bien-mal__badge--mal">✗ Mal</span>
+                            <p>Publicas la noticia sin imagen destacada. Resultado: en el listado aparece un hueco en blanco o una imagen genérica, rompe el diseño y resta credibilidad.</p>
+                        </div>
+                    </div>
+
+                    <p class="caso-label">Caso de uso: extracto</p>
+                    <div class="bien-mal">
+                        <div class="bien-mal__item bien-mal__item--bien">
+                            <span class="bien-mal__badge bien-mal__badge--bien">✓ Bien</span>
+                            <p><strong>"El Hospital San Juan de Dios de Barcelona ha inaugurado su nueva unidad de rehabilitación pediátrica, dotada con tecnología de última generación."</strong></p>
+                        </div>
+                        <div class="bien-mal__item bien-mal__item--mal">
+                            <span class="bien-mal__badge bien-mal__badge--mal">✗ Mal</span>
+                            <p>Dejar el extracto vacío. WordPress lo rellena automáticamente cortando las primeras palabras del contenido, que puede quedar a mitad de frase o sin sentido.</p>
+                        </div>
+                    </div>
+                    <button class="btn-video" data-video="assets/videos_formacionSJD/editar-noticias.mov">▶ Ver vídeo</button>
+                </div>
+
+                <!-- CENTROS -->
+                <div class="card">
+                    <h3>📍 Centros</h3>
+                    <p>Entidades con ubicación geográfica, datos de contacto y servicios. Se accede en <strong>Centros</strong>.</p>
+
+                    <h4>Cómo crear un nuevo centro:</h4>
+                    <ol>
+                        <li>Ir a <strong>Centros › Añadir nuevo</strong></li>
+                        <li>Completar título y descripción</li>
+                        <li>Rellenar los campos de datos:
+                            <ul>
+                                <li>Dirección, Teléfono, Email</li>
+                                <li><strong>Coordenadas GPS</strong> (imprescindible para el mapa)</li>
+                                <li>Horario, Provincia</li>
+                            </ul>
+                        </li>
+                        <li>Asignar categorías de centros</li>
+                        <li>Publicar</li>
+                    </ol>
+
+                    <p class="caso-label">Caso de uso: coordenadas GPS</p>
+                    <div class="bien-mal">
+                        <div class="bien-mal__item bien-mal__item--bien">
+                            <span class="bien-mal__badge bien-mal__badge--bien">✓ Bien</span>
+                            <p>Buscas el centro en Google Maps, haces clic derecho sobre el punto exacto y copias las coordenadas: <strong>41.3851, 2.1734</strong>. El centro aparece correctamente en el mapa interactivo.</p>
+                        </div>
+                        <div class="bien-mal__item bien-mal__item--mal">
+                            <span class="bien-mal__badge bien-mal__badge--mal">✗ Mal</span>
+                            <p>Dejas las coordenadas vacías o escribes solo la dirección. El centro no aparecerá en el bloque de mapa (<em>Map Locations Filter</em>) aunque esté publicado.</p>
+                        </div>
+                    </div>
+                    <button class="btn-video" data-video="assets/videos_formacionSJD/editarCentros.mov">▶ Ver vídeo</button>
+                </div>
+
+                <!-- EVENTOS -->
+                <div class="card">
+                    <h3>📅 Eventos</h3>
+                    <p>Eventos del calendario gestionados con The Events Calendar. Se accede en <strong>Eventos</strong>.</p>
+
+                    <h4>Cómo crear un evento:</h4>
+                    <ol>
+                        <li>Ir a <strong>Eventos › Añadir evento</strong></li>
+                        <li>Completar título y descripción</li>
+                        <li>Configurar en el panel derecho:
+                            <ul>
+                                <li><strong>Start / End Date y Hora</strong></li>
+                                <li><strong>All Day:</strong> si ocupa todo el día</li>
+                                <li><strong>Venue:</strong> lugar del evento</li>
+                                <li><strong>Categorías:</strong> tipo de evento</li>
+                            </ul>
+                        </li>
+                        <li>Publicar</li>
+                    </ol>
+
+                    <p class="caso-label">Caso de uso: fechas</p>
+                    <div class="bien-mal">
+                        <div class="bien-mal__item bien-mal__item--bien">
+                            <span class="bien-mal__badge bien-mal__badge--bien">✓ Bien</span>
+                            <p>Rellenas tanto la fecha de inicio como la de fin. Para eventos de un solo día, la fecha de fin es el mismo día. El calendario y los listados muestran la duración correctamente.</p>
+                        </div>
+                        <div class="bien-mal__item bien-mal__item--mal">
+                            <span class="bien-mal__badge bien-mal__badge--mal">✗ Mal</span>
+                            <p>Dejas la fecha de fin vacía o pones una fecha de fin anterior a la de inicio. El evento puede no aparecer en el calendario o mostrar una duración incorrecta.</p>
+                        </div>
+                    </div>
+                    <button class="btn-video" data-video="assets/videos_formacionSJD/editar-eventos.mov">▶ Ver vídeo</button>
+                </div>
+
+                <!-- PUBLICACIONES -->
+                <div class="card">
+                    <h3>📚 Publicaciones</h3>
+                    <p>Memorias institucionales y documentos. Se accede en <strong>Publicaciones</strong>.</p>
+
+                    <h4>Cómo crear una publicación:</h4>
+                    <ol>
+                        <li>Ir a <strong>Publicaciones › Añadir nuevo</strong></li>
+                        <li>Completar título y contenido</li>
+                        <li>Panel derecho:
+                            <ul>
+                                <li><strong>Categoría:</strong> Tipo de publicación</li>
+                                <li><strong>Imagen destacada:</strong> Portada del documento</li>
+                            </ul>
+                        </li>
+                        <li>Publicar</li>
+                    </ol>
+                    <div class="tip">URL resultante: <code>/publicaciones/[slug]/</code></div>
+
+                    <p class="caso-label">Caso de uso: categoría de publicación</p>
+                    <div class="bien-mal">
+                        <div class="bien-mal__item bien-mal__item--bien">
+                            <span class="bien-mal__badge bien-mal__badge--bien">✓ Bien</span>
+                            <p>Asignas la categoría correcta (<em>Memoria Anual</em>, <em>Informe de Responsabilidad</em>…). Los listados filtran bien y el usuario encuentra lo que busca.</p>
+                        </div>
+                        <div class="bien-mal__item bien-mal__item--mal">
+                            <span class="bien-mal__badge bien-mal__badge--mal">✗ Mal</span>
+                            <p>Dejas sin categoría o usas una genérica. Todas las publicaciones aparecen mezcladas sin posibilidad de filtrar por tipo.</p>
+                        </div>
+                    </div>
+                    <button class="btn-video" data-video="assets/videos_formacionSJD/editar-publicaciones.mov">▶ Ver vídeo</button>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════
+         3. ESTRUCTURA DE PÁGINA
+    ═══════════════════════════════════════ -->
+    <section id="estructura" class="section">
+        <div class="container">
+            <h2 class="section-title">3. Estructura de Página Recomendada</h2>
+
+            <div class="card">
+                <h3>🏠 Página de Inicio</h3>
+                <pre>1. [tabs-pds-home] o [Apertura A] + [Apertura B]
+2. [Bloque Home actualidad]
+3. [Home centros] o [Cifras SJD]
+4. [Home nuestro ADN]
+5. [Home publicaciones]
+6. [Donaciones]</pre>
+
+                <p class="caso-label">Caso de uso: orden de bloques</p>
+                <div class="bien-mal">
+                    <div class="bien-mal__item bien-mal__item--bien">
+                        <span class="bien-mal__badge bien-mal__badge--bien">✓ Bien</span>
+                        <p>Respetas el orden: <strong>mensaje de impacto → actualidad → centros → misión → donación</strong>. El usuario recibe primero lo institucional y cierra con una llamada a la acción.</p>
+                    </div>
+                    <div class="bien-mal__item bien-mal__item--mal">
+                        <span class="bien-mal__badge bien-mal__badge--mal">✗ Mal</span>
+                        <p>Pones el bloque de donaciones arriba del todo antes de presentar la organización. El usuario no tiene contexto y es menos probable que done.</p>
+                    </div>
+                </div>
+                <button class="btn-svg-ref" data-svg="estructura">Ver referencia visual</button>
+                <div class="svg-reference"><img src="assets/svg_bloques/estructura_home.svg" alt="Estructura Home" /></div>
+            </div>
+
+            <div class="grid-2">
+                <div class="card">
+                    <h3>🏥 Página de Centro</h3>
+                    <pre>1. Cover con imagen principal
+2. Contenido de texto
+3. [Tabs Detalles centros]
+4. [Home centros] (mapa)
+5. [Destacados personalizados SJD]
+6. [Donaciones]</pre>
+                </div>
+
+                <div class="card">
+                    <h3>📰 Página de Noticia</h3>
+                    <pre>1. Título e imagen
+2. Contenido
+3. [RELACIONADOS] o [RELACIONADOS 2]</pre>
+                    <div class="tip">El bloque de relacionados al final aumenta el tiempo en el sitio. No lo elimines aunque la noticia sea corta.</div>
+                </div>
+
+                <div class="card">
+                    <h3>🌍 Página de Proyecto</h3>
+                    <pre>1. Cover
+2. [La Casa de Todos] o [INICIATIVAS MANUAL SJD]
+3. [Publicaciones] relacionadas
+4. [Donaciones]</pre>
+                </div>
+
+                <div class="card">
+                    <h3>🥗 Página de Recetas</h3>
+                    <pre>1. [Receta] o [RecetasNutrities]
+2. [RELACIONADOS]</pre>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>📋 Página de Contenido (Landing)</h3>
+                <pre>1. Grupo con diseño constrained
+   ├─ Cover con imagen de fondo o Media & Text
+   │   ├─ Heading (título principal)
+   │   └─ Párrafo (introducción)
+   │
+   ├─ Bloques de contenido
+   │   ├─ Párrafos
+   │   ├─ Imágenes
+   │   ├─ Headings
+   │   └─ Botones
+   │
+   └─ Noticias Relacionadas (siempre al final)</pre>
+
+                <p class="caso-label">Caso de uso: jerarquía de títulos</p>
+                <div class="bien-mal">
+                    <div class="bien-mal__item bien-mal__item--bien">
+                        <span class="bien-mal__badge bien-mal__badge--bien">✓ Bien</span>
+                        <ul>
+                            <li><strong>H1</strong> — Título principal de la página (solo uno)</li>
+                            <li><strong>H2</strong> — Secciones principales</li>
+                            <li><strong>H3</strong> — Subsecciones dentro de cada H2</li>
+                        </ul>
+                    </div>
+                    <div class="bien-mal__item bien-mal__item--mal">
+                        <span class="bien-mal__badge bien-mal__badge--mal">✗ Mal</span>
+                        <ul>
+                            <li>Usar H1 varias veces en la misma página</li>
+                            <li>Saltar de H2 a H4 sin H3</li>
+                            <li>Usar Headings para dar tamaño al texto en lugar de para estructurar el contenido</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════
+         4. BLOQUES PERSONALIZADOS
+    ═══════════════════════════════════════ -->
+    <section id="bloques" class="section section-pale">
+        <div class="container">
+            <h2 class="section-title">4. Bloques Personalizados</h2>
+
+            <div class="grid-auto">
+
+                <div class="card">
+                    <h3>🎠 Slider Block</h3>
+                    <p>Carrusel/banner con imágenes. Úsalo para portadas visuales de sección, no como sustituto de una galería.</p>
+                    <ul>
+                        <li>Imágenes desde biblioteca de medios</li>
+                        <li>Ancho: completo / contenido</li>
+                        <li>Auto Play configurable</li>
+                    </ul>
+                    <div class="warning">No pongas más de 5-6 imágenes. Un slider demasiado largo raramente se visualiza completo.</div>
+                    <button class="btn-svg-ref" data-svg="slider">Ver referencia</button>
+                    <div class="svg-reference"><img src="assets/svg_bloques/slider_block.svg" alt="Slider Block" /></div>
+                </div>
+
+                <div class="card">
+                    <h3>✍️ Editorial Block</h3>
+                    <p>Bloque editorial para contenido destacado y personalizado. Úsalo para secciones que necesitan un tratamiento visual diferente al cuerpo de texto.</p>
+                    <button class="btn-svg-ref" data-svg="editorial">Ver referencia</button>
+                    <div class="svg-reference"><img src="assets/svg_bloques/editorial_block.svg" alt="Editorial Block" /></div>
+                </div>
+
+                <div class="card">
+                    <h3>👥 Team / Team List</h3>
+                    <p>Muestra miembros del equipo en cuadrícula.</p>
+                    <ul>
+                        <li>Número de columnas configurable</li>
+                        <li>Foto, nombre y cargo</li>
+                    </ul>
+                    <p class="caso-label">Caso de uso: fotos de equipo</p>
+                    <div class="bien-mal" style="grid-template-columns: 1fr;">
+                        <div class="bien-mal__item bien-mal__item--bien">
+                            <span class="bien-mal__badge bien-mal__badge--bien">✓ Bien</span>
+                            <p>Todas las fotos con el mismo encuadre (busto, fondo neutro) y mismo formato cuadrado. Resultado visual uniforme y profesional.</p>
+                        </div>
+                        <div class="bien-mal__item bien-mal__item--mal">
+                            <span class="bien-mal__badge bien-mal__badge--mal">✗ Mal</span>
+                            <p>Fotos con proporciones distintas, algunas en horizontal y otras en vertical. El bloque queda desigual y poco profesional.</p>
+                        </div>
+                    </div>
+                    <button class="btn-svg-ref" data-svg="team">Ver referencia</button>
+                    <div class="svg-reference"><img src="assets/svg_bloques/team_list.svg" alt="Team List" /></div>
+                </div>
+
+                <div class="card">
+                    <h3>🗓️ Events List</h3>
+                    <p>Lista automática de eventos próximos.</p>
+                    <ul>
+                        <li>Filtra por categorías</li>
+                        <li>Cantidad de eventos a mostrar</li>
+                    </ul>
+                    <div class="tip">Si no aparecen eventos, comprueba que los eventos publicados tienen fecha de fin posterior a hoy.</div>
+                    <button class="btn-svg-ref" data-svg="events">Ver referencia</button>
+                    <div class="svg-reference"><img src="assets/svg_bloques/events_list.svg" alt="Events List" /></div>
+                </div>
+
+                <div class="card">
+                    <h3>🔗 Noticias Relacionadas</h3>
+                    <p>Muestra noticias vinculadas al contenido actual. Dos modos:</p>
+                    <ul>
+                        <li><strong>Por taxonomía:</strong> automático, se actualiza solo</li>
+                        <li><strong>Manual:</strong> eliges tú qué posts mostrar</li>
+                    </ul>
+                    <p class="caso-label">¿Cuándo usar cada modo?</p>
+                    <div class="bien-mal" style="grid-template-columns: 1fr;">
+                        <div class="bien-mal__item bien-mal__item--bien">
+                            <span class="bien-mal__badge bien-mal__badge--bien">✓ Por taxonomía</span>
+                            <p>Para noticias genéricas: siempre mostrará las más recientes de la misma categoría, sin mantenimiento.</p>
+                        </div>
+                        <div class="bien-mal__item bien-mal__item--bien" style="margin-top: 10px;">
+                            <span class="bien-mal__badge bien-mal__badge--bien">✓ Manual</span>
+                            <p>Para campañas o proyectos especiales donde quieres controlar exactamente qué se relaciona.</p>
+                        </div>
+                    </div>
+                    <button class="btn-svg-ref" data-svg="relacionadas">Ver referencia</button>
+                    <div class="svg-reference"><img src="assets/svg_bloques/relacionados.svg" alt="Relacionados" /></div>
+                </div>
+
+                <div class="card">
+                    <h3>💙 Quiero Donar</h3>
+                    <p>Llamada a la acción de donación.</p>
+                    <ul>
+                        <li>Título y texto configurables</li>
+                        <li>Botón con enlace a formulario</li>
+                    </ul>
+                    <div class="tip">Incluye este bloque siempre al final de páginas de proyectos y centros. Es uno de los elementos de mayor impacto en conversión.</div>
+                    <button class="btn-svg-ref" data-svg="donar">Ver referencia</button>
+                    <div class="svg-reference"><img src="assets/svg_bloques/quiero_donar.svg" alt="Quiero Donar" /></div>
+                </div>
+
+                <div class="card">
+                    <h3>📥 Descargas</h3>
+                    <p>Archivos PDF para descarga directa.</p>
+                    <p class="caso-label">Caso de uso: nombre de archivo</p>
+                    <div class="bien-mal" style="grid-template-columns: 1fr;">
+                        <div class="bien-mal__item bien-mal__item--bien">
+                            <span class="bien-mal__badge bien-mal__badge--bien">✓ Bien</span>
+                            <p><code>memoria-anual-sjd-2024.pdf</code> — descriptivo, sin espacios ni caracteres especiales.</p>
+                        </div>
+                        <div class="bien-mal__item bien-mal__item--mal">
+                            <span class="bien-mal__badge bien-mal__badge--mal">✗ Mal</span>
+                            <p><code>Documento final REVISADO (3).pdf</code> — con espacios y paréntesis: puede dar error al descargar en algunos navegadores.</p>
+                        </div>
+                    </div>
+                    <button class="btn-svg-ref" data-svg="descargas">Ver referencia</button>
+                    <div class="svg-reference"><img src="assets/svg_bloques/descargas.svg" alt="Descargas" /></div>
+                </div>
+
+            </div>
+
+            <!-- PDS Carrusel -->
+            <div class="card">
+                <h3>🎡 PDS - Carrusel Noticias</h3>
+                <p>Carrusel de noticias/posts con navegación OwlCarousel. Es el bloque más flexible para mostrar contenido relacionado.</p>
+                <div class="grid-2">
+                    <div>
+                        <h4>Campos principales:</h4>
+                        <ul>
+                            <li><code>PDS_block_relacionado_title</code> — Título de la sección</li>
+                            <li><code>PDS_block_relacionado_numbers</code> — Cantidad (4, 6, 8…)</li>
+                            <li><code>PDS_block_relacionado_categoria</code> — Categoría de filtro</li>
+                            <li><code>PDS_block_relacionado_tipos</code> — Tipos de post</li>
+                            <li><code>PDS_block_relacionado_contenido</code> — Selección manual</li>
+                            <li><code>PDS_block_relacionado_CTA</code> — Botón "Ver más"</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4>Modos de uso:</h4>
+                        <ol>
+                            <li><strong>Automático:</strong> filtra por categoría o tipo de post (se actualiza solo)</li>
+                            <li><strong>Manual:</strong> seleccionas posts específicos</li>
+                        </ol>
+                        <p class="caso-label">Caso de uso: número de items</p>
+                        <div class="bien-mal" style="grid-template-columns: 1fr;">
+                            <div class="bien-mal__item bien-mal__item--bien">
+                                <span class="bien-mal__badge bien-mal__badge--bien">✓ Bien</span>
+                                <p>Configuras 6 items si tienes contenido suficiente. El carrusel se ve completo y hay rotación.</p>
+                            </div>
+                            <div class="bien-mal__item bien-mal__item--mal">
+                                <span class="bien-mal__badge bien-mal__badge--mal">✗ Mal</span>
+                                <p>Configuras 8 items pero solo existen 3 noticias en esa categoría. El carrusel queda vacío o duplica entradas.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mapa -->
+            <h3 style="color: var(--accent-2); margin: var(--spacing-50) 0 var(--spacing-30);">Bloques de Ubicación</h3>
+            <div class="grid-2">
+                <div class="card">
+                    <h3>🗺️ Map Locations Filter</h3>
+                    <p>Mapa interactivo con todos los centros SJD, filtrables por categoría o servicio.</p>
+                    <ul>
+                        <li>Título del mapa</li>
+                        <li>Centro de vista y zoom inicial</li>
+                        <li>Tipo de filtro (provincia, servicio…)</li>
+                    </ul>
+                    <div class="warning">Requiere que los centros estén publicados <strong>y</strong> tengan coordenadas GPS correctas. Sin coordenadas, el centro no aparece en el mapa aunque esté publicado.</div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════
+         5. PATRONES SINCRONIZADOS
+    ═══════════════════════════════════════ -->
+    <section id="patrones" class="section">
+        <div class="container">
+            <h2 class="section-title">5. Patrones Sincronizados</h2>
+
+            <div class="tip" style="margin-bottom: var(--spacing-40);">
+                <strong>¿Qué son?</strong> Bloques reutilizables que se comparten entre páginas. <strong>Si modificas un patrón sincronizado, el cambio se aplica automáticamente en todas las páginas donde se usa.</strong> Úsalos para elementos que deben ser consistentes en todo el sitio (donaciones, pie de sección, cifras…).
+            </div>
+
+            <div class="card" style="margin-bottom: var(--spacing-40);">
+                <h3>⚠️ Sincronizados vs. No sincronizados</h3>
+                <div class="bien-mal">
+                    <div class="bien-mal__item bien-mal__item--bien">
+                        <span class="bien-mal__badge bien-mal__badge--bien">✓ Patrón sincronizado</span>
+                        <p>Editas el bloque <strong>Donaciones</strong> para actualizar el importe mínimo sugerido. Automáticamente se actualiza en las 40 páginas donde aparece. Un solo cambio, impacto global.</p>
+                    </div>
+                    <div class="bien-mal__item bien-mal__item--mal">
+                        <span class="bien-mal__badge bien-mal__badge--mal">✗ Error frecuente</span>
+                        <p>Separas el patrón en una sola página (hacerlo editable) para hacer un cambio "solo en esta página". Ahora esa página queda desvinculada y no recibirá futuras actualizaciones globales.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid-2">
+                <div class="card">
+                    <h3>Plantillas de Apertura</h3>
+                    <table>
+                        <tr><th>Patrón</th><th>Descripción</th></tr>
+                        <tr><td><strong>Apertura A</strong></td><td>Sección de apertura con Cifras SJD</td></tr>
+                        <tr><td><strong>Apertura B</strong></td><td>Segunda sección de apertura</td></tr>
+                        <tr><td><strong>tabs-pds-home</strong></td><td>Tabs de navegación para la home</td></tr>
+                    </table>
+                    <button class="btn-svg-ref" data-svg="apertura_a">Ver referencia</button>
+                    <div class="svg-reference">
+                        <img src="assets/svg_bloques/apertura_a.svg" alt="Apertura A" />
+                        <img src="assets/svg_bloques/apertura_b.svg" alt="Apertura B" />
+                        <img src="assets/svg_bloques/tabs_pds_home.svg" alt="Tabs Home" style="margin-top: 20px;" />
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>Plantillas de Contenido</h3>
+                    <table>
+                        <tr><th>Patrón</th><th>Descripción</th></tr>
+                        <tr><td><strong>Donaciones</strong></td><td>Sección de donaciones</td></tr>
+                        <tr><td><strong>Publicaciones</strong></td><td>Listado de publicaciones</td></tr>
+                        <tr><td><strong>RELACIONADOS</strong></td><td>Posts relacionados</td></tr>
+                        <tr><td><strong>Cifras SJD</strong></td><td>Estadísticas institucionales</td></tr>
+                    </table>
+                    <button class="btn-svg-ref" data-svg="publicaciones">Ver referencia</button>
+                    <div class="svg-reference">
+                        <img src="assets/svg_bloques/donaciones.svg" alt="Donaciones" />
+                        <img src="assets/svg_bloques/publicaciones.svg" alt="Publicaciones" style="margin-top: 20px;" />
+                        <img src="assets/svg_bloques/relacionados.svg" alt="Relacionados" style="margin-top: 20px;" />
+                        <img src="assets/svg_bloques/cifras_sjd.svg" alt="Cifras SJD" style="margin-top: 20px;" />
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>Plantillas de Proyectos</h3>
+                    <table>
+                        <tr><th>Patrón</th><th>Descripción</th></tr>
+                        <tr><td><strong>La Casa de Todos</strong></td><td>Proyecto especial</td></tr>
+                        <tr><td><strong>INICIATIVAS MANUAL SJD</strong></td><td>Lista de iniciativas</td></tr>
+                    </table>
+                    <button class="btn-svg-ref" data-svg="proyectos">Ver referencia</button>
+                    <div class="svg-reference">
+                        <img src="assets/svg_bloques/la_casa_de_todos.svg" alt="La Casa de Todos" />
+                        <img src="assets/svg_bloques/iniciativas_manual_sjd.svg" alt="Iniciativas Manual SJD" style="margin-top: 20px;" />
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>Plantillas de Recetas</h3>
+                    <table>
+                        <tr><th>Patrón</th><th>Descripción</th></tr>
+                        <tr><td><strong>Receta</strong></td><td>Formato básico</td></tr>
+                        <tr><td><strong>RecetasNutrities</strong></td><td>Recetas especializadas</td></tr>
+                    </table>
+                    <button class="btn-svg-ref" data-svg="recetas">Ver referencia</button>
+                    <div class="svg-reference">
+                        <img src="assets/svg_bloques/receta.svg" alt="Receta" />
+                        <img src="assets/svg_bloques/recetas_nutrities.svg" alt="Recetas Nutrities" style="margin-top: 20px;" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>Cómo insertar un patrón</h3>
+                <div class="grid-3">
+                    <div>
+                        <h4>Método 1: Inserter</h4>
+                        <ol>
+                            <li>Edita la página</li>
+                            <li>Haz clic en <strong>+</strong></li>
+                            <li>Escribe el nombre del patrón</li>
+                            <li>Haz clic para insertar</li>
+                        </ol>
+                        <div class="tip">El método más rápido para la mayoría de casos.</div>
+                    </div>
+                    <div>
+                        <h4>Método 2: Bloque Reutilizable</h4>
+                        <ol>
+                            <li>Añade el bloque <strong>Patrón reutilizable</strong></li>
+                            <li>Selecciona el patrón de la lista</li>
+                        </ol>
+                    </div>
+                    <div>
+                        <h4>Método 3: Copiar y Pegar</h4>
+                        <ol>
+                            <li>Abre la página con el patrón</li>
+                            <li>Selecciona y copia los bloques</li>
+                            <li>Pega en tu página</li>
+                        </ol>
+                        <div class="warning">Este método <strong>desvincula</strong> el patrón. Los cambios globales no se aplicarán. Úsalo solo si necesitas una versión independiente.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════
+         6. CASOS COMUNES
+    ═══════════════════════════════════════ -->
+    <section id="casos" class="section section-blue">
+        <div class="container">
+            <h2 class="section-title">6. Casos Comunes</h2>
+
+            <div class="grid-2">
+                <div class="card" style="background: rgba(255,255,255,0.95);">
+                    <h3>📝 Formularios de Contacto</h3>
+                    <ol>
+                        <li>Insertar bloque <strong>WPForms</strong></li>
+                        <li>Seleccionar el formulario correspondiente</li>
+                    </ol>
+                    <div class="bien-mal" style="margin-top: var(--spacing-20);">
+                        <div class="bien-mal__item bien-mal__item--bien">
+                            <span class="bien-mal__badge bien-mal__badge--bien">✓ Bien</span>
+                            <p>Usas el formulario específico del centro o sección. Las respuestas llegan al destinatario correcto.</p>
+                        </div>
+                        <div class="bien-mal__item bien-mal__item--mal">
+                            <span class="bien-mal__badge bien-mal__badge--mal">✗ Mal</span>
+                            <p>Usas siempre el mismo formulario genérico en todas las páginas. Todas las consultas llegan al mismo email y nadie sabe a qué centro corresponden.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card" style="background: rgba(255,255,255,0.95);">
+                    <h3>🗺️ Mapa con Centros</h3>
+                    <ol>
+                        <li>Añadir bloque <strong>Map Locations Filter</strong></li>
+                        <li>Configurar título y filtros</li>
+                        <li>Verificar que los centros están publicados con coordenadas</li>
+                    </ol>
+                    <div class="tip">Si el mapa aparece vacío, el problema casi siempre es que los centros no tienen coordenadas GPS. Revisa los campos en <strong>Centros</strong>.</div>
+                </div>
+
+                <div class="card" style="background: rgba(255,255,255,0.95);">
+                    <h3>📋 Lista de Noticias</h3>
+                    <ol>
+                        <li>Añadir bloque <strong>Noticias Relacionadas</strong>, o bien</li>
+                        <li>Usar <strong>Query Loop</strong> con post type "post"</li>
+                    </ol>
+                    <div class="bien-mal" style="margin-top: var(--spacing-20);">
+                        <div class="bien-mal__item bien-mal__item--bien">
+                            <span class="bien-mal__badge bien-mal__badge--bien">✓ Noticias Relacionadas</span>
+                            <p>Para mostrar las últimas noticias sin configuración avanzada.</p>
+                        </div>
+                        <div class="bien-mal__item bien-mal__item--bien">
+                            <span class="bien-mal__badge bien-mal__badge--bien">✓ Query Loop</span>
+                            <p>Cuando necesitas control total: filtros, ordenación, paginación y diseño personalizado.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card" style="background: rgba(255,255,255,0.95);">
+                    <h3>📅 Próximos Eventos</h3>
+                    <ol>
+                        <li>Añadir bloque <strong>Events List</strong></li>
+                        <li>Configurar número de eventos y categoría</li>
+                    </ol>
+                    <div class="tip">El bloque solo muestra eventos con fecha de fin posterior a hoy. Los eventos pasados desaparecen automáticamente.</div>
+                </div>
+
+                <div class="card" style="background: rgba(255,255,255,0.95);">
+                    <h3>💙 Botón de Donación</h3>
+                    <ol>
+                        <li>Añadir bloque <strong>Quiero Donar</strong></li>
+                        <li>Configurar destino del fondo y título</li>
+                    </ol>
+                </div>
+
+                <div class="card" style="background: rgba(255,255,255,0.95);">
+                    <h3>🖼️ Slider de Imágenes</h3>
+                    <ol>
+                        <li>Añadir bloque <strong>Slider</strong></li>
+                        <li>Subir imágenes en WebP, mismo ratio</li>
+                    </ol>
+                    <div class="bien-mal" style="margin-top: var(--spacing-20);">
+                        <div class="bien-mal__item bien-mal__item--bien">
+                            <span class="bien-mal__badge bien-mal__badge--bien">✓ Bien</span>
+                            <p>Todas las imágenes en 16:9, mismo peso (~80KB). El slider se mueve fluidamente sin saltos.</p>
+                        </div>
+                        <div class="bien-mal__item bien-mal__item--mal">
+                            <span class="bien-mal__badge bien-mal__badge--mal">✗ Mal</span>
+                            <p>Mezclas imágenes horizontales y verticales. El slider cambia de altura entre slides y la experiencia es incómoda.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card" style="background: rgba(255,255,255,0.95);">
+                    <h3>🎬 Insertar Vídeo</h3>
+                    <ol>
+                        <li>Bloque <strong>Video</strong> para vídeos subidos directamente, o</li>
+                        <li>Embeds de <strong>YouTube / Vimeo</strong> (recomendado para vídeos largos)</li>
+                    </ol>
+                    <div class="bien-mal" style="margin-top: var(--spacing-20);">
+                        <div class="bien-mal__item bien-mal__item--bien">
+                            <span class="bien-mal__badge bien-mal__badge--bien">✓ YouTube/Vimeo</span>
+                            <p>El vídeo no ocupa espacio en el servidor, carga rápido y tiene controles de calidad adaptativa.</p>
+                        </div>
+                        <div class="bien-mal__item bien-mal__item--mal">
+                            <span class="bien-mal__badge bien-mal__badge--mal">✗ Subir .mp4 directo</span>
+                            <p>Un vídeo de 200MB ralentizará la página y consumirá cuota de alojamiento. Reserva esta opción para vídeos cortos (&lt;30 seg).</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card" style="background: rgba(255,255,255,0.95);">
+                    <h3>📥 Descargas (PDFs)</h3>
+                    <ol>
+                        <li>Añadir bloque <strong>Descargas</strong></li>
+                        <li>Subir archivos desde la biblioteca de medios</li>
+                    </ol>
+                    <div class="tip">Nombra los archivos antes de subirlos: sin espacios, sin tildes, con guiones. Ej: <code>informe-sjd-2024.pdf</code></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════
+         7. TAXONOMÍAS
+    ═══════════════════════════════════════ -->
+    <section id="taxonomia" class="section">
+        <div class="container">
+            <h2 class="section-title">7. Taxonomías del Sitio</h2>
+
+            <div class="grid-3">
+                <div class="card">
+                    <h3>Taxonomías de Contenido</h3>
+                    <ul>
+                        <li><strong>Categorías:</strong> Clasificación principal. Elige siempre al menos una.</li>
+                        <li><strong>Etiquetas:</strong> Tags secundarios para búsqueda interna.</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>Taxonomías de Centros</h3>
+                    <ul>
+                        <li><strong>Provincias:</strong> Permite filtrar centros por localización.</li>
+                        <li><strong>Servicios:</strong> Qué servicios ofrece el centro.</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>Taxonomías de Eventos</h3>
+                    <ul>
+                        <li><strong>Categorías de eventos:</strong> Tipo (formación, jornada, acto…).</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>Categorías: buenas prácticas</h3>
+                <div class="bien-mal">
+                    <div class="bien-mal__item bien-mal__item--bien">
+                        <span class="bien-mal__badge bien-mal__badge--bien">✓ Bien</span>
+                        <ul>
+                            <li>Usas categorías existentes siempre que sean apropiadas</li>
+                            <li>Si creas una nueva, es porque ninguna categoría actual encaja</li>
+                            <li>El nombre es claro y en singular: <em>Salud Mental</em>, <em>Formación</em></li>
+                        </ul>
+                    </div>
+                    <div class="bien-mal__item bien-mal__item--mal">
+                        <span class="bien-mal__badge bien-mal__badge--mal">✗ Mal</span>
+                        <ul>
+                            <li>Creas una categoría nueva para cada noticia</li>
+                            <li>Usas nombres diferentes para la misma cosa: <em>Noticias salud</em>, <em>Salud noticias</em>, <em>Salud</em></li>
+                            <li>Dejas el contenido sin categoría</li>
+                        </ul>
+                    </div>
+                </div>
+                <div style="margin-top: var(--spacing-40);">
+                    <button class="btn-video" data-video="assets/videos_formacionSJD/nueva-categoria.mov">▶ Ver vídeo: crear categoría</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════
+         8. MEJORES PRÁCTICAS
+    ═══════════════════════════════════════ -->
+    <section id="practicas" class="section section-alt">
+        <div class="container">
+            <h2 class="section-title">8. Mejores Prácticas</h2>
+
+            <div class="grid-2">
+                <div class="card">
+                    <h3>🖼️ Imágenes</h3>
+                    <ul>
+                        <li>Formato <strong>WebP</strong> siempre que sea posible</li>
+                        <li>Peso máximo: <strong>150KB</strong> (usa <a href="https://squoosh.app" target="_blank">squoosh.app</a> para comprimir)</li>
+                        <li><strong>Texto alternativo</strong> descriptivo en todas las imágenes</li>
+                        <li>Tamaños consistentes dentro de cada sección</li>
+                    </ul>
+                    <p class="caso-label">Texto alternativo</p>
+                    <div class="bien-mal">
+                        <div class="bien-mal__item bien-mal__item--bien">
+                            <span class="bien-mal__badge bien-mal__badge--bien">✓ Bien</span>
+                            <p><em>"Enfermera atendiendo a un paciente pediátrico en el Hospital San Juan de Dios de Barcelona"</em> — específico, descriptivo, útil para personas con discapacidad visual.</p>
+                        </div>
+                        <div class="bien-mal__item bien-mal__item--mal">
+                            <span class="bien-mal__badge bien-mal__badge--mal">✗ Mal</span>
+                            <p><em>"imagen"</em>, <em>"foto"</em>, <em>"IMG_3847.jpg"</em> — no aportan información. Perjudica la accesibilidad y el SEO.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>✍️ Textos y Redacción</h3>
+                    <ul>
+                        <li>Títulos claros y orientados al usuario</li>
+                        <li>Links descriptivos (nunca <em>"haz clic aquí"</em> o <em>"más información"</em>)</li>
+                        <li>Revisar ortografía antes de publicar</li>
+                        <li>Párrafos cortos: máximo 4-5 líneas</li>
+                    </ul>
+                    <p class="caso-label">Texto de enlace</p>
+                    <div class="bien-mal">
+                        <div class="bien-mal__item bien-mal__item--bien">
+                            <span class="bien-mal__badge bien-mal__badge--bien">✓ Bien</span>
+                            <p><em>"Descarga la Memoria Anual 2024"</em> — el usuario sabe exactamente a dónde va y qué descargará.</p>
+                        </div>
+                        <div class="bien-mal__item bien-mal__item--mal">
+                            <span class="bien-mal__badge bien-mal__badge--mal">✗ Mal</span>
+                            <p><em>"Haz clic aquí"</em> — fuera de contexto no dice nada, perjudica la accesibilidad y el SEO.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>🔍 SEO (Yoast)</h3>
+                    <ul>
+                        <li>Rellena el <strong>Título SEO</strong> (distinto al título visible si es necesario)</li>
+                        <li>Escribe la <strong>meta descripción</strong> (máx. 155 caracteres)</li>
+                        <li>La URL (<em>slug</em>) debe ser corta y descriptiva, sin tildes</li>
+                    </ul>
+                    <p class="caso-label">URL (slug)</p>
+                    <div class="bien-mal">
+                        <div class="bien-mal__item bien-mal__item--bien">
+                            <span class="bien-mal__badge bien-mal__badge--bien">✓ Bien</span>
+                            <p><code>/centros/hospital-barcelona</code> — corta, legible, sin caracteres especiales.</p>
+                        </div>
+                        <div class="bien-mal__item bien-mal__item--mal">
+                            <span class="bien-mal__badge bien-mal__badge--mal">✗ Mal</span>
+                            <p><code>/?p=1284</code> o <code>/centros/el-hospital-san-juan-de-dios-de-barcelona-inaugurado-en-2024</code> — demasiado larga o sin significado.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>🌐 Traducciones (WPML)</h3>
+                    <ul>
+                        <li>Crea la traducción de cada contenido nuevo</li>
+                        <li>Verifica el idioma activo en el editor antes de empezar</li>
+                        <li>No copies y pegues de un idioma a otro: usa el flujo de traducción de WPML</li>
+                    </ul>
+                    <div class="warning"><strong>Atención:</strong> si editas en el idioma equivocado, puedes sobreescribir la versión correcta sin darte cuenta. Comprueba siempre el idioma activo antes de editar.</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>👁️ Previsualización antes de publicar</h3>
+                <p>Siempre previsualiza antes de publicar, especialmente en móvil. Usa <strong>Vista previa → Móvil</strong> en la barra superior del editor.</p>
+                <div class="bien-mal">
+                    <div class="bien-mal__item bien-mal__item--bien">
+                        <span class="bien-mal__badge bien-mal__badge--bien">✓ Checklist antes de publicar</span>
+                        <ul>
+                            <li>Título y extracto rellenos</li>
+                            <li>Imagen destacada asignada</li>
+                            <li>Categoría correcta</li>
+                            <li>Slug revisado (sin tildes, sin espacios)</li>
+                            <li>Yoast: título SEO y meta descripción</li>
+                            <li>Vista previa en móvil</li>
+                        </ul>
+                    </div>
+                    <div class="bien-mal__item bien-mal__item--mal">
+                        <span class="bien-mal__badge bien-mal__badge--mal">✗ No hacer</span>
+                        <ul>
+                            <li>Publicar directamente desde Borrador sin previsualizar</li>
+                            <li>Publicar con el slug por defecto que WordPress genera (a veces muy largo)</li>
+                            <li>Publicar sin imagen destacada</li>
+                            <li>Ignorar el semáforo de Yoast en rojo</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════
+         8.1. ESTADOS DEL CONTENIDO
+    ═══════════════════════════════════════ -->
+    <section id="estados" class="section">
+        <div class="container">
+            <h2 class="section-title">8.1. Estados del Contenido</h2>
+
+            <div class="card">
+                <table>
+                    <tr><th>Estado</th><th>Significado</th><th>Cuándo usarlo</th></tr>
+                    <tr>
+                        <td><strong>Borrador</strong></td>
+                        <td>No publicado, en edición</td>
+                        <td>Mientras preparas el contenido. Nadie lo ve.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Pendiente de revisión</strong></td>
+                        <td>Listo, esperando aprobación</td>
+                        <td>Cuando terminas pero necesitas que un superior lo apruebe.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Programado</strong></td>
+                        <td>Se publicará en fecha futura</td>
+                        <td>Para noticias de eventos o comunicados con fecha concreta.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Privado</strong></td>
+                        <td>Solo visible para admins</td>
+                        <td>Contenido interno o en revisión por dirección.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Publicado</strong></td>
+                        <td>Visible públicamente</td>
+                        <td>Contenido listo y aprobado.</td>
+                    </tr>
+                </table>
+
+                <p class="caso-label">Flujo de trabajo recomendado</p>
+                <div class="bien-mal">
+                    <div class="bien-mal__item bien-mal__item--bien">
+                        <span class="bien-mal__badge bien-mal__badge--bien">✓ Flujo correcto</span>
+                        <p><strong>Borrador</strong> (creas) → <strong>Pendiente de revisión</strong> (avisas a tu coordinador) → <strong>Publicado</strong> (coordinador aprueba). Si es urgente y tienes permisos: Borrador → Publicado directamente.</p>
+                    </div>
+                    <div class="bien-mal__item bien-mal__item--mal">
+                        <span class="bien-mal__badge bien-mal__badge--mal">✗ Evitar</span>
+                        <p>Publicar contenido directamente sin revisión en temas sensibles (comunicados institucionales, notas de prensa, información sanitaria). Usa <em>Pendiente de revisión</em> en estos casos.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>Revisiones y versiones anteriores</h3>
+                <p>WordPress guarda automáticamente un historial de cambios. Si algo sale mal, puedes recuperar una versión anterior.</p>
+                <ol>
+                    <li>En el editor, abre el <strong>Panel derecho</strong></li>
+                    <li>Ve a <strong>Estado › Revisiones</strong></li>
+                    <li>Selecciona la versión que quieres restaurar</li>
+                </ol>
+                <div class="tip">¿Borraste algo sin querer? No cierres la página. Usa <strong>Ctrl + Z</strong> para deshacer en el editor, o ve a Revisiones para recuperar el estado anterior.</div>
+            </div>
+
+            <div class="card">
+                <h3>⌨️ Atajos de Teclado útiles</h3>
+                <table>
+                    <tr><th>Función</th><th>Atajo</th></tr>
+                    <tr><td>Guardar borrador</td><td><code>Ctrl + S</code></td></tr>
+                    <tr><td>Negrita</td><td><code>Ctrl + B</code></td></tr>
+                    <tr><td>Cursiva</td><td><code>Ctrl + I</code></td></tr>
+                    <tr><td>Insertar enlace</td><td><code>Ctrl + K</code></td></tr>
+                    <tr><td>Deshacer</td><td><code>Ctrl + Z</code></td></tr>
+                    <tr><td>Vista previa</td><td><code>Shift + Alt + Z</code></td></tr>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════
+         8.2. PLANTILLAS DEL TEMA
+    ═══════════════════════════════════════ -->
+    <section id="plantillas" class="section section-alt">
+        <div class="container">
+            <h2 class="section-title">8.2. Plantillas del Tema</h2>
+
+            <div class="tip" style="margin-bottom: var(--spacing-40);">
+                Las plantillas definen la estructura visual de cada tipo de contenido. Como editor normalmente no las modificas, pero es importante saber qué plantilla corresponde a cada contenido para elegir bien en el panel derecho.
+            </div>
+
+            <div class="card">
+                <h3>Plantillas de Contenido (Single)</h3>
+                <table>
+                    <tr><th>Plantilla</th><th>Tipo de Contenido</th></tr>
+                    <tr><td><code>single.html</code></td><td>Noticias (Post)</td></tr>
+                    <tr><td><code>single-capitulo.html</code></td><td>Capítulo</td></tr>
+                    <tr><td><code>single-nutrities.html</code></td><td>Recetas (Nutrities)</td></tr>
+                    <tr><td><code>single-event.html</code></td><td>Eventos</td></tr>
+                </table>
+            </div>
+
+            <div class="grid-2">
+                <div class="card">
+                    <h3>Plantillas de Página</h3>
+                    <table>
+                        <tr><th>Plantilla</th><th>Propósito</th></tr>
+                        <tr><td><code>page.html</code></td><td>Página estándar</td></tr>
+                        <tr><td><code>page-biography.html</code></td><td>Biografía (Sant Joan de Déu)</td></tr>
+                        <tr><td><code>page-no-title.html</code></td><td>Página sin título visible</td></tr>
+                        <tr><td><code>home.html</code></td><td>Homepage alternativa</td></tr>
+                        <tr><td><code>pagina-de-inicio.html</code></td><td>Homepage ES</td></tr>
+                        <tr><td><code>centro-sjd.html</code></td><td>Centro SJD (ES)</td></tr>
+                        <tr><td><code>quienes-somos.html</code></td><td>Quiénes somos</td></tr>
+                        <tr><td><code>que-hacemos.html</code></td><td>Qué hacemos</td></tr>
+                        <tr><td><code>la-casa-de-todos.html</code></td><td>La Casa de Todos</td></tr>
+                        <tr><td><code>miembro-gobierno.html</code></td><td>Miembro gobierno</td></tr>
+                        <tr><td><code>paginas-landing.html</code></td><td>Landing pages</td></tr>
+                        <tr><td><code>paginas-san-juan-de-dios.html</code></td><td>San Juan de Dios</td></tr>
+                        <tr><td><code>paginas-asuntos-internos.html</code></td><td>Páginas legales</td></tr>
+                    </table>
+                </div>
+
+                <div class="card">
+                    <h3>Plantillas de Archivo</h3>
+                    <table>
+                        <tr><th>Plantilla</th><th>Tipo de Contenido</th></tr>
+                        <tr><td><code>archive.html</code></td><td>Archives (general)</td></tr>
+                        <tr><td><code>archive-location.html</code></td><td>Centros</td></tr>
+                        <tr><td><code>archive-events.html</code></td><td>Eventos</td></tr>
+                    </table>
+
+                    <h3 style="margin-top: var(--spacing-40);">Plantillas Especiales</h3>
+                    <table>
+                        <tr><th>Plantilla</th><th>Propósito</th></tr>
+                        <tr><td><code>home.html</code></td><td>Homepage</td></tr>
+                        <tr><td><code>index.html</code></td><td>Index por defecto</td></tr>
+                        <tr><td><code>search.html</code></td><td>Resultados de búsqueda</td></tr>
+                        <tr><td><code>404.html</code></td><td>Error 404</td></tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════
+         9. PROBLEMAS FRECUENTES
+    ═══════════════════════════════════════ -->
+    <section id="problemas" class="section">
+        <div class="container">
+            <h2 class="section-title">9. Solución de Problemas Frecuentes</h2>
+
+            <div class="grid-2">
+                <div class="card">
+                    <h3>🔴 El contenido no aparece en el mapa</h3>
+                    <p><strong>Causa más probable:</strong> el centro no tiene coordenadas GPS.</p>
+                    <ol>
+                        <li>Ve a <strong>Centros</strong> y edita el centro</li>
+                        <li>Rellena el campo <strong>Coordenadas GPS</strong> con latitud y longitud</li>
+                        <li>Guarda y actualiza</li>
+                    </ol>
+                    <div class="tip">Obtén coordenadas en Google Maps: botón derecho sobre el punto → copia el primer par de números.</div>
+                </div>
+
+                <div class="card">
+                    <h3>🔴 La imagen destacada no se ve en el listado</h3>
+                    <p><strong>Causa:</strong> la imagen no está asignada como imagen destacada (aunque esté en el contenido).</p>
+                    <ol>
+                        <li>Edita la noticia o página</li>
+                        <li>En el <strong>panel derecho</strong>, busca <strong>Imagen destacada</strong></li>
+                        <li>Haz clic en <strong>Establecer imagen destacada</strong> y selecciona la imagen</li>
+                    </ol>
+                </div>
+
+                <div class="card">
+                    <h3>🔴 El carrusel de noticias sale vacío</h3>
+                    <p><strong>Causa:</strong> no hay noticias publicadas que coincidan con la categoría configurada, o la cantidad configurada es mayor que el número de noticias existentes.</p>
+                    <ol>
+                        <li>Edita el bloque <strong>PDS - Carrusel Noticias</strong></li>
+                        <li>Revisa la categoría configurada</li>
+                        <li>Reduce el número de items o añade más noticias a esa categoría</li>
+                    </ol>
+                </div>
+
+                <div class="card">
+                    <h3>🔴 El patrón sincronizado no se puede editar</h3>
+                    <p>Es el comportamiento correcto: los patrones sincronizados se editan desde <strong>Apariencia › Editor de bloques › Patrones</strong>, no desde la página.</p>
+                    <div class="warning">Si necesitas una versión diferente del patrón solo en esa página, usa <strong>Separar del patrón</strong>. Ten en cuenta que esa copia ya no recibirá actualizaciones globales.</div>
+                </div>
+
+                <div class="card">
+                    <h3>🔴 Cambié algo y rompí la página</h3>
+                    <ol>
+                        <li>Pulsa <strong>Ctrl + Z</strong> varias veces para deshacer</li>
+                        <li>Si ya guardaste, ve a <strong>Revisiones</strong> en el panel derecho</li>
+                        <li>Selecciona la versión anterior al error y restáurala</li>
+                    </ol>
+                    <div class="tip">Nunca publiques cambios de los que no estés seguro. Usa siempre <strong>Vista previa</strong> antes de publicar.</div>
+                </div>
+
+                <div class="card">
+                    <h3>🔴 Un evento no aparece en el calendario</h3>
+                    <p><strong>Causa más frecuente:</strong> la fecha de fin del evento ya pasó.</p>
+                    <ol>
+                        <li>Edita el evento</li>
+                        <li>Comprueba que <strong>End Date</strong> es igual o posterior a hoy</li>
+                        <li>Comprueba que el evento está <strong>Publicado</strong> (no en borrador)</li>
+                        <li>Comprueba que la categoría del evento coincide con el filtro del bloque</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACTO -->
+    <section class="section">
+        <div class="container">
+            <div class="card" style="text-align: center; padding: var(--spacing-60);">
+                <h3 style="justify-content: center;">¿Necesitas ayuda?</h3>
+                <p style="margin-bottom: var(--spacing-40);">Si tienes dudas o necesitas soporte técnico, contacta con:</p>
+                <a href="mailto:daniel@paladinidigital.com" class="btn">Paladini Digital Solutions</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>© 2026 San Juan de Dios – Guía para Editores WordPress</p>
+        </div>
+    </footer>
+
+    <!-- MODAL VÍDEO -->
+    <div class="video-modal" id="videoModal">
+        <span class="close-modal">&times;</span>
+        <video controls playsinline id="modalVideo">
+            <source src="" type="video/quicktime">
+            Tu navegador no soporta el elemento video.
+        </video>
+    </div>
+
+    <script>
+        document.querySelectorAll('.btn-svg-ref').forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                var card = this.closest('.card');
+                card.classList.toggle('show-svg');
+                this.textContent = card.classList.contains('show-svg') ? 'Ocultar referencia' : 'Ver referencia visual';
+            });
+        });
+
+        document.querySelectorAll('.btn-video').forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                var videoSrc = this.getAttribute('data-video');
+                var modal = document.getElementById('videoModal');
+                var video = document.getElementById('modalVideo');
+                video.querySelector('source').src = videoSrc;
+                video.playbackRate = 1.5;
+                video.load();
+                video.play();
+                modal.classList.add('active');
+            });
+        });
+
+        document.querySelector('.close-modal').addEventListener('click', function() {
+            var modal = document.getElementById('videoModal');
+            var video = document.getElementById('modalVideo');
+            video.pause();
+            modal.classList.remove('active');
+        });
+
+        document.getElementById('videoModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                var video = document.getElementById('modalVideo');
+                video.pause();
+                this.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>

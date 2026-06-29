@@ -1,4 +1,4 @@
-import { useRef, useEffect } from 'react'
+﻿import { useRef, useEffect } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
@@ -97,7 +97,7 @@ function ArtisticItem({ item, index }) {
     <div
       ref={itemRef}
       className="py-10 md:py-12 last:border-b-0 cursor-pointer group opacity-0"
-      style={{ borderBottom: '1px solid #C9C5B6' }}
+      style={{}}
     >
       <div className="font-mono text-[10px] tracking-[0.15em] uppercase mb-3" style={{ color: 'rgba(14, 74, 53, 0.6)' }}>
         {item.label}
@@ -106,7 +106,7 @@ function ArtisticItem({ item, index }) {
         ref={contentRef}
         className="text-xl md:text-2xl lg:text-3xl mb-3 group-hover:transition-colors group-hover:duration-300 font-semibold"
         style={{ color: '#14140F' }}
-        onMouseEnter={(e) => (e.currentTarget.style.color = '#0E4A35')}
+        onMouseEnter={(e) => (e.currentTarget.style.color = '#15C1C1')}
         onMouseLeave={(e) => (e.currentTarget.style.color = '#14140F')}
       >
         {item.title}
@@ -183,24 +183,16 @@ export default function Artistic() {
 
   return (
     <section ref={sectionRef} id="artistic" style={{ backgroundColor: '#F2EFE6' }}>
-      {/* Grid Pattern */}
-      <div
-        className="absolute inset-0 opacity-[0.02] pointer-events-none"
-        style={{
-          backgroundImage: `linear-gradient(#0E4A35 1px, transparent 1px), linear-gradient(90deg, #0E4A35 1px, transparent 1px)`,
-          backgroundSize: '80px 80px'
-        }}
-      />
 
       <div className="relative z-10 px-6 md:px-12 lg:px-16 xl:px-24 py-24 md:py-32 lg:py-40">
         <div ref={titleRef} className="mb-16 md:mb-20">
-          <p className="font-mono text-[12px] tracking-[0.18em] uppercase mb-4 md:mb-6 opacity-0" style={{ color: '#0E4A35' }}>
+          <p className="font-mono text-[12px] tracking-[0.18em] uppercase mb-4 md:mb-6 opacity-0" style={{ color: '#15C1C1' }}>
             04 / 05 · Creative Technology
           </p>
           <h2 className="font-sans text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-semibold leading-[0.9] opacity-0" style={{ color: '#14140F' }}>
             Donde la técnica
             <br />
-            <em className="not-italic" style={{ color: '#0E4A35' }}>genera experiencia</em>
+            <em className="not-italic" style={{ color: '#15C1C1' }}>genera experiencia</em>
           </h2>
         </div>
 

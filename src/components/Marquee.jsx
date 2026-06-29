@@ -1,4 +1,4 @@
-const items = [
+﻿const items = [
   'Experience Engineering', 'AI-native Products', 'Design Systems', 'Frontend Sofisticado',
   'Motion & Interaction', 'Product Thinking', 'UX Sensitivity', 'Creative Technology',
   'React / Next.js', 'TypeScript', 'GSAP', 'Three.js',
@@ -13,7 +13,7 @@ export default function Marquee() {
             key={i}
             className="whitespace-nowrap px-8 font-mono text-[14px] tracking-[0.05em] uppercase"
             style={{
-              color: i % 3 === 0 ? '#0E4A35' : '#6E6E64',
+              color: i % 3 === 0 ? '#15C1C1' : '#6E6E64',
             }}
           >
             {i % 3 === 0 ? '✦ ' : '· '}{item}

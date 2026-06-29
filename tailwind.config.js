@@ -12,8 +12,12 @@ export default {
         border: '#C9C5B6',
         text: '#14140F',
         textMuted: '#6E6E64',
-        accent: '#0E4A35',
+        accent: '#151C1C',
+        'accent-secondary': '#0E4A35',
         paper: '#FBF9F2',
+      },
+      backgroundImage: {
+        'brand-gradient': 'linear-gradient(180deg, #0E4A35 0%, #15C1C1 74.04%)',
       },
       fontFamily: {
         sans: ['DM Sans', 'system-ui', 'sans-serif'],

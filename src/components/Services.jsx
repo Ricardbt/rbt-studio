@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+﻿import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { WebDevIcon, AIIcon, ThreeDIcon, HardwareIcon, ConsultingIcon, InstallationsIcon } from './Icons'
@@ -93,24 +93,17 @@ export default function Services() {
 
   return (
     <section ref={sectionRef} id="services" className="relative py-16 md:py-20 lg:py-24" style={{ backgroundColor: '#F2EFE6' }}>
-      <div
-        className="absolute inset-0 opacity-[0.02] pointer-events-none"
-        style={{
-          backgroundImage: `linear-gradient(#0E4A35 1px, transparent 1px), linear-gradient(90deg, #0E4A35 1px, transparent 1px)`,
-          backgroundSize: '80px 80px'
-        }}
-      />
 
       <div className="relative z-10 w-full mx-auto px-4 sm:px-8 lg:px-16" style={{ maxWidth: '1280px' }}>
         <div ref={titleRef} className="mb-12 md:mb-16 lg:mb-24" style={{ opacity: 0 }}>
           <div style={{ marginBottom: '32px' }}>
-            <p className="font-mono text-[12px] tracking-[0.18em] uppercase mb-6" style={{ color: '#0E4A35' }}>
+            <p className="font-mono text-[12px] tracking-[0.18em] uppercase mb-6" style={{ color: '#15C1C1' }}>
               01 / 05 · Servicios
             </p>
             <h2 className="font-sans text-5xl lg:text-6xl font-semibold leading-[0.95] tracking-tight" style={{ color: '#14140F' }}>
               Cómo construimos
               <br />
-              <em className="not-italic" style={{ color: '#0E4A35' }}>experiencias</em>
+              <em className="not-italic" style={{ color: '#15C1C1' }}>experiencias</em>
             </h2>
           </div>
         </div>
@@ -118,10 +111,7 @@ export default function Services() {
         <div
           className="services-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
           style={{
-            gap: '1px',
-            borderTop: '1px solid #C9C5B6',
-            borderLeft: '1px solid #C9C5B6',
-            backgroundColor: 'transparent',
+            gap: '32px',
           }}
         >
           {SERVICES.map((service) => (
@@ -129,8 +119,6 @@ export default function Services() {
               key={service.num}
               className="service-card group"
               style={{
-                borderRight: '1px solid #C9C5B6',
-                borderBottom: '1px solid #C9C5B6',
                 padding: '32px',
                 minHeight: '320px',
                 display: 'flex',
@@ -147,11 +135,11 @@ export default function Services() {
                 e.currentTarget.style.backgroundColor = '#FBF9F2'
               }}
             >
-              <span className="t-num" style={{ color: '#0E4A35' }}>
+              <span className="t-num" style={{ color: '#15C1C1' }}>
                 {service.num}
               </span>
-              <div style={{ marginTop: '8px', color: '#0E4A35' }}>
-                <service.icon size={56} color="#0E4A35" />
+              <div style={{ marginTop: '8px', color: '#15C1C1' }}>
+                <service.icon size={56} color="#15C1C1" />
               </div>
               <h3 className="font-sans text-[26px] font-semibold leading-[1.15]" style={{ color: '#14140F' }}>
                 {service.name}
