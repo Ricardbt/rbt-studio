@@ -24,7 +24,10 @@
       "Bash(git lfs *)",
       "Bash(git stash *)",
       "Bash(git reflog *)",
-      "Bash(git gc *)"
+      "Bash(git gc *)",
+      "Bash(xxd)",
+      "Bash(gh run *)",
+      "Bash(ssh -p 65002 -o BatchMode=yes -o ConnectTimeout=12 -o StrictHostKeyChecking=accept-new u328282421@82.198.228.160 'echo \"CONNECTED\"; whoami; pwd; ls -la ~/domains 2>/dev/null')"
     ]
   }
 }
