@@ -67,16 +67,15 @@ const ALL_PROJECTS = [
   { id: 11,   type: 'image', featured: false, client: 'Cultura Sitges',       tech: 'WordPress',           title: 'Cultura Sitges Agenda',    image: 'assets/proyectos/webs/screencapture-culturasitges-cat-actualitat-agenda-2023-03-03-11_08_48.png', objectPosition: 'center' },
 
   // ── Tier 6: Product demos ─────────────────────────────────────────────────
-  { id: 'v4', type: 'video', featured: true,  client: 'The Smart Lollipop',   tech: 'Web · 3D · GSAP',     title: 'The Smart Lollipop',       src: 'assets/proyectos/captures/smartlolipop.mp4',         caseStudy: 'tsl' },
-  { id: 80,   type: 'image', featured: true,  client: 'The Smart Lollipop',   tech: 'Web · 3D · GSAP',     title: 'TSL Core',                 image: 'assets/proyectos/webs/tsl_tsl_core.webp',                                                       objectPosition: 'center' },
-  { id: 81,   type: 'image', featured: false, client: 'The Smart Lollipop',   tech: 'Web · 3D · GSAP',     title: 'TSL Group',                image: 'assets/proyectos/webs/TSL_Group-scaled.webp',                                                   objectPosition: 'center' },
+  { id: 'v4', type: 'video', featured: true,  client: 'The Smart Lollipop',   tech: 'Web · 3D · GSAP',     title: 'The Smart Lollipop',       src: 'assets/proyectos/captures/smartlolipop.mp4',         caseStudy: 'tsl',
+    caseImages: ['assets/proyectos/webs/tsl_tsl_core.webp', 'assets/proyectos/webs/TSL_Group-scaled.webp'] },
 
-  { id: 'v5', type: 'video', featured: true,  client: 'D-Go',                 tech: 'Web · 3D · Scroll',   title: 'D-Go',                     src: 'assets/proyectos/captures/dgo-web.mp4',              caseStudy: 'dgo' },
-  { id: 82,   type: 'image', featured: true,  client: 'D-Go',                 tech: 'Web · 3D · Scroll',   title: 'D-Go Tech',                image: 'assets/proyectos/webs/DGO_Tech-scaled.webp',                                                    objectPosition: 'center' },
-  { id: 83,   type: 'image', featured: false, client: 'D-Go',                 tech: 'Mobile',              title: 'D-Go Mobile',              image: 'assets/proyectos/webs/MOvile_DGO.webp',                                                         objectPosition: 'center' },
+  { id: 'v5', type: 'video', featured: true,  client: 'D-Go',                 tech: 'Web · 3D · Scroll',   title: 'D-Go',                     src: 'assets/proyectos/captures/dgo-web.mp4',              caseStudy: 'dgo',
+    caseImages: ['assets/proyectos/webs/DGO_Tech-scaled.webp', 'assets/proyectos/webs/MOvile_DGO.webp'] },
 
-  { id: 'v8', type: 'video', featured: true,  client: 'Aimplas',              tech: 'React Native · 3D',   title: 'Aimplas 3D App',           src: 'assets/proyectos/captures/aimplas-3d.mp4',           caseStudy: 'aimplas', extraVideos: ['assets/proyectos/captures/aimplas-menu.mp4'] },
-  { id: 84,   type: 'image', featured: true,  client: 'Aimplas',              tech: 'React Native · 3D',   title: 'Aimplas App',              image: 'assets/proyectos/webs/Aimplas_Thumb.webp',                                                      objectPosition: 'center' },
+  { id: 'v8', type: 'video', featured: true,  client: 'Aimplas',              tech: 'React Native · 3D',   title: 'Aimplas 3D App',           src: 'assets/proyectos/captures/aimplas-3d.mp4',           caseStudy: 'aimplas', extraVideos: ['assets/proyectos/captures/aimplas-menu.mp4'],
+    caseImages: ['assets/proyectos/webs/Aimplas_Thumb.webp'] },
+
   { id: 'v3', type: 'video', featured: true,  client: 'VampMaker',            tech: 'App',                 title: 'VampMaker Demo',           src: 'assets/proyectos/captures/vampmaker.mp4',            caseStudy: 'vm' },
 
   // ── Tier 7: Additional web work ───────────────────────────────────────────
@@ -190,9 +189,10 @@ export default function ProjectGallery() {
                   tech={project.tech}
                   caseStudyId={project.caseStudy}
                   extraVideos={project.extraVideos}
+                  caseImages={project.caseImages}
                   onOpenModal={setVideoModal}
-                  onOpenCaseStudy={(csId, videoSrc, extraVideos) =>
-                    setCaseModal({ caseData: getCaseById(csId), videoSrc, extraVideos })
+                  onOpenCaseStudy={(csId, videoSrc, extraVideos, caseImages) =>
+                    setCaseModal({ caseData: getCaseById(csId), videoSrc, extraVideos, caseImages })
                   }
                 />
               )
@@ -276,6 +276,7 @@ export default function ProjectGallery() {
         caseData={caseModal?.caseData}
         videoSrc={caseModal?.videoSrc}
         extraVideos={caseModal?.extraVideos}
+        images={caseModal?.caseImages}
         onClose={() => setCaseModal(null)}
       />
 

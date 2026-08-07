@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react'
 
-export default function ProjectVideo({ src, title, client, tech, caseStudyId, extraVideos, onOpenModal, onOpenCaseStudy }) {
+export default function ProjectVideo({ src, title, client, tech, caseStudyId, extraVideos, caseImages, onOpenModal, onOpenCaseStudy }) {
   const videoRef = useRef(null)
   const [playing, setPlaying] = useState(false)
 
@@ -127,7 +127,7 @@ export default function ProjectVideo({ src, title, client, tech, caseStudyId, ex
             <button
               onClick={(e) => {
                 e.stopPropagation()
-                if (onOpenCaseStudy) onOpenCaseStudy(caseStudyId, src, extraVideos)
+                if (onOpenCaseStudy) onOpenCaseStudy(caseStudyId, src, extraVideos, caseImages)
               }}
               style={{
                 background: 'none', border: '1px solid #C9C5B6', cursor: 'pointer',

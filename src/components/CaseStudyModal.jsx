@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react'
 
-export default function CaseStudyModal({ caseData, videoSrc, extraVideos, onClose }) {
+export default function CaseStudyModal({ caseData, videoSrc, extraVideos, images, onClose }) {
   const scrollRef = useRef(null)
 
   useEffect(() => {
@@ -94,6 +94,28 @@ export default function CaseStudyModal({ caseData, videoSrc, extraVideos, onClos
                       border: '1px solid var(--rbt-ink-line)',
                       backgroundColor: '#0D1414',
                       maxHeight: '320px', objectFit: 'contain',
+                    }}
+                  />
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Images from the live site */}
+          {images?.length > 0 && (
+            <div style={{ marginBottom: '40px' }}>
+              <p style={{ fontFamily: 'var(--font-mono)', fontSize: 'var(--t-label)', color: 'var(--rbt-ink-mute)', letterSpacing: 'var(--tr-label)', textTransform: 'uppercase', marginBottom: '12px' }}>Del sitio</p>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                {images.map((img, i) => (
+                  <img
+                    key={i}
+                    src={img}
+                    alt=""
+                    loading="lazy"
+                    style={{
+                      width: '100%', display: 'block',
+                      border: '1px solid var(--rbt-ink-line)',
+                      backgroundColor: 'var(--rbt-paper)',
                     }}
                   />
                 ))}
