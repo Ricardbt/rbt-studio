@@ -55,7 +55,7 @@ export default function About() {
 
       <div className="relative z-10 px-6 md:px-12 lg:px-16 xl:px-24 py-20 md:py-28 lg:py-32">
         <div ref={headerRef} className="max-w-[820px] mb-16 md:mb-20 lg:mb-24">
-          <div className="font-mono text-[10px] tracking-[0.2em] uppercase mb-4 md:mb-6" style={{ color: '#15C1C1' }}>
+          <div className="font-mono text-[10px] tracking-[0.2em] uppercase mb-4 md:mb-6" style={{ color: 'var(--rbt-signal)' }}>
             Sobre mí
           </div>
           <h2 className="font-sans text-3xl md:text-4xl lg:text-5xl font-semibold leading-[1.05] mb-6" style={{ color: '#14140F' }}>

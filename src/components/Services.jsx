@@ -97,13 +97,13 @@ export default function Services() {
       <div className="relative z-10 w-full mx-auto px-4 sm:px-8 lg:px-16" style={{ maxWidth: '1280px' }}>
         <div ref={titleRef} className="mb-12 md:mb-16 lg:mb-24" style={{ opacity: 0 }}>
           <div style={{ marginBottom: '32px' }}>
-            <p className="font-mono text-[12px] tracking-[0.18em] uppercase mb-6" style={{ color: '#15C1C1' }}>
+            <p className="font-mono text-[12px] tracking-[0.18em] uppercase mb-6" style={{ color: 'var(--rbt-signal)' }}>
               01 / 05 · Servicios
             </p>
             <h2 className="font-sans text-5xl lg:text-6xl font-semibold leading-[0.95] tracking-tight" style={{ color: '#14140F' }}>
               Cómo construimos
               <br />
-              <em className="not-italic" style={{ color: '#15C1C1' }}>experiencias</em>
+              <em className="not-italic" style={{ color: 'var(--rbt-signal)' }}>experiencias</em>
             </h2>
           </div>
         </div>
@@ -135,11 +135,11 @@ export default function Services() {
                 e.currentTarget.style.backgroundColor = '#FBF9F2'
               }}
             >
-              <span className="t-num" style={{ color: '#15C1C1' }}>
+              <span className="t-num" style={{ color: 'var(--rbt-signal)' }}>
                 {service.num}
               </span>
-              <div style={{ marginTop: '8px', color: '#15C1C1' }}>
-                <service.icon size={56} color="#15C1C1" />
+              <div style={{ marginTop: '8px', color: 'var(--rbt-signal)' }}>
+                <service.icon size={56} color="var(--rbt-signal)" />
               </div>
               <h3 className="font-sans text-[26px] font-semibold leading-[1.15]" style={{ color: '#14140F' }}>
                 {service.name}

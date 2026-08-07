@@ -120,7 +120,7 @@ export default function ProjectVideo({ src, title, client, tech, caseStudyId, ex
           {tech}
         </span>
         <div style={{ marginTop: '12px', display: 'flex', alignItems: 'center', gap: '14px' }}>
-          <span className="font-mono text-[10px] tracking-[0.1em]" style={{ color: '#15C1C1' }}>
+          <span className="font-mono text-[10px] tracking-[0.1em]" style={{ color: 'var(--rbt-signal)' }}>
             ▶ Demo
           </span>
           {caseStudyId && (
@@ -156,7 +156,7 @@ export function VideoModal({ item, onClose }) {
       style={{
         position: 'fixed',
         inset: 0,
-        backgroundColor: 'rgba(0,0,0,0.97)',
+        backgroundColor: 'var(--rbt-scrim)',
         zIndex: 1000,
         display: 'flex',
         alignItems: 'center',
@@ -203,7 +203,7 @@ export function VideoModal({ item, onClose }) {
             <h2 className="font-sans text-3xl font-semibold mb-1" style={{ color: '#F2EFE6' }}>
               {item.title}
             </h2>
-            <span className="font-mono text-[12px] tracking-[0.1em] uppercase" style={{ color: '#15C1C1' }}>
+            <span className="font-mono text-[12px] tracking-[0.1em] uppercase" style={{ color: 'var(--rbt-signal)' }}>
               {item.tech}
             </span>
           </div>

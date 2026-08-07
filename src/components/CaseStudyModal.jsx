@@ -61,7 +61,7 @@ export default function CaseStudyModal({ caseData, videoSrc, extraVideos, images
 
           {/* Hero */}
           <div style={{ marginBottom: '40px', paddingBottom: '40px', borderBottom: '1px solid var(--rbt-ink-line)' }}>
-            <p style={{ fontFamily: 'var(--font-mono)', fontSize: 'var(--t-label)', color: '#15C1C1', letterSpacing: 'var(--tr-label)', textTransform: 'uppercase', marginBottom: '16px' }}>
+            <p style={{ fontFamily: 'var(--font-mono)', fontSize: 'var(--t-label)', color: 'var(--rbt-signal)', letterSpacing: 'var(--tr-label)', textTransform: 'uppercase', marginBottom: '16px' }}>
               {c.category}
             </p>
             <h2 style={{ fontFamily: 'var(--font-sans)', fontWeight: 800, fontSize: 'var(--t-h1)', color: 'var(--rbt-ink)', lineHeight: 'var(--lh-snug)', letterSpacing: 'var(--tr-tight)', marginBottom: '10px', whiteSpace: 'pre-line' }}>
@@ -146,7 +146,7 @@ export default function CaseStudyModal({ caseData, videoSrc, extraVideos, images
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1px', background: 'var(--rbt-ink-line)' }} className="csm-ps-grid">
               {[{ label: 'Problema', ...c.problem }, { label: 'Solución', ...c.solution }].map(b => (
                 <div key={b.label} style={{ background: 'var(--rbt-paper)', padding: '24px' }}>
-                  <p style={{ fontFamily: 'var(--font-mono)', fontSize: 'var(--t-label)', color: '#15C1C1', letterSpacing: 'var(--tr-label)', textTransform: 'uppercase', marginBottom: '10px' }}>{b.label}</p>
+                  <p style={{ fontFamily: 'var(--font-mono)', fontSize: 'var(--t-label)', color: 'var(--rbt-signal)', letterSpacing: 'var(--tr-label)', textTransform: 'uppercase', marginBottom: '10px' }}>{b.label}</p>
                   <h3 style={{ fontFamily: 'var(--font-sans)', fontWeight: 700, fontSize: 'var(--t-h4)', color: 'var(--rbt-ink)', lineHeight: 'var(--lh-snug)', marginBottom: '10px' }}>{b.title}</h3>
                   <p style={{ fontFamily: 'var(--font-sans)', fontSize: 'var(--t-small)', color: 'var(--rbt-ink-soft)', lineHeight: 'var(--lh-body)' }}>{b.body}</p>
                 </div>
@@ -166,8 +166,8 @@ export default function CaseStudyModal({ caseData, videoSrc, extraVideos, images
                     padding: '4px 10px',
                     border: '1px solid var(--rbt-ink-line)',
                     fontFamily: 'var(--font-mono)', fontSize: '11px',
-                    color: node.accent ? 'var(--rbt-teal)' : 'var(--rbt-ink-soft)',
-                    backgroundColor: node.accent ? 'var(--rbt-teal-mist)' : 'transparent',
+                    color: node.accent ? 'var(--rbt-studio-ink)' : 'var(--rbt-ink-soft)',
+                    backgroundColor: node.accent ? 'var(--rbt-studio-mist)' : 'transparent',
                     fontWeight: node.accent ? 500 : 400,
                     whiteSpace: 'nowrap',
                   }}>{node.label}</span>
@@ -183,7 +183,7 @@ export default function CaseStudyModal({ caseData, videoSrc, extraVideos, images
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: '1px', background: 'var(--rbt-ink-line)', marginBottom: '40px' }} className="csm-metrics-grid">
             {c.metrics.map(m => (
               <div key={m.val} style={{ background: 'var(--rbt-paper)', padding: '24px 20px' }}>
-                <div style={{ fontFamily: 'var(--font-sans)', fontWeight: 800, fontSize: 'var(--t-h2)', color: 'var(--rbt-teal)', lineHeight: 1, letterSpacing: 'var(--tr-tight)', marginBottom: '6px' }}>{m.val}</div>
+                <div style={{ fontFamily: 'var(--font-sans)', fontWeight: 800, fontSize: 'var(--t-h2)', color: 'var(--rbt-studio-ink)', lineHeight: 1, letterSpacing: 'var(--tr-tight)', marginBottom: '6px' }}>{m.val}</div>
                 <div style={{ fontFamily: 'var(--font-mono)', fontSize: 'var(--t-label)', color: 'var(--rbt-ink-mute)', lineHeight: 1.5 }}>{m.label}</div>
               </div>
             ))}

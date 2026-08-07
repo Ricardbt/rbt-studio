@@ -106,7 +106,7 @@ function ArtisticItem({ item, index }) {
         ref={contentRef}
         className="text-xl md:text-2xl lg:text-3xl mb-3 group-hover:transition-colors group-hover:duration-300 font-semibold"
         style={{ color: '#14140F' }}
-        onMouseEnter={(e) => (e.currentTarget.style.color = '#15C1C1')}
+        onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--rbt-signal)')}
         onMouseLeave={(e) => (e.currentTarget.style.color = '#14140F')}
       >
         {item.title}
@@ -186,13 +186,13 @@ export default function Artistic() {
 
       <div className="relative z-10 px-6 md:px-12 lg:px-16 xl:px-24 py-24 md:py-32 lg:py-40">
         <div ref={titleRef} className="mb-16 md:mb-20">
-          <p className="font-mono text-[12px] tracking-[0.18em] uppercase mb-4 md:mb-6 opacity-0" style={{ color: '#15C1C1' }}>
+          <p className="font-mono text-[12px] tracking-[0.18em] uppercase mb-4 md:mb-6 opacity-0" style={{ color: 'var(--rbt-signal)' }}>
             04 / 05 · Creative Technology
           </p>
           <h2 className="font-sans text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-semibold leading-[0.9] opacity-0" style={{ color: '#14140F' }}>
             Donde la técnica
             <br />
-            <em className="not-italic" style={{ color: '#15C1C1' }}>genera experiencia</em>
+            <em className="not-italic" style={{ color: 'var(--rbt-signal)' }}>genera experiencia</em>
           </h2>
         </div>
 

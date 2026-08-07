@@ -4,3 +4,10 @@ node_modules
 
 # Build output (rebuilt by CI via `npm run build`)
 dist
+
+# Agent skills (installed locally via `npx skills add`)
+.agents/
+.claude/skills/
+
+# Video sources — transcoded to public/assets/proyectos/captures/*.mp4 for the web
+*.mov

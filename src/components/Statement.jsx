@@ -68,7 +68,7 @@ export default function Statement() {
         >
           "Most products know what they want to do.
           <br />
-          <span style={{ color: '#15C1C1' }}>Few know how they should feel to use."</span>
+          <span style={{ color: 'var(--rbt-signal)' }}>Few know how they should feel to use."</span>
         </blockquote>
       </div>
     </section>

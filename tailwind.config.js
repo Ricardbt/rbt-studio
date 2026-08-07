@@ -7,6 +7,10 @@ export default {
   theme: {
     extend: {
       colors: {
+        // Ver DESIGN.md — los valores canónicos viven en src/styles/index.css
+        signal: 'var(--rbt-signal)',          // único acento de marca
+        ink: 'var(--rbt-studio-ink)',         // tinta estructural
+        'ink-press': 'var(--rbt-studio-press)',
         bg: '#F2EFE6',
         surface: '#F8F5EC',
         border: '#C9C5B6',

@@ -71,7 +71,7 @@ export default function Navbar() {
                 key={link.href}
                 href={link.href}
                 ref={el => linksRef.current[i] = el}
-                className="font-mono text-[13px] tracking-[0.05em] uppercase text-[#3A3A33] hover:text-[#15C1C1] transition-colors duration-300 relative group opacity-0"
+                className="font-mono text-[13px] tracking-[0.05em] uppercase text-[#3A3A33] hover:text-[var(--rbt-signal)] transition-colors duration-300 relative group opacity-0"
                 style={{ color: '#3A3A33' }}
               >
                 {link.label}
@@ -122,7 +122,7 @@ export default function Navbar() {
               key={link.href}
               href={link.href}
               onClick={() => setMenuOpen(false)}
-              className="font-sans text-3xl font-semibold uppercase hover:text-[#15C1C1] transition-colors duration-300"
+              className="font-sans text-3xl font-semibold uppercase hover:text-[var(--rbt-signal)] transition-colors duration-300"
               style={{
                 color: '#14140F',
                 opacity: menuOpen ? 1 : 0,

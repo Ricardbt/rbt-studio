@@ -52,13 +52,13 @@ export default function Contact() {
     <section ref={sectionRef} id="contact" className="relative py-16 md:py-20 lg:py-24" style={{ backgroundColor: '#F2EFE6' }}>
       <div className="relative z-10 w-full mx-auto px-4 sm:px-8 lg:px-16" style={{ maxWidth: '1280px' }}>
         <div ref={titleRef} className="mb-12 md:mb-16 lg:mb-24" style={{ opacity: 0 }}>
-          <p className="font-mono text-[12px] tracking-[0.18em] uppercase mb-6" style={{ color: '#15C1C1' }}>
+          <p className="font-mono text-[12px] tracking-[0.18em] uppercase mb-6" style={{ color: 'var(--rbt-signal)' }}>
             03 / 05 · Contacto
           </p>
           <h2 className="font-sans text-5xl lg:text-6xl font-semibold leading-[0.95] tracking-tight" style={{ color: '#14140F', fontSize: 'clamp(72px, 10vw, 144px)' }}>
             Trabajemos
             <br />
-            <em className="not-italic" style={{ color: '#15C1C1' }}>juntos.</em>
+            <em className="not-italic" style={{ color: 'var(--rbt-signal)' }}>juntos.</em>
           </h2>
         </div>
 

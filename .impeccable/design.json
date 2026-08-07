@@ -1,0 +1,396 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-08-07T00:00:00.000Z",
+  "title": "Design System: rbt.studio",
+  "extensions": {
+    "colorMeta": {
+      "signal-teal": {
+        "role": "primary",
+        "displayName": "Cian de Señal",
+        "canonical": "#15C1C1",
+        "tonalRamp": [
+          "#062626",
+          "#0A3C3C",
+          "#0F5555",
+          "#137070",
+          "#15C1C1",
+          "#5FD6D6",
+          "#9BE6E6",
+          "#D6F5F5"
+        ]
+      },
+      "studio-ink": {
+        "role": "secondary",
+        "displayName": "Tinta de Estudio",
+        "canonical": "#151C1C",
+        "tonalRamp": [
+          "#0A0E0E",
+          "#151C1C",
+          "#243030",
+          "#3A4A4A",
+          "#5C7070",
+          "#8A9C9C",
+          "#C2CBCB",
+          "#E1E6E6"
+        ]
+      },
+      "forest": {
+        "role": "tertiary",
+        "displayName": "Verde Bosque",
+        "canonical": "#0E4A35",
+        "tonalRamp": [
+          "#062218",
+          "#0A3527",
+          "#0E4A35",
+          "#166B4D",
+          "#2E9070",
+          "#69B79A",
+          "#C7D6CF",
+          "#E4ECE7"
+        ]
+      },
+      "canvas-cream": {
+        "role": "neutral",
+        "displayName": "Lienzo Crema",
+        "canonical": "#F2EFE6",
+        "tonalRamp": [
+          "#2A281F",
+          "#4A473A",
+          "#6E6B5C",
+          "#948F7D",
+          "#BAB5A2",
+          "#D8D3C2",
+          "#E8E3D5",
+          "#F2EFE6"
+        ]
+      },
+      "paper": {
+        "role": "neutral",
+        "displayName": "Papel",
+        "canonical": "#FBF9F2",
+        "tonalRamp": [
+          "#2E2C25",
+          "#514E44",
+          "#767263",
+          "#9C9784",
+          "#C0BBA6",
+          "#DEDACB",
+          "#F0EDE2",
+          "#FBF9F2"
+        ]
+      },
+      "text-ink": {
+        "role": "neutral",
+        "displayName": "Tinta de Texto",
+        "canonical": "#14140F",
+        "tonalRamp": [
+          "#14140F",
+          "#25251C",
+          "#3A3A33",
+          "#54544A",
+          "#6E6E64",
+          "#9A9A8E",
+          "#C9C5B6",
+          "#E8E3D5"
+        ]
+      },
+      "hairline": {
+        "role": "neutral",
+        "displayName": "Hairline",
+        "canonical": "#C9C5B6",
+        "tonalRamp": [
+          "#2B2A24",
+          "#4C4A40",
+          "#6E6B5C",
+          "#918D7B",
+          "#B3AF9C",
+          "#C9C5B6",
+          "#DFDCD0",
+          "#F2EFE6"
+        ]
+      },
+      "terracotta": {
+        "role": "semantic",
+        "displayName": "Terracota",
+        "canonical": "#B8651A",
+        "tonalRamp": [
+          "#2E1906",
+          "#522D0C",
+          "#7A4311",
+          "#B8651A",
+          "#D68B42",
+          "#E8B078",
+          "#F2D3B0",
+          "#FAEDDF"
+        ]
+      },
+      "burnt-red": {
+        "role": "semantic",
+        "displayName": "Rojo Quemado",
+        "canonical": "#8E2B1E",
+        "tonalRamp": [
+          "#2A0C08",
+          "#4C1710",
+          "#6E2116",
+          "#8E2B1E",
+          "#B85142",
+          "#D4867B",
+          "#EBBAB3",
+          "#F8E4E1"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "mega": {
+        "displayName": "Mega",
+        "purpose": "Declaración de hero. Un solo uso por página."
+      },
+      "display": {
+        "displayName": "Display",
+        "purpose": "Apertura de sección mayor."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Titular de sección y de caso de estudio."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Subsección y titular de bloque."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Texto de lectura. Máximo ~70ch (820px)."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Capa de anotación completa: eyebrows, numeración, tecnologías, metadatos. Siempre mono y mayúsculas."
+      },
+      "wordmark": {
+        "displayName": "Wordmark",
+        "purpose": "Exclusiva de la marca rbt. DM Serif Display, único uso de la serif en el sistema."
+      }
+    },
+    "shadows": [
+      {
+        "name": "card-press",
+        "value": "4px 4px 0 #151C1C",
+        "purpose": "Hover de tarjeta, acompañado de translate(-2px,-2px). La sombra dobla el desplazamiento."
+      },
+      {
+        "name": "button-press",
+        "value": "3px 3px 0 #14140F",
+        "purpose": "Hover de botón, acompañado de translate(-1px,-1px)."
+      },
+      {
+        "name": "at-rest",
+        "value": "none",
+        "purpose": "Estado por defecto de toda superficie, y estado :active de todo elemento interactivo."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-snap",
+        "value": "cubic-bezier(0.2, 0.7, 0.1, 1)",
+        "purpose": "Easing por defecto de estados y hover. Salida rápida, asentamiento firme."
+      },
+      {
+        "name": "ease-out",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Entradas de scroll y revelados con GSAP ScrollTrigger."
+      },
+      {
+        "name": "ease-in",
+        "value": "cubic-bezier(0.7, 0, 0.84, 0)",
+        "purpose": "Salidas y desapariciones."
+      },
+      {
+        "name": "dur-instant",
+        "value": "100ms",
+        "purpose": "Cambios de color sin desplazamiento."
+      },
+      {
+        "name": "dur-quick",
+        "value": "180ms",
+        "purpose": "Hover de botón, tarjeta e input."
+      },
+      {
+        "name": "dur-base",
+        "value": "240ms",
+        "purpose": "Transición por defecto de componente."
+      },
+      {
+        "name": "dur-slow",
+        "value": "420ms",
+        "purpose": "Transiciones de sección y modales."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "sm",
+        "value": "640px"
+      },
+      {
+        "name": "md",
+        "value": "768px"
+      },
+      {
+        "name": "csm-stack",
+        "value": "900px"
+      },
+      {
+        "name": "lg",
+        "value": "1024px"
+      },
+      {
+        "name": "xl",
+        "value": "1280px"
+      },
+      {
+        "name": "container",
+        "value": "1280px"
+      },
+      {
+        "name": "gallery",
+        "value": "1400px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Acción principal. Tinta sólida sobre lienzo; al hover se desplaza y deja huella.",
+      "html": "<button class=\"ds-btn\">Ver caso de estudio</button>",
+      "css": ".ds-btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 14px 22px; font-family: 'DM Sans', system-ui, sans-serif; font-size: 13px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; line-height: 1; border: 1.5px solid #151C1C; background: #151C1C; color: #F2EFE6; border-radius: 0; cursor: pointer; transition: transform 180ms cubic-bezier(0.2,0.7,0.1,1), background 180ms, color 180ms; } .ds-btn:hover { background: #0D1414; border-color: #0D1414; transform: translate(-1px,-1px); box-shadow: 3px 3px 0 #14140F; } .ds-btn:focus-visible { outline: 2px solid #15C1C1; outline-offset: 2px; } .ds-btn:active { transform: translate(0,0); box-shadow: none; }"
+    },
+    {
+      "name": "Ghost Button",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "Acción secundaria. Contorno en reposo, sólida al hover.",
+      "html": "<button class=\"ds-btn-ghost\">Descargar CV</button>",
+      "css": ".ds-btn-ghost { display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 14px 22px; font-family: 'DM Sans', system-ui, sans-serif; font-size: 13px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; line-height: 1; border: 1.5px solid #151C1C; background: transparent; color: #151C1C; border-radius: 0; cursor: pointer; transition: transform 180ms cubic-bezier(0.2,0.7,0.1,1), background 180ms, color 180ms; } .ds-btn-ghost:hover { background: #151C1C; color: #F2EFE6; transform: translate(-1px,-1px); box-shadow: 3px 3px 0 #14140F; } .ds-btn-ghost:focus-visible { outline: 2px solid #15C1C1; outline-offset: 2px; } .ds-btn-ghost:active { transform: translate(0,0); box-shadow: none; }"
+    },
+    {
+      "name": "Tag",
+      "kind": "chip",
+      "refersTo": "tag",
+      "description": "Etiqueta de tecnología. Mono, contorno fino, sin ajuste de línea.",
+      "html": "<span class=\"ds-tag\">React</span><span class=\"ds-tag ds-tag-ghost\">GSAP</span><span class=\"ds-tag ds-tag-solid\">AI</span>",
+      "css": ".ds-tag { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; margin-right: 6px; border: 1px solid #151C1C; color: #151C1C; background: transparent; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; line-height: 1; white-space: nowrap; border-radius: 0; } .ds-tag-solid { background: #151C1C; color: #F2EFE6; } .ds-tag-ghost { border-color: #C9C5B6; color: #6E6E64; }"
+    },
+    {
+      "name": "Project Card",
+      "kind": "card",
+      "refersTo": "card",
+      "description": "Tarjeta de proyecto o servicio. Plana en reposo; al hover se desplaza y deja huella sólida.",
+      "html": "<div class=\"ds-card\"><span class=\"ds-card-num\">// 03</span><h3 class=\"ds-card-title\">Design Systems</h3><p class=\"ds-card-desc\">Sistemas de componentes con criterio visual y consistencia a escala.</p><div class=\"ds-card-tags\"><span class=\"ds-card-tag\">Tokens</span><span class=\"ds-card-tag\">Storybook</span></div></div>",
+      "css": ".ds-card { border: 1px solid #C9C5B6; background: #FBF9F2; padding: 24px; max-width: 340px; border-radius: 0; cursor: pointer; transition: transform 180ms cubic-bezier(0.2,0.7,0.1,1), border-color 180ms, box-shadow 180ms; } .ds-card:hover { border-color: #151C1C; transform: translate(-2px,-2px); box-shadow: 4px 4px 0 #151C1C; } .ds-card-num { font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px; color: #15C1C1; letter-spacing: 0.1em; } .ds-card-title { font-family: 'DM Sans', system-ui, sans-serif; font-size: 22px; font-weight: 700; color: #14140F; margin: 12px 0 0; line-height: 1.2; } .ds-card-desc { font-family: 'DM Sans', system-ui, sans-serif; font-size: 14px; color: #3A3A33; margin: 12px 0 0; line-height: 1.5; } .ds-card-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 16px; } .ds-card-tag { padding: 4px 10px; border: 1px solid #C9C5B6; color: #6E6E64; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; line-height: 1; }"
+    },
+    {
+      "name": "Stat Block",
+      "kind": "custom",
+      "refersTo": "stat",
+      "description": "Bloque de métrica de caso de estudio. Etiqueta en mono arriba, cifra en cian de señal debajo.",
+      "html": "<div class=\"ds-stat\"><span class=\"ds-stat-label\">Sesiones con giro final</span><span class=\"ds-stat-value\">68%</span></div>",
+      "css": ".ds-stat { display: flex; flex-direction: column; gap: 6px; padding: 24px; border: 1px solid #C9C5B6; background: #FBF9F2; max-width: 260px; border-radius: 0; } .ds-stat-label { font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: #6E6E64; } .ds-stat-value { font-family: 'DM Sans', system-ui, sans-serif; font-size: 40px; font-weight: 800; line-height: 1; letter-spacing: -0.02em; color: #15C1C1; }"
+    },
+    {
+      "name": "Text Input",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Campo de formulario. El borde ES el indicador de foco; sin outline propio.",
+      "html": "<div class=\"ds-field\"><label for=\"ds-in\">Email</label><input id=\"ds-in\" class=\"ds-input\" type=\"email\" placeholder=\"contact@rbt-studio.com\"></div>",
+      "css": ".ds-field { display: flex; flex-direction: column; gap: 6px; max-width: 320px; } .ds-field label { font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: #6E6E64; } .ds-input { width: 100%; padding: 12px 14px; border: 1.5px solid #C9C5B6; background: #FBF9F2; font-family: 'DM Sans', system-ui, sans-serif; font-size: 14px; color: #14140F; border-radius: 0; outline: none; transition: border-color 180ms cubic-bezier(0.2,0.7,0.1,1); } .ds-input:hover { border-color: #6E6E64; } .ds-input:focus { border-color: #151C1C; box-shadow: inset 0 0 0 1px #151C1C; } .ds-input::placeholder { color: #6E6E64; }"
+    },
+    {
+      "name": "Section Opener",
+      "kind": "custom",
+      "refersTo": null,
+      "description": "El metrónomo del documento: número en mono + titular + hairline de cierre. Abre cada sección de la página.",
+      "html": "<div class=\"ds-sec\"><span class=\"ds-sec-num\">05 /</span><div><h2 class=\"ds-sec-title\">Proyectos realizados</h2><p class=\"ds-sec-sub\">// galería visual</p></div></div>",
+      "css": ".ds-sec { display: grid; grid-template-columns: 80px 1fr; gap: 24px; align-items: end; padding: 48px 0 32px; border-bottom: 1px solid #151C1C; max-width: 620px; } .ds-sec-num { font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 14px; font-weight: 500; color: #15C1C1; letter-spacing: 0.1em; padding-bottom: 14px; } .ds-sec-title { font-family: 'DM Sans', system-ui, sans-serif; font-size: 44px; font-weight: 800; line-height: 1.1; letter-spacing: -0.02em; color: #14140F; margin: 0; } .ds-sec-sub { font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 14px; color: #6E6E64; margin: 12px 0 0; }"
+    },
+    {
+      "name": "Alert",
+      "kind": "custom",
+      "refersTo": null,
+      "description": "Aviso semántico. El estado lo porta el marco completo a 1px; nunca una barra lateral gruesa.",
+      "html": "<div class=\"ds-alert\"><p>La sombra dura es la única forma de profundidad del sistema.</p></div>",
+      "css": ".ds-alert { display: flex; gap: 16px; padding: 16px; background: #FBF9F2; border: 1px solid #151C1C; border-radius: 0; max-width: 420px; } .ds-alert p { font-family: 'DM Sans', system-ui, sans-serif; font-size: 16px; line-height: 1.55; color: #14140F; margin: 0; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "El estudio de Bellas Artes",
+    "overview": "Este sistema trata la pantalla como un estudio de artista, no como una aplicación. El lienzo es papel crema (#F2EFE6), no blanco de pantalla: un fondo que ya tiene temperatura antes de que se dibuje nada encima. Sobre él actúan dos materiales, y solo dos — tinta sólida y trazo generativo. La tinta construye la estructura: hairlines, bloques, tipografía con peso. El trazo, verde bosque sobre el lienzo, es código que se ejecuta en vivo. La obra va delante; el marco se retira.\n\nDe ahí sale la decisión material que define todo lo demás: cero desenfoque en ninguna parte. Las superficies son planas en reposo y, al tocarlas, se desplazan dejando una sombra sólida sin difuminar — la huella que deja un bloque de tinta al presionarse contra el papel. Un elemento o está apoyado en el lienzo o se ha movido; no flota en un punto intermedio.\n\nLa voz tipográfica es doble y estrictamente dividida. DM Sans en peso 800 carga todo lo expresivo, apretado con tracking negativo hasta que los titulares se vuelven bloques compactos. JetBrains Mono se reserva para la anotación: numeración de sección, etiquetas, tecnologías, cifras. El acento cian aparece solo en esa capa de anotación.",
+    "keyCharacteristics": [
+      "Lienzo crema (#F2EFE6) en lugar de blanco — el fondo tiene temperatura",
+      "Cian de señal (#15C1C1) como único acento de marca, siempre en la capa de anotación",
+      "Sombra dura desplazada (4px 4px 0) sin desenfoque — la única forma de profundidad",
+      "Cero border-radius en todo el sistema, salvo la variante pill explícita de las etiquetas",
+      "DM Sans 800 con tracking negativo para lo expresivo; JetBrains Mono 0.18em mayúsculas para lo anotado",
+      "Hairlines de 1px (#C9C5B6) como estructura — sin cajas pesadas ni separadores gruesos",
+      "Piezas generativas ejecutándose en vivo como contenido, no como decoración de fondo",
+      "Escala tipográfica fluida con clamp() — el tipo respira con el viewport, el espaciado no"
+    ],
+    "rules": [
+      {
+        "name": "La Regla de la Señal Única",
+        "body": "El cian #15C1C1 es el único acento del sistema y vive solo en la capa de anotación: mono, mayúsculas, tamaño pequeño, cifras. En cuanto aparece en un titular, en un fondo amplio o en un segundo tono de acento, deja de significar «mira aquí» y el sistema pierde su único mecanismo de énfasis.",
+        "section": "colors"
+      },
+      {
+        "name": "La Regla del Papel",
+        "body": "Ninguna superficie es #FFFFFF y ningún texto es #000000. Las cuatro superficies están todas en la familia del papel, y la separación entre ellas es deliberadamente sutil: la jerarquía la construyen los hairlines y el espaciado, no el contraste de fondo.",
+        "section": "colors"
+      },
+      {
+        "name": "La Regla de la Anotación",
+        "body": "Todo lo que no sea contenido de lectura —número de sección, eyebrow, tecnología, cifra, estado, ruta de archivo— va en JetBrains Mono, mayúsculas, 0.18em de tracking. Y a la inversa: nada de lo que sea contenido de lectura va en mono.",
+        "section": "typography"
+      },
+      {
+        "name": "La Regla del Tracking Opuesto",
+        "body": "El texto grande se aprieta (-0.02em), el texto pequeño se abre (0.18em). Un titular con tracking positivo o una etiqueta con tracking neutro rompen la firma inmediatamente.",
+        "section": "typography"
+      },
+      {
+        "name": "La Regla del Cero Desenfoque",
+        "body": "Ningún box-shadow de este sistema lleva blur ni spread. La sintaxis es siempre Npx Npx 0 <color>. Aquí no hay atmósfera, hay papel y tinta.",
+        "section": "elevation"
+      },
+      {
+        "name": "La Regla del Plano en Reposo",
+        "body": "Ninguna superficie lleva sombra por defecto. La sombra es exclusivamente una respuesta a :hover. Una tarjeta con sombra permanente convierte la firma en decoración.",
+        "section": "elevation"
+      },
+      {
+        "name": "La Regla de la Escuadra",
+        "body": "El radio por defecto es 0. Añadir esquinas redondeadas a un componente nuevo lo saca del sistema. Si algo necesita leerse como flotante, la respuesta es pill completo, nunca un 8px intermedio.",
+        "section": "shapes"
+      }
+    ],
+    "dos": [
+      "Do usar el cian de señal (#15C1C1) exclusivamente en la capa de anotación: mono, mayúsculas, pequeño, cifras.",
+      "Do escribir toda sombra como Npx Npx 0 <color>, sin blur ni spread, y solo en :hover.",
+      "Do abrir cada sección con el patrón .section-open (número en mono + titular + hairline de cierre).",
+      "Do apretar el texto grande a -0.02em y abrir el pequeño a 0.18em.",
+      "Do construir la jerarquía con hairlines de 1px y espaciado de la escala, no con contraste de fondo.",
+      "Do usar clamp() para el tamaño de tipo en cualquier titular nuevo.",
+      "Do dejar que las piezas generativas se ejecuten de verdad. Son contenido, no textura."
+    ],
+    "donts": [
+      "Don't usar #FFFFFF como superficie ni #000000 como texto.",
+      "Don't añadir border-radius a un componente nuevo. El radio por defecto es 0.",
+      "Don't usar sombras con desenfoque, glassmorphism, backdrop-filter ni degradados de superficie.",
+      "Don't poner el cian en un titular, en un fondo amplio ni introducir un segundo color de acento.",
+      "Don't usar JetBrains Mono para texto de lectura, ni DM Sans para una etiqueta o un número de sección.",
+      "Don't dejar sombra permanente en una tarjeta en reposo.",
+      "Don't usar el gradiente de marca en texto ni en botones.",
+      "Don't introducir un tercer grosor de borde. Solo existen 1px estructural y 1.5px interactivo.",
+      "Don't usar una barra lateral de color (border-left: 3px) en tarjetas, alertas o callouts. El estado va en el marco completo a 1px.",
+      "Don't usar negro puro como velo de modal. El velo es tinta cálida (--rbt-scrim)."
+    ]
+  }
+}

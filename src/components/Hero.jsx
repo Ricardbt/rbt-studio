@@ -375,7 +375,7 @@ export default function Hero() {
           <p
             ref={labelRef}
             className="font-mono text-[12px] tracking-[0.18em] uppercase mb-6 md:mb-8 opacity-0"
-            style={{ color: '#15C1C1' }}
+            style={{ color: 'var(--rbt-signal)' }}
           >
             Digital Studio · Barcelona
           </p>
@@ -391,7 +391,7 @@ export default function Hero() {
 
           {/* Subtitle */}
           <div ref={subtitleRef} className="overflow-hidden mb-6 md:mb-8 opacity-0">
-            <h2 className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl xl:text-[10rem] font-semibold leading-[0.92] tracking-tight not-italic" style={{ fontFamily: "'Roboto Slab', serif", color: '#15C1C1', fontSize: 'clamp(72px, 11vw, 168px)' }}>
+            <h2 className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl xl:text-[10rem] font-semibold leading-[0.92] tracking-tight not-italic" style={{ fontFamily: "'Roboto Slab', serif", color: 'var(--rbt-signal)', fontSize: 'clamp(72px, 11vw, 168px)' }}>
               Studio
             </h2>
           </div>

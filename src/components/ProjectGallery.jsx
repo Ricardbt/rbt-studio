@@ -159,13 +159,13 @@ export default function ProjectGallery() {
       <div className="relative z-10 w-full mx-auto px-4 sm:px-8 lg:px-16" style={{ maxWidth: '1400px' }}>
 
         <div ref={titleRef} className="mb-12 md:mb-16 lg:mb-24" style={{ opacity: 0 }}>
-          <p className="font-mono text-[12px] tracking-[0.18em] uppercase mb-6" style={{ color: '#15C1C1' }}>
+          <p className="font-mono text-[12px] tracking-[0.18em] uppercase mb-6" style={{ color: 'var(--rbt-signal)' }}>
             05 / 05 · Galería Visual
           </p>
           <h2 className="font-sans text-5xl lg:text-6xl font-semibold leading-[0.95] tracking-tight" style={{ color: '#14140F' }}>
             Proyectos
             <br />
-            <em className="not-italic" style={{ color: '#15C1C1' }}>realizados</em>
+            <em className="not-italic" style={{ color: 'var(--rbt-signal)' }}>realizados</em>
           </h2>
         </div>
 
@@ -220,7 +220,7 @@ export default function ProjectGallery() {
                   e.currentTarget.style.transform = 'translate(0, 0)'
                 }}
               >
-                <div style={{ aspectRatio: '16/10', overflow: 'hidden', backgroundColor: '#E8E5DC' }}>
+                <div style={{ aspectRatio: '16/10', overflow: 'hidden', backgroundColor: 'var(--rbt-cream-deep)' }}>
                   <img
                     src={project.image}
                     alt={project.title}
@@ -242,7 +242,7 @@ export default function ProjectGallery() {
                     {project.tech}
                   </span>
                   {getClientMedia(project.client).length > 1 && (
-                    <div className="font-mono text-[10px] tracking-[0.1em] mt-2" style={{ color: '#A8A399' }}>
+                    <div className="font-mono text-[10px] tracking-[0.1em] mt-2" style={{ color: 'var(--rbt-ink-mute)' }}>
                       +{getClientMedia(project.client).length - 1} más
                     </div>
                   )}
@@ -254,7 +254,7 @@ export default function ProjectGallery() {
                     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '10px', background: 'rgba(21,28,28,0.88)', padding: '18px 28px', animation: 'rbt-hint-pulse 2s ease-in-out infinite' }}>
                       <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
                         <circle cx="14" cy="10" r="5" stroke="#F2EFE6" strokeWidth="1.5"/>
-                        <path d="M14 17v6M10 20l4 4 4-4" stroke="#15C1C1" strokeWidth="1.5" strokeLinecap="square"/>
+                        <path d="M14 17v6M10 20l4 4 4-4" stroke="var(--rbt-signal)" strokeWidth="1.5" strokeLinecap="square"/>
                       </svg>
                       <span style={{ fontFamily: 'var(--font-mono)', fontSize: '10px', letterSpacing: '0.14em', textTransform: 'uppercase', color: '#F2EFE6', whiteSpace: 'nowrap' }}>
                         Click · Scroll to explore
@@ -287,7 +287,7 @@ export default function ProjectGallery() {
         return (
           <div
             className="p-4 md:p-8"
-            style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.95)', zIndex: 1000, display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+            style={{ position: 'fixed', inset: 0, backgroundColor: 'var(--rbt-scrim)', zIndex: 1000, display: 'flex', alignItems: 'center', justifyContent: 'center' }}
             onClick={() => setSelectedProject(null)}
           >
             <div
@@ -337,7 +337,7 @@ export default function ProjectGallery() {
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', gap: '32px' }}>
                 <div>
                   <h2 className="font-sans text-4xl font-semibold mb-2" style={{ color: '#F2EFE6' }}>{selectedProject.title}</h2>
-                  <span className="font-mono text-[12px] tracking-[0.1em] uppercase" style={{ color: '#15C1C1' }}>{selectedProject.tech}</span>
+                  <span className="font-mono text-[12px] tracking-[0.1em] uppercase" style={{ color: 'var(--rbt-signal)' }}>{selectedProject.tech}</span>
                 </div>
                 {siblings.length > 1 && (
                   <div className="font-mono text-[14px] tracking-[0.1em]" style={{ color: '#6E6E64' }}>

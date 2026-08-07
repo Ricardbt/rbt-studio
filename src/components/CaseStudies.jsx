@@ -467,7 +467,7 @@ export default function CaseStudies() {
 
         {/* Section header */}
         <div ref={titleRef} style={{ paddingTop: '96px', paddingBottom: '64px', borderBottom: `1px solid ${D.line}`, opacity: 0 }}>
-          <p style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', letterSpacing: '0.18em', textTransform: 'uppercase', color: '#15C1C1', marginBottom: '24px' }}>
+          <p style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', letterSpacing: '0.18em', textTransform: 'uppercase', color: 'var(--rbt-signal)', marginBottom: '24px' }}>
             AI Product Experience · 2024–2025
           </p>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '48px', alignItems: 'end' }} className="cs-hero-grid">
