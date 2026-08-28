@@ -99,7 +99,7 @@ export default function Services() {
           sub="Seis maneras de trabajar. Cada una con su tinta, su cobertura y lo que deja en la hoja."
         />
 
-        <div className="ink-chart mt-2">
+        <div className="ink-chart">
           {SERVICES.map((service) => (
             <article key={service.num} className="ink-row" style={{ opacity: 0 }}>
               <div className="ink-row__inner">
@@ -140,7 +140,6 @@ export default function Services() {
 
       <style>{`
         .ink-row { border-bottom: var(--hairline-p); }
-        .ink-row:first-child { border-top: var(--hairline-p); }
 
         .ink-row__inner {
           display: grid;
