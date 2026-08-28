@@ -1,0 +1,536 @@
+<title>Un método, ocho años</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..800&family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..500&display=swap">
+
+<style>
+:root{
+  --paper:#EDEEEC; --card:#F7F8F6; --ink:#14171A; --graphite:#5C6470;
+  --rule:#D3D6D2; --rule-soft:#E2E4E1; --accent:#C4342A; --accent-ink:#C4342A;
+  --shadow:0 1px 2px rgba(20,23,26,.06),0 12px 32px -18px rgba(20,23,26,.22);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --paper:#101316; --card:#171B1F; --ink:#E6E8E5; --graphite:#98A0AA;
+    --rule:#2A2F35; --rule-soft:#20252A; --accent:#E0574A; --accent-ink:#EE6E60;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 14px 36px -18px rgba(0,0,0,.7);
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#101316; --card:#171B1F; --ink:#E6E8E5; --graphite:#98A0AA;
+  --rule:#2A2F35; --rule-soft:#20252A; --accent:#E0574A; --accent-ink:#EE6E60;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 14px 36px -18px rgba(0,0,0,.7);
+}
+
+*{box-sizing:border-box}
+body{
+  background:var(--paper); color:var(--ink);
+  font-family:"Newsreader",Georgia,"Times New Roman",serif;
+  font-size:19px; line-height:1.62; margin:0;
+  -webkit-font-smoothing:antialiased;
+}
+img{max-width:100%; height:auto; display:block}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:.86em; color:var(--graphite)}
+
+.wrap{max-width:1180px; margin:0 auto; padding:0 28px}
+.col{max-width:62ch; margin-inline:auto}
+section{padding-block:clamp(56px,8vw,104px); border-top:1px solid var(--rule-soft)}
+
+.eyebrow{
+  font-family:"Archivo",system-ui,sans-serif; font-variation-settings:"wdth" 88,"wght" 600;
+  font-size:11.5px; letter-spacing:.18em; text-transform:uppercase; color:var(--graphite);
+  margin:0 0 18px;
+}
+.eyebrow .dot{color:var(--accent-ink)}
+
+h1,h2,h3{font-family:"Archivo",system-ui,sans-serif; text-wrap:balance; margin:0}
+h1{
+  font-variation-settings:"wdth" 78,"wght" 700;
+  font-size:clamp(44px,8.2vw,92px); line-height:.96; letter-spacing:-.022em;
+}
+h2{
+  font-variation-settings:"wdth" 84,"wght" 650;
+  font-size:clamp(27px,3.6vw,40px); line-height:1.08; letter-spacing:-.014em;
+}
+h3{
+  font-variation-settings:"wdth" 92,"wght" 620;
+  font-size:19px; letter-spacing:-.005em;
+}
+p{margin:0 0 1.05em}
+p:last-child{margin-bottom:0}
+.lede{font-size:clamp(21px,2.3vw,25px); line-height:1.5; color:var(--ink)}
+.muted{color:var(--graphite)}
+strong{font-weight:600}
+
+.hero{padding-block:clamp(60px,9vw,116px) clamp(44px,6vw,72px); border-top:0}
+.hero h1{margin-bottom:26px}
+.hero .lede{max-width:56ch}
+.meta{
+  display:flex; flex-wrap:wrap; gap:8px 28px; margin-top:34px;
+  padding-top:22px; border-top:1px solid var(--rule);
+  font-family:"Archivo",system-ui,sans-serif; font-variation-settings:"wdth" 86,"wght" 500;
+  font-size:12.5px; letter-spacing:.055em; text-transform:uppercase; color:var(--graphite);
+}
+.meta b{font-variation-settings:"wdth" 86,"wght" 650; color:var(--ink); font-weight:inherit}
+
+.strip{display:grid; grid-template-columns:repeat(6,1fr); gap:10px; margin-top:44px}
+.strip img{aspect-ratio:1; object-fit:cover; background:var(--card)}
+@media(max-width:760px){.strip{grid-template-columns:repeat(3,1fr)}}
+
+.rule-head{display:grid; grid-template-columns:auto 1fr; gap:0 clamp(20px,3.4vw,44px); align-items:start}
+.rule-num{
+  font-family:"Archivo",system-ui,sans-serif; font-variation-settings:"wdth" 62,"wght" 700;
+  font-size:clamp(52px,9vw,104px); line-height:.82; color:var(--accent-ink);
+  font-variant-numeric:tabular-nums;
+}
+.rule-head .body{max-width:56ch}
+.rule-head h2{margin-bottom:16px}
+
+figure{margin:0}
+.pair{
+  display:grid; grid-template-columns:1fr auto 1fr; align-items:center;
+  gap:clamp(14px,2.6vw,34px); margin-top:clamp(36px,5vw,60px);
+}
+.pair>figure{display:flex; flex-direction:column; gap:12px}
+.plate{background:var(--card); padding:clamp(12px,1.8vw,22px); box-shadow:var(--shadow)}
+.pair img{margin-inline:auto}
+.vs{
+  font-family:"Archivo",system-ui,sans-serif; font-variation-settings:"wdth" 70,"wght" 600;
+  font-size:clamp(12px,1.5vw,16px); letter-spacing:.06em; color:var(--graphite);
+  text-align:center; line-height:1.5; font-variant-numeric:tabular-nums; white-space:nowrap;
+}
+.vs span{display:block; color:var(--accent-ink); font-size:1.5em; line-height:1.1}
+@media(max-width:720px){
+  .pair{grid-template-columns:1fr; gap:20px}
+  .vs{display:flex; gap:12px; justify-content:center; align-items:baseline; padding-block:2px}
+  .vs span{font-size:1.2em}
+}
+
+figcaption{
+  font-family:"Archivo",system-ui,sans-serif; font-variation-settings:"wdth" 84,"wght" 500;
+  font-size:11.5px; letter-spacing:.085em; text-transform:uppercase; color:var(--graphite);
+  line-height:1.45;
+}
+figcaption b{font-variation-settings:"wdth" 84,"wght" 680; color:var(--ink); font-weight:inherit; display:block}
+
+.support{display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(12px,2vw,22px); margin-top:clamp(28px,4vw,44px)}
+.support figure{display:flex; flex-direction:column; gap:11px}
+.support .plate{padding:12px}
+@media(max-width:720px){.support{grid-template-columns:1fr}}
+
+.wide{margin-top:clamp(32px,4.5vw,52px); max-width:none}
+.wide .plate{padding:clamp(12px,1.8vw,20px)}
+.wide figcaption{margin-top:12px}
+
+.grid-tf{display:grid; grid-template-columns:repeat(6,1fr); gap:clamp(10px,1.6vw,18px); margin-top:clamp(32px,4.5vw,52px)}
+.grid-tf figure{display:flex; flex-direction:column; gap:10px}
+.grid-tf .plate{padding:10px; height:100%}
+.grid-tf img{width:100%; height:100%; object-fit:cover}
+.g-hero{grid-column:span 3; grid-row:span 2}
+.g-tall{grid-column:span 3}
+.g-third{grid-column:span 2}
+@media(max-width:760px){
+  .grid-tf{grid-template-columns:repeat(2,1fr)}
+  .g-hero,.g-tall{grid-column:span 2}
+  .g-third{grid-column:span 1}
+}
+
+.roles{list-style:none; padding:0; margin:28px 0 0; display:grid; gap:0}
+.roles li{display:grid; grid-template-columns:minmax(96px,132px) 1fr; gap:clamp(14px,2.4vw,28px);
+  padding:15px 0; border-top:1px solid var(--rule-soft)}
+.roles li:last-child{border-bottom:1px solid var(--rule-soft)}
+.roles .k{
+  font-family:"Archivo",system-ui,sans-serif; font-variation-settings:"wdth" 84,"wght" 650;
+  font-size:11.5px; letter-spacing:.09em; text-transform:uppercase; color:var(--accent-ink);
+  padding-top:5px;
+}
+.roles .v{font-size:17.5px; line-height:1.5}
+@media(max-width:600px){.roles li{grid-template-columns:1fr; gap:6px}}
+
+.books{display:grid; grid-template-columns:1fr 1fr; gap:clamp(20px,3.4vw,44px); margin-top:clamp(32px,4.5vw,52px)}
+.book{display:flex; flex-direction:column; gap:16px}
+.book .plate{padding:clamp(12px,1.6vw,18px)}
+.spec{
+  display:grid; grid-template-columns:auto 1fr; gap:6px 16px; margin:0;
+  font-family:"Archivo",system-ui,sans-serif; font-size:12px; letter-spacing:.045em;
+  padding-top:14px; border-top:1px solid var(--rule);
+}
+.spec dt{font-variation-settings:"wdth" 84,"wght" 620; text-transform:uppercase; color:var(--graphite); margin:0}
+.spec dd{margin:0; font-variation-settings:"wdth" 88,"wght" 450; color:var(--ink); font-variant-numeric:tabular-nums}
+@media(max-width:760px){.books{grid-template-columns:1fr}}
+
+.thesis{
+  margin:clamp(32px,4.5vw,52px) 0 0; padding:clamp(24px,3.4vw,38px) 0;
+  border-top:2px solid var(--accent); border-bottom:1px solid var(--rule);
+}
+.thesis p{
+  font-family:"Archivo",system-ui,sans-serif; font-variation-settings:"wdth" 82,"wght" 550;
+  font-size:clamp(21px,2.7vw,30px); line-height:1.24; letter-spacing:-.012em; text-wrap:balance;
+}
+
+.notes{list-style:none; padding:0; margin:22px 0 0; display:grid; gap:14px}
+.notes li{position:relative; padding-left:26px}
+.notes li::before{
+  content:""; position:absolute; left:0; top:.62em; width:9px; height:9px;
+  background:var(--accent-ink);
+}
+
+.sig{
+  margin-top:34px; padding-top:22px; border-top:1px solid var(--rule);
+  font-family:"Archivo",system-ui,sans-serif; font-variation-settings:"wdth" 86,"wght" 500;
+  font-size:12.5px; letter-spacing:.055em; text-transform:uppercase; color:var(--graphite);
+}
+
+.rise{opacity:0; transform:translateY(14px); transition:opacity .7s ease,transform .7s ease}
+.rise.in{opacity:1; transform:none}
+@media(prefers-reduced-motion:reduce){
+  .rise{opacity:1; transform:none; transition:none}
+}
+:focus-visible{outline:2px solid var(--accent); outline-offset:3px}
+</style>
+
+<div class="wrap">
+
+  <header class="hero">
+    <p class="eyebrow">Dirección de arte <span class="dot">·</span> Fotografía</p>
+    <h1>Un método,<br>ocho años</h1>
+    <p class="lede">Aislar una forma contra un fondo que calla. Dejar entrar un solo color saturado. Pensar en cuadrado. Y quedarse con el accidente únicamente cuando ordena la imagen. Cuatro decisiones que sostienen el trabajo entero, del negativo de medio formato al libro impreso.</p>
+    <div class="meta">
+      <span><b>Ricard Boixeda</b></span>
+      <span>2013 &ndash; 2021</span>
+      <span>35&nbsp;mm · 120 · digital</span>
+      <span>3 libros · 1 campaña</span>
+    </div>
+    <div class="strip rise">
+      <img src="{{ar-budapest}}" alt="Parlamento de Budapest en blanco y negro, contrapicado">
+      <img src="{{ar-cracovia}}" alt="Muro de cuadros a la venta en Cracovia">
+      <img src="{{r1-cactus-cielo}}" alt="Cactus recortado contra cielo azul">
+      <img src="{{ar-sausalito}}" alt="Pantalán de madera en Sausalito">
+      <img src="{{ar-kalanchoe}}" alt="Kalanchoe rosa sobre fondo negro">
+      <img src="{{ar-miravet}}" alt="Miravet sobre el río Ebro">
+    </div>
+  </header>
+
+  <section>
+    <div class="col">
+      <p class="eyebrow">La línea</p>
+      <h2>Una gramática, no un estilo</h2>
+      <p style="margin-top:20px">Un estilo se reconoce por el acabado: un color, un grano, un filtro. Lo que hay aquí es otra cosa &mdash; una manera de resolver el encuadre que funciona igual con una cámara de medio formato en un estudio a oscuras que con una digital a pleno sol en un cráter volcánico.</p>
+      <p>Fondo que calla. Un solo color dentro. Formato cuadrado. Error admitido solo cuando limpia. Cuatro operaciones que se aplican antes de saber qué se está fotografiando, y que por eso aguantan el cambio de sujeto, de medio y de país.</p>
+      <div class="thesis">
+        <p>El sujeto cambia. El continente cambia. La cámara cambia. La operación es siempre la misma.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="rule-head">
+      <div class="rule-num">01</div>
+      <div class="body">
+        <h2>Una forma contra un campo plano</h2>
+        <p>La decisión más constante, y la más invisible: aislar un objeto y darle un fondo sin información. Cielo, negro, un muro blanco, la lámina de mar. El fondo no es lo que había detrás — es lo que se eligió para que no hubiera nada detrás.</p>
+        <p>Cambia el sujeto, cambia la cámara, cambia el continente. La operación es la misma.</p>
+      </div>
+    </div>
+    <div class="pair rise">
+      <figure>
+        <div class="plate"><img src="{{r1-roca-teide}}" alt="Roca volcánica recortada contra el cielo del Teide"></div>
+        <figcaption><b>Teide, Tenerife</b>Digital · Campaña · Abril 2019</figcaption>
+      </figure>
+      <div class="vs"><span>2019</span>↔<span>2014</span></div>
+      <figure>
+        <div class="plate"><img src="{{r1-carrete-negro}}" alt="Dos carretes Kodak T-Max 400 sobre fondo negro"></div>
+        <figcaption><b>Kodak T-Max 400</b>Digital · Estudio · Septiembre 2014</figcaption>
+      </figure>
+    </div>
+    <div class="col" style="margin-top:44px">
+      <p>Cinco años y dos mundos distintos. Un peñasco de lava a pleno sol y dos carretes en una mesa a oscuras. La misma frase: <strong>una silueta legible, un fondo que calla.</strong></p>
+      <p class="muted">Y cuando el trabajo llega al papel, el campo plano deja de ser el cielo y pasa a ser el propio margen de la página. En el libro Geometrías la imagen nunca sangra: flota dentro del blanco, que hace exactamente el trabajo que hacía el cielo.</p>
+    </div>
+    <figure class="wide rise">
+      <div class="plate"><img src="{{lib-geometrias-3}}" alt="Doble página del libro Geometrías: dos fotografías de arquitectura flotando en margen blanco"></div>
+      <figcaption><b>Geometrías, páginas 15&ndash;16</b>Libro · 21 × 21 cm · InDesign · 2018</figcaption>
+    </figure>
+  </section>
+
+  <section>
+    <div class="rule-head">
+      <div class="rule-num">02</div>
+      <div class="body">
+        <h2>Un solo acento saturado</h2>
+        <p>Nunca hay dos colores peleando. Hay un campo desaturado &mdash; gris, beige, negro, la niebla &mdash; y exactamente una cosa roja dentro.</p>
+        <p>El rojo entra siempre solo, y siempre es él quien organiza el encuadre: fija dónde empieza la mirada y obliga a todo lo demás a ceder saturación para dejarle sitio.</p>
+      </div>
+    </div>
+    <div class="pair rise">
+      <figure>
+        <div class="plate"><img src="{{r2-caperucita}}" alt="Retrato de estudio: capucha roja sobre fondo gris neutro"></div>
+        <figcaption><b>Caperucita</b>Digital · Estudio, fondo gris · 2014</figcaption>
+      </figure>
+      <div class="vs"><span>2014</span>↔<span>2019</span></div>
+      <figure>
+        <div class="plate"><img src="{{r2-listen}}" alt="Modelo con camiseta blanca y bordado rojo sobre terreno volcánico beige"></div>
+        <figcaption><b>#Listen</b>Digital · Teide, Tenerife · 2019</figcaption>
+      </figure>
+    </div>
+    <div class="col" style="margin-top:44px">
+      <p>La capucha ocupa media imagen; el bordado ocupa dos centímetros. Da igual la superficie: en los dos casos el rojo es lo único saturado del encuadre, y todo lo demás &mdash; gris de fondo, beige volcánico, negro, blanco &mdash; se ha mantenido callado para que funcione.</p>
+    </div>
+    <div class="support rise">
+      <figure>
+        <div class="plate"><img src="{{r2-vestido-rojo}}" alt="Piernas de mujer con vestido rojo sobre roca en el agua"></div>
+        <figcaption><b>Vestido</b>Digital · 2019</figcaption>
+      </figure>
+      <figure>
+        <div class="plate"><img src="{{r2-neon-cafe66}}" alt="Neón rojo del Cafe 66 en la Ruta 66 de noche"></div>
+        <figcaption><b>Cafe 66</b>35 mm · Ruta 66 · 2018</figcaption>
+      </figure>
+      <figure>
+        <div class="plate"><img src="{{lib-usa-5}}" alt="Doble página del libro USA: Golden Gate rojo sobre bahía gris, y Monument Valley"></div>
+        <figcaption><b>Golden Gate</b>Libro USA · páginas interiores</figcaption>
+      </figure>
+    </div>
+    <div class="col" style="margin-top:32px">
+      <p class="muted">La página del Golden Gate es el caso más limpio de todos, y está dentro del libro: una bahía entera reducida a gris verdoso, y el puente como única saturación de la doble página.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="rule-head">
+      <div class="rule-num">03</div>
+      <div class="body">
+        <h2>El cuadrado como unidad de pensamiento</h2>
+        <p>El cuadrado empieza siendo una imposición del negativo de medio formato. Pero no se queda ahí: sobrevive al escaneo, sobrevive a la maquetación y llega hasta la imprenta.</p>
+        <p>Dos de los tres libros son cuadrados &mdash; 21 × 21 y 17,5 × 17,5 &mdash; sin que ninguna cámara obligara a ello. A esas alturas ya era una decisión, no un formato heredado.</p>
+      </div>
+    </div>
+    <div class="pair rise">
+      <figure>
+        <div class="plate"><img src="{{r3-cuadrado-retrato}}" alt="Retrato en blanco y negro de medio formato con velos y fugas de luz"></div>
+        <figcaption><b>120 · 6 × 6</b>Medio formato · 2018</figcaption>
+      </figure>
+      <div class="vs"><span>Negativo</span>→<span>Papel</span></div>
+      <figure>
+        <div class="plate"><img src="{{lib-geometrias-4}}" alt="Doble página del libro Geometrías con estructura metálica y sombra de barandilla"></div>
+        <figcaption><b>Geometrías, pp. 37&ndash;38</b>Libro cuadrado · 21 × 21 cm</figcaption>
+      </figure>
+    </div>
+    <div class="col" style="margin-top:44px">
+      <p>El cuadrado obliga a componer por peso y no por dirección: no hay un lado largo que empuje la mirada, así que el sujeto tiene que sostenerse por sí mismo en el centro de gravedad del encuadre. Es la regla&nbsp;01 llevada a la geometría del marco.</p>
+    </div>
+    <div class="support rise" style="grid-template-columns:repeat(2,1fr)">
+      <figure>
+        <div class="plate"><img src="{{r3-cuadrado-mcdonalds}}" alt="Escena de calle cuadrada frente a un McDonald's, con velo de luz en el borde"></div>
+        <figcaption><b>Calle</b>120 · 6 × 6 · 2018</figcaption>
+      </figure>
+      <figure>
+        <div class="plate"><img src="{{lib-geometrias-1}}" alt="Doble página del libro Geometrías con dos fachadas de rejilla en blanco y negro"></div>
+        <figcaption><b>Geometrías, pp. 5&ndash;6</b>Libro cuadrado · 44 páginas</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section>
+    <div class="rule-head">
+      <div class="rule-num">04</div>
+      <div class="body">
+        <h2>Control y accidente, en la misma mesa</h2>
+        <p>Por un lado, estudio: flash, fondo negro, objetos congelados en el aire, nada librado al azar. Por otro, película: velos, dobles exposiciones, fugas de luz, destellos que no pedí.</p>
+        <p>Lo interesante no es que convivan, sino <strong>el criterio para quedarse con el accidente</strong>. El error se conserva cuando refuerza las reglas 01 y 02 &mdash; cuando limpia el fondo o cuando añade el único color saturado. Si las estorba, el fotograma se descarta.</p>
+      </div>
+    </div>
+    <div class="pair rise">
+      <figure>
+        <div class="plate"><img src="{{r4-alicia-control}}" alt="Retrato de estudio: figura sobre fondo negro con cartas de baraja congeladas en el aire"></div>
+        <figcaption><b>Alicia</b>Control total · Estudio · 2014</figcaption>
+      </figure>
+      <div class="vs"><span>Control</span>↔<span>Accidente</span></div>
+      <figure>
+        <div class="plate"><img src="{{r4-doble-exposicion}}" alt="Doble exposición a color en película: figuras superpuestas junto a una piscina"></div>
+        <figcaption><b>Doble exposición</b>35 mm · Sin planificar · 2018</figcaption>
+      </figure>
+    </div>
+    <div class="col" style="margin-top:44px">
+      <p>La doble exposición de la derecha no estaba prevista: es un carrete rebobinado y vuelto a pasar. Se queda porque el solape borra el fondo y deja las figuras flotando sobre un campo lechoso &mdash; es decir, porque el accidente fabricó la regla&nbsp;01 por su cuenta.</p>
+      <p class="muted">El mismo criterio con los destellos de lente: se conservan cuando ordenan la imagen, no cuando la ensucian.</p>
+    </div>
+    <figure class="wide rise">
+      <div class="plate"><img src="{{r4-fuente-flare}}" alt="Niño corriendo entre chorros de agua, con destellos de lente en diagonal"></div>
+      <figcaption><b>Fuente</b>35 mm · Destello conservado · 2017</figcaption>
+    </figure>
+  </section>
+
+  <section>
+    <div class="col">
+      <p class="eyebrow">Un motivo, no una regla</p>
+      <h2>La palabra entra en el encuadre como objeto</h2>
+      <p style="margin-top:20px">Junto a las cuatro reglas hay un gesto que reaparece: el texto no acompaña la imagen desde fuera &mdash; entra dentro, como una cosa más del encuadre, con su volumen y su sombra.</p>
+      <p>Una valla en una carretera de Estados Unidos, una frase escrita sobre la piel de alguien en la orilla de una piscina, un bordado en el pecho de una camiseta. Tres años, tres medios, el mismo movimiento: la palabra tratada como objeto y no como pie de foto.</p>
+    </div>
+    <div class="support rise">
+      <figure>
+        <div class="plate"><img src="{{lib-usa-4}}" alt="Doble página del libro USA: la presa Hoover y una valla que dice JESUS IS REAL"></div>
+        <figcaption><b>«JESUS IS REAL»</b>Libro USA · 35 mm · 2017</figcaption>
+      </figure>
+      <figure>
+        <div class="plate"><img src="{{r4-doble-exposicion}}" alt="Doble exposición donde se lee DO NOT ENTER escrito sobre el pecho de una figura"></div>
+        <figcaption><b>«DO NOT ENTER»</b>35 mm · Escrito sobre la piel · 2018</figcaption>
+      </figure>
+      <figure>
+        <div class="plate"><img src="{{r2-listen}}" alt="Camiseta blanca con la palabra Listen bordada en rojo"></div>
+        <figcaption><b>«#Listen»</b>Digital · Bordado · 2019</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section>
+    <div class="rule-head">
+      <div class="rule-num">↳</div>
+      <div class="body">
+        <p class="eyebrow">Aplicación <span class="dot">·</span> Tenerife, abril 2019</p>
+        <h2>Las cuatro reglas, de una sola vez</h2>
+        <p>Dos días en el cráter del Teide. Es la producción donde las cuatro operaciones se aplican juntas y desde el principio: la localización se elige por el fondo, la ropa se elige por el color, y el plano se decide antes de que la modelo se siente.</p>
+      </div>
+    </div>
+
+    <ul class="roles">
+      <li><span class="k">Localización</span><span class="v">El cráter del Teide elegido por una razón sola: da fondos planos de verdad. Beige continuo abajo, azul continuo arriba, y ninguna otra información en el encuadre.</span></li>
+      <li><span class="k">Estilismo</span><span class="v">Negro, blanco y denim gris &mdash; todo neutro &mdash; con un único punto rojo bordado. La regla 02 aplicada a la ropa antes que a la foto.</span></li>
+      <li><span class="k">Planos</span><span class="v">Hero, lifestyle, textura y cierre gráfico. Cuatro registros distintos que comparten la misma luz dura y el mismo fondo limpio, para que se lean como una serie y no como cuatro fotos sueltas.</span></li>
+      <li><span class="k">Color</span><span class="v">Una fachada modernista de bandas saturadas, encontrada durante el scouting, como reserva de paleta para gráfica y rótulos.</span></li>
+    </ul>
+
+    <div class="grid-tf rise">
+      <figure class="g-hero">
+        <div class="plate"><img src="{{tf-hero}}" alt="Modelo sentada sobre una roca volcánica, cielo limpio detrás"></div>
+        <figcaption><b>Hero</b>Figura, roca y cielo. Nada más.</figcaption>
+      </figure>
+      <figure class="g-tall">
+        <div class="plate"><img src="{{tf-terreno}}" alt="Terreno volcánico ocre con la cima del Teide al fondo"></div>
+        <figcaption><b>Localización</b>El fondo plano, buscado a propósito</figcaption>
+      </figure>
+      <figure class="g-tall">
+        <div class="plate"><img src="{{tf-color-fachada}}" alt="Fachada modernista con bandas de color amarillo, magenta, naranja y rojo"></div>
+        <figcaption><b>Paleta encontrada</b>Reserva de color para gráfica</figcaption>
+      </figure>
+      <figure class="g-third">
+        <div class="plate"><img src="{{tf-lifestyle}}" alt="Taza de café sobre mesa blanca, palmeras desenfocadas al fondo"></div>
+        <figcaption><b>Lifestyle</b>Alto clave</figcaption>
+      </figure>
+      <figure class="g-third">
+        <div class="plate"><img src="{{tf-textura-lirio}}" alt="Lirio amarillo recortado contra un muro blanco"></div>
+        <figcaption><b>Textura</b>Flor contra muro</figcaption>
+      </figure>
+      <figure class="g-third">
+        <div class="plate"><img src="{{tf-cierre-silueta}}" alt="Silueta de una figura en un espigón contra el mar plateado a contraluz"></div>
+        <figcaption><b>Cierre</b>Silueta a contraluz</figcaption>
+      </figure>
+    </div>
+    <div class="col" style="margin-top:40px">
+      <p class="muted">El scouting formó parte del trabajo tanto como el disparo: buena parte del día se fue en descartar zonas del parque donde el terreno tenía demasiada textura y el fondo dejaba de ser plano.</p>
+    </div>
+    <figure class="wide rise">
+      <div class="plate"><img src="{{tf-scouting}}" alt="Carretera del parque nacional con coches aparcados y paredes de lava"></div>
+      <figcaption><b>Scouting</b>Descartado: demasiada información de fondo</figcaption>
+    </figure>
+  </section>
+
+  <section>
+    <div class="col">
+      <p class="eyebrow">El sistema en papel</p>
+      <h2>Tres libros, tres páginas distintas</h2>
+      <p style="margin-top:20px">Los libros son donde el método se pone a prueba de verdad, porque una secuencia no perdona: hay que decidir qué va al lado de qué, cuánto respira cada imagen y dónde para el ritmo.</p>
+      <p>Y ahí aparece el matiz que más me interesa del conjunto: <strong>los tres libros resuelven la página de tres maneras incompatibles</strong>, y los tres son correctos. No es una plantilla aplicada tres veces. Es el mismo criterio produciendo tres respuestas distintas porque el sujeto es distinto.</p>
+    </div>
+
+    <div class="books rise">
+      <div class="book">
+        <div class="plate"><img src="{{lib-geometrias-1}}" alt="Doble página del libro Geometrías, imágenes flotando en margen blanco"></div>
+        <h3>Geometrías</h3>
+        <p style="font-size:17px">Forma pura, sin figura humana. La imagen <strong>nunca sangra</strong>: flota en un margen blanco generoso con el folio abajo. La página se comporta como el cielo de la regla 01 &mdash; es el campo plano.</p>
+        <dl class="spec">
+          <dt>Formato</dt><dd>21 × 21 cm, cuadrado</dd>
+          <dt>Extensión</dt><dd>44 páginas</dd>
+          <dt>Página</dt><dd>Imagen contenida, margen ancho</dd>
+          <dt>Maqueta</dt><dd>InDesign</dd>
+        </dl>
+      </div>
+      <div class="book">
+        <div class="plate"><img src="{{lib-usa-1}}" alt="Doble página del libro USA: cañón a sangre y carretera del desierto"></div>
+        <h3>USA</h3>
+        <p style="font-size:17px">Territorio y carretera, en color lavado de película. Aquí la imagen <strong>sí sangra</strong>, y alterna: una página a sangre contra otra flotando, spread tras spread, para que la lectura tenga pulso.</p>
+        <dl class="spec">
+          <dt>Formato</dt><dd>24,4 × 21 cm, apaisado</dd>
+          <dt>Origen</dt><dd>35 mm, Ruta 66 y costa oeste</dd>
+          <dt>Página</dt><dd>Sangre alterna con flotante</dd>
+          <dt>Estado</dt><dd>Maqueta de prueba</dd>
+        </dl>
+      </div>
+    </div>
+
+    <div class="col" style="margin-top:52px">
+      <h3 style="font-size:22px; margin-bottom:14px">Sillas &mdash; y la excepción que confirma el criterio</h3>
+      <p>El tercero no va de sillas. <strong>Va de ausencia.</strong> Cada imagen enseña el sitio donde falta alguien: la silla es la huella de un cuerpo que no está, y el entorno es lo que dice de quién es esa ausencia.</p>
+      <p>Dos sillas de plástico en el umbral de un teatro cerrado. Una volcada en una calle vacía de noche. Un aula. Un vagón de metro entero sin nadie. Una mesa de mirador sobre un barranco. El mismo vacío, cinco veces, con cinco dueños distintos.</p>
+      <p>Por eso aquí la regla&nbsp;01 se suspende, y se suspende por una razón que se puede enunciar: <em>el fondo no se puede aplanar porque el fondo es quien nombra al ausente.</em> Una silla recortada contra un cielo limpio no diría nada &mdash; sería una silla. Es el entorno el que la convierte en una falta.</p>
+      <p class="muted">Y la página va en consecuencia, con una <strong>tercera</strong> solución: imágenes a pares, tocándose, sin margen y sin folio. Nada de aire alrededor. El libro tampoco deja respirar.</p>
+    </div>
+
+    <div class="support rise" style="margin-top:32px">
+      <figure>
+        <div class="plate"><img src="{{lib-sillas-1}}" alt="Doble página de Sillas: dos sillas de plástico en el umbral de un teatro, y una silla volcada en una calle de noche"></div>
+        <figcaption><b>Quien no entró</b>Umbral de teatro · Calle de noche</figcaption>
+      </figure>
+      <figure>
+        <div class="plate"><img src="{{lib-sillas-3}}" alt="Doble página de Sillas: silla de aula sobre moqueta azul, e interior de un vagón de metro vacío"></div>
+        <figcaption><b>Quien no vino</b>Aula · Vagón de metro</figcaption>
+      </figure>
+      <figure>
+        <div class="plate"><img src="{{lib-sillas-5}}" alt="Doble página de Sillas: mesa y sillas de madera ante un castillo, y una terraza sobre un barranco"></div>
+        <figcaption><b>Quien no se sentó</b>Mirador · Barranco</figcaption>
+      </figure>
+    </div>
+
+    <div class="col" style="margin-top:44px">
+      <p><strong>El formato sigue al sujeto.</strong> Una forma cerrada pide un marco cerrado: cuadrado y margen. Un territorio sin bordes pide una página sin bordes: apaisado y sangre. Una ausencia pide que las imágenes se toquen, sin aire, para que el vacío se acumule de página en página en vez de dispersarse.</p>
+      <p>La regla no es «usa márgenes» ni «usa sangre» &mdash; es que el borde de la página tiene que decir lo mismo que dice la imagen.</p>
+      <div class="thesis">
+        <p>Sillas enseña además la otra cara de la regla 01: si aislar una forma contra un fondo plano es la decisión por defecto, saber cuándo <em>no</em> tomarla es la misma decisión, tomada al revés.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="col">
+      <p class="eyebrow">El cierre</p>
+      <h2>Cuándo no aplicar la regla</h2>
+      <p style="margin-top:20px">Las cuatro operaciones no son un manual. Son una posición: <strong>decidir antes de disparar qué se queda fuera del encuadre.</strong> El fondo que se aparta, el color que no entra, el lado largo que se recorta. Casi todo el trabajo está en la resta.</p>
+      <p>Por eso Sillas importa tanto dentro del conjunto. Es el único sitio donde la primera regla se desactiva a propósito, y se desactiva porque el tema lo pide: allí el fondo no sobra, el fondo es lo único que hay. Saber cuándo no aislar es la misma decisión que aislar, tomada al revés.</p>
+      <p class="muted">Una gramática sirve cuando también sabes romperla y decir por qué.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="col">
+      <h2>Dirección de arte, fotografía y libro</h2>
+      <p class="lede" style="margin-top:18px">Si tienes un proyecto donde hay que decidir cómo se ve algo &mdash; y sostener esa decisión a lo largo de una campaña, una web o un objeto impreso &mdash; hablemos.</p>
+      <p class="sig">Ricard Boixeda · RBT Studio · Fotografía 2013&ndash;2021</p>
+    </div>
+  </section>
+
+</div>
+
+<script>
+(function(){
+  var els=document.querySelectorAll(".rise");
+  if(!("IntersectionObserver" in window)||window.matchMedia("(prefers-reduced-motion: reduce)").matches){
+    els.forEach(function(e){e.classList.add("in")}); return;
+  }
+  var io=new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if(en.isIntersecting){en.target.classList.add("in"); io.unobserve(en.target);}
+    });
+  },{rootMargin:"0px 0px -8% 0px",threshold:.06});
+  els.forEach(function(e){io.observe(e)});
+})();
+</script>

@@ -1,167 +1,192 @@
-﻿import { useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { WebDevIcon, AIIcon, ThreeDIcon, HardwareIcon, ConsultingIcon, InstallationsIcon } from './Icons'
+import { PassOpen } from './Press'
 
 gsap.registerPlugin(ScrollTrigger)
+
+/* =========================================================
+   PASADA 01 — CARTA DE TINTAS
+   Los servicios no son seis tarjetas iguales: son las líneas
+   de una carta de tintas. Cada una lleva su tinta, su nombre y
+   su cobertura. Al pasar por encima, la línea se imprime en
+   papel: la pasada se completa.
+   ========================================================= */
 
 const SERVICES = [
   {
     num: '01',
+    ink: 'var(--ink-cyan)', tint: 'var(--ink-cyan-t)',
+    inkName: 'Cian',
     name: 'Experience Engineering',
-    desc: 'Frontend sofisticado donde cada interacción tiene intención. Interfaces que se sienten bien, no solo que funcionan.',
+    desc: 'Frontend sofisticado donde cada interacción tiene intención. Interfaces que se sienten bien, no sólo que funcionan.',
     tags: ['React', 'Next.js', 'TypeScript', 'Motion'],
-    icon: WebDevIcon,
+    coverage: 100,
   },
   {
     num: '02',
-    name: 'AI-native Products',
-    desc: 'Interfaces para sistemas inteligentes: claras, predecibles y humanas. La IA como comportamiento útil, no como feature.',
-    tags: ['LLMs', 'AI UI', 'Product', 'UX'],
-    icon: AIIcon,
+    ink: 'var(--ink-magenta)', tint: 'var(--ink-magenta-t)',
+    inkName: 'Magenta',
+    name: 'Producto AI-native',
+    desc: 'Interfaces para sistemas inteligentes: claras, predecibles y humanas. La IA como comportamiento útil, no como reclamo.',
+    tags: ['LLMs', 'AI UI', 'Producto', 'UX'],
+    coverage: 90,
   },
   {
     num: '03',
+    ink: 'var(--ink-yellow)', tint: 'var(--ink-yellow-t)',
+    inkName: 'Amarillo',
     name: 'Design Systems',
-    desc: 'Sistemas de componentes con criterio visual y consistencia a escala. De tokens a experiencia coherente.',
-    tags: ['Tokens', 'Components', 'Storybook', 'Figma'],
-    icon: ThreeDIcon,
+    desc: 'Sistemas de componentes con criterio visual y consistencia a escala. De los tokens a una experiencia coherente.',
+    tags: ['Tokens', 'Componentes', 'Storybook', 'Figma'],
+    coverage: 80,
   },
   {
     num: '04',
-    name: 'Motion & Interaction',
+    ink: 'var(--ink-over-cm)', tint: 'var(--ink-violet-t)',
+    inkName: 'Cian + Magenta',
+    name: 'Movimiento e interacción',
     desc: 'Animación con propósito: microinteracciones, transiciones y feedback que refuerzan la narrativa del producto.',
     tags: ['GSAP', 'Framer Motion', 'WebGL', 'R3F'],
-    icon: HardwareIcon,
+    coverage: 70,
   },
   {
     num: '05',
-    name: 'Product Consulting',
-    desc: 'Arquitectura de frontend, auditorías UX y roadmap técnico orientado a experiencia de usuario.',
-    tags: ['Architecture', 'UX Audit', 'Roadmap'],
-    icon: ConsultingIcon,
+    ink: 'var(--ink-over-my)', tint: 'var(--ink-orange-t)',
+    inkName: 'Magenta + Amarillo',
+    name: 'Consultoría de producto',
+    desc: 'Arquitectura frontend, auditoría UX y hoja de ruta técnica orientada a la experiencia de uso.',
+    tags: ['Arquitectura', 'Auditoría UX', 'Roadmap'],
+    coverage: 60,
   },
   {
     num: '06',
-    name: 'Creative Technology',
+    ink: 'var(--ink-key)', tint: 'var(--ink-key)',
+    inkName: 'Negro',
+    name: 'Creative technology',
     desc: 'Código generativo, instalaciones interactivas y piezas computacionales para espacios culturales y digitales.',
-    tags: ['Generative', 'p5.js', 'Interactive', 'Creative'],
-    icon: InstallationsIcon,
+    tags: ['Generativo', 'p5.js', 'Interactivo', 'Instalación'],
+    coverage: 100,
   },
 ]
 
 export default function Services() {
   const sectionRef = useRef(null)
-  const titleRef = useRef(null)
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.fromTo(titleRef.current,
-        { opacity: 0, y: 50 },
+      gsap.fromTo('.ink-row',
+        { opacity: 0, x: -12 },
         {
           opacity: 1,
-          y: 0,
-          duration: 1,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: titleRef.current,
-            start: 'top 80%',
-            toggleActions: 'play none none reverse'
-          }
-        }
-      )
-
-      gsap.fromTo('.service-card',
-        { opacity: 0, y: 30 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.6,
-          stagger: 0.1,
+          x: 0,
+          duration: 0.5,
+          stagger: 0.08,
           ease: 'power2.out',
-          scrollTrigger: {
-            trigger: '.services-grid',
-            start: 'top 75%',
-            toggleActions: 'play none none reverse'
-          }
+          scrollTrigger: { trigger: '.ink-chart', start: 'top 78%', toggleActions: 'play none none reverse' },
         }
       )
     }, sectionRef)
-
     return () => ctx.revert()
   }, [])
 
   return (
-    <section ref={sectionRef} id="services" className="relative py-16 md:py-20 lg:py-24" style={{ backgroundColor: '#F2EFE6' }}>
+    <section ref={sectionRef} id="services" className="relative pb-20 md:pb-28">
+      <div className="mx-auto w-full px-6 md:px-12 lg:px-16" style={{ maxWidth: 'var(--container)' }}>
+        <PassOpen
+          pass={1}
+          title="Carta de tintas"
+          sub="Seis maneras de trabajar. Cada una con su tinta, su cobertura y lo que deja en la hoja."
+        />
 
-      <div className="relative z-10 w-full mx-auto px-4 sm:px-8 lg:px-16" style={{ maxWidth: '1280px' }}>
-        <div ref={titleRef} className="mb-12 md:mb-16 lg:mb-24" style={{ opacity: 0 }}>
-          <div style={{ marginBottom: '32px' }}>
-            <p className="font-mono text-[12px] tracking-[0.18em] uppercase mb-6" style={{ color: 'var(--rbt-signal)' }}>
-              01 / 05 · Servicios
-            </p>
-            <h2 className="font-sans text-5xl lg:text-6xl font-semibold leading-[0.95] tracking-tight" style={{ color: '#14140F' }}>
-              Cómo construimos
-              <br />
-              <em className="not-italic" style={{ color: 'var(--rbt-signal)' }}>experiencias</em>
-            </h2>
-          </div>
-        </div>
-
-        <div
-          className="services-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
-          style={{
-            gap: '32px',
-          }}
-        >
+        <div className="ink-chart mt-2">
           {SERVICES.map((service) => (
-            <div
-              key={service.num}
-              className="service-card group"
-              style={{
-                padding: '32px',
-                minHeight: '320px',
-                display: 'flex',
-                flexDirection: 'column',
-                gap: '16px',
-                transition: 'background-color 240ms cubic-bezier(0.2, 0.7, 0.1, 1)',
-                cursor: 'pointer',
-                backgroundColor: '#FBF9F2',
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.backgroundColor = '#F8F5EC'
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.backgroundColor = '#FBF9F2'
-              }}
-            >
-              <span className="t-num" style={{ color: 'var(--rbt-signal)' }}>
-                {service.num}
-              </span>
-              <div style={{ marginTop: '8px', color: 'var(--rbt-signal)' }}>
-                <service.icon size={56} color="var(--rbt-signal)" />
-              </div>
-              <h3 className="font-sans text-[26px] font-semibold leading-[1.15]" style={{ color: '#14140F' }}>
-                {service.name}
-              </h3>
-              <p className="font-sans text-[14px] flex-1 leading-[1.5]" style={{ color: '#3A3A33' }}>
-                {service.desc}
-              </p>
-              <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
-                {service.tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className="font-mono text-[10px] tracking-[0.1em] uppercase"
-                    style={{ color: '#6E6E64' }}
-                  >
-                    {tag}
+            <article key={service.num} className="ink-row" style={{ opacity: 0 }}>
+              <div className="ink-row__inner">
+                <span className="ink-row__chip" style={{ background: service.ink }} aria-hidden="true" />
+
+                <div className="ink-row__id">
+                  <span className="t-num" style={{ color: service.tint }}>{service.num}</span>
+                  <span className="t-label mt-2 block" style={{ color: 'var(--on-press-low)' }}>
+                    {service.inkName}
                   </span>
-                ))}
+                </div>
+
+                <div className="ink-row__body">
+                  <h3 className="t-h2">{service.name}</h3>
+                  <p className="t-small mt-3" style={{ color: 'var(--on-press-mid)', maxWidth: '58ch' }}>
+                    {service.desc}
+                  </p>
+                </div>
+
+                <div className="ink-row__meta">
+                  <span className="t-label" style={{ color: 'var(--on-press-low)' }}>
+                    Cobertura {service.coverage}%
+                  </span>
+                  <span className="ink-row__bar" aria-hidden="true">
+                    <span style={{ width: `${service.coverage}%`, background: service.ink }} />
+                  </span>
+                  <div className="ink-row__tags">
+                    {service.tags.map((tag) => (
+                      <span key={tag} className="t-label" style={{ color: 'var(--on-press-low)' }}>{tag}</span>
+                    ))}
+                  </div>
+                </div>
               </div>
-            </div>
+            </article>
           ))}
         </div>
       </div>
+
+      <style>{`
+        .ink-row { border-bottom: var(--hairline-p); }
+        .ink-row:first-child { border-top: var(--hairline-p); }
+
+        .ink-row__inner {
+          display: grid;
+          grid-template-columns: 12px 132px 1fr 260px;
+          gap: var(--s-5);
+          align-items: start;
+          padding: var(--s-6) var(--s-4);
+          transition: background var(--dur-base) var(--ease-snap), color var(--dur-base);
+        }
+
+        /* Pasar por encima es imprimir la línea: sale en papel. */
+        .ink-row:hover .ink-row__inner,
+        .ink-row:focus-within .ink-row__inner {
+          background: var(--sheet);
+          color: var(--on-sheet);
+        }
+        .ink-row:hover .t-small,
+        .ink-row:focus-within .t-small { color: var(--on-sheet-mid) !important; }
+        .ink-row:hover .t-label,
+        .ink-row:focus-within .t-label { color: var(--on-sheet-low) !important; }
+        .ink-row:hover .t-num,
+        .ink-row:focus-within .t-num { color: var(--on-sheet) !important; }
+
+        .ink-row__chip { display: block; width: 12px; height: 44px; }
+
+        .ink-row__body h3 { font-variation-settings: 'wdth' 112; }
+
+        .ink-row__meta { display: flex; flex-direction: column; gap: var(--s-2); }
+
+        .ink-row__bar {
+          display: block;
+          height: 4px;
+          width: 100%;
+          background: var(--press-line);
+        }
+        .ink-row__bar > span { display: block; height: 100%; }
+
+        .ink-row__tags { display: flex; flex-wrap: wrap; gap: 10px; margin-top: var(--s-2); }
+
+        @media (max-width: 1024px) {
+          .ink-row__inner { grid-template-columns: 12px 1fr; gap: var(--s-4); }
+          .ink-row__id { display: flex; align-items: baseline; gap: var(--s-3); }
+          .ink-row__id .t-label { margin-top: 0 !important; }
+          .ink-row__body, .ink-row__meta { grid-column: 2; }
+        }
+      `}</style>
     </section>
   )
 }

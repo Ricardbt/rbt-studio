@@ -11,3 +11,6 @@ dist
 
 # Video sources — transcoded to public/assets/proyectos/captures/*.mp4 for the web
 *.mov
+
+# Case study HTML autocontenido (7 MB de imágenes en base64) — se regenera con build.sh
+public/assets/proyectos/materialcasos_estudio/fotografia-direccionartistica/case-study.html

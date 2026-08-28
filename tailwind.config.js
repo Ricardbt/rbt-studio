@@ -8,59 +8,30 @@ export default {
     extend: {
       colors: {
         // Ver DESIGN.md — los valores canónicos viven en src/styles/index.css
-        signal: 'var(--rbt-signal)',          // único acento de marca
-        ink: 'var(--rbt-studio-ink)',         // tinta estructural
-        'ink-press': 'var(--rbt-studio-press)',
-        bg: '#F2EFE6',
-        surface: '#F8F5EC',
-        border: '#C9C5B6',
-        text: '#14140F',
-        textMuted: '#6E6E64',
-        accent: '#151C1C',
-        'accent-secondary': '#0E4A35',
-        paper: '#FBF9F2',
-      },
-      backgroundImage: {
-        'brand-gradient': 'linear-gradient(180deg, #0E4A35 0%, #15C1C1 74.04%)',
+        press: 'var(--press)',
+        'press-deep': 'var(--press-deep)',
+        'press-line': 'var(--press-line)',
+        sheet: 'var(--sheet)',
+        'sheet-deep': 'var(--sheet-deep)',
+        'sheet-line': 'var(--sheet-line)',
+        magenta: 'var(--ink-magenta)',
+        cyan: 'var(--ink-cyan)',
+        yellow: 'var(--ink-yellow)',
+        key: 'var(--ink-key)',
+        'on-press': 'var(--on-press)',
+        'on-press-mid': 'var(--on-press-mid)',
+        'on-press-low': 'var(--on-press-low)',
+        'on-sheet': 'var(--on-sheet)',
+        'on-sheet-mid': 'var(--on-sheet-mid)',
+        'on-sheet-low': 'var(--on-sheet-low)',
       },
       fontFamily: {
-        sans: ['DM Sans', 'system-ui', 'sans-serif'],
-        mono: ['JetBrains Mono', 'monospace'],
-        serif: ['DM Serif Display', 'Georgia', 'serif'],
+        sans: ['Archivo', 'system-ui', 'sans-serif'],
+        mono: ['Spline Sans Mono', 'ui-monospace', 'monospace'],
       },
       letterSpacing: {
         'ultra': '0.25em',
         'mega': '0.15em',
-        'wide-custom': '0.96px',
-      },
-      animation: {
-        'slide-up': 'slideUp 0.8s ease-out both',
-        'fade-in': 'fadeIn 0.6s ease-out both',
-        'marquee': 'marquee 30s linear infinite',
-        'float': 'float 6s ease-in-out infinite',
-        'glow': 'glow 2s ease-in-out infinite',
-      },
-      keyframes: {
-        slideUp: {
-          from: { opacity: '0', transform: 'translateY(30px)' },
-          to: { opacity: '1', transform: 'translateY(0)' },
-        },
-        fadeIn: {
-          from: { opacity: '0' },
-          to: { opacity: '1' },
-        },
-        marquee: {
-          '0%': { transform: 'translateX(0)' },
-          '100%': { transform: 'translateX(-50%)' },
-        },
-        float: {
-          '0%, 100%': { transform: 'translateY(0)' },
-          '50%': { transform: 'translateY(-10px)' },
-        },
-        glow: {
-          '0%, 100%': { opacity: '0.6' },
-          '50%': { opacity: '1' },
-        },
       },
     },
   },

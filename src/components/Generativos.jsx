@@ -1,6 +1,7 @@
 ﻿import { useRef, useEffect } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { PassOpen } from './Press'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -27,9 +28,9 @@ function LorenzCanvas() {
 
     const reset = () => {
       x = 0.1; y = 1; z = 1.05; frame = 0
-      ctx.fillStyle = '#F2EFE6'
+      ctx.fillStyle = '#FAF8F3'
       ctx.fillRect(0, 0, width, height)
-      ctx.strokeStyle = 'rgba(14, 74, 53, 0.6)'
+      ctx.strokeStyle = 'rgba(0, 121, 171, 0.6)'
       ctx.lineWidth = 0.5
     }
 
@@ -99,7 +100,7 @@ function PhyllotaxisCanvas() {
 
     canvas.addEventListener('mousemove', handleMouseMove)
 
-    ctx.fillStyle = '#F2EFE6'
+    ctx.fillStyle = '#FAF8F3'
     ctx.fillRect(0, 0, width, height)
 
     let n = 0
@@ -108,7 +109,7 @@ function PhyllotaxisCanvas() {
 
     const reset = () => {
       n = 0
-      ctx.fillStyle = '#F2EFE6'
+      ctx.fillStyle = '#FAF8F3'
       ctx.fillRect(0, 0, width, height)
     }
 
@@ -122,7 +123,7 @@ function PhyllotaxisCanvas() {
       const x = centerX + r * Math.cos(theta)
       const y = centerY + r * Math.sin(theta)
 
-      ctx.fillStyle = `rgba(14, 74, 53, ${0.3 + (distToMouse / 300)})`
+      ctx.fillStyle = `rgba(214, 0, 111, ${0.3 + (distToMouse / 300)})`
       ctx.beginPath()
       ctx.arc(x, y, 3, 0, Math.PI * 2)
       ctx.fill()
@@ -186,7 +187,7 @@ function ParticlesCanvas() {
       }
 
       draw(ctx) {
-        ctx.fillStyle = `rgba(14, 74, 53, ${0.4 + Math.sin(Date.now() / 1000) * 0.3})`
+        ctx.fillStyle = `rgba(200, 164, 0, ${0.4 + Math.sin(Date.now() / 1000) * 0.3})`
         ctx.beginPath()
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2)
         ctx.fill()
@@ -200,7 +201,7 @@ function ParticlesCanvas() {
     let animationId
 
     const draw = () => {
-      ctx.fillStyle = 'rgba(242, 239, 230, 0.1)'
+      ctx.fillStyle = 'rgba(250, 248, 243, 0.1)'
       ctx.fillRect(0, 0, width, height)
 
       particles.forEach((p) => {
@@ -215,7 +216,7 @@ function ParticlesCanvas() {
           const dist = Math.sqrt(dx * dx + dy * dy)
 
           if (dist < 100) {
-            ctx.strokeStyle = `rgba(14, 74, 53, ${0.1 * (1 - dist / 100)})`
+            ctx.strokeStyle = `rgba(200, 164, 0, ${0.1 * (1 - dist / 100)})`
             ctx.beginPath()
             ctx.moveTo(particles[i].x, particles[i].y)
             ctx.lineTo(particles[j].x, particles[j].y)
@@ -247,7 +248,7 @@ function FractalTreeCanvas() {
     canvas.width = width
     canvas.height = height
 
-    ctx.fillStyle = '#F2EFE6'
+    ctx.fillStyle = '#FAF8F3'
     ctx.fillRect(0, 0, width, height)
 
     let time = 0
@@ -259,7 +260,7 @@ function FractalTreeCanvas() {
       const endX = x + Math.cos(angle) * length
       const endY = y + Math.sin(angle) * length
 
-      ctx.strokeStyle = `rgba(14, 74, 53, ${0.3 + depth * 0.1})`
+      ctx.strokeStyle = `rgba(20, 21, 15, ${0.3 + depth * 0.1})`
       ctx.lineWidth = depth * 0.8
       ctx.beginPath()
       ctx.moveTo(x, y)
@@ -274,7 +275,7 @@ function FractalTreeCanvas() {
     }
 
     const draw = () => {
-      ctx.fillStyle = 'rgba(242, 239, 230, 0.05)'
+      ctx.fillStyle = 'rgba(250, 248, 243, 0.05)'
       ctx.fillRect(0, 0, width, height)
 
       time += 1
@@ -331,7 +332,7 @@ function FlowFieldCanvas() {
       }
 
       draw(ctx) {
-        ctx.fillStyle = 'rgba(14, 74, 53, 0.5)'
+        ctx.fillStyle = 'rgba(0, 121, 171, 0.5)'
         ctx.beginPath()
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2)
         ctx.fill()
@@ -346,7 +347,7 @@ function FlowFieldCanvas() {
     let animationId
 
     const draw = () => {
-      ctx.fillStyle = 'rgba(242, 239, 230, 0.15)'
+      ctx.fillStyle = 'rgba(250, 248, 243, 0.15)'
       ctx.fillRect(0, 0, width, height)
 
       time += 1
@@ -378,7 +379,7 @@ function LemniscataCanvas() {
     canvas.width = width
     canvas.height = height
 
-    ctx.fillStyle = '#F2EFE6'
+    ctx.fillStyle = '#FAF8F3'
     ctx.fillRect(0, 0, width, height)
 
     let a = 150
@@ -386,7 +387,7 @@ function LemniscataCanvas() {
     let animationId
 
     const draw = () => {
-      ctx.fillStyle = 'rgba(242, 239, 230, 0.2)'
+      ctx.fillStyle = 'rgba(250, 248, 243, 0.2)'
       ctx.fillRect(0, 0, width, height)
 
       ctx.save()
@@ -400,7 +401,7 @@ function LemniscataCanvas() {
         const x = r * Math.cos(theta)
         const y = r * Math.sin(theta)
 
-        ctx.fillStyle = `rgba(14, 74, 53, ${0.2 + (theta / (Math.PI * 2)) * 0.5})`
+        ctx.fillStyle = `rgba(214, 0, 111, ${0.2 + (theta / (Math.PI * 2)) * 0.5})`
         ctx.beginPath()
         ctx.arc(x, y, 2, 0, Math.PI * 2)
         ctx.fill()
@@ -443,7 +444,7 @@ function SpiralGirosCanvas() {
     let animationId
 
     const draw = () => {
-      ctx.fillStyle = '#F2EFE6'
+      ctx.fillStyle = '#FAF8F3'
       ctx.fillRect(0, 0, width, height)
 
       ctx.save()
@@ -452,7 +453,7 @@ function SpiralGirosCanvas() {
 
       const distance = 60 + Math.sin(time * 0.02) * 20
 
-      ctx.fillStyle = 'rgba(14, 74, 53, 0.7)'
+      ctx.fillStyle = 'rgba(200, 164, 0, 0.7)'
       const positions = [
         { x: distance, y: 0 },
         { x: -distance, y: 0 },
@@ -492,7 +493,7 @@ function DispersionCanvas() {
     canvas.width = width
     canvas.height = height
 
-    ctx.fillStyle = '#F2EFE6'
+    ctx.fillStyle = '#FAF8F3'
     ctx.fillRect(0, 0, width, height)
 
     let n = 0
@@ -506,7 +507,7 @@ function DispersionCanvas() {
       const centerX = width / 2
       const centerY = height / 2
 
-      ctx.strokeStyle = `rgba(${Math.min(255, 14 + a * 5)}, ${Math.min(255, 10 + a * 5)}, 100, 0.6)`
+      ctx.strokeStyle = `rgba(20, 21, 15, 0.6)`
       ctx.lineWidth = 1.5
 
       for (let i = 0; i < 100; i++) {
@@ -566,7 +567,7 @@ function CollisionCanvas() {
     }
 
     const draw = () => {
-      ctx.fillStyle = '#F2EFE6'
+      ctx.fillStyle = '#FAF8F3'
       ctx.fillRect(0, 0, width, height)
 
       c1.x += c1.vx
@@ -575,23 +576,23 @@ function CollisionCanvas() {
       const hit = circleCollision(c1, c2)
 
       if (hit) {
-        ctx.fillStyle = 'rgba(255, 150, 0, 0.8)'
+        ctx.fillStyle = 'rgba(200, 164, 0, 0.8)'
         c1.vx = c1.vx > 0 ? -2 : 2
       } else {
-        ctx.fillStyle = 'rgba(14, 74, 53, 0.6)'
+        ctx.fillStyle = 'rgba(0, 121, 171, 0.6)'
       }
 
       ctx.beginPath()
       ctx.arc(c1.x, c1.y, c1.r, 0, Math.PI * 2)
       ctx.fill()
 
-      ctx.fillStyle = 'rgba(14, 74, 53, 0.3)'
+      ctx.fillStyle = 'rgba(0, 121, 171, 0.3)'
       ctx.beginPath()
       ctx.arc(c2.x, c2.y, c2.r, 0, Math.PI * 2)
       ctx.fill()
 
       if (hit) {
-        ctx.strokeStyle = 'rgba(255, 150, 0, 0.5)'
+        ctx.strokeStyle = 'rgba(200, 164, 0, 0.5)'
         ctx.lineWidth = 2
         ctx.beginPath()
         ctx.arc(c1.x, c1.y, c1.r * 2, 0, Math.PI * 2)
@@ -629,12 +630,12 @@ function BezierCurvesCanvas() {
     let animationId
 
     const draw = () => {
-      ctx.fillStyle = 'rgba(242, 239, 230, 0.1)'
+      ctx.fillStyle = 'rgba(250, 248, 243, 0.1)'
       ctx.fillRect(0, 0, width, height)
 
       time += 0.01
 
-      ctx.strokeStyle = 'rgba(14, 74, 53, 0.5)'
+      ctx.strokeStyle = 'rgba(214, 0, 111, 0.5)'
       ctx.lineWidth = 2
       ctx.fillStyle = 'none'
 
@@ -658,7 +659,7 @@ function BezierCurvesCanvas() {
         ctx.bezierCurveTo(p2x, p2y, p3x, p3y, p4x, p4y)
         ctx.stroke()
 
-        ctx.fillStyle = 'rgba(14, 74, 53, 0.4)'
+        ctx.fillStyle = 'rgba(214, 0, 111, 0.4)'
         ctx.beginPath()
         ctx.arc(p1x, p1y, 4, 0, Math.PI * 2)
         ctx.fill()
@@ -673,6 +674,21 @@ function BezierCurvesCanvas() {
 
   return <canvas ref={canvasRef} className="w-full block" />
 }
+
+// Nueve piezas, una plancha cada una. La ficha va debajo del
+// lienzo, como el pie de una prueba: primero se ve, luego se lee.
+const PIECES = [
+  { ink: 'var(--ink-cyan)', tint: 'var(--ink-cyan-t)',    name: 'Atractor de Lorenz',   note: 'Sistema caótico y determinista. Movimiento impredecible con un patrón debajo.', Canvas: LorenzCanvas },
+  { ink: 'var(--ink-magenta)', tint: 'var(--ink-magenta-t)', name: 'Filotaxis',            note: 'El patrón del ángulo áureo. Mueve el cursor para alterar el crecimiento.', Canvas: PhyllotaxisCanvas },
+  { ink: 'var(--ink-yellow)', tint: 'var(--ink-yellow-t)',  name: 'Sistema de partículas', note: 'Partículas que rebotan y se conectan. Generador de patrones emergentes.', Canvas: ParticlesCanvas },
+  { ink: 'var(--ink-key)', tint: 'var(--ink-key)',    name: 'Árbol fractal',        note: 'Crecimiento recursivo de ramas que oscilan con el viento.', Canvas: FractalTreeCanvas },
+  { ink: 'var(--ink-cyan)', tint: 'var(--ink-cyan-t)',    name: 'Campo de flujo',       note: 'Ruido Perlin como campo vectorial. Las partículas siguen la corriente.', Canvas: FlowFieldCanvas },
+  { ink: 'var(--ink-magenta)', tint: 'var(--ink-magenta-t)', name: 'Lemniscata',           note: 'La curva del infinito, respirando en oscilación lenta.', Canvas: LemniscataCanvas },
+  { ink: 'var(--ink-yellow)', tint: 'var(--ink-yellow-t)',  name: 'Dispersión radial',    note: 'Transformaciones radiales con ruido. Expansión controlada.', Canvas: DispersionCanvas },
+  { ink: 'var(--ink-key)', tint: 'var(--ink-key)',    name: 'Espiral de giros',     note: 'Rectángulos en rotación. Geometría que crece girando.', Canvas: SpiralGirosCanvas },
+  { ink: 'var(--ink-magenta)', tint: 'var(--ink-magenta-t)', name: 'Colisiones',           note: 'Cuerpos que chocan y reparten energía. Física simple, resultado vivo.', Canvas: CollisionCanvas },
+  { ink: 'var(--ink-cyan)', tint: 'var(--ink-cyan-t)',    name: 'Curvas de Bézier',     note: 'Curvas suaves y elásticas con puntos de control oscilantes.', Canvas: BezierCurvesCanvas },
+]
 
 export default function Generativos() {
   const sectionRef = useRef(null)
@@ -716,93 +732,51 @@ export default function Generativos() {
   }, [])
 
   return (
-    <section ref={sectionRef} className="py-16 md:py-20 lg:py-24" style={{ backgroundColor: '#F2EFE6' }}>
-      <div className="relative z-10 w-full mx-auto px-4 sm:px-8 lg:px-16" style={{ maxWidth: '1400px' }}>
-        <div ref={titleRef} className="mb-12 md:mb-16 lg:mb-24" style={{ opacity: 0 }}>
-          <p className="font-mono text-[12px] tracking-[0.18em] uppercase mb-6" style={{ color: 'var(--rbt-signal)' }}>
-            03 / 05 · Generativos
-          </p>
-          <h2 className="font-sans text-5xl lg:text-6xl font-semibold leading-[0.95] tracking-tight" style={{ color: '#14140F' }}>
-            Sistemas
-            <br />
-            <em className="not-italic" style={{ color: 'var(--rbt-signal)' }}>generativos en vivo</em>
-          </h2>
+    <section ref={sectionRef} id="generativos" className="relative pb-20 md:pb-28">
+      <div className="mx-auto w-full px-6 md:px-12 lg:px-16" style={{ maxWidth: '1400px' }}>
+        <div ref={titleRef} style={{ opacity: 0 }}>
+          <PassOpen
+            pass={5}
+            ink="var(--ink-yellow)"
+            title="Diez planchas"
+            sub="Sistemas generativos corriendo en vivo, uno por tinta. Ninguno es un vídeo: todos se dibujan mientras miras."
+          />
         </div>
 
-        <div className="generativos-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '48px' }}>
-          <div className="generativo-item opacity-0" style={{ padding: '24px', backgroundColor: '#FBF9F2' }}>
-            <h3 className="font-sans text-xl font-semibold mb-2" style={{ color: '#14140F' }}>Atractor de Lorenz</h3>
-            <p className="font-sans text-sm mb-4" style={{ color: '#6E6E64' }}>Sistema caótico y determinista. Movimiento impredecible pero con patrón subyacente.</p>
-            <div style={{}}>
-              <LorenzCanvas />
-            </div>
-          </div>
-
-          <div className="generativo-item opacity-0" style={{ padding: '24px', backgroundColor: '#FBF9F2' }}>
-            <h3 className="font-sans text-xl font-semibold mb-2" style={{ color: '#14140F' }}>Phyllotaxis</h3>
-            <p className="font-sans text-sm mb-4" style={{ color: '#6E6E64' }}>Patrón natural del ángulo dorado. Mueve el mouse para ver la interacción.</p>
-            <div style={{}}>
-              <PhyllotaxisCanvas />
-            </div>
-          </div>
-
-          <div className="generativo-item opacity-0" style={{ padding: '24px', backgroundColor: '#FBF9F2' }}>
-            <h3 className="font-sans text-xl font-semibold mb-2" style={{ color: '#14140F' }}>Sistema de Partículas</h3>
-            <p className="font-sans text-sm mb-4" style={{ color: '#6E6E64' }}>Partículas que rebotan y se conectan. Generador de patrones emergentes.</p>
-            <div style={{}}>
-              <ParticlesCanvas />
-            </div>
-          </div>
-
-          <div className="generativo-item opacity-0" style={{ padding: '24px', backgroundColor: '#FBF9F2' }}>
-            <h3 className="font-sans text-xl font-semibold mb-2" style={{ color: '#14140F' }}>Árbol Fractal</h3>
-            <p className="font-sans text-sm mb-4" style={{ color: '#6E6E64' }}>Crecimiento recursivo de ramas que oscilan. Naturaleza al máximo.</p>
-            <div style={{}}>
-              <FractalTreeCanvas />
-            </div>
-          </div>
-
-          <div className="generativo-item opacity-0" style={{ padding: '24px', backgroundColor: '#FBF9F2' }}>
-            <h3 className="font-sans text-xl font-semibold mb-2" style={{ color: '#14140F' }}>Flow Field</h3>
-            <p className="font-sans text-sm mb-4" style={{ color: '#6E6E64' }}>Campo de flujo Perlin. Partículas que siguen vectores emergentes.</p>
-            <div style={{}}>
-              <FlowFieldCanvas />
-            </div>
-          </div>
-
-          <div className="generativo-item opacity-0" style={{ padding: '24px', backgroundColor: '#FBF9F2' }}>
-            <h3 className="font-sans text-xl font-semibold mb-2" style={{ color: '#14140F' }}>Lemniscata</h3>
-            <p className="font-sans text-sm mb-4" style={{ color: '#6E6E64' }}>Curva matemática hermosa. Respira en infinito oscilante.</p>
-            <div style={{}}>
-              <LemniscataCanvas />
-            </div>
-          </div>
-
-          <div className="generativo-item opacity-0" style={{ padding: '24px', backgroundColor: '#FBF9F2' }}>
-            <h3 className="font-sans text-xl font-semibold mb-2" style={{ color: '#14140F' }}>Dispersión Radial</h3>
-            <p className="font-sans text-sm mb-4" style={{ color: '#6E6E64' }}>Transformaciones radiales con ruido. Expansión controlada.</p>
-            <div style={{}}>
-              <DispersionCanvas />
-            </div>
-          </div>
-
-          <div className="generativo-item opacity-0" style={{ padding: '24px', backgroundColor: '#FBF9F2' }}>
-            <h3 className="font-sans text-xl font-semibold mb-2" style={{ color: '#14140F' }}>Espiral de Giros</h3>
-            <p className="font-sans text-sm mb-4" style={{ color: '#6E6E64' }}>Rectángulos en rotación. Geometría hipnótica que crece.</p>
-            <div style={{}}>
-              <SpiralGirosCanvas />
-            </div>
-          </div>
-
-          <div className="generativo-item opacity-0" style={{ padding: '24px', backgroundColor: '#FBF9F2' }}>
-            <h3 className="font-sans text-xl font-semibold mb-2" style={{ color: '#14140F' }}>Curvas de Bézier</h3>
-            <p className="font-sans text-sm mb-4" style={{ color: '#6E6E64' }}>Curves suaves y elásticas. Control de puntos oscilantes.</p>
-            <div style={{}}>
-              <BezierCurvesCanvas />
-            </div>
-          </div>
+        <div className="generativos-grid mt-12">
+          {PIECES.map(({ ink, tint, name, note, Canvas }) => (
+            <figure key={name} className="generativo-item" style={{ opacity: 0, '--piece-ink': ink }}>
+              <div className="generativo-item__plate">
+                <Canvas />
+              </div>
+              <figcaption className="generativo-item__caption">
+                <span className="t-label" style={{ color: tint }}>{name}</span>
+                <p className="t-small" style={{ color: 'var(--on-press-mid)' }}>{note}</p>
+              </figcaption>
+            </figure>
+          ))}
         </div>
       </div>
+
+      <style>{`
+        .generativos-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+          gap: 32px;
+        }
+
+        .generativo-item {
+          display: flex;
+          flex-direction: column;
+          border: var(--hairline-p);
+          background: var(--sheet);
+          transition: border-color var(--dur-base) var(--ease-snap);
+        }
+        .generativo-item:hover { border-color: var(--piece-ink); }
+
+        .generativo-item__plate { overflow: hidden; border-bottom: var(--hairline-p); }
+        .generativo-item__caption { display: flex; flex-direction: column; gap: 8px; padding: 18px; }
+      `}</style>
     </section>
   )
 }

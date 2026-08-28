@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EONIA — La capa de decisión biológica · Case study RBT Studio</title>
+<meta name="description" content="Case study de EONIA: una app que no recomienda, decide. Motor determinista on-device, capa narrativa con LangGraph y catálogo clínico firmado.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;900&family=Noto+Serif:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* Neutrales — papel cálido y tinta casi negra (DESIGN.md §2) */
+  --paper:#F4F1EA; --paper2:#EDE9DF; --white:#FAFAF8; --ink:#18181A;
+  --ink70:rgba(24,24,26,.70); --ink40:rgba(24,24,26,.40);
+  --ink15:rgba(24,24,26,.12); --ink06:rgba(24,24,26,.05);
+  /* Espectro chakra — paleta funcional */
+  --c1:#9B59B6; --c2:#3B82F6; --c3:#06B6D4; --c4:#22C55E;
+  --c5:#EAB308; --c6:#F97316; --c7:#EF4444;
+  --ff:'Outfit',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --fs:'Noto Serif',Georgia,serif;
+  --rad:1.4rem;
+  --maxw:820px;
+  --shadow:0 2px 16px var(--ink06);
+  --shadow-lift:0 6px 28px rgba(24,24,26,.07);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:var(--ff);font-weight:400;font-size:17px;line-height:1.68;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+a{color:inherit}
+h1,h2,h3{font-weight:900;letter-spacing:-.02em;line-height:1.05;margin:0}
+h2{font-size:clamp(26px,3.4vw,40px);text-transform:uppercase}
+h3{font-size:19px;letter-spacing:-.01em;line-height:1.3}
+p{margin:0 0 18px}
+strong{font-weight:700}
+em{font-style:italic}
+code{
+  font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.86em;
+  background:var(--paper2);border:1px solid var(--ink15);border-radius:6px;padding:1px 5px;
+}
+.overline{
+  font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.14em;
+  color:var(--ink40);margin:0 0 10px;
+}
+
+/* ---------- Cabecera ---------- */
+header.hero{padding:72px 0 8px}
+.brandrow{display:flex;align-items:center;gap:12px;margin-bottom:44px}
+.enso{width:30px;height:30px;flex:none}
+.enso circle{fill:none;stroke:var(--ink);stroke-width:9;stroke-linecap:round;
+  stroke-dasharray:250 40;transform:rotate(-28deg);transform-origin:50% 50%}
+.brand{font-weight:800;letter-spacing:.16em;font-size:13px;text-transform:uppercase}
+.brand span{color:var(--ink40);font-weight:600}
+h1{font-size:clamp(40px,7.4vw,74px);text-transform:uppercase;margin-bottom:20px}
+.tagline{
+  font-family:var(--fs);font-size:clamp(19px,2.4vw,23px);line-height:1.5;
+  color:var(--ink70);max-width:44ch;margin:0 0 40px;
+}
+.tagline b{font-family:var(--ff);font-weight:700;color:var(--ink)}
+
+.meta{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+  gap:1px;background:var(--white);border:1px solid var(--ink15);border-radius:var(--rad);
+  overflow:hidden;margin-bottom:26px;
+}
+.meta div{background:var(--white);padding:16px 18px;box-shadow:0 0 0 1px var(--ink15)}
+.meta dt{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ink40);margin-bottom:5px}
+.meta dd{margin:0;font-size:15px;line-height:1.45;font-weight:600}
+
+.chips{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:56px}
+.chip{
+  font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
+  background:var(--paper2);border:1px solid var(--ink15);border-radius:100px;padding:5px 13px;color:var(--ink70);
+}
+
+/* ---------- Secciones ---------- */
+section{padding:52px 0;border-top:1px solid var(--ink15)}
+.sechead{margin-bottom:34px}
+.sechead .num{
+  font-size:11px;font-weight:700;letter-spacing:.14em;color:var(--ink40);
+  display:block;margin-bottom:12px;
+}
+
+/* Vacío del mercado — tres columnas */
+.gap{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin:30px 0}
+.gap div{
+  background:var(--white);border:1px solid var(--ink15);border-radius:var(--rad);
+  padding:20px;box-shadow:var(--shadow);
+}
+.gap h3{margin-bottom:6px}
+.gap p{margin:0;font-size:15px;color:var(--ink70)}
+.gap .empty{border-style:dashed;background:transparent;box-shadow:none}
+.gap .empty h3{color:var(--c7)}
+
+blockquote{
+  margin:34px 0;padding:2px 0 2px 24px;border-left:3px solid var(--ink);
+  font-family:var(--fs);font-size:clamp(19px,2.3vw,22px);line-height:1.5;color:var(--ink);
+}
+blockquote b{font-family:var(--ff);font-weight:700}
+
+/* Tarjetas ADR */
+.adr{
+  background:var(--white);border:1px solid var(--ink15);border-radius:var(--rad);
+  padding:22px 24px;margin-bottom:14px;box-shadow:var(--shadow);
+  border-left:3px solid var(--accent,var(--ink));
+}
+.adr h3{margin-bottom:8px}
+.adr .tag{
+  display:inline-block;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--accent,var(--ink40));margin-bottom:8px;
+}
+.adr p:last-child{margin-bottom:0}
+.adr p{font-size:15.5px;color:var(--ink70)}
+.adr p strong{color:var(--ink)}
+
+/* Figuras / marcadores de captura */
+figure{
+  margin:30px 0;border:1.5px dashed var(--ink15);border-radius:var(--rad);
+  background:var(--paper2);min-height:190px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:28px 24px;gap:8px;
+}
+figure img{max-width:100%;border-radius:calc(var(--rad) - 6px);display:block}
+figure.filled{border-style:solid;background:var(--white);padding:14px;box-shadow:var(--shadow)}
+figcaption{font-size:12.5px;color:var(--ink40);letter-spacing:.02em;max-width:46ch}
+figure .ph{
+  font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ink40);
+}
+.shots{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin:30px 0}
+.shots figure{margin:0}
+
+/* Diagrama del grafo narrativo */
+.graph{
+  background:var(--white);border:1px solid var(--ink15);border-radius:var(--rad);
+  padding:20px;margin:30px 0;overflow-x:auto;box-shadow:var(--shadow);
+}
+.graph svg{display:block;min-width:560px;width:100%;height:auto}
+.graph text{font-family:var(--ff);font-size:11px;fill:var(--ink)}
+.graph text.lbl{font-size:9px;letter-spacing:.1em;fill:var(--ink40);font-weight:700}
+.graph rect{fill:var(--paper2);stroke:var(--ink15)}
+.graph rect.code{fill:var(--ink);stroke:var(--ink)}
+.graph rect.gate{fill:none;stroke:var(--c6);stroke-width:1.5}
+.graph text.inv{fill:var(--white)}
+.graph path{fill:none;stroke:var(--ink15);stroke-width:1.5}
+
+/* El bucle */
+.loop{display:grid;gap:1px;background:var(--ink15);border:1px solid var(--ink15);
+  border-radius:var(--rad);overflow:hidden;margin:30px 0}
+.loop div{background:var(--white);padding:18px 20px;display:flex;gap:16px;align-items:baseline}
+.loop .step{font-weight:900;font-size:13px;letter-spacing:.1em;color:var(--dot,var(--ink40));flex:none;width:74px;text-transform:uppercase}
+.loop p{margin:0;font-size:15.5px;color:var(--ink70)}
+.loop p strong{color:var(--ink)}
+
+/* Tabla de workspaces */
+.tbl{width:100%;border-collapse:collapse;margin:26px 0;font-size:15px}
+.tbl th{
+  text-align:left;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink40);
+  font-weight:700;padding:0 12px 10px 0;border-bottom:1px solid var(--ink15);
+}
+.tbl td{padding:14px 12px 14px 0;border-bottom:1px solid var(--ink15);vertical-align:top;color:var(--ink70)}
+.tbl td:first-child{white-space:nowrap;color:var(--ink);font-weight:600}
+.tbl tr:last-child td{border-bottom:0}
+
+/* Resultados */
+.res{list-style:none;padding:0;margin:26px 0 0}
+.res li{
+  padding:16px 0 16px 26px;border-bottom:1px solid var(--ink15);position:relative;
+  font-size:15.5px;color:var(--ink70);
+}
+.res li:last-child{border-bottom:0}
+.res li::before{
+  content:"";position:absolute;left:0;top:25px;width:8px;height:8px;border-radius:50%;
+  background:var(--c4);box-shadow:0 0 6px var(--c4);
+}
+.res li strong{color:var(--ink)}
+.note{
+  background:var(--paper2);border:1px solid var(--ink15);border-radius:var(--rad);
+  padding:16px 20px;font-size:14.5px;color:var(--ink70);
+}
+.note strong{color:var(--ink)}
+
+/* Aprendizajes */
+.learn{counter-reset:l;margin:26px 0 0}
+.learn > div{position:relative;padding:0 0 26px 46px;counter-increment:l}
+.learn > div::before{
+  content:counter(l,decimal-leading-zero);position:absolute;left:0;top:2px;
+  font-size:12px;font-weight:700;letter-spacing:.1em;color:var(--ink40);
+}
+.learn h3{margin-bottom:6px}
+.learn p{margin:0;font-size:15.5px;color:var(--ink70)}
+
+/* Roadmap */
+.road{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin-top:26px}
+.road div{border:1px solid var(--ink15);border-radius:var(--rad);padding:18px 20px;background:var(--white)}
+.road .v{font-size:11px;font-weight:700;letter-spacing:.14em;color:var(--ink40);margin-bottom:8px}
+.road p{margin:0;font-size:14.5px;color:var(--ink70)}
+
+/* CTA */
+footer{border-top:1px solid var(--ink15);padding:56px 0 80px;text-align:center}
+footer .kicker{font-family:var(--fs);font-size:20px;color:var(--ink70);margin-bottom:26px}
+.btn{
+  display:inline-block;background:var(--ink);color:var(--white);text-decoration:none;
+  font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  padding:15px 30px;border-radius:100px;transition:background .2s,box-shadow .2s;
+}
+.btn:hover{background:#2d2d30;box-shadow:var(--shadow-lift)}
+footer .sig{margin-top:26px;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink40)}
+
+@media(max-width:600px){
+  body{font-size:16px}
+  header.hero{padding-top:48px}
+  section{padding:40px 0}
+  .loop div{flex-direction:column;gap:4px}
+}
+@media print{
+  body{background:#fff}
+  figure{break-inside:avoid}
+  .adr,.gap div{box-shadow:none}
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="brandrow">
+      <svg class="enso" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="42"/></svg>
+      <div class="brand">RBT Studio <span>· Case study</span></div>
+    </div>
+
+    <p class="overline">Producto propio · 2026</p>
+    <h1>EONIA</h1>
+    <p class="tagline">Una app que no te recomienda: <b>decide</b>. Un check-in de 30 segundos se
+      convierte en un estado biológico calculado y en una arquitectura de cápsulas adaptada a ese
+      estado — todo en el dispositivo.</p>
+
+    <dl class="meta">
+      <div><dt>Tipo</dt><dd>Producto propio · RBT Studio</dd></div>
+      <div><dt>Rol</dt><dd>Producto, diseño de sistema y desarrollo full-stack + IA</dd></div>
+      <div><dt>Timeline</dt><dd>Junio 2026 → en curso</dd></div>
+      <div><dt>Estado</dt><dd>MVP v1.0 + servidor v1.5 desplegados · beta cerrada</dd></div>
+    </dl>
+
+    <div class="chips">
+      <span class="chip">TypeScript</span><span class="chip">React Native · Expo Router</span>
+      <span class="chip">Skia + Reanimated</span><span class="chip">NestJS</span>
+      <span class="chip">PostgreSQL · pgvector</span><span class="chip">Redis</span>
+      <span class="chip">Clerk</span><span class="chip">LangGraph + Claude</span>
+      <span class="chip">React + Vite</span><span class="chip">Docker · Render</span>
+      <span class="chip">EAS</span>
+    </div>
+
+    <figure class="filled">
+      <img src="assets/01-state.jpg" alt="Pantalla STATE de EONIA: el EoniaOrb en rojo, estado «Bajo mucha presión», coherencia 45 y las cinco dimensiones del check-in de hoy">
+      <figcaption>Pantalla STATE — build web del MVP con datos de demostración.</figcaption>
+    </figure>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <div class="sechead">
+      <span class="num">01 — Contexto</span>
+      <h2>El hueco está en la decisión, no en el dato</h2>
+    </div>
+
+    <p>El usuario de alto rendimiento de 2026 tiene más datos biológicos que ninguna generación
+      anterior: HRV del wearable, analíticas, podcasts de longevidad. Y sigue tomando los mismos
+      suplementos cada mañana, dé igual cómo esté hoy.</p>
+
+    <div class="gap">
+      <div><h3>Medición</h3><p>Oura, WHOOP, Apple Health. Excelentes midiendo.</p></div>
+      <div><h3>Intervención</h3><p>Suplementación basada en evidencia. Excelente en formulación.</p></div>
+      <div class="empty"><h3>Decisión</h3><p>Vacío. Aquí es donde vive el producto.</p></div>
+    </div>
+
+    <blockquote>Un sistema que <b>recomienda</b> traslada la carga cognitiva al usuario;
+      un sistema que <b>decide</b> la absorbe.</blockquote>
+
+    <p>La diferencia es estructural, no incremental. El usuario de EONIA no necesita entender el eje
+      HPA para beneficiarse de él. De ahí la tesis que gobierna todo lo demás — <strong>comprensión
+      por encima de dato</strong>: cada pantalla responde a una sola pregunta, <em>¿qué tengo que
+      hacer ahora mismo para estar bien?</em>, sin gráficas y sin jerga por delante.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sechead">
+      <span class="num">02 — Proceso</span>
+      <h2>Especificar antes de programar, y decidir por escrito</h2>
+    </div>
+
+    <p>El proyecto arrancó con un set documental completo (SPEC · ARCHITECTURE · SCAFFOLD · DESIGN ·
+      HANDOFF) antes de la primera línea de producto, y cada decisión estructural quedó fijada como
+      un ADR con su alternativa descartada. No es burocracia: en un producto que toca salud, la
+      trazabilidad de <em>por qué</em> el sistema decide lo que decide es parte del producto.</p>
+
+    <div class="adr" style="--accent:var(--c4)">
+      <span class="tag">ADR-01</span>
+      <h3>El motor de decisión es puro y determinista</h3>
+      <p><code>@eonia/engine</code> no tiene I/O, ni React, ni red, ni modelo de lenguaje. Entra un
+        check-in, sale un estado y una arquitectura. Es el único sitio donde se decide. Consecuencia
+        deliberada: el mismo paquete corre <strong>en el dispositivo y en el servidor</strong> y
+        produce el mismo veredicto — el modo offline no es una versión degradada, es el mismo sistema.</p>
+    </div>
+
+    <div class="adr" style="--accent:var(--c3)">
+      <span class="tag">ADR-02</span>
+      <h3>Local-first, sin backend en el MVP</h3>
+      <p>El motor y los datos viven en el dispositivo (SQLite en nativo, localStorage en web). La nube
+        llegó después y llegó <strong>opt-in</strong>: sincronización aditiva, nunca una dependencia
+        del bucle diario. La app es plenamente funcional sin servidor.</p>
+    </div>
+
+    <div class="adr" style="--accent:var(--c1)">
+      <span class="tag">ADR-03</span>
+      <h3>El Orb es una entidad, no una gráfica</h3>
+      <p>La visualización central (Skia + Reanimated, trazo de pincel <em>sumi-e</em>) tiene que
+        comunicar el estado biológico <strong>pre-cognitivamente</strong>: en menos de un segundo,
+        sin leer ni interpretar. Un donut chart habría sido más barato y habría fallado en el único
+        requisito que importaba.</p>
+    </div>
+
+    <div class="adr" style="--accent:var(--c2)">
+      <span class="tag">ADR-04</span>
+      <h3>Las tres capas de información son un límite arquitectónico</h3>
+      <p>Capa 1: qué hacer. Capa 2: por qué. Capa 3: el mecanismo fisiológico. La profundidad está
+        disponible, nunca impuesta — y se impone como frontera <strong>en el código</strong>, no como
+        convención de diseño.</p>
+    </div>
+
+    <div class="adr" style="--accent:var(--c6)">
+      <span class="tag">ADR-06</span>
+      <h3>Reconciliar el backend B2B2C heredado con un producto B2C</h3>
+      <p>El repositorio arrastraba una plataforma multitenant de una etapa anterior. En vez de tirarla
+        —o de dejar que empujase el producto hacia B2B— el ADR fijó la relación: el dispositivo es
+        autoritativo, el servidor es una capa aditiva (backup, sync, admin, fulfillment futuro) y la
+        superficie multitenant queda dormida. <strong>Una decisión de producto escrita como decisión
+        de arquitectura.</strong></p>
+    </div>
+
+    <h3 style="margin:38px 0 12px">El reto más interesante: dónde entra la IA</h3>
+    <p>La capa narrativa (<code>@eonia/narrative</code>) genera el informe personalizado con LangGraph
+      y Claude, bajo una restricción dura heredada de ADR-01: <strong>el motor decide, el LLM solo
+      explica</strong>. El nodo de preparación es código puro —normalización, aritmética de
+      tendencias, resolución de etiquetas— y el modelo recibe un contexto <em>grounded</em> del que
+      no puede salir: no deriva un estado, ni una arquitectura, ni un número propio. Tres
+      especialistas analizan en paralelo, un nodo sintetiza y una puerta de seguridad decide entre
+      entregar o escalar.</p>
+
+    <div class="graph">
+      <svg viewBox="0 0 700 190" role="img" aria-label="Grafo de la capa narrativa: prepare, tres especialistas en paralelo, síntesis, puerta de seguridad y entrega o escalado">
+        <path d="M64 95 H92"/>
+        <path d="M172 95 H196"/><path d="M196 95 V32 H224"/><path d="M196 95 H224"/><path d="M196 95 V158 H224"/>
+        <path d="M344 32 H372 V95"/><path d="M344 95 H372"/><path d="M344 158 H372 V95"/>
+        <path d="M372 95 H396"/>
+        <path d="M476 95 H500"/>
+        <path d="M580 95 H604 V56 H628"/><path d="M604 95 V134 H628"/>
+
+        <text class="lbl" x="6" y="99">START</text>
+        <rect class="code" x="92" y="79" width="80" height="32" rx="10"/>
+        <text class="inv" x="132" y="99" text-anchor="middle">prepare</text>
+        <text class="lbl" x="132" y="127" text-anchor="middle">CÓDIGO PURO</text>
+
+        <rect x="224" y="16" width="120" height="32" rx="10"/>
+        <text x="284" y="36" text-anchor="middle">analyze_trend</text>
+        <rect x="224" y="79" width="120" height="32" rx="10"/>
+        <text x="284" y="99" text-anchor="middle">architecture</text>
+        <rect x="224" y="142" width="120" height="32" rx="10"/>
+        <text x="284" y="162" text-anchor="middle">adherence</text>
+
+        <rect x="396" y="79" width="80" height="32" rx="10"/>
+        <text x="436" y="99" text-anchor="middle">synthesize</text>
+
+        <rect class="gate" x="500" y="79" width="80" height="32" rx="10"/>
+        <text x="540" y="99" text-anchor="middle">safety</text>
+
+        <rect x="628" y="40" width="64" height="32" rx="10"/>
+        <text x="660" y="60" text-anchor="middle">deliver</text>
+        <rect x="628" y="118" width="64" height="32" rx="10"/>
+        <text x="660" y="138" text-anchor="middle">escalate</text>
+      </svg>
+    </div>
+    <p style="font-size:14px;color:var(--ink40);margin-top:-12px">Una alucinación en el nodo de
+      normalización se habría propagado a todas las ramas. Por eso ese nodo no es una llamada al modelo.</p>
+
+    <h3 style="margin:38px 0 12px">El catálogo clínico tenía que salir del código</h3>
+    <p>Las fórmulas vivían como constantes en el motor: actualizar un protocolo era un despliegue. Se
+      movieron a base de datos y se construyó una consola de back-office (<code>apps/admin</code>,
+      React + Vite) con tres roles no jerárquicos — <em>admin</em> (usuarios, auditoría),
+      <em>specialist</em> (catálogo de compuestos, fichas RAG) y <em>provider</em> (peticiones,
+      envíos). Editar el catálogo <strong>invalida la firma clínica</strong> y sube la versión, y la
+      clave de caché de los informes incluye esa versión. Es la única vía por la que un farmacéutico
+      —no un commit— puede firmar un protocolo.</p>
+
+    <h3 style="margin:38px 0 12px">Un incidente que merece estar en el case study</h3>
+    <p>Con la beta ya en manos de testers, todos los usuarios quedaron bloqueados tras verificar su
+      email. La causa: <code>force_organization_selection</code> activado en el proveedor de
+      identidad. Cada sesión recibía una tarea de «elegir organización» que un usuario B2C nunca
+      puede satisfacer; la sesión se quedaba <code>pending</code>, el cliente la contaba igualmente y
+      el modo de sesión única rechazaba cualquier login nuevo con <code>session_exists</code>. Se
+      arregló en dos frentes: la configuración <strong>y</strong> el cliente —recuperación explícita
+      de sesiones inutilizables—, porque una app en producción no puede depender de que la consola de
+      un tercero esté bien configurada.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sechead">
+      <span class="num">03 — Solución</span>
+      <h2>Qué se construyó</h2>
+    </div>
+
+    <table class="tbl">
+      <thead><tr><th>Workspace</th><th>Qué es</th></tr></thead>
+      <tbody>
+        <tr><td><code>packages/engine</code></td><td>Núcleo de decisión puro: scoring ponderado, baseline individual, clasificación en 6 estados, histéresis de transición de 3 días, arquitecturas bloqueadas y dosificación circadiana por compuesto. 35 tests.</td></tr>
+        <tr><td><code>apps/mobile</code></td><td>App Expo Router: STATE · SYSTEM · CAPSULES · HISTORY, con el check-in como modal. Persistencia local, sync opcional, login opcional, ES/EN.</td></tr>
+        <tr><td><code>apps/backend</code></td><td>API NestJS: sync en la nube, informes narrativos, API de la consola, harness de personas sintéticas y la superficie multitenant dormida.</td></tr>
+        <tr><td><code>apps/admin</code></td><td>Consola de back-office React + Vite servida por el backend, con las tres superficies de rol.</td></tr>
+        <tr><td><code>packages/narrative</code></td><td>Capa narrativa LangGraph + Claude, <em>grounded</em> contra la salida del motor.</td></tr>
+      </tbody>
+    </table>
+
+    <h3 style="margin:38px 0 0">El bucle, en concreto</h3>
+    <div class="loop">
+      <div style="--dot:var(--c5)"><span class="step">Señal</span><p>Check-in diario de <strong>5 dimensiones</strong> —sueño · arranque · energía · estrés · claridad— en unos 30 segundos.</p></div>
+      <div style="--dot:var(--c2)"><span class="step">Decisión</span><p>EONIA Score, baseline personal y <strong>uno de 6 estados biológicos</strong>: <code>PEAK_PERFORMANCE</code>, <code>SYSTEMIC_BASELINE</code>, <code>HPA_OVERLOAD</code>, <code>ALLOSTATIC_ADAPTATION</code>, <code>PARASYMPATHETIC_DEFICIT</code>, <code>COGNITIVE_PRIORITY</code>.</p></div>
+      <div style="--dot:var(--c4)"><span class="step">Ejecución</span><p><strong>Una de 6 arquitecturas</strong> de cápsulas —<code>AMPLIFICATION</code>, <code>NEURAL_FOCUS</code>, <code>DEEP_RECOVERY</code>, <code>REGULATION</code>, <code>ANTI_INFLAMMATORY</code>, <code>BASELINE</code>— con ventanas circadianas por compuesto.</p></div>
+      <div style="--dot:var(--c1)"><span class="step">Cierre</span><p>El siguiente check-in refina la decisión siguiente. La arquitectura solo cambia tras <strong>3 días coherentes seguidos</strong>: histéresis deliberada contra la oscilación por ruido.</p></div>
+    </div>
+
+    <div class="shots">
+      <figure class="filled">
+        <img src="assets/02-checkin.jpg" alt="Modal de check-in con los cinco sliders y el botón Confirmar · bajo mucha presión">
+        <figcaption><strong>Señal</strong> — el check-in de 5 dimensiones. El botón ya anticipa el veredicto antes de confirmar.</figcaption>
+      </figure>
+      <figure class="filled">
+        <img src="assets/03-por-que-este-estado.jpg" alt="Capa 2: por qué este estado, con EONIA Score 45 y cada dimensión comparada contra el baseline personal">
+        <figcaption><strong>Capa 2</strong> — cada dimensión contra tu baseline personal, no contra una media poblacional.</figcaption>
+      </figure>
+      <figure class="filled">
+        <img src="assets/04-system.jpg" alt="Pantalla SYSTEM con el protocolo Regulación y sus compuestos repartidos en ventanas de tarde y noche">
+        <figcaption><strong>Ejecución</strong> — protocolo activo con ventanas circadianas, y el sync en la nube apagado por defecto.</figcaption>
+      </figure>
+      <figure class="filled">
+        <img src="assets/05-history.jpg" alt="Pantalla HISTORY con la tendencia del EONIA Score a 14 días">
+        <figcaption><strong>Historial</strong> — tendencia del EONIA Score a 14 días.</figcaption>
+      </figure>
+      <figure class="filled">
+        <img src="assets/06-capsules.jpg" alt="Pantalla CAPSULES con el catálogo de las seis arquitecturas adaptativas">
+        <figcaption><strong>Catálogo</strong> — las seis arquitecturas; EONIA activa una, el resto queda como referencia.</figcaption>
+      </figure>
+      <!-- CAPTURA PENDIENTE: consola de back-office, catálogo de compuestos (rol specialist). Requiere backend + sesión de staff. -->
+      <figure><span class="ph">Captura pendiente</span><figcaption>Consola de back-office: catálogo de compuestos, rol <em>specialist</em>.</figcaption></figure>
+    </div>
+    <p style="font-size:13px;color:var(--ink40);margin-top:-14px">Capturas del build web del MVP con datos de demostración.</p>
+
+    <h3 style="margin:38px 0 12px">Decisiones de producto que se sostuvieron</h3>
+    <p><strong>Sin gamificación.</strong> Ni rachas, ni medallas, ni felicitaciones. El tono es el de
+      un instrumento de precisión: frío, exacto, sin adorno. Es una postura, no un descuido.<br>
+      <strong>Sin gráficas por delante.</strong> Los números crudos nunca son la superficie primaria.<br>
+      <strong>Sistema visual propio.</strong> Papel y tinta cálidos, tipografía display geométrica y
+      un espectro de 7 acentos cromáticos donde cada dimensión posee su tono en orbe, porcentaje y barra.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sechead">
+      <span class="num">04 — Resultados</span>
+      <h2>Lo que es verificable hoy</h2>
+    </div>
+
+    <div class="note"><strong>Sin métricas de usuarios todavía.</strong> La beta es cerrada y no hay
+      cifras publicadas: lo que sigue es lo que está construido, desplegado y comprobable.</div>
+
+    <ul class="res">
+      <li><strong>MVP v1.0 completo y desplegado</strong> — backend dockerizado en Render vía Blueprint (Postgres + API, migraciones en boot) y APK Android distribuida a testers vía EAS.</li>
+      <li><strong>Incremento de servidor v1.5 en producción</strong> (ADR-06) — sync opcional autenticado, informes narrativos y consola de back-office con control de acceso por rol.</li>
+      <li><strong>35 tests sobre el núcleo de decisión</strong>, incluido un test de integración multi-día que verifica la histéresis de transición: la parte del sistema en la que un fallo silencioso sería más caro.</li>
+      <li><strong>Catálogo clínico editable con firma</strong> — los protocolos ya no son código, y la firma clínica es un estado del dato que solo un profesional puede establecer.</li>
+      <li><strong>46 commits</strong> desde el kickoff, con el set SDD mantenido en sincronía con el código en cada incremento.</li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sechead">
+      <span class="num">05 — Aprendizajes</span>
+      <h2>Lo que me llevo</h2>
+    </div>
+
+    <div class="learn">
+      <div>
+        <h3>El ADR que más valor dio no fue técnico</h3>
+        <p>ADR-06 no resolvió un problema de código: resolvió si el producto era B2C o B2B2C.
+          Escribirlo como decisión de arquitectura fue lo que impidió que el backend heredado
+          arrastrase el producto hacia donde no quería ir.</p>
+      </div>
+      <div>
+        <h3>Poner el LLM en el sitio equivocado es fácil y caro</h3>
+        <p>La tentación era dejar que el modelo interpretase los datos. Restringirlo a <em>explicar</em>
+          una decisión ya tomada por código verificable es lo que hace el sistema auditable — y lo que
+          permite que el modo offline no pierda nada esencial.</p>
+      </div>
+      <div>
+        <h3>Lo que un profesional debe poder cambiar no puede vivir en el código</h3>
+        <p>Si actualizar un protocolo exige un despliegue, el experto de dominio queda fuera del
+          producto. Mover el catálogo a base de datos con firma y versionado convirtió una app en un
+          sistema operable.</p>
+      </div>
+      <div>
+        <h3>La configuración de un tercero es superficie de producción</h3>
+        <p>Un flag mal puesto en el proveedor de identidad bloqueó al 100% de los testers. Desde ese
+          incidente, el cliente asume que la configuración remota puede estar mal y se recupera sola.</p>
+      </div>
+      <div>
+        <h3>Qué haría distinto</h3>
+        <p>Instrumentar el bucle de onboarding con analítica de producto desde el día uno. Los tests
+          cubren el motor; no cubren la pregunta de si la gente vuelve al día siguiente.</p>
+      </div>
+    </div>
+
+    <div class="road">
+      <div><div class="v">v1.5</div><p>Señales objetivas (Oura, WHOOP, Apple HealthKit) como fuente de señal enchufable.</p></div>
+      <div><div class="v">v2.0</div><p>Primera arquitectura física (REGULATION) en fulfillment real y panel de prescriptor.</p></div>
+      <div><div class="v">v3.0</div><p>Formulación generativa personalizada.</p></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p class="kicker">¿Construyendo algo donde la decisión —no el dato— es el producto?</p>
+    <a class="btn" href="mailto:ricardboixeda@gmail.com">Hablemos</a>
+    <p class="sig">EONIA · RBT Studio · Demo y beta bajo petición</p>
+  </div>
+</footer>
+
+</body>
+</html>

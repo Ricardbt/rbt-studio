@@ -1,4 +1,4 @@
-﻿import { useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
@@ -17,11 +17,7 @@ export default function Statement() {
           scaleX: 1,
           duration: 1.2,
           ease: 'power3.inOut',
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: 'top 75%',
-            toggleActions: 'play none none reverse'
-          }
+          scrollTrigger: { trigger: sectionRef.current, start: 'top 75%', toggleActions: 'play none none reverse' },
         }
       )
 
@@ -32,12 +28,8 @@ export default function Statement() {
           y: 0,
           duration: 1,
           ease: 'power3.out',
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: 'top 70%',
-            toggleActions: 'play none none reverse'
-          },
-          delay: 0.3
+          delay: 0.3,
+          scrollTrigger: { trigger: sectionRef.current, start: 'top 70%', toggleActions: 'play none none reverse' },
         }
       )
     }, sectionRef)
@@ -46,29 +38,16 @@ export default function Statement() {
   }, [])
 
   return (
-    <section
-      ref={sectionRef}
-      id="statement"
-      className="py-16 md:py-20 lg:py-24"
-      style={{ backgroundColor: '#F2EFE6' }}
-    >
-      <div className="w-full mx-auto px-4 sm:px-8 lg:px-16" style={{ maxWidth: '1280px' }}>
-        <div ref={lineRef} style={{ height: '1px', backgroundColor: '#C9C5B6', marginBottom: '48px' }} />
-        <blockquote
-          ref={quoteRef}
-          className="opacity-0"
-          style={{
-            fontFamily: "'DM Serif Display', Georgia, serif",
-            fontSize: 'clamp(28px, 4vw, 56px)',
-            lineHeight: '1.2',
-            color: '#14140F',
-            maxWidth: '900px',
-            fontStyle: 'normal',
-          }}
-        >
-          "Most products know what they want to do.
-          <br />
-          <span style={{ color: 'var(--rbt-signal)' }}>Few know how they should feel to use."</span>
+    <section ref={sectionRef} id="statement" className="py-20 md:py-28">
+      <div className="mx-auto w-full px-6 md:px-12 lg:px-16" style={{ maxWidth: 'var(--container)' }}>
+        <div ref={lineRef} style={{ height: '1px', background: 'var(--press-line)', marginBottom: '48px' }} />
+        <blockquote ref={quoteRef} className="opacity-0">
+          <span className="t-h1 block" style={{ color: 'var(--on-press)', maxWidth: '18ch' }}>
+            La mayoría de productos saben qué hacen.{' '}
+            <span style={{ color: 'var(--on-press-mid)' }}>
+              Pocos saben cómo deberían sentirse al usarse.
+            </span>
+          </span>
         </blockquote>
       </div>
     </section>

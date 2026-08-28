@@ -1,396 +1,239 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-08-07T00:00:00.000Z",
+  "generatedAt": "2026-08-28T13:27:51.179Z",
   "title": "Design System: rbt.studio",
   "extensions": {
     "colorMeta": {
-      "signal-teal": {
-        "role": "primary",
-        "displayName": "Cian de Señal",
-        "canonical": "#15C1C1",
-        "tonalRamp": [
-          "#062626",
-          "#0A3C3C",
-          "#0F5555",
-          "#137070",
-          "#15C1C1",
-          "#5FD6D6",
-          "#9BE6E6",
-          "#D6F5F5"
-        ]
+      "strategy": "Cuatro tintas de proceso sobre un pliego de papel. La hoja blanca aparece sólo donde hay que leer seguido.",
+      "mode": "light",
+      "groups": {
+        "inks": {
+          "magenta": "#D6006F",
+          "cyan": "#0079AB",
+          "yellow": "#C8A400",
+          "key": "#14150F",
+          "over-cm": "#5B2F78",
+          "over-my": "#C4551D"
+        },
+        "readable": {
+          "magenta-t": "#C4006B",
+          "cyan-t": "#00688F",
+          "violet-t": "#5B2F78",
+          "orange-t": "#A8460F",
+          "magenta-d": "#C4006B"
+        },
+        "press": {
+          "press": "#F4F1EA",
+          "deep": "#FAF8F3",
+          "raise": "#E7E2D7",
+          "line": "#DAD4C6"
+        },
+        "sheet": {
+          "sheet": "#FFFFFF",
+          "soft": "#FAF8F3",
+          "deep": "#EAE5DA",
+          "line": "#E0DACD"
+        },
+        "plates": {
+          "plate-01": "#C4006B",
+          "plate-02": "#0079AB",
+          "plate-03": "#7D6200",
+          "plate-04": "#5B2F78",
+          "plate-05": "#1E7A50",
+          "plate-06": "#A8460F",
+          "plate-07": "#A81E63",
+          "plate-08": "#00688F",
+          "plate-09": "#6B7A16",
+          "plate-10": "#6D4AA8",
+          "plate-11": "#0F6E6A",
+          "plate-12": "#8A5A00"
+        },
+        "text": {
+          "on-press": "#14150F",
+          "on-press-mid": "#565A50",
+          "on-press-low": "#676C61",
+          "on-sheet": "#14150F",
+          "on-sheet-mid": "#565A50",
+          "on-sheet-low": "#676C61"
+        }
       },
-      "studio-ink": {
-        "role": "secondary",
-        "displayName": "Tinta de Estudio",
-        "canonical": "#151C1C",
-        "tonalRamp": [
-          "#0A0E0E",
-          "#151C1C",
-          "#243030",
-          "#3A4A4A",
-          "#5C7070",
-          "#8A9C9C",
-          "#C2CBCB",
-          "#E1E6E6"
-        ]
-      },
-      "forest": {
-        "role": "tertiary",
-        "displayName": "Verde Bosque",
-        "canonical": "#0E4A35",
-        "tonalRamp": [
-          "#062218",
-          "#0A3527",
-          "#0E4A35",
-          "#166B4D",
-          "#2E9070",
-          "#69B79A",
-          "#C7D6CF",
-          "#E4ECE7"
-        ]
-      },
-      "canvas-cream": {
-        "role": "neutral",
-        "displayName": "Lienzo Crema",
-        "canonical": "#F2EFE6",
-        "tonalRamp": [
-          "#2A281F",
-          "#4A473A",
-          "#6E6B5C",
-          "#948F7D",
-          "#BAB5A2",
-          "#D8D3C2",
-          "#E8E3D5",
-          "#F2EFE6"
-        ]
-      },
-      "paper": {
-        "role": "neutral",
-        "displayName": "Papel",
-        "canonical": "#FBF9F2",
-        "tonalRamp": [
-          "#2E2C25",
-          "#514E44",
-          "#767263",
-          "#9C9784",
-          "#C0BBA6",
-          "#DEDACB",
-          "#F0EDE2",
-          "#FBF9F2"
-        ]
-      },
-      "text-ink": {
-        "role": "neutral",
-        "displayName": "Tinta de Texto",
-        "canonical": "#14140F",
-        "tonalRamp": [
-          "#14140F",
-          "#25251C",
-          "#3A3A33",
-          "#54544A",
-          "#6E6E64",
-          "#9A9A8E",
-          "#C9C5B6",
-          "#E8E3D5"
-        ]
-      },
-      "hairline": {
-        "role": "neutral",
-        "displayName": "Hairline",
-        "canonical": "#C9C5B6",
-        "tonalRamp": [
-          "#2B2A24",
-          "#4C4A40",
-          "#6E6B5C",
-          "#918D7B",
-          "#B3AF9C",
-          "#C9C5B6",
-          "#DFDCD0",
-          "#F2EFE6"
-        ]
-      },
-      "terracotta": {
-        "role": "semantic",
-        "displayName": "Terracota",
-        "canonical": "#B8651A",
-        "tonalRamp": [
-          "#2E1906",
-          "#522D0C",
-          "#7A4311",
-          "#B8651A",
-          "#D68B42",
-          "#E8B078",
-          "#F2D3B0",
-          "#FAEDDF"
-        ]
-      },
-      "burnt-red": {
-        "role": "semantic",
-        "displayName": "Rojo Quemado",
-        "canonical": "#8E2B1E",
-        "tonalRamp": [
-          "#2A0C08",
-          "#4C1710",
-          "#6E2116",
-          "#8E2B1E",
-          "#B85142",
-          "#D4867B",
-          "#EBBAB3",
-          "#F8E4E1"
-        ]
+      "contrast": {
+        "standard": "WCAG AA (4.5:1) en todo el texto del sistema",
+        "notes": "Las tintas planas no llevan texto: para escribir se usa la variante -t de cada tinta. El amarillo se carga hasta ocre."
       }
     },
     "typographyMeta": {
-      "mega": {
-        "displayName": "Mega",
-        "purpose": "Declaración de hero. Un solo uso por página."
+      "families": {
+        "sans": {
+          "stack": "\"Archivo\",system-ui,-apple-system,sans-serif",
+          "axes": {
+            "wdth": [
+              62,
+              125
+            ],
+            "wght": [
+              300,
+              900
+            ]
+          },
+          "role": "estructura y afirmación"
+        },
+        "mono": {
+          "stack": "\"Spline Sans Mono\",ui-monospace,monospace",
+          "role": "dato de taller: pasadas, separaciones, coberturas, etiquetas"
+        }
       },
-      "display": {
-        "displayName": "Display",
-        "purpose": "Apertura de sección mayor."
+      "widthScale": {
+        "wide": 118,
+        "normal": 100,
+        "narrow": 82
       },
-      "headline": {
-        "displayName": "Headline",
-        "purpose": "Titular de sección y de caso de estudio."
+      "principle": "El eje de ancho es la escala de densidad. Se ensancha antes que engordar."
+    },
+    "shadows": {
+      "vocabulary": "none",
+      "note": "El sistema no usa box-shadow. La profundidad es el hairline de 1 px y el escalón de blanco de la hoja sobre el pliego."
+    },
+    "motion": {
+      "easings": {
+        "snap": "cubic-bezier(0.2, 0.7, 0.1, 1)",
+        "out": "cubic-bezier(0.16, 1, 0.3, 1)"
       },
-      "title": {
-        "displayName": "Title",
-        "purpose": "Subsección y titular de bloque."
+      "durations": {
+        "instant": "100ms",
+        "quick": "180ms",
+        "base": "240ms",
+        "slow": "420ms"
       },
-      "body": {
-        "displayName": "Body",
-        "purpose": "Texto de lectura. Máximo ~70ch (820px)."
-      },
-      "label": {
-        "displayName": "Label",
-        "purpose": "Capa de anotación completa: eyebrows, numeración, tecnologías, metadatos. Siempre mono y mayúsculas."
-      },
-      "wordmark": {
-        "displayName": "Wordmark",
-        "purpose": "Exclusiva de la marca rbt. DM Serif Display, único uso de la serif en el sistema."
+      "signature": {
+        "name": "Registro por proximidad",
+        "variable": "--reg",
+        "description": "De 1 (separaciones abiertas) a 0 (tirada registrada), según la distancia del cursor. Todo offset de tinta se deriva de aquí. Se desactiva sin puntero fino o con prefers-reduced-motion."
       }
     },
-    "shadows": [
-      {
-        "name": "card-press",
-        "value": "4px 4px 0 #151C1C",
-        "purpose": "Hover de tarjeta, acompañado de translate(-2px,-2px). La sombra dobla el desplazamiento."
-      },
-      {
-        "name": "button-press",
-        "value": "3px 3px 0 #14140F",
-        "purpose": "Hover de botón, acompañado de translate(-1px,-1px)."
-      },
-      {
-        "name": "at-rest",
-        "value": "none",
-        "purpose": "Estado por defecto de toda superficie, y estado :active de todo elemento interactivo."
-      }
-    ],
-    "motion": [
-      {
-        "name": "ease-snap",
-        "value": "cubic-bezier(0.2, 0.7, 0.1, 1)",
-        "purpose": "Easing por defecto de estados y hover. Salida rápida, asentamiento firme."
-      },
-      {
-        "name": "ease-out",
-        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
-        "purpose": "Entradas de scroll y revelados con GSAP ScrollTrigger."
-      },
-      {
-        "name": "ease-in",
-        "value": "cubic-bezier(0.7, 0, 0.84, 0)",
-        "purpose": "Salidas y desapariciones."
-      },
-      {
-        "name": "dur-instant",
-        "value": "100ms",
-        "purpose": "Cambios de color sin desplazamiento."
-      },
-      {
-        "name": "dur-quick",
-        "value": "180ms",
-        "purpose": "Hover de botón, tarjeta e input."
-      },
-      {
-        "name": "dur-base",
-        "value": "240ms",
-        "purpose": "Transición por defecto de componente."
-      },
-      {
-        "name": "dur-slow",
-        "value": "420ms",
-        "purpose": "Transiciones de sección y modales."
-      }
-    ],
-    "breakpoints": [
-      {
-        "name": "sm",
-        "value": "640px"
-      },
-      {
-        "name": "md",
-        "value": "768px"
-      },
-      {
-        "name": "csm-stack",
-        "value": "900px"
-      },
-      {
-        "name": "lg",
-        "value": "1024px"
-      },
-      {
-        "name": "xl",
-        "value": "1280px"
-      },
-      {
-        "name": "container",
-        "value": "1280px"
-      },
-      {
-        "name": "gallery",
-        "value": "1400px"
-      }
-    ]
+    "breakpoints": {
+      "420": "galerías a una columna",
+      "760": "apertura de pasada apilada; lector de casos a hoja completa",
+      "1024": "carta de tintas a dos columnas; lector a 82vw",
+      "1025+": "rejilla completa"
+    }
   },
   "components": [
     {
       "name": "Primary Button",
       "kind": "button",
       "refersTo": "button-primary",
-      "description": "Acción principal. Tinta sólida sobre lienzo; al hover se desplaza y deja huella.",
-      "html": "<button class=\"ds-btn\">Ver caso de estudio</button>",
-      "css": ".ds-btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 14px 22px; font-family: 'DM Sans', system-ui, sans-serif; font-size: 13px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; line-height: 1; border: 1.5px solid #151C1C; background: #151C1C; color: #F2EFE6; border-radius: 0; cursor: pointer; transition: transform 180ms cubic-bezier(0.2,0.7,0.1,1), background 180ms, color 180ms; } .ds-btn:hover { background: #0D1414; border-color: #0D1414; transform: translate(-1px,-1px); box-shadow: 3px 3px 0 #14140F; } .ds-btn:focus-visible { outline: 2px solid #15C1C1; outline-offset: 2px; } .ds-btn:active { transform: translate(0,0); box-shadow: none; }"
+      "description": "La acción es la cuarta tinta: un bloque de magenta. Al pasar por encima sobreimprime en naranja.",
+      "html": "<button class=\"ds-btn\">Ver casos</button>",
+      "css": ".ds-btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:14px 22px;font-family:\"Spline Sans Mono\",ui-monospace,monospace;font-size:13px;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;line-height:1;border:1px solid #D6006F;background:#D6006F;color:#FFFFFF;border-radius:0;cursor:pointer;transition:background 180ms,color 180ms,transform 180ms cubic-bezier(0.2,0.7,0.1,1)}.ds-btn:hover{background:#C4551D;border-color:#C4551D;transform:translate(-1px,-1px)}.ds-btn:focus-visible{outline:2px solid #00688F;outline-offset:2px}.ds-btn:active{transform:translate(0,0)}"
     },
     {
       "name": "Ghost Button",
       "kind": "button",
       "refersTo": "button-ghost",
-      "description": "Acción secundaria. Contorno en reposo, sólida al hover.",
-      "html": "<button class=\"ds-btn-ghost\">Descargar CV</button>",
-      "css": ".ds-btn-ghost { display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 14px 22px; font-family: 'DM Sans', system-ui, sans-serif; font-size: 13px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; line-height: 1; border: 1.5px solid #151C1C; background: transparent; color: #151C1C; border-radius: 0; cursor: pointer; transition: transform 180ms cubic-bezier(0.2,0.7,0.1,1), background 180ms, color 180ms; } .ds-btn-ghost:hover { background: #151C1C; color: #F2EFE6; transform: translate(-1px,-1px); box-shadow: 3px 3px 0 #14140F; } .ds-btn-ghost:focus-visible { outline: 2px solid #15C1C1; outline-offset: 2px; } .ds-btn-ghost:active { transform: translate(0,0); box-shadow: none; }"
+      "description": "Acción secundaria: sólo canto sobre el pliego, sin tinta llena.",
+      "html": "<button class=\"ds-btn-ghost\">Contactar</button>",
+      "css": ".ds-btn-ghost{display:inline-flex;align-items:center;justify-content:center;padding:14px 22px;font-family:\"Spline Sans Mono\",ui-monospace,monospace;font-size:13px;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;line-height:1;border:1px solid #DAD4C6;background:transparent;color:#14150F;border-radius:0;cursor:pointer;transition:border-color 180ms,color 180ms}.ds-btn-ghost:hover{border-color:#D6006F;color:#C4006B}.ds-btn-ghost:focus-visible{outline:2px solid #00688F;outline-offset:2px}"
     },
     {
-      "name": "Tag",
-      "kind": "chip",
-      "refersTo": "tag",
-      "description": "Etiqueta de tecnología. Mono, contorno fino, sin ajuste de línea.",
-      "html": "<span class=\"ds-tag\">React</span><span class=\"ds-tag ds-tag-ghost\">GSAP</span><span class=\"ds-tag ds-tag-solid\">AI</span>",
-      "css": ".ds-tag { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; margin-right: 6px; border: 1px solid #151C1C; color: #151C1C; background: transparent; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; line-height: 1; white-space: nowrap; border-radius: 0; } .ds-tag-solid { background: #151C1C; color: #F2EFE6; } .ds-tag-ghost { border-color: #C9C5B6; color: #6E6E64; }"
+      "name": "Register Mark",
+      "kind": "ornament",
+      "refersTo": "registration",
+      "description": "La cruz de registro de esquina. Va en las cuatro esquinas del pliego y nunca comparte sitio con un control.",
+      "html": "<span class=\"ds-reg\"><i></i></span>",
+      "css": ".ds-reg{position:relative;display:block;width:22px;height:22px;color:#676C61}.ds-reg::before,.ds-reg::after{content:\"\";position:absolute;background:currentColor}.ds-reg::before{left:50%;top:0;width:1px;height:100%;transform:translateX(-.5px)}.ds-reg::after{top:50%;left:0;height:1px;width:100%;transform:translateY(-.5px)}.ds-reg>i{position:absolute;inset:5px;border:1px solid currentColor;border-radius:999px}"
     },
     {
-      "name": "Project Card",
+      "name": "Misregistered Wordmark",
+      "kind": "typography",
+      "refersTo": "misreg",
+      "description": "El wordmark a tres pasadas. Cian y magenta son tinta (aria-hidden); sólo el negro es contenido. Con el cursor cerca, registran. Se reserva al wordmark: en un titular grande el desalineado se lee como sombra.",
+      "html": "<span class=\"ds-misreg\"><span class=\"c\" aria-hidden=\"true\">rbt.</span><span class=\"m\" aria-hidden=\"true\">rbt.</span><span class=\"k\">rbt.</span></span>",
+      "css": ".ds-misreg{--reg:1;position:relative;display:inline-block;isolation:isolate;margin:0;font-family:\"Archivo\",system-ui,-apple-system,sans-serif;font-size:44px;font-weight:900;line-height:1;letter-spacing:-0.04em;font-variation-settings:\"wdth\" 118;color:#14150F}.ds-misreg>span{display:block}.ds-misreg>.c,.ds-misreg>.m{position:absolute;inset:0;pointer-events:none;mix-blend-mode:multiply;opacity:.55;transition:transform 240ms cubic-bezier(0.16,1,0.3,1)}.ds-misreg>.c{color:#0079AB;transform:translate(calc(var(--reg)*-1.5px),calc(var(--reg)*0.9px))}.ds-misreg>.m{color:#D6006F;transform:translate(calc(var(--reg)*1.5px),calc(var(--reg)*-0.75px))}.ds-misreg>.k{position:relative;z-index:1}.ds-misreg:hover{--reg:0}"
+    },
+    {
+      "name": "Pass Opener",
+      "kind": "section-header",
+      "refersTo": "pass-open",
+      "description": "Apertura de sección. El número de pasada vive en el margen, no encima del titular.",
+      "html": "<header class=\"ds-pass\"><div class=\"n\">Pasada<br>02/06</div><div><h2>Las separaciones</h2><p>12 proyectos contados de principio a fin.</p></div></header>",
+      "css": ".ds-pass{display:grid;grid-template-columns:88px 1fr;gap:24px;align-items:end;padding:64px 0 32px;border-bottom:1px solid #DAD4C6;font-family:\"Archivo\",system-ui,-apple-system,sans-serif}.ds-pass .n{font-family:\"Spline Sans Mono\",ui-monospace,monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#00688F;padding-bottom:12px}.ds-pass h2{margin:0;font-size:clamp(34px,4.2vw,58px);font-weight:700;line-height:1.1;letter-spacing:-0.015em;font-variation-settings:\"wdth\" 118;color:#14150F}.ds-pass p{margin:12px 0 0;font-family:\"Spline Sans Mono\",ui-monospace,monospace;font-size:14px;color:#565A50;max-width:62ch}@media(max-width:760px){.ds-pass{grid-template-columns:1fr;gap:12px}.ds-pass .n{padding-bottom:0}}"
+    },
+    {
+      "name": "Ink Chart Row",
+      "kind": "list-row",
+      "refersTo": "ink-row",
+      "description": "Una línea de la carta de tintas. Al pasar por encima la línea se imprime: sale en su propia hoja blanca.",
+      "html": "<article class=\"ds-row\"><span class=\"chip\"></span><div class=\"id\"><span class=\"num\">02</span><span class=\"lbl\">Magenta</span></div><div class=\"body\"><h3>Producto AI-native</h3><p>Interfaces para sistemas inteligentes: claras, predecibles y humanas.</p></div><div class=\"meta\"><span class=\"lbl\">Cobertura 90%</span><span class=\"bar\"><span></span></span></div></article>",
+      "css": ".ds-row{display:grid;grid-template-columns:12px 132px 1fr 260px;gap:24px;align-items:start;padding:32px 16px;border-top:1px solid #DAD4C6;border-bottom:1px solid #DAD4C6;font-family:\"Archivo\",system-ui,-apple-system,sans-serif;color:#14150F;transition:background 240ms cubic-bezier(0.2,0.7,0.1,1),color 240ms}.ds-row:hover{background:#FFFFFF;color:#14150F}.ds-row .chip{display:block;width:12px;height:44px;background:#D6006F}.ds-row .num{font-family:\"Spline Sans Mono\",ui-monospace,monospace;font-size:12px;color:#C4006B}.ds-row:hover .num{color:#14150F}.ds-row .lbl{display:block;font-family:\"Spline Sans Mono\",ui-monospace,monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#676C61;margin-top:8px}.ds-row:hover .lbl{color:#676C61}.ds-row h3{margin:0;font-size:clamp(26px,2.8vw,40px);font-weight:700;line-height:1.1;font-variation-settings:\"wdth\" 112}.ds-row p{margin:12px 0 0;font-size:14px;line-height:1.55;color:#565A50;max-width:58ch}.ds-row:hover p{color:#565A50}.ds-row .meta{display:flex;flex-direction:column;gap:8px}.ds-row .bar{display:block;height:4px;width:100%;background:#DAD4C6}.ds-row .bar>span{display:block;height:100%;width:90%;background:#D6006F}@media(max-width:1024px){.ds-row{grid-template-columns:12px 1fr}.ds-row .body,.ds-row .meta{grid-column:2}}"
+    },
+    {
+      "name": "Separation Card",
       "kind": "card",
-      "refersTo": "card",
-      "description": "Tarjeta de proyecto o servicio. Plana en reposo; al hover se desplaza y deja huella sólida.",
-      "html": "<div class=\"ds-card\"><span class=\"ds-card-num\">// 03</span><h3 class=\"ds-card-title\">Design Systems</h3><p class=\"ds-card-desc\">Sistemas de componentes con criterio visual y consistencia a escala.</p><div class=\"ds-card-tags\"><span class=\"ds-card-tag\">Tokens</span><span class=\"ds-card-tag\">Storybook</span></div></div>",
-      "css": ".ds-card { border: 1px solid #C9C5B6; background: #FBF9F2; padding: 24px; max-width: 340px; border-radius: 0; cursor: pointer; transition: transform 180ms cubic-bezier(0.2,0.7,0.1,1), border-color 180ms, box-shadow 180ms; } .ds-card:hover { border-color: #151C1C; transform: translate(-2px,-2px); box-shadow: 4px 4px 0 #151C1C; } .ds-card-num { font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px; color: #15C1C1; letter-spacing: 0.1em; } .ds-card-title { font-family: 'DM Sans', system-ui, sans-serif; font-size: 22px; font-weight: 700; color: #14140F; margin: 12px 0 0; line-height: 1.2; } .ds-card-desc { font-family: 'DM Sans', system-ui, sans-serif; font-size: 14px; color: #3A3A33; margin: 12px 0 0; line-height: 1.5; } .ds-card-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 16px; } .ds-card-tag { padding: 4px 10px; border: 1px solid #C9C5B6; color: #6E6E64; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; line-height: 1; }"
+      "refersTo": "separation-card",
+      "description": "Tarjeta de caso: una separación de la tirada. La franja al pie de la portada dice de qué plancha viene.",
+      "html": "<article class=\"ds-sep\"><div class=\"cover\"><span class=\"ink\"></span></div><div class=\"body\"><span class=\"lbl\">Eonia</span><h3>Una app que no recomienda: decide</h3><p>La capa de decisión biológica que faltaba entre medir e intervenir.</p><div class=\"foot\"><span class=\"cta\">Leer el caso →</span><span class=\"lbl\">1 vídeo · 5 imágenes</span></div></div></article>",
+      "css": ".ds-sep{--case-ink:#00688F;position:relative;display:flex;flex-direction:column;max-width:340px;background:#FFFFFF;border:1px solid #DAD4C6;font-family:\"Archivo\",system-ui,-apple-system,sans-serif;color:#14150F;cursor:pointer;transition:border-color 240ms cubic-bezier(0.2,0.7,0.1,1),transform 240ms cubic-bezier(0.2,0.7,0.1,1)}.ds-sep:hover{border-color:var(--case-ink);transform:translateY(-3px)}.ds-sep .cover{position:relative;aspect-ratio:16/10;background:#E7E2D7}.ds-sep .ink{position:absolute;left:0;right:0;bottom:0;height:4px;background:var(--case-ink)}.ds-sep .body{display:flex;flex-direction:column;gap:10px;padding:20px}.ds-sep .lbl{font-family:\"Spline Sans Mono\",ui-monospace,monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#676C61}.ds-sep h3{margin:0;font-size:22px;font-weight:600;line-height:1.1}.ds-sep p{margin:0;font-size:14px;line-height:1.55;color:#565A50}.ds-sep .foot{margin-top:auto;padding-top:14px;display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:6px 12px}.ds-sep .cta{font-family:\"Spline Sans Mono\",ui-monospace,monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#676C61;transition:color 180ms}.ds-sep:hover .cta{color:#14150F}"
     },
     {
-      "name": "Stat Block",
-      "kind": "custom",
-      "refersTo": "stat",
-      "description": "Bloque de métrica de caso de estudio. Etiqueta en mono arriba, cifra en cian de señal debajo.",
-      "html": "<div class=\"ds-stat\"><span class=\"ds-stat-label\">Sesiones con giro final</span><span class=\"ds-stat-value\">68%</span></div>",
-      "css": ".ds-stat { display: flex; flex-direction: column; gap: 6px; padding: 24px; border: 1px solid #C9C5B6; background: #FBF9F2; max-width: 260px; border-radius: 0; } .ds-stat-label { font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: #6E6E64; } .ds-stat-value { font-family: 'DM Sans', system-ui, sans-serif; font-size: 40px; font-weight: 800; line-height: 1; letter-spacing: -0.02em; color: #15C1C1; }"
+      "name": "Sheet Panel",
+      "kind": "surface",
+      "refersTo": "sheet",
+      "description": "La hoja aparte, más blanca que el pliego. Aparece donde hay que leer seguido: la ficha del estudio, el lector de casos, las tarjetas, el formulario.",
+      "html": "<section class=\"ds-sheet\"><span class=\"lbl\">Ficha de la tirada</span><h2>Diseño cómo se sienten las cosas al usarse.</h2><p>Experience Engineer con más de 10 años traduciendo sistemas complejos en productos claros.</p></section>",
+      "css": ".ds-sheet{background:#FFFFFF;color:#14150F;border:1px solid #EAE5DA;padding:clamp(28px,5vw,72px);font-family:\"Archivo\",system-ui,-apple-system,sans-serif;max-width:720px}.ds-sheet .lbl{display:block;font-family:\"Spline Sans Mono\",ui-monospace,monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#676C61;padding-bottom:16px;border-bottom:1px solid #E0DACD}.ds-sheet h2{margin:32px 0 0;font-size:clamp(34px,4.2vw,58px);font-weight:700;line-height:1.1;letter-spacing:-0.015em;font-variation-settings:\"wdth\" 118}.ds-sheet p{margin:16px 0 0;font-size:16px;line-height:1.55;color:#565A50}"
     },
     {
-      "name": "Text Input",
+      "name": "Field",
       "kind": "input",
       "refersTo": "input",
-      "description": "Campo de formulario. El borde ES el indicador de foco; sin outline propio.",
-      "html": "<div class=\"ds-field\"><label for=\"ds-in\">Email</label><input id=\"ds-in\" class=\"ds-input\" type=\"email\" placeholder=\"contact@rbt-studio.com\"></div>",
-      "css": ".ds-field { display: flex; flex-direction: column; gap: 6px; max-width: 320px; } .ds-field label { font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: #6E6E64; } .ds-input { width: 100%; padding: 12px 14px; border: 1.5px solid #C9C5B6; background: #FBF9F2; font-family: 'DM Sans', system-ui, sans-serif; font-size: 14px; color: #14140F; border-radius: 0; outline: none; transition: border-color 180ms cubic-bezier(0.2,0.7,0.1,1); } .ds-input:hover { border-color: #6E6E64; } .ds-input:focus { border-color: #151C1C; box-shadow: inset 0 0 0 1px #151C1C; } .ds-input::placeholder { color: #6E6E64; }"
-    },
-    {
-      "name": "Section Opener",
-      "kind": "custom",
-      "refersTo": null,
-      "description": "El metrónomo del documento: número en mono + titular + hairline de cierre. Abre cada sección de la página.",
-      "html": "<div class=\"ds-sec\"><span class=\"ds-sec-num\">05 /</span><div><h2 class=\"ds-sec-title\">Proyectos realizados</h2><p class=\"ds-sec-sub\">// galería visual</p></div></div>",
-      "css": ".ds-sec { display: grid; grid-template-columns: 80px 1fr; gap: 24px; align-items: end; padding: 48px 0 32px; border-bottom: 1px solid #151C1C; max-width: 620px; } .ds-sec-num { font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 14px; font-weight: 500; color: #15C1C1; letter-spacing: 0.1em; padding-bottom: 14px; } .ds-sec-title { font-family: 'DM Sans', system-ui, sans-serif; font-size: 44px; font-weight: 800; line-height: 1.1; letter-spacing: -0.02em; color: #14140F; margin: 0; } .ds-sec-sub { font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 14px; color: #6E6E64; margin: 12px 0 0; }"
-    },
-    {
-      "name": "Alert",
-      "kind": "custom",
-      "refersTo": null,
-      "description": "Aviso semántico. El estado lo porta el marco completo a 1px; nunca una barra lateral gruesa.",
-      "html": "<div class=\"ds-alert\"><p>La sombra dura es la única forma de profundidad del sistema.</p></div>",
-      "css": ".ds-alert { display: flex; gap: 16px; padding: 16px; background: #FBF9F2; border: 1px solid #151C1C; border-radius: 0; max-width: 420px; } .ds-alert p { font-family: 'DM Sans', system-ui, sans-serif; font-size: 16px; line-height: 1.55; color: #14140F; margin: 0; }"
+      "description": "Campo de formulario. El foco lo marca la magenta, la única tinta que declara acción.",
+      "html": "<div class=\"ds-field\"><label for=\"ds-name\">Nombre</label><input id=\"ds-name\" class=\"ds-input\" type=\"text\" placeholder=\"Tu nombre\"></div>",
+      "css": ".ds-field{display:flex;flex-direction:column;gap:6px;max-width:420px}.ds-field label{font-family:\"Spline Sans Mono\",ui-monospace,monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#676C61}.ds-input{width:100%;padding:12px 14px;border:1px solid #E0DACD;background:#FAF8F3;font-family:\"Archivo\",system-ui,-apple-system,sans-serif;font-size:14px;color:#14150F;border-radius:0;outline:none;transition:border-color 180ms cubic-bezier(0.2,0.7,0.1,1)}.ds-input:hover{border-color:#676C61}.ds-input:focus{border-color:#D6006F}.ds-input::placeholder{color:#676C61}"
     }
   ],
   "narrative": {
-    "northStar": "El estudio de Bellas Artes",
-    "overview": "Este sistema trata la pantalla como un estudio de artista, no como una aplicación. El lienzo es papel crema (#F2EFE6), no blanco de pantalla: un fondo que ya tiene temperatura antes de que se dibuje nada encima. Sobre él actúan dos materiales, y solo dos — tinta sólida y trazo generativo. La tinta construye la estructura: hairlines, bloques, tipografía con peso. El trazo, verde bosque sobre el lienzo, es código que se ejecuta en vivo. La obra va delante; el marco se retira.\n\nDe ahí sale la decisión material que define todo lo demás: cero desenfoque en ninguna parte. Las superficies son planas en reposo y, al tocarlas, se desplazan dejando una sombra sólida sin difuminar — la huella que deja un bloque de tinta al presionarse contra el papel. Un elemento o está apoyado en el lienzo o se ha movido; no flota en un punto intermedio.\n\nLa voz tipográfica es doble y estrictamente dividida. DM Sans en peso 800 carga todo lo expresivo, apretado con tracking negativo hasta que los titulares se vuelven bloques compactos. JetBrains Mono se reserva para la anotación: numeración de sección, etiquetas, tecnologías, cifras. El acento cian aparece solo en esa capa de anotación.",
+    "northStar": "La prueba de registro",
+    "overview": "El sitio es una prueba de registro: un pliego de papel componiéndose pasada a pasada. El fondo es papel —un blanco cálido de stock de impresión— y sobre él van las cuatro tintas de proceso. Lo que hay que leer entero sale en su propia hoja, más blanca que el pliego. Es deliberadamente escaso: papel, una regla de 1 px, tipografía y tinta. El primer viewport no lleva titular gigante: lleva la pieza generativa imprimiéndose en tres pasadas desalineadas, cuatro cruces de registro en las esquinas y rbt. abajo a la izquierda, como el cajetín de un taller.",
     "keyCharacteristics": [
-      "Lienzo crema (#F2EFE6) en lugar de blanco — el fondo tiene temperatura",
-      "Cian de señal (#15C1C1) como único acento de marca, siempre en la capa de anotación",
-      "Sombra dura desplazada (4px 4px 0) sin desenfoque — la única forma de profundidad",
-      "Cero border-radius en todo el sistema, salvo la variante pill explícita de las etiquetas",
-      "DM Sans 800 con tracking negativo para lo expresivo; JetBrains Mono 0.18em mayúsculas para lo anotado",
-      "Hairlines de 1px (#C9C5B6) como estructura — sin cajas pesadas ni separadores gruesos",
-      "Piezas generativas ejecutándose en vivo como contenido, no como decoración de fondo",
-      "Escala tipográfica fluida con clamp() — el tipo respira con el viewport, el espaciado no"
+      "Pliego de papel claro como suelo; hoja blanca sólo donde hay que leer seguido",
+      "Cuatro tintas de proceso y dos sobreimpresiones; nada más",
+      "Archivo variable (el eje de ancho es la escala de densidad) + Spline Sans Mono para el dato de taller",
+      "Cero sombras, cero radios, cero texturas de fondo",
+      "Desregistro sustractivo (multiply) reservado al wordmark y a la pieza del hero",
+      "Cada sección es otra pasada sobre el mismo pliego"
     ],
     "rules": [
-      {
-        "name": "La Regla de la Señal Única",
-        "body": "El cian #15C1C1 es el único acento del sistema y vive solo en la capa de anotación: mono, mayúsculas, tamaño pequeño, cifras. En cuanto aparece en un titular, en un fondo amplio o en un segundo tono de acento, deja de significar «mira aquí» y el sistema pierde su único mecanismo de énfasis.",
-        "section": "colors"
-      },
-      {
-        "name": "La Regla del Papel",
-        "body": "Ninguna superficie es #FFFFFF y ningún texto es #000000. Las cuatro superficies están todas en la familia del papel, y la separación entre ellas es deliberadamente sutil: la jerarquía la construyen los hairlines y el espaciado, no el contraste de fondo.",
-        "section": "colors"
-      },
-      {
-        "name": "La Regla de la Anotación",
-        "body": "Todo lo que no sea contenido de lectura —número de sección, eyebrow, tecnología, cifra, estado, ruta de archivo— va en JetBrains Mono, mayúsculas, 0.18em de tracking. Y a la inversa: nada de lo que sea contenido de lectura va en mono.",
-        "section": "typography"
-      },
-      {
-        "name": "La Regla del Tracking Opuesto",
-        "body": "El texto grande se aprieta (-0.02em), el texto pequeño se abre (0.18em). Un titular con tracking positivo o una etiqueta con tracking neutro rompen la firma inmediatamente.",
-        "section": "typography"
-      },
-      {
-        "name": "La Regla del Cero Desenfoque",
-        "body": "Ningún box-shadow de este sistema lleva blur ni spread. La sintaxis es siempre Npx Npx 0 <color>. Aquí no hay atmósfera, hay papel y tinta.",
-        "section": "elevation"
-      },
-      {
-        "name": "La Regla del Plano en Reposo",
-        "body": "Ninguna superficie lleva sombra por defecto. La sombra es exclusivamente una respuesta a :hover. Una tarjeta con sombra permanente convierte la firma en decoración.",
-        "section": "elevation"
-      },
-      {
-        "name": "La Regla de la Escuadra",
-        "body": "El radio por defecto es 0. Añadir esquinas redondeadas a un componente nuevo lo saca del sistema. Si algo necesita leerse como flotante, la respuesta es pill completo, nunca un 8px intermedio.",
-        "section": "shapes"
-      }
+      "La Regla de la Tinta Plana: la tinta de proceso pinta; para escribir se usa su variante -t.",
+      "La Regla de las Cuatro: sólo entran tintas de proceso o mezclas de dos que ya están.",
+      "La Regla de la Hoja Aparte: la hoja blanca aparece donde hay que leer seguido.",
+      "La Regla del Vacío: el pliego se deja en blanco; sólo se ve lo que se ha impreso.",
+      "El Ancho es Densidad: se ensancha la letra antes que engordarla.",
+      "Dos Voces: Archivo afirma, Spline Sans Mono mide.",
+      "El Cajetín en Minúscula: el wordmark es rbt., siempre.",
+      "Una Pasada, una Sección: toda sección abre con pass-open y su número NN/06.",
+      "El Margen Calla: sólo las cuatro cruces del primer viewport.",
+      "Sin Sombra, con Canto: 1 px o escalón de blanco, nunca box-shadow.",
+      "El Levantamiento es de 3 px: las tarjetas suben y cambian el borde a su tinta.",
+      "Cero Radio, salvo el anillo de la cruz de registro.",
+      "El Pliego es Liso: sin ruido, sin cuadrícula, sin degradado de adorno."
     ],
     "dos": [
-      "Do usar el cian de señal (#15C1C1) exclusivamente en la capa de anotación: mono, mayúsculas, pequeño, cifras.",
-      "Do escribir toda sombra como Npx Npx 0 <color>, sin blur ni spread, y solo en :hover.",
-      "Do abrir cada sección con el patrón .section-open (número en mono + titular + hairline de cierre).",
-      "Do apretar el texto grande a -0.02em y abrir el pequeño a 0.18em.",
-      "Do construir la jerarquía con hairlines de 1px y espaciado de la escala, no con contraste de fondo.",
-      "Do usar clamp() para el tamaño de tipo en cualquier titular nuevo.",
-      "Do dejar que las piezas generativas se ejecuten de verdad. Son contenido, no textura."
+      "Abrir cada sección con pass-open y su número de pasada",
+      "Usar la tinta plana para pintar y la variante -t para escribir",
+      "Dejar el pliego en blanco: el vacío es el material principal",
+      "Sacar la hoja blanca sólo cuando hay que leer de verdad",
+      "Derivar cualquier desalineado de --reg",
+      "Escribir toda la interfaz en español"
     ],
     "donts": [
-      "Don't usar #FFFFFF como superficie ni #000000 como texto.",
-      "Don't añadir border-radius a un componente nuevo. El radio por defecto es 0.",
-      "Don't usar sombras con desenfoque, glassmorphism, backdrop-filter ni degradados de superficie.",
-      "Don't poner el cian en un titular, en un fondo amplio ni introducir un segundo color de acento.",
-      "Don't usar JetBrains Mono para texto de lectura, ni DM Sans para una etiqueta o un número de sección.",
-      "Don't dejar sombra permanente en una tarjeta en reposo.",
-      "Don't usar el gradiente de marca en texto ni en botones.",
-      "Don't introducir un tercer grosor de borde. Solo existen 1px estructural y 1.5px interactivo.",
-      "Don't usar una barra lateral de color (border-left: 3px) en tarjetas, alertas o callouts. El estado va en el marco completo a 1px.",
-      "Don't usar negro puro como velo de modal. El velo es tinta cálida (--rbt-scrim)."
+      "Añadir sombras, radios, texturas de fondo o degradados decorativos",
+      "Usar una tinta plana como color de texto",
+      "Poner el desregistro en un titular: ahí se lee como sombra",
+      "Repetir el patrón ojal + titular de dos líneas con la segunda palabra en color",
+      "Convertir una sección en una rejilla de tarjetas iguales con icono",
+      "Inventar métricas, testimonios o clientes",
+      "Tocar la geometría de las piezas generativas: se re-entintan, no se redibujan"
     ]
   }
 }

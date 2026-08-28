@@ -1,142 +1,131 @@
-﻿import { useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { PassOpen } from './Press'
 
 gsap.registerPlugin(ScrollTrigger)
 
 const email = 'contact@rbt-studio.com'
 
+/* =========================================================
+   PASADA 06 — LA CUARTA TINTA
+   Contactar es la última pasada de la hoja. La tinta no ocupa
+   un plano: es el filete de magenta que abre el bloque y el
+   color del correo al pasar por encima.
+   ========================================================= */
+
 export default function Contact() {
   const sectionRef = useRef(null)
-  const titleRef = useRef(null)
   const cardRef = useRef(null)
+
+  const onSubmit = (e) => {
+    e.preventDefault()
+    const data = new FormData(e.currentTarget)
+    const name = String(data.get('name') || '').trim()
+    const body = String(data.get('message') || '').trim()
+    const from = String(data.get('email') || '').trim()
+    const subject = name ? `Proyecto — ${name}` : 'Proyecto'
+    const lines = [body, '', from && `Responder a: ${from}`].filter(Boolean).join('\n')
+    window.location.href = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(lines)}`
+  }
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.fromTo(titleRef.current,
-        { opacity: 0, y: 50 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 1,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: titleRef.current,
-            start: 'top 80%',
-            toggleActions: 'play none none reverse'
-          }
-        }
-      )
-
       gsap.fromTo(cardRef.current,
-        { opacity: 0, y: 40, clipPath: 'inset(0 0 100% 0)' },
+        { opacity: 0, clipPath: 'inset(0 0 100% 0)' },
         {
           opacity: 1,
-          y: 0,
           clipPath: 'inset(0 0 0% 0)',
-          duration: 0.8,
+          duration: 0.9,
           ease: 'power2.out',
-          scrollTrigger: {
-            trigger: cardRef.current,
-            start: 'top 75%',
-            toggleActions: 'play none none reverse'
-          }
+          scrollTrigger: { trigger: cardRef.current, start: 'top 78%', toggleActions: 'play none none reverse' },
         }
       )
     }, sectionRef)
-
     return () => ctx.revert()
   }, [])
 
   return (
-    <section ref={sectionRef} id="contact" className="relative py-16 md:py-20 lg:py-24" style={{ backgroundColor: '#F2EFE6' }}>
-      <div className="relative z-10 w-full mx-auto px-4 sm:px-8 lg:px-16" style={{ maxWidth: '1280px' }}>
-        <div ref={titleRef} className="mb-12 md:mb-16 lg:mb-24" style={{ opacity: 0 }}>
-          <p className="font-mono text-[12px] tracking-[0.18em] uppercase mb-6" style={{ color: 'var(--rbt-signal)' }}>
-            03 / 05 · Contacto
-          </p>
-          <h2 className="font-sans text-5xl lg:text-6xl font-semibold leading-[0.95] tracking-tight" style={{ color: '#14140F', fontSize: 'clamp(72px, 10vw, 144px)' }}>
-            Trabajemos
-            <br />
-            <em className="not-italic" style={{ color: 'var(--rbt-signal)' }}>juntos.</em>
-          </h2>
-        </div>
+    <section ref={sectionRef} id="contact" className="relative pb-20 md:pb-28">
+      <div className="mx-auto w-full px-6 md:px-12 lg:px-16" style={{ maxWidth: 'var(--container)' }}>
+        <PassOpen
+          pass={6}
+          ink="var(--ink-magenta-t)"
+          title="La cuarta tinta"
+          sub="Cuéntame el proyecto. Respondo en menos de 24 horas, desde Barcelona."
+        />
 
         <div
           ref={cardRef}
-          className="grid grid-cols-1 md:grid-cols-2"
-          style={{
-            border: '1px solid #151C1C',
-            opacity: 0,
-          }}
+          className="mt-10 grid grid-cols-1 md:grid-cols-2"
+          style={{ opacity: 0, borderTop: '2px solid var(--ink-magenta)' }}
         >
-          {/* Left: Green background with email */}
-          <div className="p-6 md:p-10" style={{ backgroundColor: '#151C1C', color: '#F2EFE6' }}>
-            <span className="font-mono text-[11px] tracking-[0.1em] uppercase" style={{ opacity: 0.8 }}>
-              Email
-            </span>
+          {/* La cuarta tinta ya no ocupa un plano: es el filete que
+              abre el bloque. El correo va impreso en negro, como el
+              resto del pliego. */}
+          <div className="p-7 md:py-10 md:pl-0 md:pr-12">
+            <span className="t-label" style={{ color: 'var(--on-press-low)' }}>Email</span>
             <a
               href={`mailto:${email}`}
-              className="block mt-6 hover:opacity-80 transition-opacity"
+              className="mt-5 block transition-colors"
               style={{
-                fontFamily: "'Roboto Slab', serif",
-                fontWeight: 700,
-                fontSize: 'clamp(28px, 3.5vw, 48px)',
-                lineHeight: '1.1',
-                wordBreak: 'break-all'
+                fontWeight: 800,
+                fontVariationSettings: "'wdth' 108",
+                fontSize: 'var(--t-h2)',
+                lineHeight: 1.1,
+                wordBreak: 'break-word',
+                color: 'var(--ink-key)',
               }}
+              onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--ink-magenta-t)')}
+              onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--ink-key)')}
             >
               {email}
             </a>
 
             <div
-              className="grid grid-cols-3"
-              style={{
-                gap: '24px',
-                paddingTop: '24px',
-                borderTop: '1px solid rgba(242, 239, 230, 0.3)',
-                marginTop: '24px',
-                fontSize: '12px',
-              }}
+              className="mt-6 flex flex-wrap gap-x-8 gap-y-2 pt-6"
+              style={{ borderTop: 'var(--hairline-p)' }}
             >
-              <div className="font-mono tracking-[0.05em]" style={{ opacity: 0.8 }}>
-                Barcelona
-              </div>
-              <div className="font-mono tracking-[0.05em]" style={{ opacity: 0.8 }}>
-                Remoto
-              </div>
-              <div className="font-mono tracking-[0.05em]" style={{ opacity: 0.8 }}>
-                &lt;24h
-              </div>
+              <span className="t-label" style={{ color: 'var(--on-press-low)' }}>Barcelona</span>
+              <span className="t-label" style={{ color: 'var(--on-press-low)' }}>Remoto</span>
+              <span className="t-label" style={{ color: 'var(--on-press-low)' }}>&lt; 24 h</span>
             </div>
           </div>
 
-          {/* Right: Cream paper background with form */}
-          <div className="p-6 md:p-10" style={{ backgroundColor: '#FBF9F2', color: '#14140F', display: 'flex', flexDirection: 'column', gap: '20px' }}>
+          {/* La hoja donde se escribe. Sin backend: el formulario
+              compone el correo y lo abre en el cliente del visitante,
+              que es lo único que un sitio estático puede prometer. */}
+          <form
+            onSubmit={onSubmit}
+            className="sheet flex flex-col gap-5 p-7 md:p-10"
+            style={{ borderTop: 0, borderRight: 0, borderBottom: 0 }}
+          >
             <div className="field">
-              <label>Nombre</label>
-              <input className="input" type="text" placeholder="Tu nombre" />
+              <label htmlFor="contact-name">Nombre</label>
+              <input id="contact-name" name="name" className="input" type="text" placeholder="Tu nombre" autoComplete="name" />
             </div>
 
             <div className="field">
-              <label>Email</label>
-              <input className="input" type="email" placeholder="tu@email.com" />
+              <label htmlFor="contact-email">Email</label>
+              <input id="contact-email" name="email" className="input" type="email" placeholder="tu@email.com" autoComplete="email" />
             </div>
 
             <div className="field">
-              <label>Mensaje</label>
+              <label htmlFor="contact-message">Mensaje</label>
               <textarea
+                id="contact-message"
+                name="message"
                 className="input"
-                placeholder="Cuéntanos sobre tu proyecto..."
+                placeholder="Cuéntame qué quieres construir."
                 rows={4}
                 style={{ resize: 'none' }}
               />
             </div>
 
-            <button className="btn btn--lg" style={{ marginTop: '8px' }}>
+            <button type="submit" className="btn btn--sheet btn--lg" style={{ marginTop: '4px' }}>
               Enviar
             </button>
-          </div>
+          </form>
         </div>
       </div>
     </section>

@@ -1,8 +1,17 @@
 ﻿import { useRef, useEffect } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { PassOpen } from './Press'
 
 gsap.registerPlugin(ScrollTrigger)
+
+// Las cuatro tintas del taller, como funciones de opacidad.
+const PLATE_INKS = [
+  (a) => `rgba(0, 121, 171, ${a})`,
+  (a) => `rgba(214, 0, 111, ${a})`,
+  (a) => `rgba(200, 164, 0, ${a})`,
+  (a) => `rgba(20, 21, 15, ${a})`,
+]
 
 function ArtCanvas() {
   const canvasRef = useRef(null)
@@ -22,7 +31,7 @@ function ArtCanvas() {
     
     const draw = () => {
       time += 0.006
-      ctx.fillStyle = 'rgba(242, 239, 230, 0.06)'
+      ctx.fillStyle = 'rgba(250, 248, 243, 0.07)'
       ctx.fillRect(0, 0, width, height)
 
       for (let i = 0; i < 4; i++) {
@@ -33,8 +42,10 @@ function ArtCanvas() {
           const y = height / 2 + Math.sin(a * 2 + time * (0.25 - i * 0.08)) * r * 0.5
           a === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y)
         }
-        ctx.strokeStyle = `rgba(14, 74, 53, ${0.15 - i * 0.025})`
-        ctx.lineWidth = 0.8
+        // Cada anillo sale de una plancha distinta: la pieza se
+        // compone en cuatro pasadas, como la tirada del sitio.
+        ctx.strokeStyle = PLATE_INKS[i % PLATE_INKS.length](0.5 - i * 0.09)
+        ctx.lineWidth = 0.9
         ctx.stroke()
       }
 
@@ -46,7 +57,7 @@ function ArtCanvas() {
         const y = height / 2 + Math.sin(a * 1.5) * r * 0.5
         ctx.beginPath()
         ctx.arc(x, y, 2.5, 0, Math.PI * 2)
-        ctx.fillStyle = 'rgba(14, 74, 53, 0.6)'
+        ctx.fillStyle = PLATE_INKS[d % PLATE_INKS.length](0.85)
         ctx.fill()
       }
 
@@ -61,10 +72,10 @@ function ArtCanvas() {
 }
 
 const ARTISTIC_ITEMS = [
-  { label: 'Código Generativo', title: 'Sistemas y patrones vivos', desc: 'Exploración de fenómenos naturales mediante algoritmos: atractores, filotaxis, campos de flujo y autómatas celulares.' },
-  { label: 'Motion & Interaction', title: 'Animación con propósito', desc: 'Microinteracciones, transiciones y feedback que refuerzan la narrativa del producto. GSAP, Framer Motion y WebGL.' },
+  { label: 'Código generativo', title: 'Sistemas y patrones vivos', desc: 'Exploración de fenómenos naturales mediante algoritmos: atractores, filotaxis, campos de flujo y autómatas celulares.' },
+  { label: 'Movimiento e interacción', title: 'Animación con propósito', desc: 'Microinteracciones, transiciones y respuesta que refuerzan la narrativa del producto. GSAP, Framer Motion y WebGL.' },
   { label: 'Creative Technology', title: 'Instalaciones interactivas', desc: 'Entornos audiovisuales y proyecciones para espacios culturales. Donde la tecnología desaparece y queda la experiencia.' },
-  { label: 'Fine Arts', title: 'Base conceptual y visual', desc: 'Bellas Artes en la Universidad de Barcelona. La sensibilidad estética y el pensamiento crítico que informa cada decisión técnica.' },
+  { label: 'Bellas Artes', title: 'Base conceptual y visual', desc: 'Bellas Artes en la Universidad de Barcelona. La sensibilidad estética y el pensamiento crítico que informa cada decisión técnica.' },
 ]
 
 function ArtisticItem({ item, index }) {
@@ -74,7 +85,7 @@ function ArtisticItem({ item, index }) {
   useEffect(() => {
     const ctx = gsap.context(() => {
       gsap.fromTo(itemRef.current,
-        { opacity: 0, x: 50, clipPath: 'inset(0 100% 0 0)' },
+        { opacity: 0, x: 24, clipPath: 'inset(0 100% 0 0)' },
         {
           opacity: 1,
           x: 0,
@@ -96,22 +107,22 @@ function ArtisticItem({ item, index }) {
   return (
     <div
       ref={itemRef}
-      className="py-10 md:py-12 last:border-b-0 cursor-pointer group opacity-0"
-      style={{}}
+      className="py-10 md:py-12 group opacity-0"
+      style={{ borderTop: 'var(--hairline-p)' }}
     >
-      <div className="font-mono text-[10px] tracking-[0.15em] uppercase mb-3" style={{ color: 'rgba(14, 74, 53, 0.6)' }}>
+      <div className="t-label mb-3" style={{ color: 'var(--ink-cyan-t)' }}>
         {item.label}
       </div>
       <div
         ref={contentRef}
         className="text-xl md:text-2xl lg:text-3xl mb-3 group-hover:transition-colors group-hover:duration-300 font-semibold"
-        style={{ color: '#14140F' }}
-        onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--rbt-signal)')}
-        onMouseLeave={(e) => (e.currentTarget.style.color = '#14140F')}
+        style={{ color: 'var(--on-press)' }}
+        onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--ink-magenta)')}
+        onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--on-press)')}
       >
         {item.title}
       </div>
-      <div className="font-sans text-sm md:text-base leading-relaxed" style={{ color: '#3A3A33' }}>
+      <div className="t-small" style={{ color: 'var(--on-press-mid)', maxWidth: '52ch' }}>
         {item.desc}
       </div>
     </div>
@@ -182,30 +193,32 @@ export default function Artistic() {
   }, [])
 
   return (
-    <section ref={sectionRef} id="artistic" style={{ backgroundColor: '#F2EFE6' }}>
+    <section ref={sectionRef} id="artistic" className="relative overflow-x-hidden pb-20 md:pb-28">
 
-      <div className="relative z-10 px-6 md:px-12 lg:px-16 xl:px-24 py-24 md:py-32 lg:py-40">
-        <div ref={titleRef} className="mb-16 md:mb-20">
-          <p className="font-mono text-[12px] tracking-[0.18em] uppercase mb-4 md:mb-6 opacity-0" style={{ color: 'var(--rbt-signal)' }}>
-            04 / 05 · Creative Technology
-          </p>
-          <h2 className="font-sans text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-semibold leading-[0.9] opacity-0" style={{ color: '#14140F' }}>
-            Donde la técnica
-            <br />
-            <em className="not-italic" style={{ color: 'var(--rbt-signal)' }}>genera experiencia</em>
-          </h2>
+      <div className="relative z-10 mx-auto w-full px-6 md:px-12 lg:px-16" style={{ maxWidth: '1400px' }}>
+        <div ref={titleRef}>
+          <PassOpen
+            pass={4}
+            ink="var(--ink-violet-t)"
+            title="Donde la técnica genera experiencia"
+            sub="La formación en Bellas Artes no es un antecedente del trabajo técnico: es parte de él."
+          />
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-start max-w-[1400px]">
-          <div ref={textRef} className="lg:sticky lg:top-32 opacity-0">
-            <p className="font-sans text-base md:text-lg mb-10 leading-relaxed" style={{ color: '#3A3A33' }}>
-              La formación en <span className="font-medium" style={{ color: '#14140F' }}>Bellas Artes</span> no es un antecedente al trabajo técnico — es parte de él.
-              El código generativo, el motion y las instalaciones son el mismo lenguaje visual con otras herramientas.
+        <div className="mt-12 grid grid-cols-1 items-start gap-14 lg:grid-cols-2 lg:gap-20">
+          <div ref={textRef} className="opacity-0 lg:sticky lg:top-32">
+            <p className="t-body mb-8" style={{ color: 'var(--on-press-mid)', maxWidth: '48ch' }}>
+              El código generativo, el movimiento y las instalaciones son el mismo lenguaje
+              visual con otras herramientas.
             </p>
-            <div ref={canvasRef} className="relative overflow-hidden opacity-0">
+            <div
+              ref={canvasRef}
+              className="relative overflow-hidden opacity-0"
+              style={{ border: 'var(--hairline-p)', background: 'var(--sheet)' }}
+            >
               <ArtCanvas />
-              <span className="absolute bottom-3 left-4 font-mono text-[10px] tracking-[0.12em] uppercase" style={{ color: 'rgba(110, 110, 100, 0.4)' }}>
-                Generative · Live Canvas
+              <span className="t-label absolute bottom-3 left-4" style={{ color: 'var(--on-press-low)' }}>
+                Pieza viva · cuatro planchas
               </span>
             </div>
           </div>

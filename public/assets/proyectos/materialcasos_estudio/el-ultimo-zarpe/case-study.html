@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>El Último Zarpe — Case Study — RBT Studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Vollkorn:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  /* ============================================================
+     TOKENS — paleta tomada del propio juego: noche de puerto
+     (azul tinta), farol (oro) y papel de bitácora. Mismo esqueleto
+     de "contact sheet" que el resto de case studies de RBT Studio,
+     con el acento cambiado por el del proyecto.
+     ============================================================ */
+  :root {
+    --ink:        #0C0818;   /* noche cerrada, fondo del juego */
+    --ink-2:      #14102A;   /* panorama a media distancia */
+    --paper:      #EDE4D2;   /* texto: papel de bitácora */
+    --paper-dim:  #8B8398;   /* meta, captions */
+    --accent:     #E8A63C;   /* luz de farol */
+    --accent-2:   #C2452E;   /* rojo de lacre, solo para énfasis raro */
+    --line:       #2A2440;
+    --panel:      #16122B;
+
+    --font-display: 'Vollkorn', Georgia, 'Times New Roman', serif;
+    --font-mono:    'IBM Plex Mono', 'SF Mono', Consolas, monospace;
+    --font-body:    'IBM Plex Sans', system-ui, -apple-system, sans-serif;
+
+    --max-w: 820px;
+  }
+
+  * { box-sizing: border-box; }
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; }
+  }
+
+  body {
+    margin: 0;
+    background: var(--ink);
+    color: var(--paper);
+    font-family: var(--font-body);
+    font-size: 17px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .roll {
+    max-width: var(--max-w);
+    margin: 0 auto;
+    padding: 4rem 1.5rem 6rem;
+  }
+
+  /* --- Header --- */
+  .cs-header {
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 2rem;
+    margin-bottom: 3.5rem;
+  }
+  .cs-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.75rem;
+  }
+  .cs-title {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(2.2rem, 6vw, 3.4rem);
+    line-height: 1.05;
+    letter-spacing: 0.01em;
+    margin: 0 0 0.75rem;
+  }
+  .cs-tagline {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 400;
+    font-size: 1.2rem;
+    color: var(--paper-dim);
+    margin: 0 0 1.75rem;
+    max-width: 34em;
+  }
+  .cs-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem 1.75rem;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--paper-dim);
+  }
+  .cs-meta strong {
+    color: var(--accent);
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    font-size: 0.72rem;
+  }
+  .cs-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+  }
+  .cs-tag {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    border: 1px solid var(--line);
+    padding: 0.25rem 0.6rem;
+    border-radius: 2px;
+    color: var(--paper-dim);
+  }
+
+  /* --- Secciones numeradas: el orden del case study importa --- */
+  .frame {
+    position: relative;
+    padding-left: 3.25rem;
+    margin-bottom: 4rem;
+    border-left: 1px solid var(--line);
+  }
+  .frame-number {
+    position: absolute;
+    left: -0.5px;
+    top: 0.15rem;
+    transform: translateX(-50%);
+    background: var(--ink);
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--accent);
+    padding: 0.15rem 0.45rem;
+    letter-spacing: 0.08em;
+  }
+  .frame h2 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1.75rem;
+    line-height: 1.2;
+    margin: 0 0 1.25rem;
+  }
+  .frame h3 {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 1.15rem;
+    color: var(--accent);
+    margin: 2.25rem 0 0.75rem;
+  }
+  .frame p { margin: 0 0 1.1rem; }
+  .frame p:last-child { margin-bottom: 0; }
+  .frame strong { color: #FBEFD8; font-weight: 600; }
+
+  /* --- Cita de principio de diseño --- */
+  blockquote {
+    margin: 1.5rem 0;
+    padding: 0.25rem 0 0.25rem 1.25rem;
+    border-left: 2px solid var(--accent);
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    font-style: italic;
+    color: #FBEFD8;
+  }
+  blockquote p { margin: 0; }
+
+  /* --- Capturas reales del juego --- */
+  figure {
+    margin: 2rem 0;
+  }
+  figure img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    background: var(--ink-2);
+  }
+  figcaption {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    line-height: 1.5;
+    color: var(--paper-dim);
+    margin-top: 0.6rem;
+    padding-left: 0.1rem;
+  }
+
+  /* --- Resultados: hoja de datos --- */
+  .results {
+    margin-top: 1.75rem;
+    border-top: 1px solid var(--line);
+  }
+  .result-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.25rem 1.5rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .result-value {
+    font-family: var(--font-display);
+    font-size: 1.7rem;
+    font-weight: 600;
+    color: var(--accent);
+    line-height: 1;
+    flex: 0 0 7.5rem;
+  }
+  .result-label {
+    font-size: 0.95rem;
+    color: var(--paper-dim);
+    flex: 1 1 16rem;
+  }
+
+  .caveat {
+    margin-top: 2rem;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-left: 2px solid var(--accent-2);
+    border-radius: 3px;
+    padding: 1.1rem 1.25rem;
+    font-size: 0.95rem;
+    color: var(--paper-dim);
+  }
+  .caveat strong { color: var(--paper); }
+
+  /* --- CTA final --- */
+  .cs-cta {
+    border-top: 1px solid var(--line);
+    padding-top: 2.5rem;
+    margin-top: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem 2rem;
+    align-items: center;
+    justify-content: space-between;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--paper-dim);
+  }
+  .cs-cta a {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid var(--accent);
+    padding-bottom: 2px;
+  }
+  .cs-cta a:hover { opacity: 0.75; }
+
+  @media (max-width: 560px) {
+    body { font-size: 16px; }
+    .roll { padding: 2.5rem 1.15rem 4rem; }
+    .frame { padding-left: 1.75rem; margin-bottom: 3rem; }
+    .frame-number { font-size: 0.62rem; padding: 0.15rem 0.3rem; }
+    .result-value { flex-basis: 100%; }
+  }
+</style>
+</head>
+<body>
+<div class="roll">
+
+  <header class="cs-header">
+    <div class="cs-eyebrow">Case Study — RBT Studio</div>
+    <h1 class="cs-title">El Último Zarpe</h1>
+    <p class="cs-tagline">Un roguelike de preparación donde lo único que sobrevive al bucle es lo que has entendido.</p>
+    <div class="cs-meta">
+      <span><strong>Tipo</strong> Side project — juego propio</span>
+      <span><strong>Rol</strong> Diseño, desarrollo y dirección de arte</span>
+      <span><strong>Timeline</strong> Julio 2026 — en curso</span>
+    </div>
+    <div class="cs-tags">
+      <span class="cs-tag">Godot 4.7</span>
+      <span class="cs-tag">GDScript</span>
+      <span class="cs-tag">Generación por semilla</span>
+      <span class="cs-tag">Reglas en JSON</span>
+      <span class="cs-tag">Prototipo HTML/SVG</span>
+      <span class="cs-tag">Dirección de arte</span>
+    </div>
+  </header>
+
+  <section class="frame">
+    <span class="frame-number">F.01 — CONTEXTO</span>
+    <h2>Un roguelike que no te deja memorizar</h2>
+    <p>El roguelike moderno enseña al jugador a memorizar builds. Repites hasta que la combinación correcta se te queda grabada, y la muerte se convierte en un peaje administrativo: pierdes una partida, ganas monedas permanentes, vuelves más fuerte. La dificultad no la resuelve el jugador; la erosiona el desbloqueo.</p>
+    <p>Quería un juego que hiciera lo contrario: <strong>que la única cosa que se acumulara entre partidas fuera comprensión</strong>. Sin monedas persistentes, sin árbol de mejoras, sin meta-progresión. Si el segundo intento va mejor, tiene que ser porque el jugador sabe algo que antes no sabía.</p>
+    <p>Eso obliga a una premisa muy concreta, y de ahí sale <em>El Último Zarpe</em>: un puerto llamado Grisal, unos días contados, un barco que zarpa con o sin ti, y una travesía cuyos peligros son desconocidos. Preparas el viaje con dinero limitado, información contradictoria y una bodega que no da para todo. Normalmente mueres. Lo que aprendes al morir es todo lo que te llevas.</p>
+    <figure>
+      <img src="assets/01-inicio.png" alt="Pantalla de inicio con selector de dureza, longitud y semilla opcional">
+      <figcaption>Pantalla de inicio. Dureza, longitud y semilla. «Ninguna travesía se parece a la anterior. Los peligros cambian, los rumores cambian, y algunos mienten.»</figcaption>
+    </figure>
+  </section>
+
+  <section class="frame">
+    <span class="frame-number">F.02 — PROCESO</span>
+    <h2>Cómo se abordó</h2>
+
+    <h3>El problema real no era el bucle, era la injusticia</h3>
+    <p>Un juego que mata al jugador constantemente tiene un margen de error muy estrecho. Si una muerte se siente arbitraria, el jugador no aprende: se va. Así que la primera decisión de diseño no fue de contenido sino de contrato:</p>
+    <blockquote><p>Nunca mentir al jugador sobre las reglas; sí sobre los hechos.</p></blockquote>
+    <p>Las pistas pueden ser falsas, los personajes pueden tener intereses propios y la gente miente en la taberna. Pero el sistema es justo. Y «justo» aquí no es una promesa de intenciones: <strong>cada viaje generado se demuestra soluble antes de dejarte empezar</strong>. Un verificador prueba por fuerza bruta que existe al menos una combinación de compras que sobrevive, con margen económico. Si no la encuentra, ese viaje no llega al jugador. La dificultad nunca es una tirada injusta; es información que no fuiste a buscar.</p>
+
+    <h3>Reintentar es el mismo puzzle, no uno nuevo</h3>
+    <p>La decisión más contraintuitiva del proyecto: <strong>«volver a Grisal» repite la misma semilla a propósito</strong>. La tentación de un roguelike es dar una partida nueva tras cada muerte. Pero eso convierte el fracaso en ruido: si el próximo viaje es otro, lo que aprendiste sobre este no vale nada.</p>
+    <p>Repitiendo la semilla, el segundo intento es el mismo enemigo con más luz. El jugador vuelve al puerto sabiendo que el agua se acaba el día 3, y esta vez gasta sus preguntas en otra cosa. Ese es el juego.</p>
+
+    <h3>El prototipo primero, en HTML</h3>
+    <p>Antes de tocar Godot construí el juego entero como una página HTML con SVG y JS —jugable de principio a fin— para poder discutir el diseño jugándolo en vez de imaginándolo. Cuando la mecánica quedó clara, ese prototipo pasó a ser algo más útil que documentación: <strong>la especificación ejecutable del port</strong>. El motor de Godot no se consideró correcto hasta que generaba exactamente el mismo viaje que el prototipo para la misma semilla, en 405 de 405 combinaciones de semilla × dificultad × longitud.</p>
+
+    <h3>Se midió que el juego aburría, y se arregló con números</h3>
+    <p>Tras el port, una medición incómoda: en modo largo solo existían <strong>6 puzzles posibles</strong>. Tres parámetros de dificultad no hacían nada en absoluto. El juego que en teoría era infinitamente rejugable era, en la práctica, memorizable en una tarde.</p>
+    <p>La respuesta fue ampliar el repertorio (de 6 a 12 peligros, de 13 a 18 objetos — de 6 puzzles posibles a 792 en modo largo) y, sobre todo, <strong>sacar las reglas del código y meterlas en datos</strong>. Hoy la dificultad vive en un JSON: cuánto tapa un objeto de calma, cuántas pistas falsas hay, cuál es el margen económico mínimo. Se tunea entre partidas de playtest sin recompilar.</p>
+
+    <h3>El mapa del puerto también es una variable</h3>
+    <p>El puerto tiene once lugares. <strong>No abren todos cada partida</strong>: la misma semilla que genera el viaje sortea cuáles están abiertos hoy. La ruta óptima deja de ser memorizable — tienes que decidir a quién preguntar con lo que hay abierto.</p>
+    <p>Dos salvaguardas evitan que la rotación degenere en frustración. Hay un <strong>suelo de información</strong>: si el sorteo deja el puerto demasiado pobre, se abren lugares extra hasta garantizar un mínimo de fuentes. Y una regla más dura, aprendida a base de romperla: <strong>lo que apaga una mecánica no rota</strong>. Al principio el callejón —donde vive el único informador capaz de señalar que una pista es falsa— entraba en el sorteo. Medido: en un 44 % de las partidas el jugador perdía la capacidad de detectar mentiras sin que nada se lo dijera. Exactamente el tipo de dificultad que el juego no busca, porque no se puede aprender de ella. El callejón, el mercado y el muelle abren siempre. Costó variedad (de 126 mapas posibles a 56) y valió la pena.</p>
+  </section>
+
+  <section class="frame">
+    <span class="frame-number">F.03 — SOLUCIÓN</span>
+    <h2>Qué se construyó</h2>
+
+    <h3>El puerto: un panorama, no un menú</h3>
+    <p>Grisal es un panorama lateral con parallax por el que caminas. Los sitios donde puedes preguntar son objetos del mundo dibujado —un cartel, una puerta, una pizarra—, no entradas de una lista. Los menús reales se reservan para los dos sitios donde el jugador espera un menú: el mercado y la contrata de tripulación.</p>
+    <figure>
+      <img src="assets/02-puerto.png" alt="Panorama del puerto de Grisal de noche, con el protagonista frente al cartel de la naviera">
+      <figcaption>El puerto de Grisal. El HUD dice lo único que importa: rumbo, intento, día, acciones, carga y monedas.</figcaption>
+    </figure>
+
+    <h3>Preguntar cuesta; recordar es gratis</h3>
+    <p>El recurso escaso no es el dinero: son <strong>las acciones del día</strong>. Cada fuente que consultas gasta una, y a veces también monedas. Cuando se agotan, el día avanza y el barco está un día más cerca de zarpar. Por eso todo lo que cuesta acciones es una decisión de verdad, y lo que solo cuesta dinero casi nunca lo es.</p>
+    <p>El reverso de esa regla: <strong>consultar lo que ya sabes no cuesta nada</strong>. El cuaderno de bitácora, los apuntes y la bodega se miran gratis, siempre. El jugador no debe pagar por recordar.</p>
+    <figure>
+      <img src="assets/03-taberna.png" alt="Interior de la taberna del Ancla, con parroquianos junto al fuego">
+      <figcaption>La taberna. Rumores baratos y poco fiables: media docena de hombres que no zarpan mañana y uno que sí.</figcaption>
+    </figure>
+
+    <h3>Ninguna fuente basta</h3>
+    <p>Las pistas vienen de gente con motivos distintos y fiabilidad distinta: el periódico está sesgado, la taberna exagera, el maestro de ribera es caro pero técnico, los exvotos de la capilla cuentan miedos y no observaciones, el registro del hospital sí sabe qué mata a bordo. Algunas pistas son directamente falsas. La regla de diseño es que <strong>ninguna fuente sola da la verdad</strong>: hay que cruzar dos como mínimo antes de gastarse el dinero.</p>
+    <figure>
+      <img src="assets/04-lonja.png" alt="Interior de la lonja del pescado, con el corrillo y la pizarra de la subasta">
+      <figcaption>La lonja: rumor de gremio en el corrillo, dato oficial en la pizarra de la subasta. Dos voces con fiabilidad distinta en el mismo sitio.</figcaption>
+    </figure>
+
+    <h3>La travesía se resuelve de una pasada</h3>
+    <p>No hay barra de vida. La travesía se juega sola, encadenando lo que preparaste —o lo que no— en una cascada de fallos: la sed llega antes que el hambre, racionas agua turbia, la tripulación se tensa, y para cuando llega la bruma ya no quedan manos sanas. Lo que llevas es lo que tienes. Cuando termina, la bitácora anota qué te mató, en qué día y con qué en la bodega.</p>
+    <figure>
+      <img src="assets/05-travesia.png" alt="La travesía: el barco navegando de noche rumbo al Barra de las Viudas">
+      <figcaption>Día 3 de travesía. «La sed llega antes que el hambre. Racionáis lo que quedaba en el pañol.»</figcaption>
+    </figure>
+  </section>
+
+  <section class="frame">
+    <span class="frame-number">F.04 — RESULTADOS</span>
+    <h2>Dónde está hoy</h2>
+    <p>El juego es <strong>jugable de principio a fin</strong> y se distribuye como ejecutable autocontenido de Windows, verificado en un directorio limpio. Sobre lo que se puede medir hoy — todo es de sistema, no de jugadores:</p>
+    <div class="results">
+      <div class="result-row">
+        <span class="result-value">405/405</span>
+        <span class="result-label">combinaciones con paridad exacta contra el prototipo, en dos oráculos independientes</span>
+      </div>
+      <div class="result-row">
+        <span class="result-value">792</span>
+        <span class="result-label">puzzles posibles en modo largo — eran 6</span>
+      </div>
+      <div class="result-row">
+        <span class="result-value">56</span>
+        <span class="result-label">mapas de puerto distintos por rotación de lugares</span>
+      </div>
+      <div class="result-row">
+        <span class="result-value">11 · 21 · 18</span>
+        <span class="result-label">lugares en el puerto, ranuras de pista y objetos comprables</span>
+      </div>
+      <div class="result-row">
+        <span class="result-value">0,32–0,53</span>
+        <span class="result-label">peligros sin ninguna pista honesta por partida — mejor que el 0,49–0,86 de la versión anterior</span>
+      </div>
+    </div>
+    <div class="caveat">
+      <p style="margin:0"><strong>Aún no hay jugadores.</strong> Ni playtests externos, ni métricas de retención, ni tienda, ni fecha. Cualquier cifra de arriba habla de la solidez del sistema, no de que a alguien le haya gustado. Ese es el siguiente paso, no un resultado ya conseguido.</p>
+    </div>
+  </section>
+
+  <section class="frame">
+    <span class="frame-number">F.05 — APRENDIZAJES</span>
+    <h2>Qué me llevo</h2>
+    <p><strong>Medir la variedad antes de creértela.</strong> El juego «infinitamente rejugable» tenía seis puzzles. No lo detectó una intuición de diseño: lo detectó contar. Si un sistema generativo no se instrumenta, se asume que funciona porque es generativo.</p>
+    <p><strong>La dificultad tiene que poder aprenderse.</strong> El caso del callejón es el que más me enseñó: no era un bug ni un desequilibrio de números, era una mecánica que se apagaba en silencio en casi la mitad de las partidas. El jugador habría notado que iba peor sin poder saber por qué. De ahí salió la regla que ahora gobierna cualquier ampliación: lo que rota son voces, nunca mecánicas.</p>
+    <p><strong>Un prototipo jugable vale más como oráculo que como documento.</strong> Escribir el juego dos veces —primero en HTML para jugarlo, después en el motor— parece duplicar trabajo. Lo que dio fue una definición de «correcto» que no admite opinión: mismo resultado para la misma semilla, o el port está mal.</p>
+    <p><strong>Lo que falta, y lo sé.</strong> Los días de preparación siguen siendo decorativos: no filtran qué peligros pueden salir, y hacerlo importar es el cambio con más recorrido pendiente. El agua es obligatoria siempre, así que una de las decisiones de compra no es tal decisión. Y casi nunca queda un peligro sin ninguna pista honesta en el mapa, lo que significa que el jugador rara vez tiene que apostar bajo incertidumbre — que es justo lo que daría sentido pleno a la bitácora entre bucles.</p>
+  </section>
+
+  <!-- CTA: sustituir el texto de la derecha por el enlace a Steam / itch.io / vídeo cuando exista -->
+  <div class="cs-cta">
+    <span>RBT Studio — Experience Engineering</span>
+    <span>En desarrollo · <a href="mailto:ricardboixeda@gmail.com">ricardboixeda@gmail.com</a></span>
+  </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>StoryPrints — Case study · RBT Studio</title>
+<meta name="description" content="Un cuento infantil personalizado, ilustrado por IA y listo para imprimir y colorear. Case study de producto, diseño y desarrollo full stack." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,800;1,600&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  .sp-case {
+    /* Tokens tomados del design system de StoryPrints (globals.css).
+       Cámbialos aquí para reajustar toda la pieza. */
+    --ink:   #14120c;
+    --ink2:  #302e24;
+    --ink3:  #645e4e;
+    --ink4:  #9c9484;
+    --paper: #faf7f0;
+    --paper2:#f2ede0;
+    --paper3:#e8e0cc;
+    --paper4:#d9ceb4;
+    --amber: #b8720a;
+    --amberL:#fef0d0;
+    --amberD:#9a5c00;
+    --violet:#7c3aed;
+    --violetL:#ede9fe;
+    --r:  14px;
+    --r2: 28px;
+    --sh1: 0 4px 20px rgba(20,18,12,.07);
+    --serif: 'Playfair Display', Georgia, 'Times New Roman', serif;
+    --sans: 'Nunito', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 17px;
+    line-height: 1.75;
+    -webkit-font-smoothing: antialiased;
+  }
+  .sp-case *, .sp-case *::before, .sp-case *::after { box-sizing: border-box; }
+  .sp-case img { max-width: 100%; height: auto; display: block; }
+  .sp-case p { margin: 0 0 18px; }
+  .sp-case a { color: var(--amberD); text-underline-offset: 3px; }
+
+  .sp-wrap { max-width: 780px; margin: 0 auto; padding: 0 24px 96px; }
+
+  /* ---------- Header ---------- */
+  .sp-hero {
+    border-bottom: 2px solid var(--paper3);
+    background: linear-gradient(180deg, var(--paper2), var(--paper));
+    padding: 68px 24px 44px;
+    margin-bottom: 52px;
+  }
+  .sp-hero-inner { max-width: 780px; margin: 0 auto; }
+  .sp-eyebrow {
+    font-size: 12px; font-weight: 800; letter-spacing: 1.4px;
+    text-transform: uppercase; color: var(--amber); margin: 0 0 14px;
+  }
+  .sp-case h1 {
+    font-family: var(--serif); font-weight: 800;
+    font-size: clamp(40px, 6.5vw, 66px); line-height: 1.02;
+    margin: 0 0 16px; letter-spacing: -.5px;
+  }
+  .sp-tagline {
+    font-family: var(--serif); font-style: italic;
+    font-size: clamp(19px, 2.6vw, 24px); line-height: 1.45;
+    color: var(--ink2); max-width: 560px; margin: 0 0 30px;
+  }
+  .sp-meta {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 18px 26px; border-top: 1.5px solid var(--paper3); padding-top: 24px;
+  }
+  .sp-meta dt {
+    font-size: 11px; font-weight: 800; letter-spacing: 1px;
+    text-transform: uppercase; color: var(--ink4); margin-bottom: 4px;
+  }
+  .sp-meta dd { margin: 0; font-size: 15px; font-weight: 700; line-height: 1.45; }
+  .sp-tags { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 26px; }
+  .sp-tag {
+    font-size: 12.5px; font-weight: 700; padding: 5px 13px; border-radius: 50px;
+    background: #fff; border: 1.5px solid var(--paper3); color: var(--ink2);
+  }
+
+  /* ---------- Secciones ---------- */
+  .sp-case section { margin-bottom: 60px; }
+  .sp-case h2 {
+    font-family: var(--serif); font-weight: 800;
+    font-size: clamp(28px, 4vw, 36px); line-height: 1.15;
+    margin: 0 0 8px; letter-spacing: -.3px;
+  }
+  .sp-num {
+    display: block; font-size: 11px; font-weight: 800; letter-spacing: 1.6px;
+    text-transform: uppercase; color: var(--amber); margin-bottom: 6px;
+  }
+  .sp-case h2 + p, .sp-case h3 + p { margin-top: 14px; }
+  .sp-case h3 {
+    font-size: 19px; font-weight: 800; margin: 34px 0 0; line-height: 1.35;
+  }
+  .sp-case ul { margin: 0 0 18px; padding-left: 22px; }
+  .sp-case li { margin-bottom: 11px; }
+  .sp-case strong { font-weight: 800; }
+  .sp-case code {
+    font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+    font-size: .87em; background: var(--paper2); border: 1px solid var(--paper3);
+    border-radius: 5px; padding: 1px 5px;
+  }
+
+  /* ---------- Piezas ---------- */
+  .sp-lead {
+    font-size: 20px; line-height: 1.65; color: var(--ink2);
+    border-left: 4px solid var(--amber); padding-left: 20px; margin-bottom: 26px;
+  }
+  .sp-figure { margin: 30px 0; }
+  .sp-figure img {
+    border-radius: var(--r); border: 2px solid var(--paper3);
+    background: #fff; box-shadow: var(--sh1);
+  }
+  .sp-figure figcaption {
+    font-size: 14px; color: var(--ink3); line-height: 1.55; margin-top: 12px;
+  }
+  .sp-row { display: grid; gap: 16px; }
+  .sp-row-3 { grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); }
+  .sp-row-2 { grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); }
+  .sp-row img {
+    border-radius: var(--r); border: 2px solid var(--paper3);
+    background: #fff; padding: 10px; width: 100%;
+  }
+  .sp-pipeline {
+    background: #fff; border: 2px solid var(--paper3); border-radius: var(--r);
+    padding: 22px 24px; margin: 26px 0; overflow-x: auto;
+  }
+  .sp-pipeline pre {
+    margin: 0; font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+    font-size: 13.5px; line-height: 1.75; color: var(--ink2); white-space: pre;
+  }
+  .sp-note {
+    background: var(--amberL); border: 1.5px solid var(--paper4);
+    border-radius: var(--r); padding: 20px 22px; margin: 26px 0;
+    font-size: 15.5px; line-height: 1.7;
+  }
+  .sp-note p:last-child { margin-bottom: 0; }
+  .sp-stats {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 14px; margin: 26px 0;
+  }
+  .sp-stat {
+    background: #fff; border: 2px solid var(--paper3); border-radius: var(--r);
+    padding: 20px;
+  }
+  .sp-stat b {
+    display: block; font-family: var(--serif); font-weight: 800;
+    font-size: 34px; line-height: 1; color: var(--amber); margin-bottom: 7px;
+  }
+  .sp-stat span { font-size: 14px; color: var(--ink3); line-height: 1.45; }
+  .sp-learn {
+    border-top: 1.5px solid var(--paper3); padding-top: 20px; margin-top: 26px;
+  }
+  .sp-learn:first-of-type { border-top: 0; padding-top: 0; }
+  .sp-learn h3 { margin-top: 0; }
+  .sp-placeholder {
+    border: 2px dashed var(--paper4); border-radius: var(--r);
+    padding: 16px 18px; margin: 22px 0; background: var(--paper2);
+    font-size: 14px; color: var(--ink3);
+  }
+  .sp-placeholder b { color: var(--ink2); }
+  .sp-placeholder ul { margin: 8px 0 0; }
+  .sp-placeholder li { margin-bottom: 4px; }
+
+  .sp-cta {
+    background: var(--ink); color: var(--paper); border-radius: var(--r2);
+    padding: 40px 34px; text-align: center; margin-top: 20px;
+  }
+  .sp-cta h2 { color: var(--paper); margin-bottom: 10px; }
+  .sp-cta p { color: var(--paper4); max-width: 440px; margin: 0 auto 24px; }
+  .sp-btn {
+    display: inline-block; background: var(--amber); color: #fff;
+    font-weight: 800; font-size: 16px; padding: 14px 28px; border-radius: 50px;
+    text-decoration: none;
+  }
+  .sp-btn:hover { background: var(--amberD); }
+  .sp-cta small { display: block; margin-top: 18px; color: var(--ink4); font-size: 14px; }
+
+  @media (max-width: 560px) {
+    .sp-case { font-size: 16px; }
+    .sp-hero { padding: 44px 20px 32px; }
+    .sp-wrap { padding: 0 20px 64px; }
+  }
+</style>
+</head>
+<body>
+<article class="sp-case">
+
+  <header class="sp-hero">
+    <div class="sp-hero-inner">
+      <p class="sp-eyebrow">Case study · Producto propio</p>
+      <h1>StoryPrints</h1>
+      <p class="sp-tagline">Un cuento infantil personalizado, ilustrado por IA y listo para imprimir y colorear.</p>
+      <dl class="sp-meta">
+        <div><dt>Tipo</dt><dd>Side project — RBT Studio</dd></div>
+        <div><dt>Rol</dt><dd>Producto, diseño y desarrollo full stack</dd></div>
+        <div><dt>Timeline</dt><dd>Marzo 2026 – en curso</dd></div>
+        <div><dt>Equipo</dt><dd>Una persona</dd></div>
+      </dl>
+      <div class="sp-tags">
+        <span class="sp-tag">Next.js 15</span>
+        <span class="sp-tag">TypeScript</span>
+        <span class="sp-tag">Supabase</span>
+        <span class="sp-tag">Claude API</span>
+        <span class="sp-tag">OpenRouter</span>
+        <span class="sp-tag">Redis + BullMQ</span>
+        <span class="sp-tag">pdfkit</span>
+        <span class="sp-tag">Lemon Squeezy</span>
+        <span class="sp-tag">Jest</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="sp-wrap">
+
+    <section>
+      <span class="sp-num">01 — Contexto</span>
+      <h2>El hueco entre una imprenta y una ventana de chat</h2>
+      <p class="sp-lead">Un libro para colorear de tienda es genérico por definición: el protagonista nunca es tu hija.</p>
+      <p>Las alternativas personalizadas que existen son libros impresos por encargo: caros, con semanas de espera y una sola tirada. En el otro extremo, un chat de IA puede escribirte un cuento, pero lo que devuelve es texto en una ventana. No es un libro. No tiene portada, no se imprime, no se colorea, no se queda en la estantería.</p>
+      <p>El hueco estaba en el medio: <strong>un producto que convierta ocho respuestas de un padre en un objeto físico en dos minutos</strong>, por el precio de una suscripción y no de una imprenta.</p>
+      <p>Eso impone tres restricciones que decidieron casi todo el diseño técnico:</p>
+      <ul>
+        <li><strong>El artefacto final es un PDF A4, no una pantalla.</strong> Todo lo que se genera tiene que sobrevivir a una impresora doméstica.</li>
+        <li><strong>El público son niños de 3 a 12 años.</strong> Contenido que no ha vetado nadie no puede llegar a una página impresa.</li>
+        <li><strong>Cada libro cuesta dinero real</strong> en llamadas a modelos. La economía del producto tenía que estar en el código desde el principio, no como una capa añadida después.</li>
+      </ul>
+    </section>
+
+    <section>
+      <span class="sp-num">02 — Proceso</span>
+      <h2>Ocho preguntas, no un prompt</h2>
+      <p>La primera decisión de producto fue <strong>no exponer un campo de texto libre</strong>. Un padre no quiere escribir un prompt; quiere contestar preguntas con su hija al lado. El wizard pregunta nombre, edad, escenario, acompañante, valor de la historia, identidad, extensión y estilo narrativo — y cada respuesta es una tarjeta, no un input.</p>
+
+      <figure class="sp-figure">
+        <div class="sp-row sp-row-3">
+          <img src="assets/paso-1-decide.png" alt="Una madre y un niño sentados a la mesa eligiendo juntos las tarjetas del cuento" />
+          <img src="assets/paso-2-pinta.png" alt="Unas manos coloreando con una cera la página abierta de un cuento" />
+          <img src="assets/paso-3-imprime.png" alt="Una impresora doméstica sacando las páginas del cuento" />
+        </div>
+        <figcaption>Las tres ilustraciones de “Cómo funciona” están dibujadas en la misma tinta negra sobre blanco que el cliente imprime: la web enseña el producto en lugar de dibujar alrededor de él.</figcaption>
+      </figure>
+
+      <p>Ese <code>StoryConfig</code> validado es el único contrato que entra en el pipeline. Nada aguas abajo vuelve a preguntarle nada al navegador.</p>
+
+      <h3>El pipeline de generación</h3>
+      <div class="sp-pipeline">
+<pre>Wizard  →  StoryConfig (validado)
+             │
+             ▼
+   Narrative Engine (Claude)        →  escenas + briefs de ilustración
+             │
+             ▼
+   Content Safety                   →  aprueba / regenera la escena marcada
+             │
+             ▼
+   Illustration Engine (OpenRouter) →  PNG por escena + portada → Storage
+             │
+             ▼
+   Delivery                         →  fila `stories` (texto + config + imágenes)</pre>
+      </div>
+      <p>El PDF <strong>no está en el pipeline</strong>. Se compone bajo demanda desde el cuento ya guardado, para que una generación nunca se bloquee esperando a la maquetación.</p>
+
+      <h3>Una cola, y un cron que la rescata</h3>
+      <p>Las generaciones tardan minutos y cuestan dinero, así que van a una cola (BullMQ sobre Upstash Redis) con progreso hacia el navegador. Se drena por dos vías: en proceso justo después de responder, y un cron cada 5 minutos contra <code>/api/worker</code>. El cron no es redundancia decorativa: es lo único que hace que una cola atascada se arregle sola. Y el endpoint <strong>falla cerrado</strong> si no hay <code>CRON_SECRET</code>, porque cada llamada gasta dinero en modelos.</p>
+
+      <h3>Las ilustraciones no pueden llevar texto</h3>
+      <p>Son páginas para colorear: una letra horneada en el bitmap no se quita, y la página se imprime tal cual. El modelo de imagen se llama por chat completion, sin campo de negative prompt — así que todo viaja dentro del texto: la instrucción se repite de tres formas distintas y el diálogo entrecomillado se elimina de la escena antes de que el modelo la vea. Las comillas son la señal más fuerte para que un modelo de imagen dibuje letras.</p>
+      <div class="sp-note">
+        <p>Es mitigación a nivel de prompt, no una garantía: nada inspecciona la imagen que vuelve. Verificarlo de verdad exigiría un pase de OCR o de visión por ilustración. En la documentación del proyecto está dicho exactamente así.</p>
+      </div>
+
+      <h3>La economía va en el código</h3>
+      <p>Cada imagen se paga en créditos. El plan compra una asignación mensual que caduca al cerrar el periodo — una asignación que se acumula no es una asignación. Y hay un detalle que sólo aparece cuando el producto lleva un mes vivo: durante un tiempo el webhook de suscripción escribía el plan y nada más, así que un suscriptor tenía cero créditos y recibía los mismos dibujos genéricos que el plan gratuito. <code>grantPlanCredits()</code> corre ahora en la creación, la actualización y <strong>cada pago mensual</strong> — idempotente por descripción, porque Lemon Squeezy reintenta los webhooks, con un índice único en Postgres que lo hace cumplir de verdad.</p>
+    </section>
+
+    <section>
+      <span class="sp-num">03 — Solución</span>
+      <h2>De la landing al PDF, construido por una persona</h2>
+
+      <figure class="sp-figure">
+        <img src="assets/spread-lector.png" alt="Doble página del lector: a la izquierda una ilustración a línea negra de dos sirenas y una tortuga; a la derecha el texto de la escena con su diálogo" />
+        <figcaption>Una doble página real: la ilustración a la izquierda para colorear, el texto de la escena y el diálogo a la derecha.</figcaption>
+      </figure>
+
+      <ul>
+        <li><strong>Wizard de creación</strong> de ocho pasos, con subida opcional de una foto del niño para que el personaje se le parezca — con consentimiento explícito, fuera del <code>storyConfig</code> y nunca escrita en la columna <code>config</code> del cuento.</li>
+        <li><strong>Motor narrativo</strong> sobre Claude: escenas ajustadas a la edad, diálogos, moraleja y briefs de ilustración por escena. Extensiones de 6 a 18 páginas, derivadas del número de escenas y nunca escritas a mano.</li>
+        <li><strong>Motor de ilustración</strong> sobre OpenRouter: línea negra sobre blanco, coherente entre escenas, subida a Supabase Storage.</li>
+        <li><strong>Filtro de contenido</strong> que se aplica tanto al texto que devuelve el modelo como al único campo libre del producto (el escenario personalizado de los planes de pago), antes de que ningún modelo lo vea.</li>
+        <li><strong>Lector web en SVG y exportación a PDF</strong> con pdfkit (A4 apaisado): portada, una página por escena, moraleja y página de QR de referido.</li>
+        <li><strong>Cuatro planes</strong> con límites, créditos, series de capítulos, valoraciones y marca de agua — leídos desde una única tabla de límites que los tests mantienen sincronizada con la página de precios.</li>
+        <li><strong>Share card</strong> propia, compuesta en el navegador: no es una página del PDF recortada, sino una composición aparte con portada, título, destinatario y enlace de referido.</li>
+        <li><strong>Panel de admin</strong> y <strong>suscripciones</strong> completas con Lemon Squeezy: checkout, webhooks, portal de cliente y cambios de plan.</li>
+      </ul>
+
+      <figure class="sp-figure">
+        <div class="sp-row sp-row-2">
+          <img src="assets/demo-cover.png" alt="Portada generada por IA: un niño con un cetro junto a un pequeño robot frente a un castillo con dragones, a línea negra sobre blanco" />
+          <img src="assets/demo-scene-3.png" alt="Escena de cuento generada por IA a línea negra sobre blanco" />
+        </div>
+        <figcaption>Ilustraciones reales generadas por el producto.</figcaption>
+      </figure>
+
+      <h3>Dos decisiones de negocio deliberadas</h3>
+      <p><strong>El plan gratuito entrega un libro completo e imprimible.</strong> Retener el PDF dejaría al plan gratis sin nada por lo que juzgar el producto; lo que quita la suscripción es la marca de agua.</p>
+      <p><strong>El primer cuento de cada usuario lleva ilustración de IA de verdad</strong>, sea cual sea su plan. Si no, el único libro por el que un visitante juzga el producto se renderiza con seis SVG genéricos: sin nada de la personalización por la que se le está pidiendo pagar. Un registro cuesta una llamada de imagen. Es publicidad barata.</p>
+    </section>
+
+    <section>
+      <span class="sp-num">04 — Resultados</span>
+      <h2>Construido y desplegado. Todavía sin validar</h2>
+      <p class="sp-lead">No hay métricas de usuarios, conversión ni ingresos que reportar, y prefiero no inventarlas.</p>
+      <p>Lo que sí se puede afirmar hoy:</p>
+
+      <div class="sp-stats">
+        <div class="sp-stat"><b>376</b><span>tests en verde, en 30 suites</span></div>
+        <div class="sp-stat"><b>113</b><span>commits en cinco meses, una persona</span></div>
+        <div class="sp-stat"><b>6–18</b><span>páginas por libro, derivadas nunca escritas</span></div>
+        <div class="sp-stat"><b>5 min</b><span>máximo hasta que el cron rescata una cola atascada</span></div>
+      </div>
+
+      <ul>
+        <li><strong>El circuito completo funciona en producción</strong>: de las ocho respuestas del wizard al PDF descargable, con pagos y suscripciones activas.</li>
+        <li><strong>Los tests cubren lo que rompe caro y en silencio</strong>: límites de plan, créditos y su idempotencia, seguridad de contenido, extensiones de historia, composición del PDF, autenticación del worker, caducidad de sesión y la share card.</li>
+        <li><strong>Los invariantes del negocio están bloqueados por tests, no por disciplina.</strong> La tabla de límites y la página de precios no pueden divergir: hay un test que falla si lo hacen.</li>
+        <li><strong>La cola se autocorrige</strong> en lugar de quedarse colgada hasta que otro usuario la empuje.</li>
+      </ul>
+      <p>Lo que queda por validar es lo importante: si un padre paga 6,99 € al mes por esto.</p>
+
+      <div class="sp-placeholder">
+        <b>Capturas pendientes de insertar aquí:</b>
+        <ul>
+          <li>Landing completa en escritorio (hero + “Cómo funciona” + precios)</li>
+          <li>Un paso del wizard con las tarjetas de selección</li>
+          <li>Pantalla de progreso de generación</li>
+          <li>Dashboard “Mi biblioteca” con varios cuentos</li>
+          <li>PDF abierto en un visor, o foto del libro impreso y coloreado</li>
+        </ul>
+      </div>
+    </section>
+
+    <section>
+      <span class="sp-num">05 — Aprendizajes</span>
+      <h2>Lo que me llevo</h2>
+
+      <div class="sp-learn">
+        <h3>Un flag que ninguna ruta lee no es un límite: es un comentario que lo parece</h3>
+        <p>La tabla de planes existía mucho antes de que las rutas la consultaran. El bug de los créditos —un suscriptor recibiendo los mismos dibujos que el plan gratis— no fue un error de código: fue una configuración que nadie ejecutaba. Ahora cada límite tiene una ruta que lo lee y un test que lo prueba.</p>
+      </div>
+
+      <div class="sp-learn">
+        <h3>Con IA generativa, el fallo silencioso es el caro</h3>
+        <p>Una ilustración con letras horneadas dentro no lanza ninguna excepción: llega al PDF, se imprime, y el cliente la ve. El código que más valor aporta en este producto no es el que llama al modelo, sino el que decide qué se le manda y qué se hace cuando devuelve algo inservible.</p>
+      </div>
+
+      <div class="sp-learn">
+        <h3>Los detalles de impresión no perdonan</h3>
+        <p>pdfkit añade una página en silencio cuando un texto empieza por debajo del margen inferior. Media tarde de depuración para descubrir que un pie de página movido dos puntos duplicaba páginas del libro. Toda la maquetación pasa hoy una altura explícita: el texto se recorta antes que desbordarse.</p>
+      </div>
+
+      <div class="sp-learn">
+        <h3>Lo que haría distinto</h3>
+        <p>Validar la disposición a pagar antes de construir cuatro planes. La arquitectura de suscripción está bien hecha y todavía no sé si el precio es el correcto — es el orden inverso al que recomendaría.</p>
+      </div>
+    </section>
+
+    <section class="sp-cta">
+      <h2>¿Lo probamos?</h2>
+      <p>El primer cuento es gratis y sale completo, con su PDF listo para imprimir.</p>
+      <a class="sp-btn" href="https://storyprints.rbt-studio.com">Ver StoryPrints</a>
+      <small>RBT Studio · ricardboixeda@gmail.com</small>
+    </section>
+
+  </div>
+</article>
+</body>
+</html>

@@ -1,69 +1,114 @@
 ---
 name: rbt.studio
-description: Lienzo crema y tinta sólida — un estudio de Bellas Artes donde la obra generativa manda y la interfaz es el marco.
+description: Prueba de registro — pliego de papel, cuatro tintas de proceso y el código corriendo como primera pasada.
 colors:
-  signal-teal: "#15C1C1"
-  studio-ink: "#151C1C"
-  studio-ink-press: "#0D1414"
-  teal-haze: "#C2CBCB"
-  teal-mist: "#E1E6E6"
-  forest: "#0E4A35"
-  forest-press: "#0A3527"
-  forest-haze: "#C7D6CF"
-  forest-mist: "#E4ECE7"
-  canvas-cream: "#F2EFE6"
-  canvas-deep: "#E8E3D5"
-  canvas-soft: "#F8F5EC"
-  paper: "#FBF9F2"
-  text-ink: "#14140F"
-  text-soft: "#3A3A33"
-  text-mute: "#6E6E64"
-  hairline: "#C9C5B6"
-  terracotta: "#B8651A"
-  burnt-red: "#8E2B1E"
+  press: "#F4F1EA"
+  press-deep: "#FAF8F3"
+  press-raise: "#E7E2D7"
+  press-line: "#DAD4C6"
+  sheet: "#FFFFFF"
+  sheet-deep: "#EAE5DA"
+  sheet-soft: "#FAF8F3"
+  sheet-line: "#E0DACD"
+  ink-magenta: "#D6006F"
+  ink-cyan: "#0079AB"
+  ink-yellow: "#C8A400"
+  ink-key: "#14150F"
+  ink-white: "#FFFFFF"
+  ink-over-cm: "#5B2F78"
+  ink-over-my: "#C4551D"
+  ink-magenta-t: "#C4006B"
+  ink-cyan-t: "#00688F"
+  ink-violet-t: "#5B2F78"
+  ink-orange-t: "#A8460F"
+  ink-yellow-t: "#7D6200"
+  ink-magenta-d: "#C4006B"
+  plate-01: "#C4006B"
+  plate-02: "#0079AB"
+  plate-03: "#7D6200"
+  plate-04: "#5B2F78"
+  plate-05: "#1E7A50"
+  plate-06: "#A8460F"
+  plate-07: "#A81E63"
+  plate-08: "#00688F"
+  plate-09: "#6B7A16"
+  plate-10: "#6D4AA8"
+  plate-11: "#0F6E6A"
+  plate-12: "#8A5A00"
+  on-press: "#14150F"
+  on-press-mid: "#565A50"
+  on-press-low: "#676C61"
+  on-sheet: "#14150F"
+  on-sheet-mid: "#565A50"
+  on-sheet-low: "#676C61"
+  scrim: "rgba(20, 21, 15, 0.55)"
 typography:
   mega:
-    fontFamily: "DM Sans, system-ui, -apple-system, sans-serif"
-    fontSize: "clamp(72px, 11vw, 168px)"
+    fontFamily: "Archivo, system-ui, -apple-system, sans-serif"
+    fontSize: "clamp(64px, 9vw, 132px)"
     fontWeight: 800
-    lineHeight: 0.96
-    letterSpacing: "-0.02em"
+    lineHeight: 0.94
+    letterSpacing: "-0.015em"
   display:
-    fontFamily: "DM Sans, system-ui, -apple-system, sans-serif"
-    fontSize: "clamp(48px, 7vw, 96px)"
+    fontFamily: "Archivo, system-ui, -apple-system, sans-serif"
+    fontSize: "clamp(44px, 6vw, 84px)"
     fontWeight: 800
-    lineHeight: 0.96
-    letterSpacing: "-0.02em"
+    lineHeight: 0.94
+    letterSpacing: "-0.015em"
   headline:
-    fontFamily: "DM Sans, system-ui, -apple-system, sans-serif"
-    fontSize: "clamp(36px, 4.5vw, 64px)"
-    fontWeight: 800
+    fontFamily: "Archivo, system-ui, -apple-system, sans-serif"
+    fontSize: "clamp(34px, 4.2vw, 58px)"
+    fontWeight: 700
     lineHeight: 1.1
-    letterSpacing: "-0.02em"
+    letterSpacing: "-0.015em"
   title:
-    fontFamily: "DM Sans, system-ui, -apple-system, sans-serif"
-    fontSize: "clamp(28px, 3vw, 44px)"
+    fontFamily: "Archivo, system-ui, -apple-system, sans-serif"
+    fontSize: "clamp(26px, 2.8vw, 40px)"
     fontWeight: 700
     lineHeight: 1.1
     letterSpacing: "normal"
+  subtitle:
+    fontFamily: "Archivo, system-ui, -apple-system, sans-serif"
+    fontSize: "22px"
+    fontWeight: 600
+    lineHeight: 1.1
+    letterSpacing: "normal"
+  block-title:
+    fontFamily: "Archivo, system-ui, -apple-system, sans-serif"
+    fontSize: "18px"
+    fontWeight: 600
+    lineHeight: 1.1
+    letterSpacing: "normal"
   body:
-    fontFamily: "DM Sans, system-ui, -apple-system, sans-serif"
+    fontFamily: "Archivo, system-ui, -apple-system, sans-serif"
     fontSize: "16px"
     fontWeight: 400
     lineHeight: 1.55
     letterSpacing: "normal"
+  small:
+    fontFamily: "Archivo, system-ui, -apple-system, sans-serif"
+    fontSize: "14px"
+    fontWeight: 400
+    lineHeight: 1.55
+    letterSpacing: "normal"
+  micro:
+    fontFamily: "Spline Sans Mono, ui-monospace, monospace"
+    fontSize: "12px"
+    fontWeight: 500
+    lineHeight: 1
+    letterSpacing: "0.1em"
   label:
-    fontFamily: "JetBrains Mono, ui-monospace, monospace"
+    fontFamily: "Spline Sans Mono, ui-monospace, monospace"
     fontSize: "11px"
     fontWeight: 500
     lineHeight: 1
     letterSpacing: "0.18em"
   wordmark:
-    fontFamily: "DM Serif Display, Roboto Slab, Georgia, serif"
+    fontFamily: "Archivo, system-ui, sans-serif"
     fontSize: "22px"
-    fontWeight: 800
+    fontWeight: 900
     lineHeight: 1
-    letterSpacing: "-0.02em"
+    letterSpacing: "-0.04em"
 rounded:
   none: "0px"
   pill: "999px"
@@ -80,237 +125,380 @@ spacing:
   s10: "128px"
 components:
   button-primary:
-    backgroundColor: "{colors.studio-ink}"
-    textColor: "{colors.canvas-cream}"
+    backgroundColor: "{colors.ink-magenta}"
+    textColor: "{colors.ink-white}"
     rounded: "{rounded.none}"
     padding: "14px 22px"
   button-primary-hover:
-    backgroundColor: "{colors.studio-ink-press}"
-    textColor: "{colors.canvas-cream}"
+    backgroundColor: "{colors.ink-over-my}"
+    textColor: "{colors.ink-white}"
   button-ghost:
     backgroundColor: "transparent"
-    textColor: "{colors.studio-ink}"
+    textColor: "{colors.on-press}"
     rounded: "{rounded.none}"
     padding: "14px 22px"
   button-ghost-hover:
-    backgroundColor: "{colors.studio-ink}"
-    textColor: "{colors.canvas-cream}"
+    backgroundColor: "transparent"
+    textColor: "{colors.ink-magenta}"
+  button-sheet:
+    backgroundColor: "{colors.ink-key}"
+    textColor: "{colors.sheet}"
+    rounded: "{rounded.none}"
+    padding: "14px 22px"
   tag:
     backgroundColor: "transparent"
-    textColor: "{colors.studio-ink}"
+    textColor: "{colors.on-press-mid}"
     rounded: "{rounded.none}"
-    padding: "4px 10px"
-  tag-solid:
-    backgroundColor: "{colors.studio-ink}"
-    textColor: "{colors.canvas-cream}"
-  tag-ghost:
-    backgroundColor: "transparent"
-    textColor: "{colors.text-mute}"
-  card:
-    backgroundColor: "{colors.paper}"
-    textColor: "{colors.text-ink}"
+    padding: "4px 9px"
+  sheet:
+    backgroundColor: "{colors.sheet}"
+    textColor: "{colors.on-sheet}"
     rounded: "{rounded.none}"
     padding: "24px"
   input:
-    backgroundColor: "{colors.paper}"
-    textColor: "{colors.text-ink}"
+    backgroundColor: "{colors.sheet-soft}"
+    textColor: "{colors.on-sheet}"
     rounded: "{rounded.none}"
     padding: "12px 14px"
-  stat:
-    backgroundColor: "{colors.paper}"
-    textColor: "{colors.signal-teal}"
+  ink-row:
+    backgroundColor: "transparent"
+    textColor: "{colors.on-press}"
     rounded: "{rounded.none}"
-    padding: "24px"
+    padding: "32px 16px"
+  ink-row-hover:
+    backgroundColor: "{colors.sheet}"
+    textColor: "{colors.on-sheet}"
+  separation-card:
+    backgroundColor: "{colors.sheet}"
+    textColor: "{colors.on-press}"
+    rounded: "{rounded.none}"
+    padding: "20px"
+  case-frame:
+    backgroundColor: "{colors.sheet}"
+    textColor: "{colors.on-sheet-mid}"
+    rounded: "{rounded.none}"
+    padding: "32px 0 32px 26px"
 ---
 
 # Design System: rbt.studio
 
 ## Overview
 
-**Creative North Star: "El estudio de Bellas Artes"**
+**Creative North Star: "La prueba de registro"**
 
-Este sistema trata la pantalla como un estudio de artista, no como una aplicación. El lienzo es papel crema (`#F2EFE6`), no blanco de pantalla: un fondo que ya tiene temperatura antes de que se dibuje nada encima. Sobre él actúan dos materiales, y solo dos — tinta sólida y trazo generativo. La tinta construye la estructura: hairlines, bloques, tipografía con peso. El trazo, verde bosque sobre el lienzo, es código que se ejecuta en vivo (campos de partículas en p5.js, geometría paramétrica, R3F). La obra va delante; el marco se retira.
+El sitio es una prueba de registro: un pliego de papel componiéndose
+pasada a pasada.
 
-De ahí sale la decisión material que define todo lo demás: **cero desenfoque en ninguna parte**. Las superficies son planas en reposo y, al tocarlas, se desplazan dejando una sombra sólida sin difuminar — la huella que deja un bloque de tinta al presionarse contra el papel. No hay elevación atmosférica, ni glassmorphism, ni degradados de superficie. Un elemento o está apoyado en el lienzo o se ha movido; no flota en un punto intermedio. Cero radio de esquina en todo el sistema refuerza lo mismo: los bordes son cortes, no curvas.
+El fondo es el papel — un blanco cálido de stock de impresión, con
+temperatura antes de que se imprima nada encima. Sobre él van las cuatro
+tintas de proceso: magenta, cian, amarillo y la plancha de negro. Lo que hay
+que leer entero sale en su propia hoja, más blanca que el pliego.
 
-La voz tipográfica es doble y estrictamente dividida. DM Sans en peso 800 carga todo lo expresivo, apretado con tracking negativo (`-0.02em`) hasta que los titulares se vuelven bloques compactos. JetBrains Mono se reserva para la anotación: numeración de sección, etiquetas, tecnologías, cifras. La distancia entre ambas —una densa y editorial, otra espaciada a `0.18em` y en mayúsculas— es lo que hace que la página se lea como un documento de trabajo con criterio y no como una plantilla. El acento cian (`#15C1C1`) aparece solo en esa capa de anotación: nunca en un titular, nunca como fondo grande.
+El sitio es deliberadamente escaso: papel, una regla de 1 px, tipografía y
+tinta. Ningún elemento decorativo entra si no lo pide el contenido.
 
-**Key Characteristics:**
-- Lienzo crema (`#F2EFE6`) en lugar de blanco — el fondo tiene temperatura
-- Cian de señal (`#15C1C1`) como único acento de marca, siempre en la capa de anotación
-- Sombra dura desplazada (`4px 4px 0`) sin desenfoque — la única forma de profundidad
-- Cero border-radius en todo el sistema, salvo la variante `pill` explícita de las etiquetas
-- DM Sans 800 con tracking negativo para lo expresivo; JetBrains Mono `0.18em` mayúsculas para lo anotado
-- Hairlines de 1px (`#C9C5B6`) como estructura — sin cajas pesadas ni separadores gruesos
-- Piezas generativas ejecutándose en vivo como contenido, no como decoración de fondo
-- Escala tipográfica fluida con `clamp()` — el tipo respira con el viewport, el espaciado no
+La tesis: **el código corriendo se ve por lo que es** — una tirada
+componiéndose. En el primer viewport no hay titular gigante; hay la pieza
+generativa imprimiéndose en tres pasadas ligeramente desalineadas, cuatro
+cruces de registro en las esquinas y `rbt.` abajo a la izquierda, como el
+cajetín de un taller. Nada más.
+
+El desalineado no es un efecto: es el estado de reposo del sistema. Con el
+cursor lejos, las separaciones están abiertas; al acercarse, registran. Todo
+ese movimiento sale de una sola variable, `--reg`, que va de 1 a 0.
+
+El contrato de dirección completo vive como comentario HTML al principio de
+`<body>`, en `index.html`.
 
 ## Colors
 
-Una paleta de papel y tinta con un solo grito: tierras cálidas para las superficies, casi-negros fríos para la estructura, y un cian eléctrico que solo aparece donde el sistema quiere que mires.
+Cuatro tintas y un papel. Nada más entra en la paleta.
 
-### Primary
-- **Cian de Señal** (`#15C1C1`): El único acento de marca. Vive exclusivamente en la capa de anotación — numeración de sección (`05 / 05 · GALERÍA VISUAL`), eyebrows en mono, cifras de métrica, nodos destacados de un pipeline, estado de foco. Nunca es fondo de un bloque grande ni color de un titular. Su escasez es lo que le da autoridad.
+### Primary — las tintas de proceso
 
-### Secondary
-- **Tinta de Estudio** (`#151C1C`): El casi-negro estructural, un verde-azul tan oscuro que se lee como negro pero nunca es plano. Fondo de botón primario, borde de tarjeta activa, color de la sombra sólida, barra de scroll. Es el material, no el acento.
-- **Tinta Presionada** (`#0D1414`): Estado `:hover` y `:active` del botón primario, fondo de los contenedores de vídeo. El mismo material bajo presión.
+- `--ink-magenta` `#D6006F` — la tinta de la acción. Botones, la cuarta
+  pasada (contacto), el pulgar de la barra de scroll, el foco.
+- `--ink-cyan` `#0079AB` — la tinta del sistema. Números de pasada, bordes
+  activos, la primera plancha.
+- `--ink-yellow` `#C8A400` — la tinta de la materia. Cobertura de la carta
+  de tintas, la pila de trabajos, los parches del pie.
+- `--ink-key` `#14150F` — la plancha de negro. Es el texto del sitio.
+- `--ink-white` `#FFFFFF` — en serigrafía el blanco es una tinta más: la que
+  se imprime encima de todo. Aquí sólo escribe sobre bloques de tinta llena.
 
-### Tertiary
-- **Verde Bosque** (`#0E4A35`): El trazo generativo. Color de las partículas de p5.js y del line-art sobre el lienzo. Es un color de dibujo, no de interfaz — casi nunca aparece como fondo o texto.
-- **Gradiente de Marca** (`linear-gradient(180deg, #0E4A35 0%, #15C1C1 74.04%)`): La única transición de color del sistema, del bosque a la señal. Reservada para superficies de marca; no se usa en texto ni en botones.
+### Secondary — sobreimpresiones
 
-### Neutral
-- **Lienzo Crema** (`#F2EFE6`): El fondo por defecto de todo el sitio. No es blanco roto: es papel.
-- **Lienzo Suave** (`#F8F5EC`): Sección elevada sobre el lienzo — el cambio es casi imperceptible y esa es la intención.
-- **Papel** (`#FBF9F2`): La superficie más clara, para tarjetas y bloques que se apoyan sobre el lienzo.
-- **Lienzo Profundo** (`#E8E3D5`): Canto de tarjeta y divisor entre bloques de la misma familia.
-- **Tinta de Texto** (`#14140F`): Todo el texto de lectura. Negro cálido, no `#000`.
-- **Tinta Suave** (`#3A3A33`): Párrafos secundarios y cuerpo largo.
-- **Tinta Apagada** (`#6E6E64`): Etiquetas, metadatos, texto terciario.
-- **Hairline** (`#C9C5B6`): Toda la estructura de líneas a 1px. La retícula del sistema.
-- **Bruma Teal** (`#C2CBCB`) y **Neblina Teal** (`#E1E6E6`): Tintes de la tinta de estudio para superficies teñidas muy sutiles.
+- `--ink-over-cm` `#5B2F78` — cian sobre magenta.
+- `--ink-over-my` `#C4551D` — magenta sobre amarillo; el hover del botón.
 
-### Semantic
-- **Terracota** (`#B8651A`): Advertencia. Borde izquierdo de `.alert--warn`.
-- **Rojo Quemado** (`#8E2B1E`): Destructivo o error. Borde izquierdo de `.alert--err`.
+Existen porque dos tintas encima dan una tercera. No se inventan colores
+fuera de esa lógica.
+
+### Tertiary — las tintas que escriben
+
+Una tinta plana no siempre se puede leer. Sobre papel no se rebaja: se
+carga. Estas variantes existen para eso y sólo para eso:
+
+- `--ink-magenta-t` `#C4006B`, `--ink-cyan-t` `#00688F`,
+  `--ink-violet-t` `#5B2F78`, `--ink-orange-t` `#A8460F`,
+  `--ink-yellow-t` `#7D6200` — todas ≥ 4.5:1 sobre `--press`.
+- El amarillo es el caso claro: como tinta plana pinta bien, pero para
+  escribir hay que cargarlo hasta ocre.
+- `--ink-magenta-d` es el mismo valor que `--ink-magenta-t`: sobre papel, la
+  tinta que escribe es una sola.
+
+### Las doce planchas
+
+Cada caso de estudio es una separación y lleva su propia tinta, fijada en
+`src/data/caseStudies.js` como `color`. Es un juego cerrado de doce, todas
+derivadas de las cuatro de proceso y sus mezclas, y todas legibles (≥ 4.7:1)
+sobre el papel donde aparecen como número:
+
+`plate-01 #C4006B` · `plate-02 #0079AB` · `plate-03 #7D6200` ·
+`plate-04 #5B2F78` · `plate-05 #1E7A50` · `plate-06 #A8460F` ·
+`plate-07 #A81E63` · `plate-08 #00688F` · `plate-09 #6B7A16` ·
+`plate-10 #6D4AA8` · `plate-11 #0F6E6A` · `plate-12 #8A5A00`
+
+Una plancha nueva sólo entra si entra un caso nuevo.
+
+### Neutral — el pliego y la hoja
+
+- `--press` `#F4F1EA` — el pliego. Fondo de todo el sitio.
+- `--press-deep` `#FAF8F3` — hoja recién puesta encima del pliego.
+- `--press-raise` `#E7E2D7` — canto de hoja, hueco de portada.
+- `--press-line` `#DAD4C6` — hairline sobre el pliego.
+- `--sheet` `#FFFFFF`, `--sheet-soft` `#FAF8F3`, `--sheet-deep` `#EAE5DA`,
+  `--sheet-line` `#E0DACD` — la hoja aparte y sus cantos.
+
+Texto: `--on-press` / `--on-press-mid` / `--on-press-low` sobre el pliego;
+`--on-sheet` / `--on-sheet-mid` / `--on-sheet-low` sobre la hoja. Todos los
+pares de texto del sistema pasan AA (≥ 4.5:1).
 
 ### Named Rules
 
-**La Regla de la Señal Única.** El cian `#15C1C1` es el único acento del sistema y vive solo en la capa de anotación: mono, mayúsculas, tamaño pequeño, cifras. En cuanto aparece en un titular, en un fondo amplio o en un segundo tono de acento, deja de significar «mira aquí» y el sistema pierde su único mecanismo de énfasis.
-
-**La Regla del Papel.** Ninguna superficie es `#FFFFFF` y ningún texto es `#000000`. Las cuatro superficies (`canvas-cream`, `canvas-soft`, `paper`, `canvas-deep`) están todas en la familia del papel, y la separación entre ellas es deliberadamente sutil: la jerarquía la construyen los hairlines y el espaciado, no el contraste de fondo.
+- **La Regla de la Tinta Plana.** Una tinta de proceso pinta: rellena chips,
+  franjas, barras y bordes. Cuando tiene que llevar texto se cambia por su
+  variante `-t`. Ninguna tinta plana escribe.
+- **La Regla de las Cuatro.** El sistema tiene cuatro tintas y dos
+  sobreimpresiones. Un color nuevo sólo entra si es una tinta de proceso o
+  la mezcla de dos que ya están.
+- **La Regla de la Hoja Aparte.** La hoja blanca no decora: aparece donde hay
+  que leer seguido — la ficha del estudio, el lector de casos, las tarjetas,
+  el formulario y la línea de servicio que se está imprimiendo.
+- **La Regla del Vacío.** El pliego se deja en blanco. Nada de texturas de
+  fondo, marcas sueltas ni relleno: lo único que se ve sobre el papel es lo
+  que se ha impreso.
 
 ## Typography
 
-**Display Font:** DM Sans (fallback: system-ui, -apple-system, sans-serif)
-**Body Font:** DM Sans — la misma familia; la jerarquía es de peso y tracking, no de familia
-**Label/Mono Font:** JetBrains Mono (fallback: ui-monospace, monospace)
-**Wordmark Font:** DM Serif Display (fallback: Roboto Slab, Georgia, serif) — exclusiva de la marca `rbt`
+Dos familias, ninguna de ellas la que se espera de un portfolio:
 
-**Character:** DM Sans en 800 comprimido con tracking negativo produce titulares densos, casi arquitectónicos: bloques de texto que pesan. JetBrains Mono hace lo contrario — se abre a `0.18em`, sube a mayúsculas y se queda en 11px. La tensión entre esas dos densidades es la firma tipográfica del sistema: lo dicho es compacto, lo anotado es espaciado.
+- **Archivo** (variable, eje `wdth` 62–125) para todo lo estructural. El eje
+  de ancho *es* la escala de densidad: los titulares van expandidos
+  (`wdth 118`), el texto corriente a 100.
+- **Spline Sans Mono** para todo lo que en un taller sería un dato anotado
+  en el margen: números de pasada, separaciones, coberturas, etiquetas.
 
 ### Hierarchy
-- **Mega** (800, `clamp(72px, 11vw, 168px)`, line-height 0.96, tracking -0.02em): Declaración de hero. Un solo uso por página.
-- **Display** (800, `clamp(48px, 7vw, 96px)`, line-height 0.96, tracking -0.02em): Apertura de sección mayor.
-- **Headline** (800, `clamp(36px, 4.5vw, 64px)`, line-height 1.1, tracking -0.02em): Titular de sección y de caso de estudio.
-- **Title** (700, `clamp(28px, 3vw, 44px)`, line-height 1.1): Subsección y titular de bloque.
-- **Body** (400, 16px, line-height 1.55): Todo el texto de lectura. Ancho máximo 820px (~70ch) — respetado en About y Statement.
-- **Small** (400, 14px, line-height 1.55): Descripciones de tarjeta y texto de apoyo.
-- **Label** (500, 11px, tracking `0.18em`, MAYÚSCULAS, JetBrains Mono): Eyebrows, numeración de sección, tecnologías, metadatos. La capa de anotación completa.
-- **Wordmark** (800, 22px, DM Serif Display, tracking -0.02em): Solo `rbt`. Variantes a 40px y 16px.
+
+| Rol | Tamaño | Peso | Familia |
+| --- | --- | --- | --- |
+| mega | clamp(64px, 9vw, 132px) | 800 | Archivo `wdth 118`, mayúsculas |
+| display | clamp(44px, 6vw, 84px) | 800 | Archivo `wdth 118` |
+| headline (`t-h1`) | clamp(34px, 4.2vw, 58px) | 700 | Archivo `wdth 118` |
+| title (`t-h2`) | clamp(26px, 2.8vw, 40px) | 700 | Archivo `wdth 108` |
+| subtitle (`t-h3`) | 22px | 600 | Archivo |
+| block-title | 18px | 600 | Archivo |
+| body | 16px / 1.55 | 400 | Archivo |
+| small | 14px / 1.55 | 400 | Archivo |
+| micro (`t-num`) | 12px | 500 | Spline Sans Mono, tabular |
+| label (`t-label`) | 11px, `0.18em`, mayúsculas | 500 | Spline Sans Mono |
+| wordmark | 22 / 44 / 16px | 900 | Archivo `wdth 118`, minúsculas |
+
+Los botones se mueven dentro de esa rampa: `sm` a 12px, base a 14px,
+`lg` a 16px.
 
 ### Named Rules
 
-**La Regla de la Anotación.** Todo lo que no sea contenido de lectura —número de sección, eyebrow, tecnología, cifra, estado, ruta de archivo— va en JetBrains Mono, mayúsculas, `0.18em` de tracking. Y a la inversa: nada de lo que sea contenido de lectura va en mono. La familia es lo que le dice al ojo si algo es la obra o es la etiqueta de la obra.
-
-**La Regla del Tracking Opuesto.** El texto grande se aprieta (`-0.02em`), el texto pequeño se abre (`0.18em`). Un titular con tracking positivo o una etiqueta con tracking neutro rompen la firma inmediatamente.
+- **El Ancho es Densidad.** Cuanto más importa una línea, más ancha va la
+  letra. El eje `wdth` sustituye a la costumbre de subir el peso.
+- **Dos Voces.** Archivo dice lo que el sitio afirma; Spline Sans Mono dice
+  lo que el taller mide. Un dato nunca va en Archivo, y una afirmación nunca
+  va en mono.
+- **El Cajetín en Minúscula.** El wordmark es `rbt.` en minúsculas, siempre.
+  Nunca `RBT.`, nunca sin punto.
 
 ## Layout
 
-El modelo espacial es una escala de 10 pasos (`4 · 8 · 12 · 16 · 24 · 32 · 48 · 64 · 96 · 128px`) sobre un contenedor máximo de 1280px, con la galería ampliada a 1400px porque las tarjetas de proyecto necesitan el aire. El gutter por defecto son 24px, escalando a `px-6 / md:px-12 / lg:px-16 / xl:px-24` en las secciones principales.
+Contenedor de 1280 px (1400 px donde hay rejilla de material). Márgenes de
+24 px en móvil, 48 px en tablet, 64 px en desktop.
 
-La página es un scroll narrativo de una sola columna: Hero → Marquee → Statement → Services → ProjectGallery → Artistic → Generativos → About → Contact → Footer. Cada sección abre con el patrón `.section-open`: una retícula de `80px 1fr` donde la columna estrecha lleva el número en mono y la ancha el titular, cerrada por debajo con un hairline en tinta de estudio. Ese patrón es el metrónomo del documento — es lo que hace que un scroll largo se lea como un índice y no como una sucesión de bloques.
+Escala de espaciado de 4 px: 4 · 8 · 12 · 16 · 24 · 32 · 48 · 64 · 96 · 128.
 
-Las retículas de contenido son auto-ajustables antes que fijas: la galería usa `repeat(auto-fill, minmax(300px, 1fr))` con 32px de gap, y los bloques de tres columnas colapsan a una en móvil. Las secciones respiran con `py-16` en móvil y hasta `py-32` en desktop; el ritmo vertical crece con el viewport, pero el espaciado horizontal entre elementos se mantiene constante — el sistema escala el aire, no la densidad.
+El sitio se recorre como una hoja: cada sección es **otra pasada** sobre el
+mismo pliego, abierta por `pass-open` — número de pasada en el margen
+izquierdo (columna de 88 px), titular a la derecha, y una regla de 1 px
+cerrando por abajo.
 
-El modal de caso de estudio ocupa el 60% del viewport anclado a la derecha, con barra superior sticky. Bajo 900px sus retículas internas colapsan a columna única.
+### Breakpoints
+
+- `≤ 420px` — galerías a una columna.
+- `≤ 760px` — `pass-open` se apila; el lector de casos pasa de cajón lateral
+  a hoja completa; la tubería de proceso rueda en su propio carril.
+- `≤ 1024px` — la carta de tintas colapsa a dos columnas; el lector ocupa
+  82vw.
+- `≥ 1025px` — rejilla completa y márgenes de separación visibles.
+
+### Named Rules
+
+- **Una Pasada, una Sección.** Toda sección se abre con `pass-open` y su
+  número `NN/06`. No hay dos aperturas distintas compitiendo.
+- **El Margen Calla.** El margen del pliego se queda vacío salvo por las
+  cuatro cruces de registro del primer viewport. Un dato sólo entra en el
+  margen si es el número de pasada.
 
 ## Elevation & Depth
 
-**Este sistema no usa sombras difusas. En ningún sitio.** La profundidad es un desplazamiento físico: el elemento se mueve `-2px, -2px` y aparece detrás una sombra sólida sin blur, del mismo tamaño del desplazamiento. Es la mecánica de un sello presionado contra papel — hay dos planos, el papel y el bloque, y nada entre medias. No existe elevación ambiental ni jerarquía de capas por difuminado.
+No hay sombras. Una impresión no proyecta sombras suaves: hay tinta sobre
+papel y, como mucho, una hoja encima de otra.
 
-La estructura, cuando no hay interacción, la construyen los hairlines de 1px y el cambio mínimo entre las cuatro superficies de papel. Un bloque en reposo es absolutamente plano.
+La profundidad la dan dos cosas: el hairline de 1 px y el escalón de blanco
+(la hoja `--sheet` sobre el pliego `--press`).
 
 ### Shadow Vocabulary
-- **Huella de tarjeta** (`box-shadow: 4px 4px 0 var(--rbt-teal)` + `transform: translate(-2px, -2px)`): Hover de tarjeta y de miniatura de proyecto. La sombra dobla el desplazamiento, lo que exagera la sensación de bloque levantado.
-- **Huella de botón** (`box-shadow: 3px 3px 0 var(--rbt-ink)` + `transform: translate(-1px, -1px)`): Hover de botón. Escala menor para un elemento menor.
-- **Presionado** (`box-shadow: none` + `transform: translate(0, 0)`): Estado `:active`. El bloque vuelve a apoyarse en el papel — el clic es literalmente presionar.
+
+Ninguno. `box-shadow` no se usa en este sistema.
 
 ### Named Rules
 
-**La Regla del Cero Desenfoque.** Ningún `box-shadow` de este sistema lleva blur ni spread. La sintaxis es siempre `Npx Npx 0 <color>`. Un `rgba(0,0,0,0.1) 0 4px 12px` es material de otro sistema y contradice la premisa entera: aquí no hay atmósfera, hay papel y tinta.
-
-**La Regla del Plano en Reposo.** Ninguna superficie lleva sombra por defecto. La sombra es exclusivamente una respuesta a `:hover`. Una tarjeta con sombra permanente convierte la firma en decoración.
+- **Sin Sombra, con Canto.** Lo que en otro sistema sería una sombra, aquí
+  es un borde de 1 px o un escalón de blanco.
+- **El Levantamiento es de 3 px.** Las tarjetas que responden al cursor
+  suben `translateY(-3px)` y cambian el borde a su tinta. Nada escala ni
+  gira.
 
 ## Shapes
 
-Cero radio de esquina en todo el sistema (`--radius: 0px`): botones, tarjetas, inputs, etiquetas, contenedores de vídeo y modales tienen esquinas cortadas a escuadra. La única excepción es la variante explícita `.tag--pill` (`999px`), reservada para etiquetas que necesitan leerse como token flotante y no como bloque.
+Radio 0 en todo. Una hoja cortada a guillotina no tiene esquinas redondas.
 
-Los bordes son de dos grosores y nada más: **1px** para hairlines estructurales (`#C9C5B6` sobre lienzo) y **1.5px** para elementos interactivos (botones e inputs), lo justo para que el elemento accionable se distinga del divisor sin usar color. No existe un tercer grosor: cuando un elemento necesita comunicar estado —una alerta, un bloque destacado— el color viaja en el marco completo a 1px, nunca en una barra lateral gruesa.
-
-La geometría recurrente es rectangular y ortogonal en la interfaz — y deliberadamente lo contrario en el lienzo generativo, donde conviven círculos, hexágonos, estrellas y cuadrados rotados en trazo de 1.5px sin relleno. El contraste es intencionado: el marco es recto, la obra no.
+Las únicas curvas del sistema son las que trae el oficio: el anillo interior
+de la cruz de registro y el punto de la trama de medio tono.
 
 ### Named Rules
 
-**La Regla de la Escuadra.** El radio por defecto es `0`. Añadir esquinas redondeadas a un componente nuevo lo saca del sistema, por muy pequeño que sea el radio. Si algo necesita leerse como flotante, la respuesta es `pill` completo, nunca un `8px` intermedio.
+- **Cero Radio.** `--radius: 0px`. La única excepción viva es el anillo de
+  la cruz de registro, que es una marca de imprenta, no un contenedor.
+- **El Pliego es Liso.** El fondo no lleva textura de ningún tipo. Existe
+  `.halftone` para tramar un bloque de tinta llena, pero el papel se queda
+  como está. Nunca ruido, nunca cuadrícula, nunca degradado de adorno.
 
 ## Components
 
+Los primitivos del mundo viven en `src/components/Press.jsx`; los tokens en
+`src/styles/index.css`.
+
 ### Buttons
-- **Shape:** Esquinas a escuadra (`0px`), borde de 1.5px.
-- **Primary:** Fondo tinta de estudio (`#151C1C`), texto crema (`#F2EFE6`), padding `14px 22px`, DM Sans 600 a 13px, MAYÚSCULAS con tracking `0.18em`.
-- **Hover / Focus:** Fondo a tinta presionada (`#0D1414`), `transform: translate(-1px, -1px)` y huella sólida `3px 3px 0` en tinta de texto. Transición 180ms con `cubic-bezier(0.2, 0.7, 0.1, 1)`.
-- **Active:** Vuelve a `translate(0,0)` y pierde la sombra — el bloque se apoya.
-- **Ghost:** Fondo transparente con texto y borde en tinta de estudio; al hover invierte a sólido y gana la huella.
-- **Ink:** Fondo en tinta de texto (`#14140F`); al hover vira a tinta de estudio. Para superficies donde el primario compite.
-- **Tamaños:** `sm` (`10px 16px`, 11px) y `lg` (`18px 28px`, 14px).
+
+- **Primario** — bloque de magenta, tinta blanca encima, 14×22, mayúsculas
+  en mono. Hover: sobreimpresión naranja y `translate(-1px, -1px)`.
+- **Ghost** — transparente con borde de pliego; el hover pasa borde y texto
+  a magenta.
+- **Sheet** — negro de plancha; es el botón del formulario.
 
 ### Chips
-- **Style:** Borde de 1px en tinta de estudio, fondo transparente, JetBrains Mono a 12px, padding `4px 10px`, sin ajuste de línea.
-- **Variants:** `solid` (fondo tinta, texto crema), `ghost` (borde hairline, texto apagado — para tecnologías secundarias), `pill` (radio 999px).
+
+Marco de 1 px, mono de 12 px, sin relleno. Variantes `--sheet`, `--cyan` y
+`--magenta` para cuando la etiqueta debe declarar su tinta.
 
 ### Cards / Containers
-- **Corner Style:** Escuadra (`0px`).
-- **Background:** Papel (`#FBF9F2`) sobre lienzo crema.
-- **Border:** Hairline de 1px (`#C9C5B6`); al hover vira a tinta de estudio.
-- **Shadow Strategy:** Plana en reposo; al hover, `translate(-2px,-2px)` + huella `4px 4px 0`. Ver Elevation & Depth.
-- **Internal Padding:** 24px (`s5`); 20px en las tarjetas de la galería.
-- **Anatomía:** número en mono cian → título 22px/700 → descripción 14px en tinta suave → fila de etiquetas.
+
+Tarjeta de separación (`case-card`, `work-card`): hoja blanca sobre el
+pliego, hairline de 1 px, portada 16:10 y una franja de 4 px con la tinta de
+esa plancha al pie de la portada.
 
 ### Alerts
-- **Style:** Marco completo de 1px en el color del estado sobre fondo papel, radio 0. El estado se comunica con el color del borde entero.
-- **Variants:** `ok` (tinta de estudio), `warn` (terracota `#B8651A`), `err` (rojo quemado `#8E2B1E`), `info` (tinta de texto).
-- **Prohibido:** la barra lateral de color gruesa (`border-left: 3px`). Es el tell más reconocible de interfaz generada y no pertenece a este sistema.
+
+El estado lo lleva el marco completo a 1 px, nunca una barra lateral.
 
 ### Inputs / Fields
-- **Style:** Borde de 1.5px en hairline, fondo papel, radio 0, padding `12px 14px`, DM Sans 14px.
-- **Focus:** El borde vira a tinta de estudio; `outline: none` (el borde ES el indicador de foco).
-- **Label:** JetBrains Mono 11px, MAYÚSCULAS, tracking `0.18em`, en tinta apagada, 6px por encima del campo.
+
+Fondo `--sheet-soft`, borde `--sheet-line`, foco en magenta. Etiqueta en
+mono, mayúsculas, `--on-sheet-low`.
 
 ### Navigation
-- Barra superior sobre el lienzo, con la marca `rbt` en DM Serif Display 22px a la izquierda.
-- Enlaces en DM Sans con tratamiento de etiqueta; el ancla activa se marca con el cian de señal.
-- En móvil colapsa a menú; el scroll de la página es `smooth` y las secciones tienen anclas (`#projects`, `#about`).
 
-### Section Opener (signature)
-El componente que marca el ritmo del documento. Retícula de `80px 1fr` alineada a la base: en la columna estrecha, el número de sección en JetBrains Mono 14px cian; en la ancha, el titular en DM Sans 800 y debajo un subtítulo en mono apagado. El bloque cierra con un hairline en tinta de estudio (`--hairline-d`) y respira `96px` por arriba y `32px` por abajo. Es el elemento que convierte un scroll largo en un índice legible.
+Barra fija transparente que sólo se pinta (`rgba(244,241,234,0.92)` + blur)
+cuando el pliego ya ha empezado a correr por debajo. Menú móvil a pliego
+completo.
 
-### Stat Block (signature)
-Bloque de métrica: etiqueta en mono 11px apagada arriba, cifra en DM Sans 800 a 40px con tracking `-0.02em` en cian de señal debajo. Sobre papel con hairline. Aparece en tríos dentro de los casos de estudio, separado por 1px de hairline en lugar de por espacio.
+### Registration Marks (signature)
+
+`RegisterMarks` pone cuatro cruces en las esquinas del pliego. Las de arriba
+caen por debajo de la barra de navegación: una cruz nunca comparte sitio con
+un control.
+
+### Misregistration (signature)
+
+`Misreg` imprime el mismo texto tres veces — cian, magenta y negro, en
+`mix-blend-mode: multiply`, porque sobre papel la tinta es sustractiva. Sólo
+la pasada de negro es contenido; las otras dos van `aria-hidden`.
+
+Se reserva al wordmark `rbt.` y a la pieza del hero. En un titular grande el
+desalineado deja de leerse como imprenta y empieza a parecer una sombra: por
+eso las aperturas de pasada van en tinta plana.
+
+El desplazamiento sale de `--reg`, que baja de 1 a 0 con la proximidad del
+cursor (`useRegistration`, en `src/lib/registration.js`). Sin puntero fino o
+con `prefers-reduced-motion`, `--reg` se queda quieto y la pieza se lee como
+lo que es: una prueba sin registrar.
+
+### Ink Chart (signature)
+
+Los servicios son las líneas de una carta de tintas: chip de tinta, número,
+nombre de la tinta, descripción y barra de cobertura. Al pasar por encima la
+línea **se imprime**: sale en su propia hoja blanca sobre el pliego.
+
+### Case Study Reader (signature)
+
+Cajón lateral de papel (62vw / máx. 900 px) que se abre desde la derecha.
+Dentro, el caso se lee por fotogramas: `F.01 Contexto → F.02 Proceso →
+F.03 Solución → F.04 Resultados → F.05 Aprendizajes`. En móvil es una hoja
+completa con `overscroll-behavior: contain`.
+
+### Work Carousel (signature)
+
+La pila de hojas ya impresas: carril con scroll-snap, tarjetas de
+`min(300px, 78vw)` agrupadas por cliente, y visor propio por cliente con
+navegación por teclado.
 
 ### Generative Canvas (signature)
-Lienzo a pantalla completa detrás del contenido (`.lineart`, `opacity: 0.55`, `pointer-events: none`). Formas geométricas sin relleno —círculos, hexágonos, estrellas, cuadrados rotados— en trazo de 1.5px verde bosque, con física de atracción al cursor en un radio de 200px. No es fondo decorativo: es la primera prueba de la tesis del portfolio, y por eso nunca debe reducirse a una textura estática.
+
+Diez piezas vivas, una plancha cada una: el trazo va en la tinta que le toca
+y el marco se enciende con ella al pasar por encima. El lienzo del hero se
+dibuja **una sola vez** en una plancha (`p5.createGraphics`) y se estampa
+tres veces con `blendMode(MULTIPLY)` y las tintas desplazadas — una plancha,
+tres impresiones, que es exactamente lo que hace una prensa.
 
 ## Do's and Don'ts
 
 ### Do:
-- **Do** usar el cian de señal (`#15C1C1`) exclusivamente en la capa de anotación: mono, mayúsculas, pequeño, cifras. La Regla de la Señal Única.
-- **Do** escribir toda sombra como `Npx Npx 0 <color>`, sin blur ni spread, y solo en `:hover`.
-- **Do** abrir cada sección con el patrón `.section-open` (número en mono + titular + hairline de cierre). Es el metrónomo del documento.
-- **Do** apretar el texto grande a `-0.02em` y abrir el pequeño a `0.18em`.
-- **Do** construir la jerarquía con hairlines de 1px y espaciado de la escala, no con contraste de fondo ni con cajas pesadas.
-- **Do** usar `clamp()` para el tamaño de tipo en cualquier titular nuevo — la escala fluida ya está definida en `--t-*`.
-- **Do** dejar que las piezas generativas se ejecuten de verdad. Son contenido, no textura.
+
+- Abrir cada sección con `pass-open` y su número de pasada.
+- Usar la tinta plana para pintar y la variante `-t` para escribir.
+- Dejar el pliego en blanco: el vacío es el material principal.
+- Sacar la hoja blanca sólo cuando hay que leer de verdad.
+- Derivar cualquier desalineado de `--reg`. Nunca fijar un offset a mano.
+- Escribir toda la interfaz en español.
 
 ### Don't:
-- **Don't** usar `#FFFFFF` como superficie ni `#000000` como texto. Las cuatro superficies de papel y las cuatro tintas cubren todos los casos.
-- **Don't** añadir `border-radius` a un componente nuevo. El radio por defecto es `0`; la única alternativa legítima es `pill` completo.
-- **Don't** usar sombras con desenfoque (`0 4px 12px rgba(...)`), glassmorphism, `backdrop-filter` ni degradados de superficie. Contradicen la premisa material entera.
-- **Don't** poner el cian en un titular, en un fondo amplio ni introducir un segundo color de acento. El sistema tiene un solo mecanismo de énfasis y se agota al duplicarlo.
-- **Don't** usar JetBrains Mono para texto de lectura, ni DM Sans para una etiqueta o un número de sección. La familia comunica el rol.
-- **Don't** dejar sombra permanente en una tarjeta en reposo — convierte la firma en decoración.
-- **Don't** usar el gradiente de marca en texto ni en botones. Es una superficie, no un relleno tipográfico.
-- **Don't** introducir un tercer grosor de borde. Solo existen 1px estructural y 1.5px interactivo.
-- **Don't** usar una barra lateral de color (`border-left: 3px`) en tarjetas, alertas o callouts. El estado va en el marco completo a 1px.
-- **Don't** usar negro puro como velo de modal. El velo es tinta cálida (`--rbt-scrim`), coherente con la Regla del Papel.
+
+- No añadir sombras, radios, texturas de fondo ni degradados decorativos.
+- No usar una tinta plana como color de texto.
+- No poner el desregistro en un titular: ahí se lee como sombra, no como
+  imprenta.
+- No repetir el patrón ojal + titular de dos líneas con la segunda palabra
+  en color: ese patrón está retirado del sistema.
+- No convertir una sección en una rejilla de tarjetas iguales con icono.
+- No inventar métricas, testimonios ni clientes: manda el material.
+- No tocar la geometría de las piezas generativas. Se re-entintan, no se
+  redibujan.

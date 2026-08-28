@@ -1,10 +1,10 @@
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
-import Marquee from './components/Marquee'
 import Statement from './components/Statement'
 import Services from './components/Services'
 import Generativos from './components/Generativos'
-import ProjectGallery from './components/ProjectGallery'
+import CaseStudiesGrid from './components/CaseStudiesGrid'
+import WorkCarousel from './components/WorkCarousel'
 import Artistic from './components/Artistic'
 import About from './components/About'
 import Contact from './components/Contact'
@@ -16,10 +16,10 @@ export default function App() {
       <Navbar />
       <main>
         <Hero />
-        <Marquee />
         <Statement />
         <Services />
-        <ProjectGallery />
+        <CaseStudiesGrid />
+        <WorkCarousel />
         <Artistic />
         <Generativos />
         <About />
