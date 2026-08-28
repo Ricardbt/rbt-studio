@@ -167,7 +167,7 @@ export default function CaseStudiesGrid() {
           pass={2}
           ink="var(--ink-magenta-t)"
           title="Las separaciones"
-          sub={`${ORDERED.length} proyectos contados de principio a fin — el problema, las decisiones que lo resolvieron y lo que salió mal por el camino.`}
+          sub="Proyectos contados de principio a fin: el problema, las decisiones que lo resolvieron y lo que salió mal por el camino."
         />
 
         <div ref={gridRef} className="case-grid mt-10">

@@ -133,7 +133,7 @@ export default function WorkCarousel() {
             pass={3}
             ink="var(--ink-yellow-t)"
             title="La pila"
-            sub={`Webs, intranets y comercio en producción. ${WORK_GROUPS.length} encargos, de hospitales y universidades a tiendas y portfolios.`}
+            sub="Algunos encargos de cliente en producción: de hospitales y universidades a tiendas y portfolios."
           />
 
           <div className="mt-6 flex justify-end gap-2">
