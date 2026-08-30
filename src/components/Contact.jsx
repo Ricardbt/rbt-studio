@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { appear } from '../lib/motion'
 import { PassOpen } from './Press'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -31,7 +32,7 @@ export default function Contact() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.fromTo(cardRef.current,
+      appear(cardRef.current,
         { opacity: 0, clipPath: 'inset(0 0 100% 0)' },
         {
           opacity: 1,

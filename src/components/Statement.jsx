@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { appear } from '../lib/motion'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -11,7 +12,7 @@ export default function Statement() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.fromTo(lineRef.current,
+      appear(lineRef.current,
         { scaleX: 0, transformOrigin: 'left center' },
         {
           scaleX: 1,
@@ -21,7 +22,7 @@ export default function Statement() {
         }
       )
 
-      gsap.fromTo(quoteRef.current,
+      appear(quoteRef.current,
         { opacity: 0, y: 40 },
         {
           opacity: 1,

@@ -166,6 +166,24 @@ img, svg, video { display: block; max-width: 100%; }
   outline-offset: 2px;
 }
 
+/* Enlace de salto. Fuera del pliego hasta que el teclado lo alcanza, y
+   entonces sale como lo que es: una hoja impresa en negro sobre el papel. */
+.skip-link {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  transform: translateY(-120%);
+  padding: 14px 22px;
+  background: var(--ink-key);
+  color: var(--ink-white);
+  transition: transform var(--dur-quick) var(--ease-out);
+}
+
+.skip-link:focus-visible {
+  transform: translateY(0);
+}
+
 /* =========================================================
    EL TALLER — primitivas del mundo
    ========================================================= */
@@ -304,6 +322,18 @@ img, svg, video { display: block; max-width: 100%; }
    ========================================================= */
 
 /* rbt. impreso en la hoja, como el cajetín de un taller. */
+/* Enlace de la barra: el color lo lleva el CSS, no un handler de React.
+   El estado de teclado se pinta igual que el de ratón — quien tabula ve
+   lo mismo que quien apunta. */
+.nav-link {
+  color: var(--on-press-mid);
+  transition: color var(--dur-quick) var(--ease-out);
+}
+.nav-link:hover,
+.nav-link:focus-visible {
+  color: var(--ink-magenta-t);
+}
+
 .rbt-mark {
   font-family: var(--font-sans);
   font-weight: 900;

@@ -3,6 +3,7 @@ const EO = 'assets/proyectos/materialcasos_estudio/eonia/assets/'
 const EZ = 'assets/proyectos/materialcasos_estudio/el-ultimo-zarpe/assets/'
 const FO = 'assets/proyectos/materialcasos_estudio/fotografia-direccionartistica/assets/'
 const CAP = 'assets/proyectos/captures/'
+const CS = 'assets/proyectos/casos/'
 
 
 export const CASES = [
@@ -22,6 +23,7 @@ export const CASES = [
     media: {
       cover: SP + 'demo-cover.png',
       video: CAP + 'storyprints-wizard.mp4',
+      extraVideos: [CS + 'storyprints-cuento.mp4'],
       images: [
         { src: SP + 'spread-lector.png', alt: "Doble página del lector: ilustración a línea negra de dos sirenas y una tortuga, y a la derecha el texto de la escena con su diálogo", caption: 'Una doble página real: la ilustración a la izquierda para colorear, el texto de la escena y el diálogo a la derecha.' },
         { src: SP + 'demo-cover.png', alt: "Portada generada por IA: un niño con un cetro junto a un pequeño robot, frente a un castillo con dragones, a línea negra sobre blanco", caption: 'Portada generada por el producto — línea negra sobre blanco, lista para imprimir.' },
@@ -29,6 +31,7 @@ export const CASES = [
         { src: SP + 'paso-1-decide.png', alt: "Una madre y un niño eligiendo juntos las tarjetas del cuento", caption: '«Cómo funciona», paso 1 — decidir. Dibujado en la misma tinta que el cliente imprime.' },
         { src: SP + 'paso-2-pinta.png', alt: "Unas manos coloreando la página de un cuento", caption: 'Paso 2 — pintar.' },
         { src: SP + 'paso-3-imprime.png', alt: "Una impresora doméstica sacando las páginas del cuento", caption: 'Paso 3 — imprimir en casa.' },
+        { src: CS + 'storyprintsbiblioteca.webp', alt: "Rejilla «Mi biblioteca» con doce cuentos generados, cada tarjeta con su título, el nombre del niño, los temas, el número de páginas, la fecha y los botones de descarga y borrado", caption: 'La biblioteca de un usuario real: cada cuento guarda a quién va dirigido y de cuántas páginas es. Es el producto usado, no una maqueta.' },
       ],
     },
     context: {
@@ -148,6 +151,16 @@ export const CASES = [
     media: {
       video: 'assets/proyectos/captures/brandAI1.mp4',
       extraVideos: ['assets/proyectos/captures/brandAI2.mp4'],
+      images: [
+        { src: CS + 'brandailoginscreen.webp', alt: "Pantalla de inicio de sesión sobre fondo crema, con el logotipo de RBT Studio, los campos de correo y contraseña, la casilla «Recordarme» y el botón «Entrar»", caption: 'La entrada al producto.' },
+        { src: CS + 'brandaipieza1.webp', alt: "Fila de cuatro contadores del panel: Proyectos 7, Brandboards 32, Skills 10 y Assets 27", caption: 'El panel abre con lo que hay, no con lo que se promete.' },
+        { src: CS + 'brandaipieza2.webp', alt: "Tres tarjetas de brandboard en borrador —Clínica María, Farmacia Nubia y Explosive Bar— cada una con su logotipo generado", caption: 'Tres marcas generadas con el mismo pipeline: una clínica, una farmacia y un bar de copas. El sistema no tiene un solo registro visual.' },
+        { src: CS + 'brandaipieza3.webp', alt: "Vista de acciones rápidas con la pestaña Visual abierta: cinco paletas de color en círculo y una rejilla de combinaciones armónicas en rojo, cian, amarillo, negro y gris", caption: 'La paleta no se entrega como lista de hex: se entrega ya combinada, que es como se usa.' },
+        { src: CS + 'brandaipiezatipografia.webp', alt: "Specimen tipográfico con los niveles Display, H1, H2, Body y Caption, cada uno con su fuente y peso, y un aviso de que la tipografía elegida no está en Google Fonts", caption: 'El specimen avisa cuando la tipografía que ha elegido requiere licencia aparte y propone alternativas. Un design system que no se puede licenciar no sirve.' },
+        { src: CS + 'brandaipieza4.webp', alt: "Pantalla de Assets con el logo principal de Explosive Bar, tres variantes —horizontal, vertical e isotipo— y un bloque para generar el kit de redes", caption: 'Los assets salen en las variantes que hacen falta de verdad, no en una sola.' },
+        { src: CS + 'brandaiadmin1.webp', alt: "Dashboard de administración con los contadores de usuarios, proyectos, tokens usados y tasa de conversión, la distribución de planes y la actividad reciente", caption: 'El panel de administración: cuotas, planes y consumo de tokens por cuenta.' },
+        { src: CS + 'brandaiadminpieza2.webp', alt: "Listado de la Knowledge Base con entradas de conocimiento sectorial etiquetadas por sector y tipo de patrón —fitness, educación, veterinaria— para alimentar el RAG", caption: 'La base de conocimiento sectorial que alimenta el RAG. El contexto de marca no sale de la nada: sale de aquí.' },
+      ],
     },
     color: '#7D6200',
     tag: 'BRANDAI',
@@ -341,7 +354,16 @@ export const CASES = [
     timeline: 'Proyecto de cliente',
     media: {
       video: 'assets/proyectos/captures/smartlolipop.mp4',
-      images: [{ src: 'assets/proyectos/webs/tsl_tsl_core.webp', alt: "Render del producto The Smart Lollipop" }, { src: 'assets/proyectos/webs/TSL_Group-scaled.webp', alt: "Familia de producto de The Smart Lollipop" }],
+      images: [
+        { src: 'assets/proyectos/webs/tsl_tsl_core.webp', alt: "Render del producto The Smart Lollipop" },
+        { src: 'assets/proyectos/webs/TSL_Group-scaled.webp', alt: "Familia de producto de The Smart Lollipop" },
+        { src: CS + 'snmartlolipop1.webp', alt: "Portada del sitio: el colector TSL One en rojo y blanco sobre fondo blanco, con la navegación TSL One / TSL Core / Quiénes Somos / Qué hacemos y el titular «Inspirado en un caramelo que estimula la generación de saliva»", caption: 'La portada deja hablar al producto: el objeto ocupa el centro y el titular explica de dónde viene la forma.' },
+        { src: CS + 'lolipoppieza2.webp', alt: "Bloque del analizador TSL Core: el equipo de sobremesa a la izquierda y a la derecha su promesa como solución Point of Care, con cuatro puntos de compatibilidad, coste, digitalización y portabilidad", caption: 'El segundo producto de la familia. La nota final —«solución actualmente en desarrollo»— se mantiene visible: el sitio no vende lo que aún no existe.' },
+        { src: CS + 'lolipoppiezamobil2.webp', alt: "El mismo bloque de TSL Core en móvil: el equipo arriba y debajo el texto con su lista de características", caption: 'El mismo bloque en móvil: el producto sigue entrando primero.' },
+        { src: CS + 'lolipopmobil1.webp', alt: "Portada en móvil con el colector TSL One a lo alto y el titular sobre la imagen", caption: 'En móvil el titular se monta sobre el objeto en vez de competir con él por el ancho.' },
+        { src: CS + 'lolipopmobil2.webp', alt: "Bloque en móvil con el colector en diagonal y el texto «Basado en un sistema de presión que libera la saliva retenida»", caption: 'Cómo funciona el mecanismo, contado con el objeto en la mano.' },
+        { src: CS + 'lolipoppieza1.webp', alt: "Tarjeta de equipo en móvil: un médico, una madre y una niña con el colector en una consulta, y bajo la foto el texto sobre el equipo multidisciplinar", caption: 'La única foto de personas del sitio, y va donde toca: en quiénes lo hacen.' },
+      ],
     },
     color: '#A81E63',
     tag: 'THE SMART LOLLIPOP',
@@ -406,6 +428,9 @@ export const CASES = [
         { src: 'assets/proyectos/materialcasos_estudio/eonia/assets/04-system.jpg', alt: "Pantalla SYSTEM con el protocolo Regulación y sus compuestos repartidos en ventanas de tarde y noche", caption: "Ejecución — protocolo activo con ventanas circadianas por compuesto, y el sync en la nube apagado por defecto." },
         { src: 'assets/proyectos/materialcasos_estudio/eonia/assets/05-history.jpg', alt: "Pantalla HISTORY con la tendencia del EONIA Score a 14 días", caption: "Historial — tendencia del EONIA Score (datos de demostración)." },
         { src: 'assets/proyectos/materialcasos_estudio/eonia/assets/06-capsules.jpg', alt: "Pantalla CAPSULES con el catálogo de las seis arquitecturas adaptativas", caption: "Catálogo — las seis arquitecturas; EONIA activa una, el resto queda como referencia." },
+        { src: CS + 'eoniahistorial.webp', alt: "Pantalla Historial con el EONIA Score en 69, la media, el máximo y el mínimo de catorce días, la curva de evolución y una cronología con las etiquetas «Tu cuerpo se está adaptando» y «Bajo mucha presión»", caption: 'El historial no da un número suelto: da el número, su recorrido y el nombre del estado en cada fecha.' },
+        { src: CS + 'eoniaprofileresumen.webp', alt: "Tres contadores del perfil —14 check-ins, 14 días y estado 46 «Tu cuerpo se está adaptando»— y bajo ellos el aviso de que la personalización está activa y los scores se ajustan a la línea base", caption: 'La personalización se declara en la interfaz: el score se compara con tu propia línea base, y el usuario lo sabe.' },
+        { src: CS + 'eoniaprofile.webp', alt: "Pantalla de perfil con los accesos a pedidos, dirección de envío, notas y soporte, pagos, protocolo activo, cápsulas, historial y «Acerca de EONIA»", caption: 'El perfil junta las dos caras del producto: lo que se envía a casa y lo que se mide en la app.' },
       ],
     },
     color: '#00688F',

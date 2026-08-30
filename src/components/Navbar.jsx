@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { Misreg } from './Press'
+import { prefersReducedMotion } from '../lib/motion'
 
 const navLinks = [
   { href: '#services', label: 'Tintas' },
@@ -23,11 +24,20 @@ export default function Navbar() {
   }, [])
 
   useEffect(() => {
-    gsap.fromTo(
-      linksRef.current,
-      { opacity: 0, y: -12 },
-      { opacity: 1, y: 0, duration: 0.5, stagger: 0.07, delay: 0.7, ease: 'power2.out' }
-    )
+    // El marcado nace visible, así que con movimiento reducido no hay nada
+    // que revelar: basta con no barrer.
+    if (prefersReducedMotion()) return
+
+    // gsap.from, no fromTo: el estado por defecto del marcado es visible.
+    // Si el script falla o tarda, los enlaces están donde tienen que estar.
+    gsap.from(linksRef.current, {
+      opacity: 0,
+      y: -12,
+      duration: 0.5,
+      stagger: 0.07,
+      delay: 0.7,
+      ease: 'power2.out',
+    })
   }, [])
 
   useEffect(() => {
@@ -62,45 +72,59 @@ export default function Navbar() {
                 key={link.href}
                 href={link.href}
                 ref={(el) => (linksRef.current[i] = el)}
-                className="t-label opacity-0 transition-colors duration-300"
-                style={{ color: 'var(--on-press-mid)' }}
-                onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--ink-magenta)')}
-                onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--on-press-mid)')}
+                className="t-label nav-link"
               >
                 {link.label}
               </a>
             ))}
           </div>
 
+          {/* El único control de navegación en móvil. El trazo sigue
+              midiendo 24; lo que crece hasta 44 es dónde se puede tocar,
+              y los márgenes negativos se comen ese crecimiento para que
+              la barra no cambie de altura. */}
           <button
-            className="relative flex h-6 w-6 flex-col items-end justify-center gap-1.5 lg:hidden"
+            className="-my-2.5 flex h-11 w-11 items-center justify-end lg:hidden"
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label={menuOpen ? 'Cerrar menú' : 'Abrir menú'}
             aria-expanded={menuOpen}
+            aria-controls="menu-movil"
           >
             {/* Abierto, las dos barras se cruzan en el centro: una X,
                 no un galón. */}
-            <span
-              className={`absolute block h-px transition-all duration-300 ${menuOpen ? 'top-1/2 rotate-45' : 'top-0'}`}
-              style={{ width: '24px', background: 'var(--on-press)' }}
-            />
-            <span
-              className={`absolute top-1/2 block h-px -translate-y-1/2 transition-all duration-300 ${menuOpen ? 'w-0 opacity-0' : 'w-4'}`}
-              style={{ background: 'var(--ink-magenta)' }}
-            />
-            <span
-              className={`absolute block h-px transition-all duration-300 ${menuOpen ? 'top-1/2 -rotate-45' : 'bottom-0'}`}
-              style={{ width: '24px', background: 'var(--on-press)' }}
-            />
+            <span className="relative block h-6 w-6" aria-hidden="true">
+              <span
+                className={`absolute block h-px transition-all duration-300 ${menuOpen ? 'top-1/2 rotate-45' : 'top-0'}`}
+                style={{ width: '24px', background: 'var(--on-press)' }}
+              />
+              <span
+                className={`absolute top-1/2 block h-px -translate-y-1/2 transition-all duration-300 ${menuOpen ? 'w-0 opacity-0' : 'w-4'}`}
+                style={{ background: 'var(--ink-magenta)' }}
+              />
+              <span
+                className={`absolute block h-px transition-all duration-300 ${menuOpen ? 'top-1/2 -rotate-45' : 'bottom-0'}`}
+                style={{ width: '24px', background: 'var(--on-press)' }}
+              />
+            </span>
           </button>
         </div>
       </nav>
 
       {/* Menú móvil: la hoja completa, con sus cruces de registro */}
       <div
-        className={`press-bed fixed inset-0 z-40 flex flex-col items-center justify-center transition-opacity duration-500 lg:hidden ${
+        id="menu-movil"
+        aria-hidden={!menuOpen}
+        className={`press-bed fixed inset-0 z-40 flex flex-col items-center justify-center lg:hidden ${
           menuOpen ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0'
         }`}
+        style={{
+          // Cerrado no basta con opacidad 0: sin visibility, sus seis enlaces
+          // seguían siendo tabulables por encima de la página.
+          visibility: menuOpen ? 'visible' : 'hidden',
+          transition: menuOpen
+            ? 'opacity 500ms var(--ease-out)'
+            : 'opacity 500ms var(--ease-out), visibility 0s linear 500ms',
+        }}
       >
         <div className="flex h-full flex-col items-center justify-center gap-7">
           {navLinks.map((link, i) => (

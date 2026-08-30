@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { appear } from '../lib/motion'
 import { PassOpen } from './Press'
 import { WORK_GROUPS } from '../data/works'
 
@@ -79,7 +80,7 @@ export default function WorkCarousel() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.fromTo('.work-card',
+      appear('.work-card',
         { opacity: 0, y: 20 },
         {
           opacity: 1,

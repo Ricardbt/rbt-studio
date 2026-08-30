@@ -10,13 +10,40 @@ import { useEffect, useRef } from 'react'
 const normalizeImages = (images = []) =>
   images.map(i => (typeof i === 'string' ? { src: i } : i))
 
-function Frame({ n, kind, title, children }) {
+/* Manda la imagen y el texto espera detrás.
+   Cada fotograma abre con su plancha, un titular y una sola frase; la prosa
+   entera vive en un <details>. Nativo a propósito: funciona sin JavaScript,
+   se abre con teclado y el buscador lo indexa igual. */
+
+// Primera frase = hasta el primer punto seguido de mayúscula. El mínimo de
+// 40 caracteres evita que una abreviatura corte la frase en un muñón.
+const LEAD_RE = /^([\s\S]{40,}?[.!?])\s+(?=[A-ZÁÉÍÓÚÑ¿¡«"])([\s\S]+)$/
+
+function splitLead(text) {
+  if (!text) return [null, null]
+  const m = text.match(LEAD_RE)
+  return m ? [m[1], m[2]] : [text, null]
+}
+
+function Frame({ n, kind, title, plate, children }) {
   return (
     <section className="csm-frame">
       <span className="csm-frame-num">{n} — {kind}</span>
+      {plate && <Plate {...plate} />}
       {title && <h3 className="csm-frame-title">{title}</h3>}
       {children}
     </section>
+  )
+}
+
+/* La plancha del fotograma: rompe los dos márgenes y llega al canto de la
+   hoja. Es lo primero que se ve del fotograma, antes que el titular. */
+function Plate({ src, alt, caption }) {
+  return (
+    <figure className="csm-plate">
+      <img src={src} alt={alt || caption || ''} loading="lazy" />
+      {caption && <figcaption>{caption}</figcaption>}
+    </figure>
   )
 }
 
@@ -27,6 +54,29 @@ function Figure({ src, alt, caption }) {
       <img src={src} alt={alt || caption || ''} loading="lazy" />
       {caption && <figcaption>{caption}</figcaption>}
     </figure>
+  )
+}
+
+/* El resto del texto. Sin estado de React: <details> ya lo tiene. */
+function More({ children, label = 'Leer completo' }) {
+  if (!children) return null
+  return (
+    <details className="csm-more">
+      <summary>{label}</summary>
+      <div className="csm-more-body">{children}</div>
+    </details>
+  )
+}
+
+/* Un párrafo que se presenta por su primera frase. */
+function Prose({ text, label }) {
+  const [lead, rest] = splitLead(text)
+  if (!lead) return null
+  return (
+    <>
+      <p className="csm-lead">{lead}</p>
+      <More label={label}><p>{rest}</p></More>
+    </>
   )
 }
 
@@ -54,10 +104,24 @@ export default function CaseStudyModal({ caseData, onClose }) {
   const context  = c.context?.body ?? c.body
   const ctxTitle = c.context?.title
 
-  // El material se reparte: la primera mitad ilustra la solución, el resto cierra.
-  const split      = images.length > 4 ? Math.ceil(images.length / 2) : images.length
-  const solImages  = images.slice(0, split)
-  const restImages = images.slice(split)
+  // Qué fotogramas se van a pintar. Se decide antes del JSX porque el reparto
+  // del material depende de ello: cada fotograma que existe se lleva una
+  // plancha de cabecera, y sólo lo que sobra va a las galerías.
+  const hasContext  = Boolean(context || c.problem)
+  const hasProcess  = Boolean(c.process?.length > 0 || c.pipeline)
+  const hasSolution = Boolean(c.solution || images.length > 0)
+  const hasResults  = Boolean(c.resultsBody || c.metrics?.length > 0)
+
+  const pool = [...images]
+  const plateOf = (render) => (render && pool.shift()) || null
+  const plateContext  = plateOf(hasContext)
+  const plateProcess  = plateOf(hasProcess)
+  const plateSolution = plateOf(hasSolution)
+  const plateResults  = plateOf(hasResults)
+
+  const half       = pool.length > 4 ? Math.ceil(pool.length / 2) : pool.length
+  const solImages  = pool.slice(0, half)
+  const restImages = pool.slice(half)
 
   let frame = 0
   const next = () => `F.${String(++frame).padStart(2, '0')}`
@@ -137,28 +201,28 @@ export default function CaseStudyModal({ caseData, onClose }) {
           )}
 
           {/* ── F.01 Contexto / Problema ── */}
-          {(context || c.problem) && (
-            <Frame n={next()} kind="CONTEXTO" title={ctxTitle || c.problem?.title}>
-              {context && <p>{context}</p>}
+          {hasContext && (
+            <Frame n={next()} kind="CONTEXTO" title={ctxTitle || c.problem?.title} plate={plateContext}>
+              <Prose text={context} />
               {c.problem && (
                 <div className="csm-problem">
                   <p className="csm-problem-label">El problema</p>
                   <p className="csm-problem-title">{c.problem.title}</p>
-                  <p>{c.problem.body}</p>
+                  <Prose text={c.problem.body} label="Leer el diagnóstico" />
                 </div>
               )}
             </Frame>
           )}
 
           {/* ── F.02 Proceso ── */}
-          {(c.process?.length > 0 || c.pipeline) && (
-            <Frame n={next()} kind="PROCESO" title={c.process?.length ? 'Cómo se abordó' : null}>
+          {hasProcess && (
+            <Frame n={next()} kind="PROCESO" title={c.process?.length ? 'Cómo se abordó' : null} plate={plateProcess}>
               {c.process?.map((step, i) => (
                 <div key={i} className="csm-step">
                   <span className="csm-step-n">{String(i + 1).padStart(2, '0')}</span>
                   <div>
                     <h4>{step.title}</h4>
-                    <p>{step.body}</p>
+                    <Prose text={step.body} label="Leer este paso" />
                   </div>
                 </div>
               ))}
@@ -180,9 +244,9 @@ export default function CaseStudyModal({ caseData, onClose }) {
           )}
 
           {/* ── F.03 Solución ── */}
-          {(c.solution || solImages.length > 0) && (
-            <Frame n={next()} kind="SOLUCIÓN" title={c.solution?.title}>
-              {c.solution && <p>{c.solution.body}</p>}
+          {hasSolution && (
+            <Frame n={next()} kind="SOLUCIÓN" title={c.solution?.title} plate={plateSolution}>
+              <Prose text={c.solution?.body} label="Leer la solución" />
               {solImages.length > 0 && (
                 <div className={`csm-gallery${solImages.length > 2 ? ' csm-gallery--grid' : ''}`}>
                   {solImages.map((img, i) => <Figure key={i} {...img} />)}
@@ -191,24 +255,26 @@ export default function CaseStudyModal({ caseData, onClose }) {
 
               {/* Decisiones y contexto de producto que no caben en la narrativa */}
               {c.right?.length > 0 && (
-                <div className="csm-notes">
-                  {c.right.map(r => (
-                    <div key={r.label}>
-                      <p className="csm-note-label">{r.label.replace('//', '').trim()}</p>
-                      {r.valueHtml
-                        ? <div className="csm-note-body" dangerouslySetInnerHTML={{ __html: r.valueHtml }} />
-                        : <p className="csm-note-body">{r.value}</p>}
-                    </div>
-                  ))}
-                </div>
+                <More label="Decisiones de producto">
+                  <div className="csm-notes">
+                    {c.right.map(r => (
+                      <div key={r.label}>
+                        <p className="csm-note-label">{r.label.replace('//', '').trim()}</p>
+                        {r.valueHtml
+                          ? <div className="csm-note-body" dangerouslySetInnerHTML={{ __html: r.valueHtml }} />
+                          : <p className="csm-note-body">{r.value}</p>}
+                      </div>
+                    ))}
+                  </div>
+                </More>
               )}
             </Frame>
           )}
 
           {/* ── F.04 Resultados ── */}
-          {(c.resultsBody || c.metrics?.length > 0) && (
-            <Frame n={next()} kind="RESULTADOS" title="Qué se puede afirmar hoy">
-              {c.resultsBody && <p>{c.resultsBody}</p>}
+          {hasResults && (
+            <Frame n={next()} kind="RESULTADOS" title="Qué se puede afirmar hoy" plate={plateResults}>
+              <Prose text={c.resultsBody} label="Leer los resultados" />
               {c.metrics?.length > 0 && (
                 <div className="csm-metrics">
                   {c.metrics.map(m => (
@@ -302,7 +368,11 @@ export default function CaseStudyModal({ caseData, onClose }) {
         }
         .csm-close:hover { background: var(--ink-key); color: var(--sheet); }
 
-        .csm-body { padding: 44px 40px 0; }
+        .csm-body {
+          --pad-x: 40px;
+          --frame-pad: 26px;
+          padding: 44px var(--pad-x) 0;
+        }
 
         /* Header */
         .csm-header { padding-bottom: 32px; border-bottom: 1px solid var(--sheet-line); }
@@ -442,6 +512,56 @@ export default function CaseStudyModal({ caseData, onClose }) {
           display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
           gap: 18px;
         }
+        /* La plancha del fotograma: rompe el margen del cuerpo y el sangrado
+           del fotograma para llegar al canto de la hoja. */
+        .csm-plate {
+          margin: 18px 0 22px calc((var(--pad-x) + var(--frame-pad)) * -1);
+          width: calc(100% + var(--pad-x) * 2 + var(--frame-pad));
+        }
+        .csm-plate img {
+          width: 100%; display: block;
+          background: var(--sheet-soft);
+          border-top: 1px solid var(--sheet-line);
+          border-bottom: 1px solid var(--sheet-line);
+        }
+        .csm-plate figcaption {
+          font-family: var(--font-mono); font-size: var(--t-label); line-height: 1.5;
+          letter-spacing: var(--tr-label); text-transform: uppercase;
+          color: var(--on-sheet-low);
+          margin-top: 9px;
+          padding-left: calc(var(--pad-x) + var(--frame-pad));
+        }
+
+        /* La primera frase manda; lleva el cuerpo un punto por encima. */
+        .csm-lead {
+          font-size: var(--t-h4);
+          line-height: 1.45;
+          color: var(--on-sheet);
+        }
+
+        /* El resto del texto, detrás de un tirador. <details> nativo: abre con
+           teclado, funciona sin JS y no necesita estado. */
+        .csm-more { margin-top: 12px; }
+        .csm-more > summary {
+          display: inline-flex; align-items: center; gap: 8px;
+          cursor: pointer; list-style: none;
+          font-family: var(--font-mono); font-size: var(--t-label);
+          letter-spacing: var(--tr-label); text-transform: uppercase;
+          color: var(--on-sheet-low);
+          padding: 6px 0;
+          transition: color var(--dur-quick) var(--ease-out);
+        }
+        .csm-more > summary::-webkit-details-marker { display: none; }
+        .csm-more > summary::before {
+          content: '+';
+          display: inline-block; width: 1em;
+          font-size: var(--t-small); line-height: 1;
+        }
+        .csm-more[open] > summary::before { content: '–'; }
+        .csm-more > summary:hover,
+        .csm-more > summary:focus-visible { color: var(--ink-magenta-t); }
+        .csm-more-body { padding-top: 4px; }
+
         .csm-figure { margin: 0; }
         .csm-figure img {
           width: 100%; display: block;
@@ -549,7 +669,7 @@ export default function CaseStudyModal({ caseData, onClose }) {
           }
           .csm-bar { padding: 12px 18px; }
           .csm-close { width: 40px; height: 40px; font-size: 16px; }
-          .csm-body { padding: 28px 18px 0; }
+          .csm-body { --pad-x: 18px; --frame-pad: 14px; padding: 28px var(--pad-x) 0; }
 
           .csm-frame { padding: 26px 0 26px 14px; }
           .csm-metrics { grid-template-columns: 1fr; }

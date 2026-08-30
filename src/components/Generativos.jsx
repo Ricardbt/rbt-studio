@@ -1,6 +1,7 @@
 ﻿import { useRef, useEffect } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { appear } from '../lib/motion'
 import { PassOpen } from './Press'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -696,7 +697,7 @@ export default function Generativos() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.fromTo(titleRef.current,
+      appear(titleRef.current,
         { opacity: 0, y: 50 },
         {
           opacity: 1,
@@ -711,7 +712,7 @@ export default function Generativos() {
         }
       )
 
-      gsap.fromTo('.generativo-item',
+      appear('.generativo-item',
         { opacity: 0, y: 40 },
         {
           opacity: 1,

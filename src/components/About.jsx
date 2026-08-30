@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { appear } from '../lib/motion'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -34,7 +35,7 @@ export default function About() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.fromTo('.sheet-row',
+      appear('.sheet-row',
         { opacity: 0, y: 18 },
         {
           opacity: 1,

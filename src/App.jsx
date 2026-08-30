@@ -13,8 +13,13 @@ import Footer from './components/Footer'
 export default function App() {
   return (
     <>
+      {/* Primera parada del tabulador. En una sola página con scroll, sin
+          esto hay que atravesar los seis enlaces de la barra en cada carga
+          para llegar al contenido. Sólo se ve al enfocarlo. */}
+      <a href="#contenido" className="skip-link t-label">Saltar al contenido</a>
+
       <Navbar />
-      <main>
+      <main id="contenido">
         <Hero />
         <Statement />
         <Services />

@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { appear } from '../lib/motion'
 import CaseStudyModal from './CaseStudyModal'
 import { PassOpen } from './Press'
 import { CASES } from '../data/caseStudies'
@@ -145,7 +146,7 @@ export default function CaseStudiesGrid() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.fromTo('.case-card',
+      appear('.case-card',
         { opacity: 0, y: 24 },
         {
           opacity: 1,

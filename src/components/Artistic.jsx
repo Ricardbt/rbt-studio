@@ -1,6 +1,7 @@
 ﻿import { useRef, useEffect } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { appear } from '../lib/motion'
 import { PassOpen } from './Press'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -84,7 +85,7 @@ function ArtisticItem({ item, index }) {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.fromTo(itemRef.current,
+      appear(itemRef.current,
         { opacity: 0, x: 24, clipPath: 'inset(0 100% 0 0)' },
         {
           opacity: 1,
@@ -138,7 +139,7 @@ export default function Artistic() {
   useEffect(() => {
     const ctx = gsap.context(() => {
       // Title animation
-      gsap.fromTo(titleRef.current.children,
+      appear(titleRef.current.children,
         { opacity: 0, y: 30, skewY: 2 },
         {
           opacity: 1,
@@ -156,7 +157,7 @@ export default function Artistic() {
       )
 
       // Text and canvas
-      gsap.fromTo(textRef.current,
+      appear(textRef.current,
         { opacity: 0, y: 40 },
         {
           opacity: 1,
@@ -172,7 +173,7 @@ export default function Artistic() {
       )
 
       // Canvas reveal
-      gsap.fromTo(canvasRef.current,
+      appear(canvasRef.current,
         { opacity: 0, scale: 0.95, clipPath: 'inset(20% 20% 20% 20%)' },
         {
           opacity: 1,

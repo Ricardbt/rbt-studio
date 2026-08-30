@@ -431,6 +431,11 @@ Barra fija transparente que sólo se pinta (`rgba(244,241,234,0.92)` + blur)
 cuando el pliego ya ha empezado a correr por debajo. Menú móvil a pliego
 completo.
 
+Los enlaces usan `.nav-link`: el color lo lleva el CSS, y `:hover` y
+`:focus-visible` pintan lo mismo — quien tabula ve lo que ve quien apunta.
+El menú móvil cerrado va con `visibility: hidden`, no sólo con opacidad 0:
+si no, sus enlaces siguen siendo tabulables por encima de la página.
+
 ### Registration Marks (signature)
 
 `RegisterMarks` pone cuatro cruces en las esquinas del pliego. Las de arriba
@@ -473,11 +478,64 @@ navegación por teclado.
 
 ### Generative Canvas (signature)
 
-Diez piezas vivas, una plancha cada una: el trazo va en la tinta que le toca
-y el marco se enciende con ella al pasar por encima. El lienzo del hero se
-dibuja **una sola vez** en una plancha (`p5.createGraphics`) y se estampa
-tres veces con `blendMode(MULTIPLY)` y las tintas desplazadas — una plancha,
-tres impresiones, que es exactamente lo que hace una prensa.
+Diez piezas vivas en la pasada de generativos, una plancha cada una: el
+trazo va en la tinta que le toca y el marco se enciende con ella al pasar
+por encima. Su geometría está fijada: se re-entintan, no se redibujan.
+
+### La Mancha — pieza del hero (signature)
+
+Tres manchas de tinta sobre el pliego, y nada más. El contorno es un círculo
+al que un campo de ruido le come el borde: forma de tinta extendida sobre
+papel, no polígono ni partícula.
+
+Se dibujan **una sola vez** en una plancha (`p5.createGraphics`) y se
+estampan tres veces con `blendMode(MULTIPLY)` y las tintas desplazadas —
+una plancha, tres impresiones, que es exactamente lo que hace una prensa.
+
+El fleco de color del borde no está pintado: es el sitio donde una pasada
+asoma por debajo de otra, y donde el cian pisa el magenta sale
+`--ink-over-cm`. Es la sobreimpresión ocurriendo, no dibujada. Con `--reg`
+en 1 el fleco mide 16 px; en 0 desaparece.
+
+Reglas de la pieza:
+
+- **Un solo reloj.** El canvas no calcula su propio registro: lee `--reg` de
+  la sección, la misma variable que desalinea el cajetín. Se pone con
+  `useRegistration(560, { x: 0.64, y: 0.44 })` — a pliego completo hay que
+  medir al centro de la masa de tinta, porque contra el borde de la sección
+  el cursor siempre estaría dentro y nunca habría nada que registrar.
+- **Nada se desplaza.** El contorno respira con el campo de ruido a un ciclo
+  de unos cuarenta segundos. Ninguna forma viaja por la pantalla: el único
+  movimiento con intención es el registro, y lo hace el visitante.
+- **La composición cambia con la orientación.** En apaisado las manchas
+  dejan libre la esquina inferior izquierda; en vertical no hay esquina que
+  valga y toda la tinta sube al tercio de arriba. La ficha del cajetín se
+  lee sobre papel, nunca sobre tinta.
+- **Las tres manchas van separadas.** No se tocan entre sí: la
+  sobreimpresión sale del desregistro de las pasadas, no de solapar formas.
+  La esquina inferior izquierda se queda vacía, que es donde va el cajetín.
+- **La plancha se regraba cada seis frames; el estampado va a 60 Hz.** La
+  respiración dura cuarenta segundos y no da para más; la fluidez está en el
+  registro, que es lo que sigue al cursor. El lienzo va a densidad de píxel
+  1: son masas planas de tinta.
+- **Las tintas se leen de los tokens**, no se copian en el sketch. Si el
+  magenta cambia en `index.css`, cambia lo que sale por la prensa.
+- **p5 se carga en diferido.** Son 940 KB para una pieza decorativa: no
+  puede ir por delante del primer pintado. El pliego se queda en papel
+  limpio hasta que llega la plancha, que es lo que hace una prensa.
+- Con `prefers-reduced-motion` la respiración se detiene y `--reg` se queda
+  quieto: la pieza se lee como lo que es, una prueba sin registrar. La
+  prensa para también cuando el pliego sale de pantalla.
+- **Excepción declarada a la Regla del Vacío:** el degradado que aclara el
+  papel hacia el cajetín. El sistema prohíbe los degradados decorativos y
+  éste no decora — sin él, la ficha se leería sobre tinta, y `--on-press-mid`
+  sobre una mancha al 20% de cobertura cae a 4,09:1 y suspende AA. Es el
+  único degradado permitido del sistema.
+
+**El titular de la pasada.** En el primer viewport no hay titular grande, y
+eso no cambia. Pero el `h1` del documento no puede ser el wordmark: quien
+navega por encabezados recibía sólo la marca. El `h1` real va en `sr-only` y
+el cajetín es un `<p>` — se ve la pieza, se lee el titular.
 
 ## Do's and Don'ts
 
@@ -488,6 +546,10 @@ tres impresiones, que es exactamente lo que hace una prensa.
 - Dejar el pliego en blanco: el vacío es el material principal.
 - Sacar la hoja blanca sólo cuando hay que leer de verdad.
 - Derivar cualquier desalineado de `--reg`. Nunca fijar un offset a mano.
+- Revelar con `appear()` de `src/lib/motion.js`, nunca con `gsap.fromTo`
+  directo. El estado inicial oculto vive en el marcado, así que con
+  `prefers-reduced-motion` no basta con no animar: hay que dejar el elemento
+  puesto, o la página se queda en blanco.
 - Escribir toda la interfaz en español.
 
 ### Don't:
@@ -500,5 +562,8 @@ tres impresiones, que es exactamente lo que hace una prensa.
   en color: ese patrón está retirado del sistema.
 - No convertir una sección en una rejilla de tarjetas iguales con icono.
 - No inventar métricas, testimonios ni clientes: manda el material.
-- No tocar la geometría de las piezas generativas. Se re-entintan, no se
-  redibujan.
+- No tocar la geometría de las diez piezas de la pasada de generativos. Se
+  re-entintan, no se redibujan.
+- No dar movimiento propio a la pieza del hero. Lo único que se mueve con
+  intención es el registro, y lo mueve el cursor. Una deriva, un giro o un
+  barrido ahí compiten con el gesto y marean.

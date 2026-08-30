@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { appear } from '../lib/motion'
 import { PassOpen } from './Press'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -75,7 +76,7 @@ export default function Services() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.fromTo('.ink-row',
+      appear('.ink-row',
         { opacity: 0, x: -12 },
         {
           opacity: 1,

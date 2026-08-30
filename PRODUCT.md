@@ -26,7 +26,7 @@ Portfolio personal de **Ricard Boixeda** (rbt.studio), Experience Engineer con m
 
 La intersección de tres cosas que rara vez coinciden en un mismo perfil: **Bellas Artes (Universitat de Barcelona) + más de 10 años de ingeniería frontend + producto AI-native**. La formulación propia del sitio: «Diseño cómo se sienten las cosas al usarse, no solo cómo funcionan».
 
-El diferencial no es la lista de tecnologías — es que el propio sitio es la prueba. Las piezas generativas (particle field en p5.js, canvas paramétrico, R3F) no son decoración: son la demostración de que el autor construye sistemas visuales en tiempo real. Un perfil que solo diseña no puede replicarlo; uno que solo programa, tampoco.
+El diferencial no es la lista de tecnologías — es que el propio sitio es la prueba. Las piezas generativas (p5.js: manchas de tinta a tres pasadas en el hero, canvas paramétrico en generativos) no son decoración: son la demostración de que el autor construye sistemas visuales en tiempo real. Un perfil que solo diseña no puede replicarlo; uno que solo programa, tampoco.
 
 ## Operating Context
 
@@ -37,7 +37,7 @@ El diferencial no es la lista de tecnologías — es que el propio sitio es la p
 
 ## Capabilities and Constraints
 
-- **Stack existente**: React 18 + Vite + TailwindCSS. GSAP/ScrollTrigger para movimiento, p5.js y three/@react-three-fiber para las piezas generativas.
+- **Stack existente**: React 18 + Vite + TailwindCSS. GSAP/ScrollTrigger para movimiento y p5.js para las piezas generativas — las diez de la pasada de generativos y la del hero. No hay three ni React Three Fiber en el proyecto.
 - **Estático puro**: sin backend, sin CMS, sin base de datos. Todo el contenido vive en archivos del repo (`src/data/caseStudies.js`, arrays en los componentes).
 - **Media servida desde `public/assets/proyectos/`** — vídeos `.mp4` optimizados en `captures/`, imágenes en `webs/`. Los `.mov` de origen quedan fuera del repo.
 - **Idioma — decisión abierta.** Hoy el sitio está íntegramente en español mientras declara disponibilidad global. La intención confirmada es **bilingüe ES/EN**, pero no está implementado: no hay selector, ni estructura de traducción, ni decisión sobre qué mecanismo usar. Cualquier trabajo futuro de contenido debe asumir que el copy tendrá que duplicarse.

@@ -11,9 +11,19 @@ import { useEffect, useRef } from 'react'
  * Sin puntero fino o con motion reducido no se toca nada: --reg se queda en su
  * valor de reposo y la pieza se lee como una prueba sin registrar, que es lo
  * que es.
+ *
+ * Por defecto la distancia se mide al borde del elemento. Un elemento a pliego
+ * completo estaría siempre registrado, así que puede pasarse un `origin`
+ * fraccional —{ x: 0.64, y: 0.44 }— y entonces se mide a ese punto: el centro
+ * de la masa de tinta, que es lo que de verdad hay que registrar.
+ *
+ * --reg se hereda: quien lo pone en la sección lo pone para todo lo que hay
+ * dentro. Una sola variable, un solo reloj.
  */
-export function useRegistration(radius = 420) {
+export function useRegistration(radius = 420, origin = null) {
   const ref = useRef(null)
+  const originRef = useRef(origin)
+  originRef.current = origin
 
   useEffect(() => {
     const el = ref.current
@@ -28,8 +38,9 @@ export function useRegistration(radius = 420) {
     const apply = () => {
       frame = 0
       const r = el.getBoundingClientRect()
-      const nx = Math.max(r.left, Math.min(px, r.right))
-      const ny = Math.max(r.top, Math.min(py, r.bottom))
+      const o = originRef.current
+      const nx = o ? r.left + r.width * o.x : Math.max(r.left, Math.min(px, r.right))
+      const ny = o ? r.top + r.height * o.y : Math.max(r.top, Math.min(py, r.bottom))
       const d = Math.hypot(px - nx, py - ny)
       el.style.setProperty('--reg', Math.min(1, d / radius).toFixed(3))
     }
