@@ -30,6 +30,7 @@ export const WORKS = [
   { id: 71,   type: 'image', featured: false, client: 'SJD',                  tech: 'WordPress',           title: 'SJD Single Post',          image: 'assets/proyectos/captures/Captura_single-post.PNG',                                            objectPosition: 'top' },
   { id: 72,   type: 'image', featured: false, client: 'SJD',                  tech: 'WordPress',           title: 'SJD Bloque Noticias',      image: 'assets/proyectos/captures/Captura-bloque_noticas.PNG',                                         objectPosition: 'top' },
   { id: 73,   type: 'image', featured: false, client: 'SJD',                  tech: 'WordPress',           title: 'SJD Query Plugin',         image: 'assets/proyectos/captures/Captura-bloque_query-pluginrelatedpds.PNG',                          objectPosition: 'top' },
+  { id: 'v7', type: 'video', featured: false, client: 'SJD',                  tech: 'WordPress · Plugin de mapas', title: 'SJD Mapa de Centros', src: 'assets/proyectos/captures/sjd-mapa-plugin.mp4' },
 
   { id: 8,    type: 'image', featured: true,  client: 'Obra Social SJD',      tech: 'WordPress',           title: 'Obra Social San Juan',     image: 'assets/proyectos/webs/screencapture-obrasocialsanjuandedios-es-2024-03-29-19_18_34.png',         objectPosition: 'center' },
 
@@ -65,6 +66,7 @@ export const WORKS = [
 
   // ── Portfolio / creative ──────────────────────────────────────────────────
   { id: 'v6', type: 'video', featured: true,  client: 'Marc Gomez del Moral', tech: 'Portfolio',           title: 'Marc Gomez del Moral',     src: 'assets/proyectos/captures/Marcgomezdelmoral.mp4' },
+  { id: 'v8', type: 'video', featured: true,  client: 'Curated Collective',   tech: 'Custom · Motion',     title: 'Curated Collective',       src: 'assets/proyectos/captures/curated.mp4' },
 
   // ── Piezas sueltas ────────────────────────────────────────────────────────
   { id: 9,    type: 'image', featured: true,  client: 'AI Research COVID',    tech: 'React',               title: 'AI Research COVID',        image: 'assets/proyectos/webs/screencapture-airesearch-sesgos-covid19-2022-11-14-18_36_00.png',          objectPosition: 'center' },
