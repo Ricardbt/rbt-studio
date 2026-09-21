@@ -1,0 +1,6 @@
+RewriteEngine On
+
+# Una sola versión canónica: https://rbt-studio.com (sin www)
+RewriteCond %{HTTPS} off [OR]
+RewriteCond %{HTTP_HOST} ^www\. [NC]
+RewriteRule ^ https://rbt-studio.com%{REQUEST_URI} [L,R=301]
