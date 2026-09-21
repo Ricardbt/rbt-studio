@@ -512,3 +512,11 @@ img, svg, video { display: block; max-width: 100%; }
   .misreg > .pass--c,
   .misreg > .pass--m { transition: none; }
 }
+
+/* Texto estático que viaja en el HTML para crawlers y vistas previas.
+   React lo reemplaza al montar; sólo se ve si el JS tarda o falla. */
+.static-shell { max-width: var(--container, 1200px); margin: 0 auto; padding: 96px 24px; }
+.static-shell h1 { font-size: 2rem; line-height: 1.15; margin-bottom: 16px; }
+.static-shell h2 { font-size: 1.5rem; margin: 48px 0 8px; }
+.static-shell h3 { font-size: 1rem; font-weight: 600; margin-top: 16px; }
+.static-shell p { max-width: 65ch; }

@@ -3,6 +3,7 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { appear } from '../lib/motion'
 import { PassOpen } from './Press'
+import { SERVICES } from '../data/services'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -13,63 +14,6 @@ gsap.registerPlugin(ScrollTrigger)
    su cobertura. Al pasar por encima, la línea se imprime en
    papel: la pasada se completa.
    ========================================================= */
-
-const SERVICES = [
-  {
-    num: '01',
-    ink: 'var(--ink-cyan)', tint: 'var(--ink-cyan-t)',
-    inkName: 'Cian',
-    name: 'Experience Engineering',
-    desc: 'Frontend sofisticado donde cada interacción tiene intención. Interfaces que se sienten bien, no sólo que funcionan.',
-    tags: ['React', 'Next.js', 'TypeScript', 'Motion'],
-    coverage: 100,
-  },
-  {
-    num: '02',
-    ink: 'var(--ink-magenta)', tint: 'var(--ink-magenta-t)',
-    inkName: 'Magenta',
-    name: 'Producto AI-native',
-    desc: 'Interfaces para sistemas inteligentes: claras, predecibles y humanas. La IA como comportamiento útil, no como reclamo.',
-    tags: ['LLMs', 'AI UI', 'Producto', 'UX'],
-    coverage: 90,
-  },
-  {
-    num: '03',
-    ink: 'var(--ink-yellow)', tint: 'var(--ink-yellow-t)',
-    inkName: 'Amarillo',
-    name: 'Design Systems',
-    desc: 'Sistemas de componentes con criterio visual y consistencia a escala. De los tokens a una experiencia coherente.',
-    tags: ['Tokens', 'Componentes', 'Storybook', 'Figma'],
-    coverage: 80,
-  },
-  {
-    num: '04',
-    ink: 'var(--ink-over-cm)', tint: 'var(--ink-violet-t)',
-    inkName: 'Cian + Magenta',
-    name: 'Movimiento e interacción',
-    desc: 'Animación con propósito: microinteracciones, transiciones y feedback que refuerzan la narrativa del producto.',
-    tags: ['GSAP', 'Framer Motion', 'WebGL', 'R3F'],
-    coverage: 70,
-  },
-  {
-    num: '05',
-    ink: 'var(--ink-over-my)', tint: 'var(--ink-orange-t)',
-    inkName: 'Magenta + Amarillo',
-    name: 'Consultoría de producto',
-    desc: 'Arquitectura frontend, auditoría UX y hoja de ruta técnica orientada a la experiencia de uso.',
-    tags: ['Arquitectura', 'Auditoría UX', 'Roadmap'],
-    coverage: 60,
-  },
-  {
-    num: '06',
-    ink: 'var(--ink-key)', tint: 'var(--ink-key)',
-    inkName: 'Negro',
-    name: 'Creative technology',
-    desc: 'Código generativo, instalaciones interactivas y piezas computacionales para espacios culturales y digitales.',
-    tags: ['Generativo', 'p5.js', 'Interactivo', 'Instalación'],
-    coverage: 100,
-  },
-]
 
 export default function Services() {
   const sectionRef = useRef(null)
