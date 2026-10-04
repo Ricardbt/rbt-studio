@@ -69,8 +69,8 @@
   /* Archivo tiene eje de ancho: el ancho ES la escala de
      densidad. Titulares expandidos, anotación estrecha.
      Spline Sans Mono para todo lo que es dato de taller. */
-  --font-sans: 'Archivo', system-ui, -apple-system, sans-serif;
-  --font-mono: 'Spline Sans Mono', ui-monospace, monospace;
+  --font-sans: 'Archivo Variable', system-ui, -apple-system, sans-serif;
+  --font-mono: 'Spline Sans Mono Variable', ui-monospace, monospace;
 
   --t-mega:    clamp(64px, 9vw, 132px);
   --t-display: clamp(44px, 6vw, 84px);

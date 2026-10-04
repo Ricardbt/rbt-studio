@@ -24,6 +24,27 @@ function toCasePage(html, lang, c) {
     .replace(/<html lang="(\w+)"/, `<html lang="$1" data-case="${c.slug}"`)
 }
 
+// Lo que el primer pintado espera, quitado de la ruta crítica:
+// - la hoja de estilos (unos 5 KB comprimida) va en línea: una petición
+//   bloqueante menos, y el HTML estático sale ya con su aspecto;
+// - las dos fuentes latinas se precargan: sin esto el navegador sólo las
+//   descubre al aplicar el CSS. El resto de subconjuntos (latin-ext,
+//   vietnamita…) se piden sólo si la página los usa, por unicode-range.
+const PRELOAD_FONTS = [/archivo-latin-wdth-normal-.*\.woff2$/, /spline-sans-mono-latin-wght-normal-.*\.woff2$/]
+
+function renderFast(html, bundle) {
+  const files = Object.keys(bundle)
+  const fonts = PRELOAD_FONTS
+    .map((re) => files.find((f) => re.test(f)))
+    .filter(Boolean)
+    .map((f) => `<link rel="preload" href="/${f}" as="font" type="font/woff2" crossorigin>`)
+    .join('\n    ')
+  return html.replace(/<link rel="stylesheet"[^>]*href="\/(assets\/[^"]+\.css)"[^>]*>/g, (_, css) => {
+    const source = bundle[css]?.source
+    return source ? `${fonts}\n    <style>${String(source).replace(/<\/style/gi, '<\\/style')}</style>` : _
+  })
+}
+
 // El sitio se pinta entero con JavaScript: sin esto, lo que recibe un crawler,
 // un agente o la vista previa de un enlace es un <div id="root"> vacío y un
 // <head> sin nada. Se rellenan los dos con el mismo texto que luego pinta
@@ -50,12 +71,15 @@ function machineReadable() {
       emit('llms-full.es.txt', llmsFull('es'))
       emit('sitemap.xml', sitemapXml(today))
     },
-    // Una página por caso y por idioma, a partir de la portada ya construida
-    // (con sus scripts y estilos con hash).
-    writeBundle() {
-      const built = {
-        es: readFileSync(join(outDir, 'index.html'), 'utf8'),
-        en: readFileSync(join(outDir, 'en/index.html'), 'utf8'),
+    // Con el HTML ya escrito: CSS en línea y fuentes precargadas en las dos
+    // portadas, y después una página por caso y por idioma a partir de ellas
+    // (con sus scripts con hash).
+    writeBundle(_, bundle) {
+      const built = {}
+      for (const [lang, name] of [['es', 'index.html'], ['en', 'en/index.html']]) {
+        const file = join(outDir, name)
+        built[lang] = renderFast(readFileSync(file, 'utf8'), bundle)
+        writeFileSync(file, built[lang])
       }
       for (const { lang, c, path } of CASE_PAGES) {
         const file = join(outDir, path, 'index.html')
