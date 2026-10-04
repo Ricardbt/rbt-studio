@@ -9,7 +9,7 @@ export const COPY = {
       description: 'Portfolio de Ricard Boixeda: más de 10 años de ingeniería frontend, producto AI-native y código generativo, con formación en Bellas Artes. Barcelona.',
       ogTitle: 'RBT Studio — Ricard Boixeda, Experience Engineer',
       ogDescription: 'Ingeniería frontend, producto AI-native y código generativo desde Barcelona.',
-      h1: 'rbt.studio — portfolio de Ricard Boixeda, Experience Engineer',
+      h1: 'Ricard Boixeda, Experience Engineer: diseño de producto, ingeniería frontend y sistemas con IA en Barcelona',
       locale: 'es_ES',
     },
     nav: {
@@ -120,7 +120,7 @@ export const COPY = {
       description: 'Portfolio of Ricard Boixeda: 10+ years of frontend engineering, AI-native product and generative code, grounded in a Fine Arts background. Barcelona.',
       ogTitle: 'RBT Studio — Ricard Boixeda, Experience Engineer',
       ogDescription: 'Frontend engineering, AI-native product and generative code from Barcelona.',
-      h1: 'rbt.studio — portfolio of Ricard Boixeda, Experience Engineer',
+      h1: 'Ricard Boixeda, Experience Engineer: product design, frontend engineering and AI systems in Barcelona',
       locale: 'en_GB',
     },
     nav: {
