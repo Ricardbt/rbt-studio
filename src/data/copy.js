@@ -25,6 +25,7 @@ export const COPY = {
       closeMenu: 'Cerrar menú',
       switchLabel: 'EN',
       switchAria: 'Read this site in English',
+      footer: 'Índice de la página',
     },
     hero: {
       lede: 'Experience engineering, producto AI-native y código creativo. Lo que corre por encima es el trabajo, no el decorado.',
@@ -135,6 +136,7 @@ export const COPY = {
       closeMenu: 'Close menu',
       switchLabel: 'ES',
       switchAria: 'Leer esta web en castellano',
+      footer: 'Page index',
     },
     hero: {
       lede: 'Experience engineering, AI-native product and creative code. What runs across the top is the work, not the set dressing.',

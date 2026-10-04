@@ -36,7 +36,7 @@ const mediaSummary = (media = {}) => {
   return parts.join(' · ')
 }
 
-function CaseCard({ caseData, onOpen }) {
+function CaseCard({ caseData }) {
   const videoRef = useRef(null)
   const [playing, setPlaying] = useState(false)
 
@@ -61,15 +61,13 @@ function CaseCard({ caseData, onOpen }) {
   }
 
   return (
-    <article
+    // Un enlace de verdad a la dirección del caso, no un botón: se puede abrir
+    // en otra pestaña, copiar y compartir, y los buscadores lo siguen. Abrirlo
+    // lo hace el escuchador de hashchange de la grid.
+    <a
+      href={`#case-${caseData.id}`}
       className="case-card"
-      role="button"
-      tabIndex={0}
       aria-label={t(`Leer el caso de estudio de ${caseData.tag}: ${plainTitle}`, `Read the ${caseData.tag} case study: ${plainTitle}`)}
-      onClick={() => onOpen(caseData)}
-      onKeyDown={(e) => {
-        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onOpen(caseData) }
-      }}
       onMouseEnter={handleEnter}
       onMouseLeave={handleLeave}
       style={{ '--case-ink': caseData.color }}
@@ -139,7 +137,7 @@ function CaseCard({ caseData, onOpen }) {
           {summary && <span className="t-label" style={{ color: 'var(--on-press-low)' }}>{summary}</span>}
         </div>
       </div>
-    </article>
+    </a>
   )
 }
 
@@ -197,7 +195,7 @@ export default function CaseStudiesGrid() {
 
         <div ref={gridRef} className="case-grid mt-10">
           {ORDERED.map((c) => (
-            <CaseCard key={c.id} caseData={c} onOpen={setOpenCase} />
+            <CaseCard key={c.id} caseData={c} />
           ))}
         </div>
 

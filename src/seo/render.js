@@ -27,6 +27,7 @@ const L = {
     results: 'Resultados', metrics: 'Cifras', learnings: 'Qué se aprendió', link: 'Enlace', status: 'Estado',
     services: 'Servicios', cases: 'Casos de estudio', clients: 'Trabajo de cliente', about: 'Sobre Ricard Boixeda',
     contact: 'Contacto', otherLang: 'Read in English', generative: 'Piezas generativas',
+    top: 'Volver arriba', fullText: 'Contenido completo en texto',
   },
   en: {
     client: 'Client', role: 'Role', timeline: 'Timeline', stack: 'Stack', context: 'Context',
@@ -34,6 +35,7 @@ const L = {
     results: 'Results', metrics: 'Figures', learnings: 'What was learned', link: 'Link', status: 'Status',
     services: 'Services', cases: 'Case studies', clients: 'Client work', about: 'About Ricard Boixeda',
     contact: 'Contact', otherLang: 'Leer en castellano', generative: 'Generative pieces',
+    top: 'Back to top', fullText: 'Full content as text',
   },
 }
 
@@ -47,6 +49,7 @@ const toMd = (html) => String(html)
   .replace(/<\/?strong>/g, '**')
   .replace(/<\/?em>/g, '_')
   .replace(/<[^>]+>/g, '')
+const NAV_IDS = ['services', 'projects', 'works', 'artistic', 'about', 'contact']
 const caseUrl = (lang, c) => `${PAGE[lang]}#case-${c.id}`
 const contextOf = (c) => c.context?.body ?? c.body
 
@@ -176,6 +179,9 @@ ${ld}
 function caseHtml(lang, c) {
   const l = L[lang]
   const p = (s) => (s ? `<p>${esc(s)}</p>` : '')
+  // Los apartados de un caso se repiten en los doce: como encabezados
+  // serían 60 h4 duplicados. Van como etiqueta; el encabezado es el caso.
+  const sub = (s) => `<p><strong>${s}</strong></p>`
   const meta = [
     c.client && `<dt>${l.client}</dt><dd>${esc(c.client)}</dd>`,
     c.role && `<dt>${l.role}</dt><dd>${esc(c.role)}</dd>`,
@@ -185,19 +191,19 @@ function caseHtml(lang, c) {
 
   return `
           <article id="case-${c.id}" lang="${lang}">
-            <h3>${esc(c.tag)} — ${esc(oneLine(c.title))}</h3>
+            <h3><a href="#case-${c.id}">${esc(c.tag)} — ${esc(oneLine(c.title))}</a></h3>
             <p><em>${esc(c.subtitle)}</em> · ${esc(c.category)}</p>
             <dl>${meta}</dl>
-            ${c.context?.title ? `<h4>${esc(c.context.title)}</h4>` : ''}${p(contextOf(c))}
-            ${c.problem ? `<h4>${l.problem}: ${esc(c.problem.title)}</h4>${p(c.problem.body)}` : ''}
-            ${c.process?.length ? `<h4>${l.process}</h4><ol>${c.process.map((s) => `<li><strong>${esc(s.title)}.</strong> ${esc(s.body)}</li>`).join('')}</ol>` : ''}
+            ${c.context?.title ? sub(esc(c.context.title)) : ''}${p(contextOf(c))}
+            ${c.problem ? `${sub(`${l.problem}: ${esc(c.problem.title)}`)}${p(c.problem.body)}` : ''}
+            ${c.process?.length ? `${sub(l.process)}<ol>${c.process.map((s) => `<li><strong>${esc(s.title)}.</strong> ${esc(s.body)}</li>`).join('')}</ol>` : ''}
             ${c.pipeline ? `<p>${esc(label(c.pipeline.title ?? ''))}: ${esc(c.pipeline.nodes.map((n) => n.label).join(' → '))}</p>` : ''}
-            ${c.solution ? `<h4>${l.solution}: ${esc(c.solution.title)}</h4>${p(c.solution.body)}` : ''}
-            ${c.right?.length ? `<h4>${l.decisions}</h4><ul>${c.right.map((r) => `<li><strong>${esc(label(r.label))}:</strong> ${r.valueHtml ?? esc(r.value)}</li>`).join('')}</ul>` : ''}
-            ${c.resultsBody || c.metrics?.length ? `<h4>${l.results}</h4>${p(c.resultsBody)}` : ''}
+            ${c.solution ? `${sub(`${l.solution}: ${esc(c.solution.title)}`)}${p(c.solution.body)}` : ''}
+            ${c.right?.length ? `${sub(l.decisions)}<ul>${c.right.map((r) => `<li><strong>${esc(label(r.label))}:</strong> ${r.valueHtml ?? esc(r.value)}</li>`).join('')}</ul>` : ''}
+            ${c.resultsBody || c.metrics?.length ? `${sub(l.results)}${p(c.resultsBody)}` : ''}
             ${c.metrics?.length ? `<ul>${c.metrics.map((m) => `<li><strong>${esc(m.val)}</strong> — ${esc(m.label)}</li>`).join('')}</ul>` : ''}
             ${c.quote ? `<blockquote><p>${esc(c.quote.text)}</p></blockquote>` : ''}
-            ${c.learnings?.length ? `<h4>${l.learnings}</h4><ol>${c.learnings.map((x) => `<li>${x.text}</li>`).join('')}</ol>` : ''}
+            ${c.learnings?.length ? `${sub(l.learnings)}<ol>${c.learnings.map((x) => `<li>${x.text}</li>`).join('')}</ol>` : ''}
             ${c.link ? `<p><a href="${esc(c.link.href)}">${esc(c.link.label)}</a></p>` : ''}
             ${c.cta?.note ? `<p>${esc(c.cta.note)}</p>` : ''}
           </article>`
@@ -209,7 +215,11 @@ export function shellHtml(lang) {
   const other = lang === 'en' ? 'es' : 'en'
   return `
       <div class="static-shell">
-        <p><a href="${PAGE[other].replace(SITE, '')}" hreflang="${other}" lang="${other}">${l.otherLang}</a></p>
+        <nav>
+          <ul>${NAV_IDS.map((id) => `<li><a href="#${id}">${esc(T.nav[id])}</a></li>`).join('')}
+            <li><a href="${PAGE[other].replace(SITE, '')}" hreflang="${other}" lang="${other}">${l.otherLang}</a></li>
+          </ul>
+        </nav>
         <h1>${esc(T.meta.h1)}</h1>
         <p>${esc(T.hero.lede)}</p>
         <p>${esc(T.statement.a)} ${esc(T.statement.b)}</p>
@@ -224,14 +234,15 @@ export function shellHtml(lang) {
 
         <section id="projects">
           <h2>${esc(T.cases.title)}</h2>
-          <p>${esc(T.cases.sub)}</p>${CASES_BY_LANG[lang].map((c) => caseHtml(lang, c)).join('')}
+          <p>${esc(T.cases.sub)}</p>
+          <ul>${CASES_BY_LANG[lang].map((c) => `<li><a href="#case-${c.id}">${esc(c.tag)}</a> — ${esc(c.subtitle)}</li>`).join('')}</ul>${CASES_BY_LANG[lang].map((c) => caseHtml(lang, c)).join('')}
         </section>
 
         <section id="works">
           <h2>${esc(T.works.title)}</h2>
           <p>${esc(T.works.sub)}</p>
           <ul>${WORK_GROUPS_BY_LANG[lang].map((g) => `
-            <li><h3>${esc(g.client)}</h3><p>${esc(g.cover.tech)}</p></li>`).join('')}
+            <li><strong>${esc(g.client)}</strong> — ${esc(g.cover.tech)}</li>`).join('')}
           </ul>
         </section>
 
@@ -239,7 +250,7 @@ export function shellHtml(lang) {
           <h2>${esc(T.artistic.title)}</h2>
           <p>${esc(T.artistic.sub)} ${esc(T.artistic.lede)}</p>
           <ul>${T.artistic.items.map((i) => `
-            <li><h3>${esc(i.title)}</h3><p>${esc(i.label)} — ${esc(i.desc)}</p></li>`).join('')}
+            <li><strong>${esc(i.title)}</strong> (${esc(i.label)}) — ${esc(i.desc)}</li>`).join('')}
           </ul>
         </section>
 
@@ -262,6 +273,15 @@ export function shellHtml(lang) {
           <p>${esc(T.contact.sub)}</p>
           <p><a href="mailto:${EMAIL}">${EMAIL}</a></p>
         </section>
+
+        <footer>
+          <p>
+            <a href="#">${esc(l.top)}</a> ·
+            <a href="${PAGE[other].replace(SITE, '')}" hreflang="${other}" lang="${other}">${l.otherLang}</a> ·
+            <a href="/llms.txt">llms.txt</a> ·
+            <a href="${LLMS_FULL[lang]}">${esc(l.fullText)}</a>
+          </p>
+        </footer>
       </div>
     `
 }

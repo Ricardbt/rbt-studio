@@ -72,7 +72,7 @@ function GroupCard({ group, onOpen }) {
         )}
       </div>
       <div className="work-card__body">
-        <h3 className="t-h3" style={{ color: 'var(--on-press)' }}>{group.client}</h3>
+        <span className="t-h3 block" style={{ color: 'var(--on-press)' }}>{group.client}</span>
         <span className="t-label" style={{ color: 'var(--on-press-low)' }}>{cover.tech}</span>
         {rest && <span className="t-label" style={{ color: 'var(--on-press-low)' }}>{rest}</span>}
       </div>
