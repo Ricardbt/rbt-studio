@@ -2,6 +2,10 @@ import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { appear } from '../lib/motion'
+import { COPY } from '../data/copy'
+import { LANG } from '../i18n'
+
+const T = COPY[LANG].statement
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -44,9 +48,9 @@ export default function Statement() {
         <div ref={lineRef} style={{ height: '1px', background: 'var(--press-line)', marginBottom: '48px' }} />
         <blockquote ref={quoteRef} className="opacity-0">
           <span className="t-h1 block" style={{ color: 'var(--on-press)', maxWidth: '18ch' }}>
-            La mayoría de productos saben qué hacen.{' '}
+            {T.a}{' '}
             <span style={{ color: 'var(--on-press-mid)' }}>
-              Pocos saben cómo deberían sentirse al usarse.
+              {T.b}
             </span>
           </span>
         </blockquote>

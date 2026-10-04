@@ -1,3 +1,6 @@
+import { COPY } from '../data/copy'
+import { LANG } from '../i18n'
+
 /* =========================================================
    PRIMITIVAS DE TALLER
    Lo poco que el mundo necesita en el margen: las cruces de
@@ -50,12 +53,28 @@ export function PassOpen({ pass, total = 6, title, sub, id, ink = 'var(--ink-cya
   return (
     <header className="pass-open" id={id}>
       <div className="pass-open__num" style={{ color: ink }}>
-        Pasada<br />{String(pass).padStart(2, '0')}/{String(total).padStart(2, '0')}
+        {COPY[LANG].pass}<br />{String(pass).padStart(2, '0')}/{String(total).padStart(2, '0')}
       </div>
       <div>
         <h2 className="t-h1">{title}</h2>
         {sub && <p className="pass-open__sub">{sub}</p>}
       </div>
     </header>
+  )
+}
+
+/**
+ * Llamada al contacto al cierre de una pasada: una frase que conecta con lo
+ * que se acaba de leer y el botón que lleva a la cuarta tinta. Sobre la hoja
+ * blanca el botón es el negro de plancha; sobre la mesa, el magenta.
+ */
+export function ContactCta({ lead, label, onSheet = false, className = '' }) {
+  return (
+    <div className={`contact-cta${onSheet ? ' contact-cta--sheet' : ''} ${className}`}>
+      <p className="contact-cta__lead">{lead}</p>
+      <a href="#contact" className={`btn ${onSheet ? 'btn--sheet' : ''}`}>
+        {label} <span aria-hidden="true">→</span>
+      </a>
+    </div>
   )
 }

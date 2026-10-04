@@ -2,8 +2,13 @@ import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { appear } from '../lib/motion'
-import { PassOpen } from './Press'
-import { SERVICES } from '../data/services'
+import { PassOpen, ContactCta } from './Press'
+import { SERVICES_BY_LANG } from '../data/services'
+import { COPY } from '../data/copy'
+import { LANG } from '../i18n'
+
+const SERVICES = SERVICES_BY_LANG[LANG]
+const T = COPY[LANG].services
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -40,8 +45,8 @@ export default function Services() {
       <div className="mx-auto w-full px-6 md:px-12 lg:px-16" style={{ maxWidth: 'var(--container)' }}>
         <PassOpen
           pass={1}
-          title="Carta de tintas"
-          sub="Seis maneras de trabajar. Cada una con su tinta, su cobertura y lo que deja en la hoja."
+          title={T.title}
+          sub={T.sub}
         />
 
         <div className="ink-chart">
@@ -66,7 +71,7 @@ export default function Services() {
 
                 <div className="ink-row__meta">
                   <span className="t-label" style={{ color: 'var(--on-press-low)' }}>
-                    Cobertura {service.coverage}%
+                    {T.coverage} {service.coverage}%
                   </span>
                   <span className="ink-row__bar" aria-hidden="true">
                     <span style={{ width: `${service.coverage}%`, background: service.ink }} />
@@ -81,6 +86,8 @@ export default function Services() {
             </article>
           ))}
         </div>
+
+        <ContactCta {...COPY[LANG].cta.services} />
       </div>
 
       <style>{`

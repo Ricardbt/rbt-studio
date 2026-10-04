@@ -3,6 +3,8 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { appear } from '../lib/motion'
 import { PassOpen } from './Press'
+import { COPY } from '../data/copy'
+import { LANG } from '../i18n'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -72,12 +74,8 @@ function ArtCanvas() {
   return <canvas ref={canvasRef} className="w-full block" />
 }
 
-const ARTISTIC_ITEMS = [
-  { label: 'Código generativo', title: 'Sistemas y patrones vivos', desc: 'Exploración de fenómenos naturales mediante algoritmos: atractores, filotaxis, campos de flujo y autómatas celulares.' },
-  { label: 'Movimiento e interacción', title: 'Animación con propósito', desc: 'Microinteracciones, transiciones y respuesta que refuerzan la narrativa del producto. GSAP, Framer Motion y WebGL.' },
-  { label: 'Creative Technology', title: 'Instalaciones interactivas', desc: 'Entornos audiovisuales y proyecciones para espacios culturales. Donde la tecnología desaparece y queda la experiencia.' },
-  { label: 'Bellas Artes', title: 'Base conceptual y visual', desc: 'Bellas Artes en la Universidad de Barcelona. La sensibilidad estética y el pensamiento crítico que informa cada decisión técnica.' },
-]
+const T = COPY[LANG].artistic
+const ARTISTIC_ITEMS = T.items
 
 function ArtisticItem({ item, index }) {
   const itemRef = useRef(null)
@@ -201,16 +199,15 @@ export default function Artistic() {
           <PassOpen
             pass={4}
             ink="var(--ink-violet-t)"
-            title="Donde la técnica genera experiencia"
-            sub="La formación en Bellas Artes no es un antecedente del trabajo técnico: es parte de él."
+            title={T.title}
+            sub={T.sub}
           />
         </div>
 
         <div className="mt-12 grid grid-cols-1 items-start gap-14 lg:grid-cols-2 lg:gap-20">
           <div ref={textRef} className="opacity-0 lg:sticky lg:top-32">
             <p className="t-body mb-8" style={{ color: 'var(--on-press-mid)', maxWidth: '48ch' }}>
-              El código generativo, el movimiento y las instalaciones son el mismo lenguaje
-              visual con otras herramientas.
+              {T.lede}
             </p>
             <div
               ref={canvasRef}
@@ -219,7 +216,7 @@ export default function Artistic() {
             >
               <ArtCanvas />
               <span className="t-label absolute bottom-3 left-4" style={{ color: 'var(--on-press-low)' }}>
-                Pieza viva · cuatro planchas
+                {T.canvasLabel}
               </span>
             </div>
           </div>

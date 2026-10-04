@@ -1,9 +1,12 @@
-const SP = 'assets/proyectos/materialcasos_estudio/storyprints/assets/'
-const EO = 'assets/proyectos/materialcasos_estudio/eonia/assets/'
-const EZ = 'assets/proyectos/materialcasos_estudio/el-ultimo-zarpe/assets/'
-const FO = 'assets/proyectos/materialcasos_estudio/fotografia-direccionartistica/assets/'
-const CAP = 'assets/proyectos/captures/'
-const CS = 'assets/proyectos/casos/'
+import { CASES_EN } from './caseStudies.en.js'
+import { localizeById } from './localize.js'
+
+const SP = '/assets/proyectos/materialcasos_estudio/storyprints/assets/'
+const EO = '/assets/proyectos/materialcasos_estudio/eonia/assets/'
+const EZ = '/assets/proyectos/materialcasos_estudio/el-ultimo-zarpe/assets/'
+const FO = '/assets/proyectos/materialcasos_estudio/fotografia-direccionartistica/assets/'
+const CAP = '/assets/proyectos/captures/'
+const CS = '/assets/proyectos/casos/'
 
 
 export const CASES = [
@@ -149,8 +152,8 @@ export const CASES = [
     role: 'Product design · Full-stack · Arquitectura multi-agente · Prompt engineering',
     timeline: 'Producto propio',
     media: {
-      video: 'assets/proyectos/captures/brandAI1.mp4',
-      extraVideos: ['assets/proyectos/captures/brandAI2.mp4'],
+      video: '/assets/proyectos/captures/brandAI1.mp4',
+      extraVideos: ['/assets/proyectos/captures/brandAI2.mp4'],
       images: [
         { src: CS + 'brandailoginscreen.webp', alt: "Pantalla de inicio de sesión sobre fondo crema, con el logotipo de RBT Studio, los campos de correo y contraseña, la casilla «Recordarme» y el botón «Entrar»", caption: 'La entrada al producto.' },
         { src: CS + 'brandaipieza1.webp', alt: "Fila de cuatro contadores del panel: Proyectos 7, Brandboards 32, Skills 10 y Assets 27", caption: 'El panel abre con lo que hay, no con lo que se promete.' },
@@ -254,9 +257,9 @@ export const CASES = [
     role: 'Desarrollo de app móvil e integración 3D',
     timeline: 'Proyecto de cliente',
     media: {
-      video: 'assets/proyectos/captures/aimplas-3d.mp4',
-      extraVideos: ['assets/proyectos/captures/aimplas-menu.mp4'],
-      images: [{ src: 'assets/proyectos/webs/Aimplas_Thumb.webp', alt: "Pantalla de la app 3D de Aimplas en tablet" }],
+      video: '/assets/proyectos/captures/aimplas-3d.mp4',
+      extraVideos: ['/assets/proyectos/captures/aimplas-menu.mp4'],
+      images: [{ src: '/assets/proyectos/webs/Aimplas_Thumb.webp', alt: "Pantalla de la app 3D de Aimplas en tablet" }],
     },
     color: '#1E7A50',
     tag: 'AIMPLAS',
@@ -304,8 +307,8 @@ export const CASES = [
     role: 'Desarrollo web y dirección técnica 3D',
     timeline: 'Proyecto de cliente',
     media: {
-      video: 'assets/proyectos/captures/dgo-web.mp4',
-      images: [{ src: 'assets/proyectos/webs/DGO_Tech-scaled.webp', alt: "Sección de datos técnicos de la web de D-Go" }, { src: 'assets/proyectos/webs/MOvile_DGO.webp', alt: "La web de D-Go en móvil" }],
+      video: '/assets/proyectos/captures/dgo-web.mp4',
+      images: [{ src: '/assets/proyectos/webs/DGO_Tech-scaled.webp', alt: "Sección de datos técnicos de la web de D-Go" }, { src: '/assets/proyectos/webs/MOvile_DGO.webp', alt: "La web de D-Go en móvil" }],
     },
     color: '#A8460F',
     tag: 'D-GO',
@@ -353,10 +356,10 @@ export const CASES = [
     role: 'Desarrollo web · 3D · GSAP',
     timeline: 'Proyecto de cliente',
     media: {
-      video: 'assets/proyectos/captures/smartlolipop.mp4',
+      video: '/assets/proyectos/captures/smartlolipop.mp4',
       images: [
-        { src: 'assets/proyectos/webs/tsl_tsl_core.webp', alt: "Render del producto The Smart Lollipop" },
-        { src: 'assets/proyectos/webs/TSL_Group-scaled.webp', alt: "Familia de producto de The Smart Lollipop" },
+        { src: '/assets/proyectos/webs/tsl_tsl_core.webp', alt: "Render del producto The Smart Lollipop" },
+        { src: '/assets/proyectos/webs/TSL_Group-scaled.webp', alt: "Familia de producto de The Smart Lollipop" },
         { src: CS + 'snmartlolipop1.webp', alt: "Portada del sitio: el colector TSL One en rojo y blanco sobre fondo blanco, con la navegación TSL One / TSL Core / Quiénes Somos / Qué hacemos y el titular «Inspirado en un caramelo que estimula la generación de saliva»", caption: 'La portada deja hablar al producto: el objeto ocupa el centro y el titular explica de dónde viene la forma.' },
         { src: CS + 'lolipoppieza2.webp', alt: "Bloque del analizador TSL Core: el equipo de sobremesa a la izquierda y a la derecha su promesa como solución Point of Care, con cuatro puntos de compatibilidad, coste, digitalización y portabilidad", caption: 'El segundo producto de la familia. La nota final —«solución actualmente en desarrollo»— se mantiene visible: el sitio no vende lo que aún no existe.' },
         { src: CS + 'lolipoppiezamobil2.webp', alt: "El mismo bloque de TSL Core en móvil: el equipo arriba y debajo el texto con su lista de características", caption: 'El mismo bloque en móvil: el producto sigue entrando primero.' },
@@ -418,16 +421,16 @@ export const CASES = [
       { title: 'Un incidente que merece estar en el case study', body: 'Con la beta ya en manos de testers, todos los usuarios quedaron bloqueados tras verificar su email. La causa: force_organization_selection activado en el proveedor de identidad. Cada sesión recibía una tarea de «elegir organización» que un usuario B2C nunca puede satisfacer, la sesión se quedaba pending, el cliente la contaba igualmente y el modo de sesión única rechazaba cualquier login nuevo. Se arregló en dos frentes: la configuración y el cliente, porque una app en producción no puede depender de que la consola de un tercero esté bien configurada.' },
     ],
     resultsBody: 'Sin métricas de usuarios todavía — la beta es cerrada y no se han publicado cifras. Lo que sí es verificable: MVP v1.0 completo y desplegado, con backend dockerizado en Render vía Blueprint y APK Android distribuida a testers vía EAS. Incremento de servidor v1.5 en producción, con sync opcional autenticado, informes narrativos y consola de back-office con control de acceso por rol. Y un catálogo clínico editable con firma: los protocolos ya no son código, y la firma clínica es un estado del dato que solo un profesional puede establecer.',
-    cta: { note: 'Demo y beta bajo petición.', label: 'Escríbeme', href: 'mailto:ricardboixeda@gmail.com' },
+    cta: { note: 'Demo y beta bajo petición.', label: 'Pide una demo' },
     media: {
-      cover: 'assets/proyectos/materialcasos_estudio/eonia/assets/01-state.jpg',
-      video: 'assets/proyectos/captures/eonia.mp4',
+      cover: '/assets/proyectos/materialcasos_estudio/eonia/assets/01-state.jpg',
+      video: '/assets/proyectos/captures/eonia.mp4',
       images: [
-        { src: 'assets/proyectos/materialcasos_estudio/eonia/assets/02-checkin.jpg', alt: "Modal de check-in con los cinco sliders y el botón «Confirmar · bajo mucha presión»", caption: "Señal — el check-in de 5 dimensiones. El botón ya anticipa el veredicto antes de confirmar." },
-        { src: 'assets/proyectos/materialcasos_estudio/eonia/assets/03-por-que-este-estado.jpg', alt: "Capa 2: por qué este estado, con EONIA Score 45 y cada dimensión comparada contra el baseline personal", caption: "Capa 2 — «por qué este estado»: cada dimensión contra tu baseline, no contra una media poblacional." },
-        { src: 'assets/proyectos/materialcasos_estudio/eonia/assets/04-system.jpg', alt: "Pantalla SYSTEM con el protocolo Regulación y sus compuestos repartidos en ventanas de tarde y noche", caption: "Ejecución — protocolo activo con ventanas circadianas por compuesto, y el sync en la nube apagado por defecto." },
-        { src: 'assets/proyectos/materialcasos_estudio/eonia/assets/05-history.jpg', alt: "Pantalla HISTORY con la tendencia del EONIA Score a 14 días", caption: "Historial — tendencia del EONIA Score (datos de demostración)." },
-        { src: 'assets/proyectos/materialcasos_estudio/eonia/assets/06-capsules.jpg', alt: "Pantalla CAPSULES con el catálogo de las seis arquitecturas adaptativas", caption: "Catálogo — las seis arquitecturas; EONIA activa una, el resto queda como referencia." },
+        { src: '/assets/proyectos/materialcasos_estudio/eonia/assets/02-checkin.jpg', alt: "Modal de check-in con los cinco sliders y el botón «Confirmar · bajo mucha presión»", caption: "Señal — el check-in de 5 dimensiones. El botón ya anticipa el veredicto antes de confirmar." },
+        { src: '/assets/proyectos/materialcasos_estudio/eonia/assets/03-por-que-este-estado.jpg', alt: "Capa 2: por qué este estado, con EONIA Score 45 y cada dimensión comparada contra el baseline personal", caption: "Capa 2 — «por qué este estado»: cada dimensión contra tu baseline, no contra una media poblacional." },
+        { src: '/assets/proyectos/materialcasos_estudio/eonia/assets/04-system.jpg', alt: "Pantalla SYSTEM con el protocolo Regulación y sus compuestos repartidos en ventanas de tarde y noche", caption: "Ejecución — protocolo activo con ventanas circadianas por compuesto, y el sync en la nube apagado por defecto." },
+        { src: '/assets/proyectos/materialcasos_estudio/eonia/assets/05-history.jpg', alt: "Pantalla HISTORY con la tendencia del EONIA Score a 14 días", caption: "Historial — tendencia del EONIA Score (datos de demostración)." },
+        { src: '/assets/proyectos/materialcasos_estudio/eonia/assets/06-capsules.jpg', alt: "Pantalla CAPSULES con el catálogo de las seis arquitecturas adaptativas", caption: "Catálogo — las seis arquitecturas; EONIA activa una, el resto queda como referencia." },
         { src: CS + 'eoniahistorial.webp', alt: "Pantalla Historial con el EONIA Score en 69, la media, el máximo y el mínimo de catorce días, la curva de evolución y una cronología con las etiquetas «Tu cuerpo se está adaptando» y «Bajo mucha presión»", caption: 'El historial no da un número suelto: da el número, su recorrido y el nombre del estado en cada fecha.' },
         { src: CS + 'eoniaprofileresumen.webp', alt: "Tres contadores del perfil —14 check-ins, 14 días y estado 46 «Tu cuerpo se está adaptando»— y bajo ellos el aviso de que la personalización está activa y los scores se ajustan a la línea base", caption: 'La personalización se declara en la interfaz: el score se compara con tu propia línea base, y el usuario lo sabe.' },
         { src: CS + 'eoniaprofile.webp', alt: "Pantalla de perfil con los accesos a pedidos, dirección de envío, notas y soporte, pagos, protocolo activo, cápsulas, historial y «Acerca de EONIA»", caption: 'El perfil junta las dos caras del producto: lo que se envía a casa y lo que se mide en la app.' },
@@ -490,13 +493,13 @@ export const CASES = [
     resultsBody: 'El juego es jugable de principio a fin y se distribuye como ejecutable autocontenido de Windows, verificado en un directorio limpio. Todo lo medible hoy es de sistema, no de jugadores: aún no hay playtests externos, ni métricas de retención, ni tienda, ni fecha. Cualquier cifra de aquí habla de la solidez del sistema, no de que a alguien le haya gustado. Ese es el siguiente paso, no un resultado ya conseguido.',
     cta: { note: 'En desarrollo. Build de Windows funcional; sin tienda ni fecha todavía.' },
     media: {
-      cover: 'assets/proyectos/materialcasos_estudio/el-ultimo-zarpe/assets/02-puerto.png',
-      video: 'assets/proyectos/captures/lastsail.mp4',
+      cover: '/assets/proyectos/materialcasos_estudio/el-ultimo-zarpe/assets/02-puerto.png',
+      video: '/assets/proyectos/captures/lastsail.mp4',
       images: [
-        { src: 'assets/proyectos/materialcasos_estudio/el-ultimo-zarpe/assets/01-inicio.png', alt: "Pantalla de inicio: dureza, longitud y semilla opcional", caption: "Pantalla de inicio. Dureza, longitud y semilla: «ninguna travesía se parece a la anterior»." },
-        { src: 'assets/proyectos/materialcasos_estudio/el-ultimo-zarpe/assets/03-taberna.png', alt: "Interior de la taberna del Ancla", caption: "La taberna. Rumores baratos y poco fiables: media docena de hombres que no zarpan mañana y uno que sí." },
-        { src: 'assets/proyectos/materialcasos_estudio/el-ultimo-zarpe/assets/04-lonja.png', alt: "Interior de la lonja del pescado", caption: "La lonja: rumor de gremio en el corrillo, dato oficial en la pizarra. Dos voces con fiabilidad distinta en el mismo sitio." },
-        { src: 'assets/proyectos/materialcasos_estudio/el-ultimo-zarpe/assets/05-travesia.png', alt: "La travesía: el barco de noche rumbo al Barra de las Viudas", caption: "Día 3 de travesía. «La sed llega antes que el hambre. Racionáis lo que quedaba en el pañol.»" },
+        { src: '/assets/proyectos/materialcasos_estudio/el-ultimo-zarpe/assets/01-inicio.png', alt: "Pantalla de inicio: dureza, longitud y semilla opcional", caption: "Pantalla de inicio. Dureza, longitud y semilla: «ninguna travesía se parece a la anterior»." },
+        { src: '/assets/proyectos/materialcasos_estudio/el-ultimo-zarpe/assets/03-taberna.png', alt: "Interior de la taberna del Ancla", caption: "La taberna. Rumores baratos y poco fiables: media docena de hombres que no zarpan mañana y uno que sí." },
+        { src: '/assets/proyectos/materialcasos_estudio/el-ultimo-zarpe/assets/04-lonja.png', alt: "Interior de la lonja del pescado", caption: "La lonja: rumor de gremio en el corrillo, dato oficial en la pizarra. Dos voces con fiabilidad distinta en el mismo sitio." },
+        { src: '/assets/proyectos/materialcasos_estudio/el-ultimo-zarpe/assets/05-travesia.png', alt: "La travesía: el barco de noche rumbo al Barra de las Viudas", caption: "Día 3 de travesía. «La sed llega antes que el hambre. Racionáis lo que quedaba en el pañol.»" },
       ],
     },
     color: '#6B7A16',
@@ -553,31 +556,31 @@ export const CASES = [
       { title: 'El sistema en papel — tres libros, tres páginas incompatibles', body: 'Los libros son donde el método se pone a prueba de verdad, porque una secuencia no perdona. Geometrías: forma pura, imagen contenida en margen ancho. USA: territorio y carretera, la imagen sangra y alterna una página a sangre contra otra flotando para que la lectura tenga pulso. Sillas: pares a contacto, sin margen y sin folio. No es una plantilla aplicada tres veces — es el mismo criterio produciendo tres respuestas distintas porque el sujeto es distinto. El formato sigue al sujeto.' },
     ],
     resultsBody: 'Ocho años de trabajo que se sostienen como un cuerpo y no como cuatro portfolios sueltos, con tres libros maquetados y una campaña producida de principio a fin. El resultado no es un estilo reconocible por el acabado, sino una gramática que aguanta el cambio de sujeto, de medio y de país — y que incluye saber cuándo suspenderse: en Sillas la primera regla se desactiva a propósito, porque el fondo es quien nombra al ausente.',
-    cta: { note: 'Si tienes un proyecto donde hay que decidir cómo se ve algo — y sostener esa decisión a lo largo de una campaña, una web o un objeto impreso.', label: 'Hablemos', href: 'mailto:ricardboixeda@gmail.com' },
+    cta: { note: 'Si tienes un proyecto donde hay que decidir cómo se ve algo — y sostener esa decisión a lo largo de una campaña, una web o un objeto impreso.', label: 'Hablemos' },
     media: {
-      cover: 'assets/proyectos/materialcasos_estudio/fotografia-direccionartistica/assets/tf-hero.jpg',
+      cover: '/assets/proyectos/materialcasos_estudio/fotografia-direccionartistica/assets/tf-hero.jpg',
       images: [
-        { src: 'assets/proyectos/materialcasos_estudio/fotografia-direccionartistica/assets/r1-roca-teide.jpg', alt: "Roca volcánica contra el cielo del Teide", caption: "01 · Teide, Tenerife — una silueta legible, un fondo que calla." },
-        { src: 'assets/proyectos/materialcasos_estudio/fotografia-direccionartistica/assets/r1-carrete-negro.jpg', alt: "Carretes Kodak T-Max sobre fondo negro", caption: "01 · Kodak T-Max 400, estudio — la misma frase, cinco años y dos mundos después." },
-        { src: 'assets/proyectos/materialcasos_estudio/fotografia-direccionartistica/assets/r2-caperucita.jpg', alt: "Capucha roja sobre fondo gris", caption: "02 · La capucha ocupa media imagen y es lo único saturado del encuadre." },
-        { src: 'assets/proyectos/materialcasos_estudio/fotografia-direccionartistica/assets/r2-listen.jpg', alt: "Camiseta blanca con bordado rojo «#Listen» sobre terreno beige", caption: "02 · El bordado ocupa dos centímetros y hace exactamente el mismo trabajo." },
-        { src: 'assets/proyectos/materialcasos_estudio/fotografia-direccionartistica/assets/r2-vestido-rojo.jpg', alt: "Vestido rojo, único color saturado del encuadre" },
-        { src: 'assets/proyectos/materialcasos_estudio/fotografia-direccionartistica/assets/r2-neon-cafe66.jpg', alt: "Rótulo de neón del Cafe 66 de noche" },
-        { src: 'assets/proyectos/materialcasos_estudio/fotografia-direccionartistica/assets/r3-cuadrado-retrato.jpg', alt: "Retrato en 6×6 y blanco y negro", caption: "03 · 120 · 6 × 6 — componer por peso, no por dirección." },
-        { src: 'assets/proyectos/materialcasos_estudio/fotografia-direccionartistica/assets/r4-alicia-control.jpg', alt: "Alicia: estudio con cartas congeladas en el aire", caption: "04 · Control total: estudio, flash, cartas congeladas en el aire." },
-        { src: 'assets/proyectos/materialcasos_estudio/fotografia-direccionartistica/assets/r4-doble-exposicion.jpg', alt: "Doble exposición a color con «DO NOT ENTER» escrito sobre la piel", caption: "04 · Sin planificar: un carrete rebobinado. Se queda porque el solape fabricó la regla 01 por su cuenta." },
-        { src: 'assets/proyectos/materialcasos_estudio/fotografia-direccionartistica/assets/r4-fuente-flare.jpg', alt: "Fuente con destello de lente conservado" },
-        { src: 'assets/proyectos/materialcasos_estudio/fotografia-direccionartistica/assets/tf-terreno.jpg', alt: "Localización: terreno volcánico con el Teide al fondo", caption: "Tenerife 2019 — la localización se elige por el fondo: beige continuo abajo, azul continuo arriba." },
-        { src: 'assets/proyectos/materialcasos_estudio/fotografia-direccionartistica/assets/tf-color-fachada.jpg', alt: "Paleta encontrada: fachada modernista de bandas de color" },
-        { src: 'assets/proyectos/materialcasos_estudio/fotografia-direccionartistica/assets/tf-lifestyle.jpg', alt: "Plano lifestyle: café sobre mesa blanca" },
-        { src: 'assets/proyectos/materialcasos_estudio/fotografia-direccionartistica/assets/tf-textura-lirio.jpg', alt: "Plano de textura: lirio contra muro blanco" },
-        { src: 'assets/proyectos/materialcasos_estudio/fotografia-direccionartistica/assets/tf-cierre-silueta.jpg', alt: "Cierre gráfico: silueta a contraluz sobre el mar" },
-        { src: 'assets/proyectos/materialcasos_estudio/fotografia-direccionartistica/assets/lib-geometrias-1.jpg', alt: "Doble página del libro Geometrías, imagen flotando en margen blanco", caption: "Geometrías, 21 × 21 — la imagen nunca sangra: la página es el campo plano." },
-        { src: 'assets/proyectos/materialcasos_estudio/fotografia-direccionartistica/assets/lib-geometrias-3.jpg', alt: "Doble página de Geometrías, páginas 15–16" },
-        { src: 'assets/proyectos/materialcasos_estudio/fotografia-direccionartistica/assets/lib-usa-1.jpg', alt: "Doble página del libro USA, imagen a sangre", caption: "USA, 24,4 × 21 — sangre alterna con flotante, spread tras spread, para que la lectura tenga pulso." },
-        { src: 'assets/proyectos/materialcasos_estudio/fotografia-direccionartistica/assets/lib-usa-5.jpg', alt: "El Golden Gate en el libro USA: bahía en gris verdoso y el puente como única saturación" },
-        { src: 'assets/proyectos/materialcasos_estudio/fotografia-direccionartistica/assets/lib-sillas-1.jpg', alt: "Sillas: umbral de teatro cerrado y calle vacía de noche", caption: "Sillas, 17,5 × 17,5 — pares a contacto, sin margen ni folio. El libro tampoco deja respirar." },
-        { src: 'assets/proyectos/materialcasos_estudio/fotografia-direccionartistica/assets/lib-sillas-3.jpg', alt: "Sillas: aula vacía y vagón de metro sin nadie" },
+        { src: '/assets/proyectos/materialcasos_estudio/fotografia-direccionartistica/assets/r1-roca-teide.jpg', alt: "Roca volcánica contra el cielo del Teide", caption: "01 · Teide, Tenerife — una silueta legible, un fondo que calla." },
+        { src: '/assets/proyectos/materialcasos_estudio/fotografia-direccionartistica/assets/r1-carrete-negro.jpg', alt: "Carretes Kodak T-Max sobre fondo negro", caption: "01 · Kodak T-Max 400, estudio — la misma frase, cinco años y dos mundos después." },
+        { src: '/assets/proyectos/materialcasos_estudio/fotografia-direccionartistica/assets/r2-caperucita.jpg', alt: "Capucha roja sobre fondo gris", caption: "02 · La capucha ocupa media imagen y es lo único saturado del encuadre." },
+        { src: '/assets/proyectos/materialcasos_estudio/fotografia-direccionartistica/assets/r2-listen.jpg', alt: "Camiseta blanca con bordado rojo «#Listen» sobre terreno beige", caption: "02 · El bordado ocupa dos centímetros y hace exactamente el mismo trabajo." },
+        { src: '/assets/proyectos/materialcasos_estudio/fotografia-direccionartistica/assets/r2-vestido-rojo.jpg', alt: "Vestido rojo, único color saturado del encuadre" },
+        { src: '/assets/proyectos/materialcasos_estudio/fotografia-direccionartistica/assets/r2-neon-cafe66.jpg', alt: "Rótulo de neón del Cafe 66 de noche" },
+        { src: '/assets/proyectos/materialcasos_estudio/fotografia-direccionartistica/assets/r3-cuadrado-retrato.jpg', alt: "Retrato en 6×6 y blanco y negro", caption: "03 · 120 · 6 × 6 — componer por peso, no por dirección." },
+        { src: '/assets/proyectos/materialcasos_estudio/fotografia-direccionartistica/assets/r4-alicia-control.jpg', alt: "Alicia: estudio con cartas congeladas en el aire", caption: "04 · Control total: estudio, flash, cartas congeladas en el aire." },
+        { src: '/assets/proyectos/materialcasos_estudio/fotografia-direccionartistica/assets/r4-doble-exposicion.jpg', alt: "Doble exposición a color con «DO NOT ENTER» escrito sobre la piel", caption: "04 · Sin planificar: un carrete rebobinado. Se queda porque el solape fabricó la regla 01 por su cuenta." },
+        { src: '/assets/proyectos/materialcasos_estudio/fotografia-direccionartistica/assets/r4-fuente-flare.jpg', alt: "Fuente con destello de lente conservado" },
+        { src: '/assets/proyectos/materialcasos_estudio/fotografia-direccionartistica/assets/tf-terreno.jpg', alt: "Localización: terreno volcánico con el Teide al fondo", caption: "Tenerife 2019 — la localización se elige por el fondo: beige continuo abajo, azul continuo arriba." },
+        { src: '/assets/proyectos/materialcasos_estudio/fotografia-direccionartistica/assets/tf-color-fachada.jpg', alt: "Paleta encontrada: fachada modernista de bandas de color" },
+        { src: '/assets/proyectos/materialcasos_estudio/fotografia-direccionartistica/assets/tf-lifestyle.jpg', alt: "Plano lifestyle: café sobre mesa blanca" },
+        { src: '/assets/proyectos/materialcasos_estudio/fotografia-direccionartistica/assets/tf-textura-lirio.jpg', alt: "Plano de textura: lirio contra muro blanco" },
+        { src: '/assets/proyectos/materialcasos_estudio/fotografia-direccionartistica/assets/tf-cierre-silueta.jpg', alt: "Cierre gráfico: silueta a contraluz sobre el mar" },
+        { src: '/assets/proyectos/materialcasos_estudio/fotografia-direccionartistica/assets/lib-geometrias-1.jpg', alt: "Doble página del libro Geometrías, imagen flotando en margen blanco", caption: "Geometrías, 21 × 21 — la imagen nunca sangra: la página es el campo plano." },
+        { src: '/assets/proyectos/materialcasos_estudio/fotografia-direccionartistica/assets/lib-geometrias-3.jpg', alt: "Doble página de Geometrías, páginas 15–16" },
+        { src: '/assets/proyectos/materialcasos_estudio/fotografia-direccionartistica/assets/lib-usa-1.jpg', alt: "Doble página del libro USA, imagen a sangre", caption: "USA, 24,4 × 21 — sangre alterna con flotante, spread tras spread, para que la lectura tenga pulso." },
+        { src: '/assets/proyectos/materialcasos_estudio/fotografia-direccionartistica/assets/lib-usa-5.jpg', alt: "El Golden Gate en el libro USA: bahía en gris verdoso y el puente como única saturación" },
+        { src: '/assets/proyectos/materialcasos_estudio/fotografia-direccionartistica/assets/lib-sillas-1.jpg', alt: "Sillas: umbral de teatro cerrado y calle vacía de noche", caption: "Sillas, 17,5 × 17,5 — pares a contacto, sin margen ni folio. El libro tampoco deja respirar." },
+        { src: '/assets/proyectos/materialcasos_estudio/fotografia-direccionartistica/assets/lib-sillas-3.jpg', alt: "Sillas: aula vacía y vagón de metro sin nadie" },
       ],
     },
     color: '#6D4AA8',
@@ -728,3 +731,6 @@ export const CASES = [
 ]
 
 export const getCaseById = (id) => CASES.find(c => c.id === id) ?? null
+
+// El texto en inglés vive en caseStudies.en.js; aquí sólo se superpone.
+export const CASES_BY_LANG = { es: CASES, en: localizeById(CASES, CASES_EN, 'cases') }

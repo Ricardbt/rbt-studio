@@ -1,4 +1,6 @@
 import { useEffect, useRef } from 'react'
+import { LANG, t } from '../i18n'
+import { COPY } from '../data/copy'
 
 /* Lector de caso de estudio.
    Sigue el arco de la skill `case-study-builder`:
@@ -58,7 +60,7 @@ function Figure({ src, alt, caption }) {
 }
 
 /* El resto del texto. Sin estado de React: <details> ya lo tiene. */
-function More({ children, label = 'Leer completo' }) {
+function More({ children, label = t('Leer completo', 'Read in full') }) {
   if (!children) return null
   return (
     <details className="csm-more">
@@ -96,6 +98,15 @@ export default function CaseStudyModal({ caseData, onClose }) {
   }, [caseData, onClose])
 
   if (!caseData) return null
+
+  const goToContact = (e) => {
+    e.preventDefault()
+    onClose()
+    requestAnimationFrame(() => {
+      document.getElementById('contact')?.scrollIntoView()
+      history.replaceState(null, '', '#contact')
+    })
+  }
 
   const c        = caseData
   const media    = c.media || {}
@@ -144,7 +155,7 @@ export default function CaseStudyModal({ caseData, onClose }) {
             <span className="csm-dot" style={{ backgroundColor: c.color }} />
             {c.num} · {c.tag}
           </span>
-          <button onClick={onClose} className="csm-close" aria-label={`Cerrar el caso de estudio de ${c.tag}`}>
+          <button onClick={onClose} className="csm-close" aria-label={t(`Cerrar el caso de estudio de ${c.tag}`, `Close the ${c.tag} case study`)}>
             <span aria-hidden="true">✕</span>
           </button>
         </div>
@@ -159,9 +170,9 @@ export default function CaseStudyModal({ caseData, onClose }) {
 
             {(c.client || c.role || c.timeline) && (
               <dl className="csm-meta">
-                {c.client   && <div><dt>Cliente</dt><dd>{c.client}</dd></div>}
-                {c.role     && <div><dt>Mi rol</dt><dd>{c.role}</dd></div>}
-                {c.timeline && <div><dt>Periodo</dt><dd>{c.timeline}</dd></div>}
+                {c.client   && <div><dt>{t('Cliente', 'Client')}</dt><dd>{c.client}</dd></div>}
+                {c.role     && <div><dt>{t('Mi rol', 'My role')}</dt><dd>{c.role}</dd></div>}
+                {c.timeline && <div><dt>{t('Periodo', 'Timeline')}</dt><dd>{c.timeline}</dd></div>}
               </dl>
             )}
 
@@ -169,7 +180,7 @@ export default function CaseStudyModal({ caseData, onClose }) {
               <>
                 <p className="csm-tags-label">Stack</p>
                 <div className="csm-tags">
-                  {c.tech.map(t => <span key={t} className="csm-tag">{t}</span>)}
+                  {c.tech.map(tag => <span key={tag} className="csm-tag">{tag}</span>)}
                 </div>
               </>
             )}
@@ -179,7 +190,7 @@ export default function CaseStudyModal({ caseData, onClose }) {
           {videos.length > 0 && (
             <div className="csm-videos">
               <p className="csm-videos-label">
-                {videos.length === 1 ? 'Demo en vídeo' : `Demo en vídeo · ${videos.length} clips`}
+                {videos.length === 1 ? t('Demo en vídeo', 'Video demo') : `${t('Demo en vídeo', 'Video demo')} · ${videos.length} clips`}
               </p>
               {videos.map((src, i) => (
                 <video
@@ -192,8 +203,8 @@ export default function CaseStudyModal({ caseData, onClose }) {
                   playsInline
                   aria-label={
                     videos.length === 1
-                      ? `Demo de ${c.tag}`
-                      : `Demo de ${c.tag}, clip ${i + 1} de ${videos.length}`
+                      ? t(`Demo de ${c.tag}`, `${c.tag} demo`)
+                      : t(`Demo de ${c.tag}, clip ${i + 1} de ${videos.length}`, `${c.tag} demo, clip ${i + 1} of ${videos.length}`)
                   }
                 />
               ))}
@@ -202,13 +213,13 @@ export default function CaseStudyModal({ caseData, onClose }) {
 
           {/* ── F.01 Contexto / Problema ── */}
           {hasContext && (
-            <Frame n={next()} kind="CONTEXTO" title={ctxTitle || c.problem?.title} plate={plateContext}>
+            <Frame n={next()} kind={t('CONTEXTO', 'CONTEXT')} title={ctxTitle || c.problem?.title} plate={plateContext}>
               <Prose text={context} />
               {c.problem && (
                 <div className="csm-problem">
-                  <p className="csm-problem-label">El problema</p>
+                  <p className="csm-problem-label">{t('El problema', 'The problem')}</p>
                   <p className="csm-problem-title">{c.problem.title}</p>
-                  <Prose text={c.problem.body} label="Leer el diagnóstico" />
+                  <Prose text={c.problem.body} label={t('Leer el diagnóstico', 'Read the diagnosis')} />
                 </div>
               )}
             </Frame>
@@ -216,13 +227,13 @@ export default function CaseStudyModal({ caseData, onClose }) {
 
           {/* ── F.02 Proceso ── */}
           {hasProcess && (
-            <Frame n={next()} kind="PROCESO" title={c.process?.length ? 'Cómo se abordó' : null} plate={plateProcess}>
+            <Frame n={next()} kind={t('PROCESO', 'PROCESS')} title={c.process?.length ? t('Cómo se abordó', 'How it was approached') : null} plate={plateProcess}>
               {c.process?.map((step, i) => (
                 <div key={i} className="csm-step">
                   <span className="csm-step-n">{String(i + 1).padStart(2, '0')}</span>
                   <div>
                     <h4>{step.title}</h4>
-                    <Prose text={step.body} label="Leer este paso" />
+                    <Prose text={step.body} label={t('Leer este paso', 'Read this step')} />
                   </div>
                 </div>
               ))}
@@ -245,8 +256,8 @@ export default function CaseStudyModal({ caseData, onClose }) {
 
           {/* ── F.03 Solución ── */}
           {hasSolution && (
-            <Frame n={next()} kind="SOLUCIÓN" title={c.solution?.title} plate={plateSolution}>
-              <Prose text={c.solution?.body} label="Leer la solución" />
+            <Frame n={next()} kind={t('SOLUCIÓN', 'SOLUTION')} title={c.solution?.title} plate={plateSolution}>
+              <Prose text={c.solution?.body} label={t('Leer la solución', 'Read the solution')} />
               {solImages.length > 0 && (
                 <div className={`csm-gallery${solImages.length > 2 ? ' csm-gallery--grid' : ''}`}>
                   {solImages.map((img, i) => <Figure key={i} {...img} />)}
@@ -255,7 +266,7 @@ export default function CaseStudyModal({ caseData, onClose }) {
 
               {/* Decisiones y contexto de producto que no caben en la narrativa */}
               {c.right?.length > 0 && (
-                <More label="Decisiones de producto">
+                <More label={t('Decisiones de producto', 'Product decisions')}>
                   <div className="csm-notes">
                     {c.right.map(r => (
                       <div key={r.label}>
@@ -273,8 +284,8 @@ export default function CaseStudyModal({ caseData, onClose }) {
 
           {/* ── F.04 Resultados ── */}
           {hasResults && (
-            <Frame n={next()} kind="RESULTADOS" title="Qué se puede afirmar hoy" plate={plateResults}>
-              <Prose text={c.resultsBody} label="Leer los resultados" />
+            <Frame n={next()} kind={t('RESULTADOS', 'RESULTS')} title={t('Qué se puede afirmar hoy', 'What can be claimed today')} plate={plateResults}>
+              <Prose text={c.resultsBody} label={t('Leer los resultados', 'Read the results')} />
               {c.metrics?.length > 0 && (
                 <div className="csm-metrics">
                   {c.metrics.map(m => (
@@ -295,7 +306,7 @@ export default function CaseStudyModal({ caseData, onClose }) {
 
           {/* ── F.05 Aprendizajes ── */}
           {(c.learnings?.length > 0 || c.quote) && (
-            <Frame n={next()} kind="APRENDIZAJES" title="Qué se aprendió">
+            <Frame n={next()} kind={t('APRENDIZAJES', 'LEARNINGS')} title={t('Qué se aprendió', 'What was learned')}>
               {c.quote && (
                 <blockquote className="csm-quote">
                   <p>{c.quote.text}</p>
@@ -319,13 +330,15 @@ export default function CaseStudyModal({ caseData, onClose }) {
               {c.link && (
                 <a href={c.link.href} target="_blank" rel="noopener noreferrer">
                   {c.link.label} <span aria-hidden="true">↗</span>
-                  <span className="csm-sr">se abre en una pestaña nueva</span>
+                  <span className="csm-sr">{t('se abre en una pestaña nueva', 'opens in a new tab')}</span>
                 </a>
               )}
-              {c.cta?.href && (
-                <a href={c.cta.href}>{c.cta.label || 'Escríbeme'} <span aria-hidden="true">→</span></a>
-              )}
             </div>
+            {/* Todo caso acaba en la cuarta tinta. Se cierra el lector antes
+                de bajar: con él abierto el cuerpo de la página no hace scroll. */}
+            <a href="#contact" className="btn btn--sheet csm-cta-btn" onClick={goToContact}>
+              {c.cta?.label || COPY[LANG].cta.caseStudy} <span aria-hidden="true">→</span>
+            </a>
           </div>
 
         </div>
@@ -647,6 +660,8 @@ export default function CaseStudyModal({ caseData, onClose }) {
           color: var(--on-sheet-mid); line-height: var(--lh-body); margin-top: 10px;
         }
         .csm-cta-links { display: flex; flex-wrap: wrap; gap: 18px; margin-top: 14px; }
+        .csm-cta-links:empty { display: none; }
+        .csm-cta-btn { margin-top: 20px; }
         .csm-cta-links a {
           font-family: var(--font-mono); font-size: var(--t-small);
           color: var(--ink-magenta-d); text-decoration: none;

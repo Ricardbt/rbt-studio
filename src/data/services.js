@@ -1,3 +1,5 @@
+import { localize } from './localize.js'
+
 export const SERVICES = [
   {
     num: '01',
@@ -54,3 +56,14 @@ export const SERVICES = [
     coverage: 100,
   },
 ]
+
+const SERVICES_EN = [
+  { inkName: 'Cyan', name: 'Experience Engineering', desc: 'Refined frontend where every interaction has intent. Interfaces that feel right, not just ones that work.', tags: ['React', 'Next.js', 'TypeScript', 'Motion'] },
+  { inkName: 'Magenta', name: 'AI-native product', desc: 'Interfaces for intelligent systems: clear, predictable and human. AI as useful behaviour, not as a gimmick.', tags: ['LLMs', 'AI UI', 'Product', 'UX'] },
+  { inkName: 'Yellow', name: 'Design Systems', desc: 'Component systems with visual judgement and consistency at scale. From tokens to a coherent experience.', tags: ['Tokens', 'Components', 'Storybook', 'Figma'] },
+  { inkName: 'Cyan + Magenta', name: 'Motion and interaction', desc: 'Animation with purpose: micro-interactions, transitions and feedback that reinforce the product narrative.', tags: ['GSAP', 'Framer Motion', 'WebGL', 'R3F'] },
+  { inkName: 'Magenta + Yellow', name: 'Product consulting', desc: 'Frontend architecture, UX audits and a technical roadmap focused on the experience of use.', tags: ['Architecture', 'UX audit', 'Roadmap'] },
+  { inkName: 'Black', name: 'Creative technology', desc: 'Generative code, interactive installations and computational pieces for cultural and digital spaces.', tags: ['Generative', 'p5.js', 'Interactive', 'Installation'] },
+]
+
+export const SERVICES_BY_LANG = { es: SERVICES, en: localize(SERVICES, SERVICES_EN, 'services') }

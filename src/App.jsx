@@ -9,6 +9,8 @@ import Artistic from './components/Artistic'
 import About from './components/About'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
+import { COPY } from './data/copy'
+import { LANG } from './i18n'
 
 export default function App() {
   return (
@@ -16,7 +18,7 @@ export default function App() {
       {/* Primera parada del tabulador. En una sola página con scroll, sin
           esto hay que atravesar los seis enlaces de la barra en cada carga
           para llegar al contenido. Sólo se ve al enfocarlo. */}
-      <a href="#contenido" className="skip-link t-label">Saltar al contenido</a>
+      <a href="#contenido" className="skip-link t-label">{COPY[LANG].nav.skip}</a>
 
       <Navbar />
       <main id="contenido">

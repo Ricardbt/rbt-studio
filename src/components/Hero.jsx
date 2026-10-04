@@ -3,6 +3,10 @@ import gsap from 'gsap'
 import { RegisterMarks, Misreg } from './Press'
 import { useRegistration } from '../lib/registration'
 import { prefersReducedMotion } from '../lib/motion'
+import { COPY } from '../data/copy'
+import { LANG } from '../i18n'
+
+const T = COPY[LANG]
 
 /* =========================================================
    PRIMERA PASADA
@@ -293,7 +297,7 @@ export default function Hero() {
           o llega de un buscador recibía sólo la marca. Se ve el cajetín; se
           lee esto. */}
       <h1 className="sr-only">
-        rbt.studio — portfolio de Ricard Boixeda, Experience Engineer
+        {T.meta.h1}
       </h1>
 
       <PressCanvas regSource={sectionRef} />
@@ -322,13 +326,12 @@ export default function Hero() {
           className="t-body mt-5 max-w-[42ch]"
           style={{ color: 'var(--on-press-mid)' }}
         >
-          Experience engineering, producto AI-native y código creativo.
-          Lo que corre por encima es el trabajo, no el decorado.
+          {T.hero.lede}
         </p>
 
         <div className="mt-8 flex flex-wrap items-center gap-4">
-          <a href="#projects" className="btn btn--lg">Ver casos</a>
-          <a href="#contact" className="btn btn--ghost btn--lg">Contactar</a>
+          <a href="#projects" className="btn btn--lg">{T.hero.ctaCases}</a>
+          <a href="#contact" className="btn btn--ghost btn--lg">{T.hero.ctaContact}</a>
         </div>
       </div>
     </section>

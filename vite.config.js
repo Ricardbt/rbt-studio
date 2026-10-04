@@ -1,61 +1,64 @@
+import { fileURLToPath } from 'node:url'
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
-import { CASES } from './src/data/caseStudies.js'
-import { WORK_GROUPS } from './src/data/works.js'
-import { SERVICES } from './src/data/services.js'
+import { headTags, shellHtml, llmsTxt, llmsFull, sitemapXml } from './src/seo/render.js'
 
-const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
-const oneLine = (s) => esc(s.replace(/\s*\n\s*/g, ' '))
+// Dos páginas, una por idioma: / (castellano) y /en/ (inglés). Cada una lleva
+// su <html lang>, que es lo que lee src/i18n.js para pintar el idioma.
+const pageLang = (filename) => (/[\\/]en[\\/]index\.html$/.test(filename) ? 'en' : 'es')
 
-// El sitio se pinta entero con JavaScript: sin esto, el HTML que recibe un
-// crawler (o la vista previa de un enlace) es un <div id="root"> vacío. Se
-// rellena el root con el mismo texto que luego pinta React, sacado de los
-// mismos datos; createRoot lo reemplaza en cuanto arranca la app.
-function staticShell() {
-  const html = `
-      <div class="static-shell">
-        <h1>rbt.studio — portfolio de Ricard Boixeda, Experience Engineer</h1>
-        <p>Soy Ricard Boixeda — Experience Engineer con más de 10 años traduciendo sistemas complejos en productos digitales claros, usables y sofisticados. Mi perfil combina Bellas Artes, ingeniería frontend, product thinking e interfaces AI-native. Desde Barcelona, en remoto.</p>
-
-        <section>
-          <h2>Carta de tintas</h2>
-          <p>Seis maneras de trabajar.</p>
-          <ul>${SERVICES.map((s) => `
-            <li><h3>${esc(s.name)}</h3><p>${esc(s.desc)}</p></li>`).join('')}
-          </ul>
-        </section>
-
-        <section>
-          <h2>Las separaciones</h2>
-          <p>Proyectos contados de principio a fin: el problema, las decisiones que lo resolvieron y lo que salió mal por el camino.</p>
-          <ul>${CASES.map((c) => `
-            <li><h3>${oneLine(c.title)}</h3><p>${esc(c.tag)} — ${oneLine(c.subtitle)}</p></li>`).join('')}
-          </ul>
-        </section>
-
-        <section>
-          <h2>La pila</h2>
-          <p>Algunos encargos de cliente en producción: de hospitales y universidades a tiendas y portfolios.</p>
-          <ul>${WORK_GROUPS.map((g) => `
-            <li><h3>${esc(g.client)}</h3><p>${esc(g.cover.tech)}</p></li>`).join('')}
-          </ul>
-        </section>
-
-        <section>
-          <h2>La cuarta tinta</h2>
-          <p>Cuéntame el proyecto. Respondo en menos de 24 horas, desde Barcelona.</p>
-          <p><a href="mailto:contact@rbt-studio.com">contact@rbt-studio.com</a></p>
-        </section>
-      </div>
-    `
+// El sitio se pinta entero con JavaScript: sin esto, lo que recibe un crawler,
+// un agente o la vista previa de un enlace es un <div id="root"> vacío y un
+// <head> sin nada. Se rellenan los dos con el mismo texto que luego pinta
+// React, sacado de los mismos datos (src/seo/render.js); createRoot reemplaza
+// el contenido de #root en cuanto arranca la app.
+function machineReadable() {
   return {
-    name: 'static-shell',
-    transformIndexHtml: (page) => page.replace('<div id="root"></div>', `<div id="root">${html}</div>`),
+    name: 'machine-readable',
+    transformIndexHtml(page, ctx) {
+      const lang = pageLang(ctx.filename)
+      return page
+        .replace('<!-- seo:head -->', headTags(lang))
+        .replace('<div id="root"></div>', `<div id="root">${shellHtml(lang)}</div>`)
+    },
+    // Ficheros para agentes: se generan en cada build desde los datos, así
+    // que nunca se quedan atrás respecto a lo que enseña la web.
+    generateBundle() {
+      const today = new Date().toISOString().slice(0, 10)
+      const emit = (fileName, source) => this.emitFile({ type: 'asset', fileName, source })
+      emit('llms.txt', llmsTxt())
+      emit('llms-full.txt', llmsFull('en'))
+      emit('llms-full.es.txt', llmsFull('es'))
+      emit('sitemap.xml', sitemapXml(today))
+    },
+    // En desarrollo también se sirven, para poder revisarlos.
+    configureServer(server) {
+      const files = {
+        '/llms.txt': llmsTxt,
+        '/llms-full.txt': () => llmsFull('en'),
+        '/llms-full.es.txt': () => llmsFull('es'),
+        '/sitemap.xml': () => sitemapXml(new Date().toISOString().slice(0, 10)),
+      }
+      server.middlewares.use((req, res, next) => {
+        const make = files[req.url]
+        if (!make) return next()
+        res.setHeader('Content-Type', req.url.endsWith('.xml') ? 'application/xml' : 'text/markdown; charset=utf-8')
+        res.end(make())
+      })
+    },
   }
 }
 
 export default defineConfig({
-  plugins: [react(), staticShell()],
-  base: './',
+  plugins: [react(), machineReadable()],
+  base: '/',
   assetsInclude: ['**/*.PNG', '**/*.JPG'],
+  build: {
+    rollupOptions: {
+      input: {
+        main: fileURLToPath(new URL('./index.html', import.meta.url)),
+        en: fileURLToPath(new URL('./en/index.html', import.meta.url)),
+      },
+    },
+  },
 })

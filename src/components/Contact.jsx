@@ -3,6 +3,10 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { appear } from '../lib/motion'
 import { PassOpen } from './Press'
+import { COPY } from '../data/copy'
+import { LANG } from '../i18n'
+
+const T = COPY[LANG].contact
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -25,8 +29,8 @@ export default function Contact() {
     const name = String(data.get('name') || '').trim()
     const body = String(data.get('message') || '').trim()
     const from = String(data.get('email') || '').trim()
-    const subject = name ? `Proyecto — ${name}` : 'Proyecto'
-    const lines = [body, '', from && `Responder a: ${from}`].filter(Boolean).join('\n')
+    const subject = name ? `${T.subject} — ${name}` : T.subject
+    const lines = [body, '', from && `${T.replyTo}: ${from}`].filter(Boolean).join('\n')
     window.location.href = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(lines)}`
   }
 
@@ -52,8 +56,8 @@ export default function Contact() {
         <PassOpen
           pass={6}
           ink="var(--ink-magenta-t)"
-          title="La cuarta tinta"
-          sub="Cuéntame el proyecto. Respondo en menos de 24 horas, desde Barcelona."
+          title={T.title}
+          sub={T.sub}
         />
 
         <div
@@ -65,7 +69,7 @@ export default function Contact() {
               abre el bloque. El correo va impreso en negro, como el
               resto del pliego. */}
           <div className="p-7 md:py-10 md:pl-0 md:pr-12">
-            <span className="t-label" style={{ color: 'var(--on-press-low)' }}>Email</span>
+            <span className="t-label" style={{ color: 'var(--on-press-low)' }}>{T.email}</span>
             <a
               href={`mailto:${email}`}
               className="mt-5 block transition-colors"
@@ -88,7 +92,7 @@ export default function Contact() {
               style={{ borderTop: 'var(--hairline-p)' }}
             >
               <span className="t-label" style={{ color: 'var(--on-press-low)' }}>Barcelona</span>
-              <span className="t-label" style={{ color: 'var(--on-press-low)' }}>Remoto</span>
+              <span className="t-label" style={{ color: 'var(--on-press-low)' }}>{T.remote}</span>
               <span className="t-label" style={{ color: 'var(--on-press-low)' }}>&lt; 24 h</span>
             </div>
           </div>
@@ -102,29 +106,29 @@ export default function Contact() {
             style={{ borderTop: 0, borderRight: 0, borderBottom: 0 }}
           >
             <div className="field">
-              <label htmlFor="contact-name">Nombre</label>
-              <input id="contact-name" name="name" className="input" type="text" placeholder="Tu nombre" autoComplete="name" />
+              <label htmlFor="contact-name">{T.name}</label>
+              <input id="contact-name" name="name" className="input" type="text" placeholder={T.namePh} autoComplete="name" />
             </div>
 
             <div className="field">
-              <label htmlFor="contact-email">Email</label>
-              <input id="contact-email" name="email" className="input" type="email" placeholder="tu@email.com" autoComplete="email" />
+              <label htmlFor="contact-email">{T.email}</label>
+              <input id="contact-email" name="email" className="input" type="email" placeholder={T.emailPh} autoComplete="email" />
             </div>
 
             <div className="field">
-              <label htmlFor="contact-message">Mensaje</label>
+              <label htmlFor="contact-message">{T.message}</label>
               <textarea
                 id="contact-message"
                 name="message"
                 className="input"
-                placeholder="Cuéntame qué quieres construir."
+                placeholder={T.messagePh}
                 rows={4}
                 style={{ resize: 'none' }}
               />
             </div>
 
             <button type="submit" className="btn btn--sheet btn--lg" style={{ marginTop: '4px' }}>
-              Enviar
+              {T.send}
             </button>
           </form>
         </div>

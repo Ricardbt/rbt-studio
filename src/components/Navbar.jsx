@@ -2,23 +2,34 @@ import { useState, useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { Misreg } from './Press'
 import { prefersReducedMotion } from '../lib/motion'
+import { COPY } from '../data/copy'
+import { LANG, PATHS } from '../i18n'
 
-const navLinks = [
-  { href: '#services', label: 'Tintas' },
-  { href: '#projects', label: 'Casos' },
-  { href: '#works', label: 'Trabajos' },
-  { href: '#artistic', label: 'Creative' },
-  { href: '#about', label: 'Sobre mí' },
-  { href: '#contact', label: 'Contacto' },
-]
+const NAV = COPY[LANG].nav
+const navLinks = ['services', 'projects', 'works', 'artistic', 'about', 'contact']
+  .map((id) => ({ href: `#${id}`, label: NAV[id] }))
+// En escritorio el contacto no es un enlace más: es el botón de la barra.
+const deskLinks = navLinks.filter((link) => link.href !== '#contact')
+
+// El otro idioma es otra página: un enlace normal, que es lo que siguen
+// los buscadores. hrefLang y lang dicen a quién lleva.
+const OTHER = LANG === 'en' ? 'es' : 'en'
+const langSwitch = { href: PATHS[OTHER], label: NAV.switchLabel, aria: NAV.switchAria, lang: OTHER }
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
+  // El hero ya lleva su llamada al contacto: la de la barra espera a que
+  // salga de pantalla para no repetirla en el mismo vistazo.
+  const [pastHero, setPastHero] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const linksRef = useRef([])
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 50)
+    const onScroll = () => {
+      setScrolled(window.scrollY > 50)
+      setPastHero(window.scrollY > window.innerHeight * 0.7)
+    }
+    onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
@@ -62,12 +73,13 @@ export default function Navbar() {
           className="flex items-center justify-between px-6 md:px-12 lg:px-16"
           style={{ paddingTop: '18px', paddingBottom: '18px' }}
         >
-          <a href="#" className="rbt-mark transition-opacity hover:opacity-70" aria-label="rbt. — inicio">
+          <a href="#" className="rbt-mark transition-opacity hover:opacity-70" aria-label={NAV.home}>
             <Misreg>rbt.</Misreg>
           </a>
 
+          <div className="flex items-center gap-5 lg:gap-7">
           <div className="hidden items-center gap-7 lg:flex">
-            {navLinks.map((link, i) => (
+            {deskLinks.map((link, i) => (
               <a
                 key={link.href}
                 href={link.href}
@@ -77,7 +89,37 @@ export default function Navbar() {
                 {link.label}
               </a>
             ))}
+            <a
+              href={langSwitch.href}
+              hrefLang={langSwitch.lang}
+              lang={langSwitch.lang}
+              aria-label={langSwitch.aria}
+              ref={(el) => (linksRef.current[deskLinks.length] = el)}
+              className="t-label nav-link"
+              style={{ borderLeft: 'var(--hairline-p)', paddingLeft: '1.75rem' }}
+            >
+              {langSwitch.label}
+            </a>
           </div>
+
+          {/* La llamada al contacto, siempre a mano. Sólo aparece cuando el
+              hero —que ya lleva la suya— ha salido de pantalla, y se aparta
+              con el menú móvil abierto, que ya lleva el enlace. Sin
+              visibility, oculta seguiría siendo tabulable. Los márgenes
+              negativos impiden que la barra crezca con el botón. */}
+          <a
+            href="#contact"
+            className="btn btn--sm -my-2"
+            style={{
+              opacity: pastHero && !menuOpen ? 1 : 0,
+              visibility: pastHero && !menuOpen ? 'visible' : 'hidden',
+              transition: pastHero && !menuOpen
+                ? 'opacity 300ms var(--ease-out), background var(--dur-base), border-color var(--dur-base), transform var(--dur-base)'
+                : 'opacity 300ms var(--ease-out), visibility 0s linear 300ms',
+            }}
+          >
+            {COPY[LANG].cta.nav}
+          </a>
 
           {/* El único control de navegación en móvil. El trazo sigue
               midiendo 24; lo que crece hasta 44 es dónde se puede tocar,
@@ -86,7 +128,7 @@ export default function Navbar() {
           <button
             className="-my-2.5 flex h-11 w-11 items-center justify-end lg:hidden"
             onClick={() => setMenuOpen(!menuOpen)}
-            aria-label={menuOpen ? 'Cerrar menú' : 'Abrir menú'}
+            aria-label={menuOpen ? NAV.closeMenu : NAV.openMenu}
             aria-expanded={menuOpen}
             aria-controls="menu-movil"
           >
@@ -107,6 +149,7 @@ export default function Navbar() {
               />
             </span>
           </button>
+          </div>
         </div>
       </nav>
 
@@ -143,6 +186,20 @@ export default function Navbar() {
               {link.label}
             </a>
           ))}
+          <a
+            href={langSwitch.href}
+            hrefLang={langSwitch.lang}
+            lang={langSwitch.lang}
+            aria-label={langSwitch.aria}
+            className="t-label"
+            style={{
+              color: 'var(--on-press-mid)',
+              opacity: menuOpen ? 1 : 0,
+              transition: `opacity 0.4s ease ${navLinks.length * 70}ms`,
+            }}
+          >
+            {langSwitch.label}
+          </a>
         </div>
       </div>
     </>

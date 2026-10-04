@@ -2,6 +2,9 @@ import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { appear } from '../lib/motion'
+import { ContactCta } from './Press'
+import { COPY } from '../data/copy'
+import { LANG } from '../i18n'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -12,23 +15,8 @@ gsap.registerPlugin(ScrollTrigger)
    se lee sin efectos.
    ========================================================= */
 
-const SPECS = [
-  {
-    label: 'Origen',
-    value: 'Bellas Artes → frontend',
-    note: 'Bellas Artes en la Universidad de Barcelona. La sensibilidad visual y el pensamiento conceptual son la base de cada decisión técnica.',
-  },
-  {
-    label: 'Perfil',
-    value: 'Producto · UX · IA',
-    note: 'Más de 10 años traduciendo complejidad técnica en experiencias utilizables. Startups, agencias y producto propio. Criterio, no sólo código.',
-  },
-  {
-    label: 'Disponibilidad',
-    value: 'Barcelona · remoto global',
-    note: 'Español, catalán e inglés (B2). Abierto a proyectos de producto, agencias y equipos de diseño.',
-  },
-]
+const T = COPY[LANG].about
+const SPECS = T.specs
 
 export default function About() {
   const sectionRef = useRef(null)
@@ -55,29 +43,21 @@ export default function About() {
       <div className="mx-auto w-full px-6 md:px-12 lg:px-16" style={{ maxWidth: 'var(--container)' }}>
         <div className="sheet" style={{ padding: 'clamp(28px, 5vw, 72px)' }}>
           <div className="flex items-baseline justify-between gap-4" style={{ borderBottom: 'var(--hairline)', paddingBottom: 'var(--s-4)' }}>
-            <span className="t-label" style={{ color: 'var(--on-sheet-low)' }}>Sobre mí</span>
+            <span className="t-label" style={{ color: 'var(--on-sheet-low)' }}>{T.label}</span>
             <span className="t-num" style={{ color: 'var(--on-sheet-low)' }}>rbt · bcn</span>
           </div>
 
           <div className="grid gap-10 pt-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-16">
             <div>
               <h2 className="t-h1" style={{ color: 'var(--on-sheet)' }}>
-                Diseño cómo se sienten las cosas al usarse, no sólo cómo funcionan.
+                {T.title}
               </h2>
             </div>
 
             <div className="flex flex-col gap-5">
-              <p className="t-body" style={{ color: 'var(--on-sheet-mid)' }}>
-                Soy Ricard Boixeda — Experience Engineer con más de 10 años traduciendo sistemas
-                complejos en productos digitales claros, usables y sofisticados. Mi perfil combina
-                Bellas Artes, ingeniería frontend, product thinking e interfaces AI-native.
-              </p>
-              <p className="t-body" style={{ color: 'var(--on-sheet-mid)' }}>
-                Diseño y construyo sistemas frontend donde la interacción, el movimiento y la
-                claridad UX son tan deliberados como la arquitectura que hay detrás. Cómodo llevando
-                toda la superficie de producto: de los design systems y la arquitectura de
-                componentes a las interfaces con IA y el creative technology.
-              </p>
+              {T.paragraphs.map((p) => (
+                <p key={p} className="t-body" style={{ color: 'var(--on-sheet-mid)' }}>{p}</p>
+              ))}
             </div>
           </div>
 
@@ -94,6 +74,8 @@ export default function About() {
               </div>
             ))}
           </dl>
+
+          <ContactCta {...COPY[LANG].cta.about} onSheet />
         </div>
       </div>
     </section>

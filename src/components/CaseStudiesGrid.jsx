@@ -3,8 +3,12 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { appear } from '../lib/motion'
 import CaseStudyModal from './CaseStudyModal'
-import { PassOpen } from './Press'
-import { CASES } from '../data/caseStudies'
+import { PassOpen, ContactCta } from './Press'
+import { CASES_BY_LANG } from '../data/caseStudies'
+import { COPY } from '../data/copy'
+import { LANG, t } from '../i18n'
+
+const CASES = CASES_BY_LANG[LANG]
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -27,8 +31,8 @@ const mediaSummary = (media = {}) => {
   const videos = (media.video ? 1 : 0) + (media.extraVideos?.length ?? 0)
   const images = media.images?.length ?? 0
   const parts = []
-  if (videos) parts.push(`${videos} ${videos === 1 ? 'vídeo' : 'vídeos'}`)
-  if (images) parts.push(`${images} ${images === 1 ? 'imagen' : 'imágenes'}`)
+  if (videos) parts.push(`${videos} ${videos === 1 ? t('vídeo', 'video') : t('vídeos', 'videos')}`)
+  if (images) parts.push(`${images} ${images === 1 ? t('imagen', 'image') : t('imágenes', 'images')}`)
   return parts.join(' · ')
 }
 
@@ -61,7 +65,7 @@ function CaseCard({ caseData, onOpen }) {
       className="case-card"
       role="button"
       tabIndex={0}
-      aria-label={`Leer el caso de estudio de ${caseData.tag}: ${plainTitle}`}
+      aria-label={t(`Leer el caso de estudio de ${caseData.tag}: ${plainTitle}`, `Read the ${caseData.tag} case study: ${plainTitle}`)}
       onClick={() => onOpen(caseData)}
       onKeyDown={(e) => {
         if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onOpen(caseData) }
@@ -131,7 +135,7 @@ function CaseCard({ caseData, onOpen }) {
         </p>
 
         <div className="case-card__foot">
-          <span aria-hidden="true" className="t-label case-card__cta">Leer el caso →</span>
+          <span aria-hidden="true" className="t-label case-card__cta">{t('Leer el caso', 'Read the case')} →</span>
           {summary && <span className="t-label" style={{ color: 'var(--on-press-low)' }}>{summary}</span>}
         </div>
       </div>
@@ -161,14 +165,34 @@ export default function CaseStudiesGrid() {
     return () => ctx.revert()
   }, [])
 
+  // Cada caso tiene su dirección: #case-<id>. Es la que citan el HTML
+  // estático, el sitemap de llms.txt y los datos estructurados, así que un
+  // enlace compartido —o la cita de un agente— abre el caso, no la portada.
+  useEffect(() => {
+    const fromHash = () => {
+      const m = window.location.hash.match(/^#case-(.+)$/)
+      if (m) setOpenCase(CASES.find((c) => c.id === m[1]) ?? null)
+    }
+    fromHash()
+    window.addEventListener('hashchange', fromHash)
+    return () => window.removeEventListener('hashchange', fromHash)
+  }, [])
+
+  const closeCase = () => {
+    setOpenCase(null)
+    if (window.location.hash.startsWith('#case-')) {
+      history.replaceState(null, '', window.location.pathname + window.location.search)
+    }
+  }
+
   return (
     <section ref={sectionRef} id="projects" className="relative pb-20 md:pb-28">
       <div className="mx-auto w-full px-6 md:px-12 lg:px-16" style={{ maxWidth: '1400px' }}>
         <PassOpen
           pass={2}
           ink="var(--ink-magenta-t)"
-          title="Las separaciones"
-          sub="Proyectos contados de principio a fin: el problema, las decisiones que lo resolvieron y lo que salió mal por el camino."
+          title={COPY[LANG].cases.title}
+          sub={COPY[LANG].cases.sub}
         />
 
         <div ref={gridRef} className="case-grid mt-10">
@@ -176,9 +200,11 @@ export default function CaseStudiesGrid() {
             <CaseCard key={c.id} caseData={c} onOpen={setOpenCase} />
           ))}
         </div>
+
+        <ContactCta {...COPY[LANG].cta.cases} />
       </div>
 
-      <CaseStudyModal caseData={openCase} onClose={() => setOpenCase(null)} />
+      <CaseStudyModal caseData={openCase} onClose={closeCase} />
 
       <style>{`
         .case-grid {

@@ -3,7 +3,11 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { appear } from '../lib/motion'
 import { PassOpen } from './Press'
-import { WORK_GROUPS } from '../data/works'
+import { WORK_GROUPS_BY_LANG } from '../data/works'
+import { COPY } from '../data/copy'
+import { LANG, t } from '../i18n'
+
+const WORK_GROUPS = WORK_GROUPS_BY_LANG[LANG]
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -21,8 +25,8 @@ const restSummary = (items) => {
   const videos = rest.filter((i) => i.type === 'video').length
   const images = rest.length - videos
   const parts = []
-  if (images) parts.push(`${images} ${images === 1 ? 'pantalla' : 'pantallas'}`)
-  if (videos) parts.push(`${videos} ${videos === 1 ? 'vídeo' : 'vídeos'}`)
+  if (images) parts.push(`${images} ${images === 1 ? t('pantalla', 'screen') : t('pantallas', 'screens')}`)
+  if (videos) parts.push(`${videos} ${videos === 1 ? t('vídeo', 'video') : t('vídeos', 'videos')}`)
   return `+${parts.join(' · ')}`
 }
 
@@ -35,7 +39,10 @@ function GroupCard({ group, onOpen }) {
     <button
       className="work-card"
       onClick={() => onOpen(group, 0)}
-      aria-label={`Ver el trabajo para ${group.client} — ${items.length} ${items.length === 1 ? 'pieza' : 'piezas'}`}
+      aria-label={t(
+        `Ver el trabajo para ${group.client} — ${items.length} ${items.length === 1 ? 'pieza' : 'piezas'}`,
+        `See the work for ${group.client} — ${items.length} ${items.length === 1 ? 'piece' : 'pieces'}`,
+      )}
       onMouseEnter={() => videoRef.current?.play().catch(() => {})}
       onMouseLeave={() => {
         if (videoRef.current) {
@@ -133,8 +140,8 @@ export default function WorkCarousel() {
           <PassOpen
             pass={3}
             ink="var(--ink-yellow-t)"
-            title="La pila"
-            sub="Algunos encargos de cliente en producción: de hospitales y universidades a tiendas y portfolios."
+            title={COPY[LANG].works.title}
+            sub={COPY[LANG].works.sub}
           />
 
           <div className="mt-6 flex justify-end gap-2">
@@ -142,7 +149,7 @@ export default function WorkCarousel() {
               <button
                 key={dir}
                 onClick={() => scrollBy(dir)}
-                aria-label={dir < 0 ? 'Ver clientes anteriores' : 'Ver más clientes'}
+                aria-label={dir < 0 ? t('Ver clientes anteriores', 'Previous clients') : t('Ver más clientes', 'More clients')}
                 className="work-nav"
               >
                 {dir < 0 ? '←' : '→'}
@@ -168,13 +175,13 @@ export default function WorkCarousel() {
           <div
             role="dialog"
             aria-modal="true"
-            aria-label={`Trabajo para ${viewer.group.client}`}
+            aria-label={t(`Trabajo para ${viewer.group.client}`, `Work for ${viewer.group.client}`)}
             style={{ position: 'relative', width: '100%', maxWidth: '1200px', display: 'flex', flexDirection: 'column', gap: '24px' }}
             onClick={(e) => e.stopPropagation()}
           >
             <button
               onClick={() => setViewer(null)}
-              aria-label={`Cerrar el trabajo para ${viewer.group.client}`}
+              aria-label={t(`Cerrar el trabajo para ${viewer.group.client}`, `Close the work for ${viewer.group.client}`)}
               className="t-h3"
               style={{ position: 'absolute', top: '-46px', right: 0, color: 'var(--ink-white)', zIndex: 1001 }}
             >
@@ -227,7 +234,7 @@ export default function WorkCarousel() {
                     }}
                   >
                     <span className="t-label" style={{ color: 'var(--on-sheet-low)' }}>
-                      Desplázate para ver la página entera
+                      {t('Desplázate para ver la página entera', 'Scroll to see the whole page')}
                     </span>
                   </div>
                 </>
@@ -238,7 +245,7 @@ export default function WorkCarousel() {
                   <button
                     key={dir}
                     onClick={() => step(dir)}
-                    aria-label={dir < 0 ? 'Pieza anterior de este cliente' : 'Siguiente pieza de este cliente'}
+                    aria-label={dir < 0 ? t('Pieza anterior de este cliente', 'Previous piece for this client') : t('Siguiente pieza de este cliente', 'Next piece for this client')}
                     className="work-step"
                     style={{ [dir < 0 ? 'left' : 'right']: '16px' }}
                   >

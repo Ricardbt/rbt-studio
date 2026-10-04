@@ -3,6 +3,8 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { appear } from '../lib/motion'
 import { PassOpen } from './Press'
+import { COPY } from '../data/copy'
+import { LANG } from '../i18n'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -691,6 +693,10 @@ const PIECES = [
   { ink: 'var(--ink-cyan)', tint: 'var(--ink-cyan-t)',    name: 'Curvas de Bézier',     note: 'Curvas suaves y elásticas con puntos de control oscilantes.', Canvas: BezierCurvesCanvas },
 ]
 
+// Nombres y notas, por posición, en el idioma de la página.
+const TEXT = COPY[LANG].generative
+const PIECES_L = PIECES.map((piece, i) => ({ ...piece, ...TEXT.pieces[i] }))
+
 export default function Generativos() {
   const sectionRef = useRef(null)
   const titleRef = useRef(null)
@@ -739,13 +745,13 @@ export default function Generativos() {
           <PassOpen
             pass={5}
             ink="var(--ink-yellow)"
-            title="Diez planchas"
-            sub="Sistemas generativos corriendo en vivo, uno por tinta. Ninguno es un vídeo: todos se dibujan mientras miras."
+            title={TEXT.title}
+            sub={TEXT.sub}
           />
         </div>
 
         <div className="generativos-grid mt-12">
-          {PIECES.map(({ ink, tint, name, note, Canvas }) => (
+          {PIECES_L.map(({ ink, tint, name, note, Canvas }) => (
             <figure key={name} className="generativo-item" style={{ opacity: 0, '--piece-ink': ink }}>
               <div className="generativo-item__plate">
                 <Canvas />
