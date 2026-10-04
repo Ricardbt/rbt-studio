@@ -9,8 +9,9 @@ import Artistic from './components/Artistic'
 import About from './components/About'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
+import CasePage from './components/CasePage'
 import { COPY } from './data/copy'
-import { LANG } from './i18n'
+import { LANG, CASE_SLUG } from './i18n'
 
 export default function App() {
   return (
@@ -21,6 +22,14 @@ export default function App() {
       <a href="#contenido" className="skip-link t-label">{COPY[LANG].nav.skip}</a>
 
       <Navbar />
+      {/* La página de un caso (/casos/<slug>/) lleva el caso y el contacto;
+          la portada, todas las pasadas. */}
+      {CASE_SLUG ? (
+        <main id="contenido">
+          <CasePage slug={CASE_SLUG} />
+          <Contact />
+        </main>
+      ) : (
       <main id="contenido">
         <Hero />
         <Statement />
@@ -32,6 +41,7 @@ export default function App() {
         <About />
         <Contact />
       </main>
+      )}
       <Footer />
     </>
   )

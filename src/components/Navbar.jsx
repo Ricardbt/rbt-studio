@@ -3,18 +3,20 @@ import gsap from 'gsap'
 import { Misreg } from './Press'
 import { prefersReducedMotion } from '../lib/motion'
 import { COPY } from '../data/copy'
-import { LANG, PATHS } from '../i18n'
+import { LANG, PATHS, CASE_SLUG, casePath } from '../i18n'
 
 const NAV = COPY[LANG].nav
 const navLinks = ['services', 'projects', 'works', 'artistic', 'about', 'contact']
-  .map((id) => ({ href: `#${id}`, label: NAV[id] }))
+  // En la página de un caso las secciones están en la portada; el contacto
+  // no, porque la página del caso también lo lleva.
+  .map((id) => ({ href: `${CASE_SLUG && id !== 'contact' ? PATHS[LANG] : ''}#${id}`, label: NAV[id] }))
 // En escritorio el contacto no es un enlace más: es el botón de la barra.
 const deskLinks = navLinks.filter((link) => link.href !== '#contact')
 
 // El otro idioma es otra página: un enlace normal, que es lo que siguen
 // los buscadores. hrefLang y lang dicen a quién lleva.
 const OTHER = LANG === 'en' ? 'es' : 'en'
-const langSwitch = { href: PATHS[OTHER], label: NAV.switchLabel, aria: NAV.switchAria, lang: OTHER }
+const langSwitch = { href: CASE_SLUG ? casePath(OTHER, CASE_SLUG) : PATHS[OTHER], label: NAV.switchLabel, aria: NAV.switchAria, lang: OTHER }
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
@@ -73,7 +75,7 @@ export default function Navbar() {
           className="flex items-center justify-between px-6 md:px-12 lg:px-16"
           style={{ paddingTop: '18px', paddingBottom: '18px' }}
         >
-          <a href="#" className="rbt-mark transition-opacity hover:opacity-70" aria-label={NAV.home}>
+          <a href={CASE_SLUG ? PATHS[LANG] : '#'} className="rbt-mark transition-opacity hover:opacity-70" aria-label={NAV.home}>
             <Misreg>rbt.</Misreg>
           </a>
 

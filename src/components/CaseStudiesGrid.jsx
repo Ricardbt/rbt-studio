@@ -6,9 +6,24 @@ import CaseStudyModal from './CaseStudyModal'
 import { PassOpen, ContactCta } from './Press'
 import { CASES_BY_LANG } from '../data/caseStudies'
 import { COPY } from '../data/copy'
-import { LANG, t } from '../i18n'
+import { VIDEO_META } from '../data/videoMeta'
+import { LANG, PATHS, casePath, slugFromPath, t } from '../i18n'
 
 const CASES = CASES_BY_LANG[LANG]
+const HOME = PATHS[LANG]
+
+// El caso que pide la URL: su ruta propia o, por compatibilidad con los
+// enlaces que ya circulan, el antiguo #case-<id>.
+const caseFromLocation = () => {
+  const slug = slugFromPath(window.location.pathname)
+  if (slug) return CASES.find((c) => c.slug === slug) ?? null
+  const m = window.location.hash.match(/^#case-(.+)$/)
+  return m ? CASES.find((c) => c.id === m[1]) ?? null : null
+}
+
+// Un clic normal abre el lector sin recargar; con modificadores (nueva
+// pestaña, ventana…) el navegador sigue el enlace a la página del caso.
+const isPlainClick = (e) => e.button === 0 && !e.metaKey && !e.ctrlKey && !e.shiftKey && !e.altKey
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -36,7 +51,7 @@ const mediaSummary = (media = {}) => {
   return parts.join(' · ')
 }
 
-function CaseCard({ caseData }) {
+function CaseCard({ caseData, onOpen }) {
   const videoRef = useRef(null)
   const [playing, setPlaying] = useState(false)
 
@@ -61,11 +76,11 @@ function CaseCard({ caseData }) {
   }
 
   return (
-    // Un enlace de verdad a la dirección del caso, no un botón: se puede abrir
-    // en otra pestaña, copiar y compartir, y los buscadores lo siguen. Abrirlo
-    // lo hace el escuchador de hashchange de la grid.
+    // Un enlace de verdad a la página del caso, no un botón: se puede abrir
+    // en otra pestaña, copiar y compartir, y los buscadores lo siguen.
     <a
-      href={`#case-${caseData.id}`}
+      href={casePath(LANG, caseData.slug)}
+      onClick={(e) => { if (isPlainClick(e)) { e.preventDefault(); onOpen(caseData) } }}
       className="case-card"
       aria-label={t(`Leer el caso de estudio de ${caseData.tag}: ${plainTitle}`, `Read the ${caseData.tag} case study: ${plainTitle}`)}
       onMouseEnter={handleEnter}
@@ -78,6 +93,7 @@ function CaseCard({ caseData }) {
           <video
             ref={videoRef}
             src={`${video}#t=0.1`}
+            poster={VIDEO_META[video]?.poster}
             muted
             loop
             playsInline
@@ -163,24 +179,48 @@ export default function CaseStudiesGrid() {
     return () => ctx.revert()
   }, [])
 
-  // Cada caso tiene su dirección: #case-<id>. Es la que citan el HTML
-  // estático, el sitemap de llms.txt y los datos estructurados, así que un
-  // enlace compartido —o la cita de un agente— abre el caso, no la portada.
+  // Abrir un caso desde la portada lleva la URL a la de su página
+  // (/casos/<slug>/): lo que se copia o comparte es la página indexable, y el
+  // botón Atrás del navegador cierra el lector.
   useEffect(() => {
-    const fromHash = () => {
-      const m = window.location.hash.match(/^#case-(.+)$/)
-      if (m) setOpenCase(CASES.find((c) => c.id === m[1]) ?? null)
+    const initial = caseFromLocation()
+    if (initial) history.replaceState(null, '', casePath(LANG, initial.slug))
+    setOpenCase(initial)
+    const sync = () => setOpenCase(caseFromLocation())
+    window.addEventListener('popstate', sync)
+    window.addEventListener('hashchange', sync)
+    return () => {
+      window.removeEventListener('popstate', sync)
+      window.removeEventListener('hashchange', sync)
     }
-    fromHash()
-    window.addEventListener('hashchange', fromHash)
-    return () => window.removeEventListener('hashchange', fromHash)
   }, [])
 
+  // El título de la pestaña acompaña al caso abierto.
+  const homeTitle = useRef(typeof document !== 'undefined' ? document.title : '')
+  useEffect(() => {
+    document.title = openCase
+      ? `${openCase.tag} — ${openCase.title.replace(/\s*\n\s*/g, ' ')} · Ricard Boixeda`
+      : homeTitle.current
+  }, [openCase])
+
+  const openCaseAt = (c) => {
+    history.pushState({ fromGrid: true }, '', casePath(LANG, c.slug))
+    setOpenCase(c)
+  }
+
+  // Si el lector se abrió desde la grid, cerrar es volver atrás; si se llegó
+  // con el enlace ya puesto, no hay a dónde volver y se reescribe la URL.
   const closeCase = () => {
-    setOpenCase(null)
-    if (window.location.hash.startsWith('#case-')) {
-      history.replaceState(null, '', window.location.pathname + window.location.search)
+    if (history.state?.fromGrid) history.back()
+    else {
+      history.replaceState(null, '', HOME)
+      setOpenCase(null)
     }
+  }
+
+  const contactFromCase = () => {
+    history.replaceState(null, '', `${HOME}#contact`)
+    setOpenCase(null)
   }
 
   return (
@@ -195,14 +235,14 @@ export default function CaseStudiesGrid() {
 
         <div ref={gridRef} className="case-grid mt-10">
           {ORDERED.map((c) => (
-            <CaseCard key={c.id} caseData={c} />
+            <CaseCard key={c.id} caseData={c} onOpen={openCaseAt} />
           ))}
         </div>
 
         <ContactCta {...COPY[LANG].cta.cases} />
       </div>
 
-      <CaseStudyModal caseData={openCase} onClose={closeCase} />
+      <CaseStudyModal caseData={openCase} onClose={closeCase} onContact={contactFromCase} />
 
       <style>{`
         .case-grid {

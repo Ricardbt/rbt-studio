@@ -1,6 +1,6 @@
 import { Misreg } from './Press'
 import { COPY } from '../data/copy'
-import { LANG, PATHS } from '../i18n'
+import { LANG, PATHS, CASE_SLUG, casePath } from '../i18n'
 
 const NAV = COPY[LANG].nav
 const OTHER = LANG === 'en' ? 'es' : 'en'
@@ -19,10 +19,10 @@ export default function Footer() {
       >
         <nav aria-label={NAV.footer} className="flex flex-wrap gap-x-6 gap-y-2">
           {SECTIONS.map((id) => (
-            <a key={id} href={`#${id}`} className="t-label nav-link">{NAV[id]}</a>
+            <a key={id} href={`${CASE_SLUG && id !== 'contact' ? PATHS[LANG] : ''}#${id}`} className="t-label nav-link">{NAV[id]}</a>
           ))}
           <a href={`mailto:${EMAIL}`} className="t-label nav-link">{EMAIL}</a>
-          <a href={PATHS[OTHER]} hrefLang={OTHER} lang={OTHER} className="t-label nav-link">
+          <a href={CASE_SLUG ? casePath(OTHER, CASE_SLUG) : PATHS[OTHER]} hrefLang={OTHER} lang={OTHER} className="t-label nav-link">
             {NAV.switchAria}
           </a>
         </nav>

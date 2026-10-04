@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react'
-import { LANG, t } from '../i18n'
+import { LANG, PATHS, t } from '../i18n'
 import { COPY } from '../data/copy'
+import { VIDEO_META } from '../data/videoMeta'
 
 /* Lector de caso de estudio.
    Sigue el arco de la skill `case-study-builder`:
@@ -82,11 +83,16 @@ function Prose({ text, label }) {
   )
 }
 
-export default function CaseStudyModal({ caseData, onClose }) {
+/* Dos formas del mismo lector:
+   - lector (por defecto): panel sobre la portada, se cierra y vuelve a ella;
+   - página (standalone): la página propia del caso, /casos/<slug>/. Es la
+     que se indexa, así que aquí el caso es el contenido principal — título en
+     h1, sin capa encima y con salida a la lista de casos en vez de cerrar. */
+export default function CaseStudyModal({ caseData, onClose, onContact, standalone = false }) {
   const scrollRef = useRef(null)
 
   useEffect(() => {
-    if (!caseData) return
+    if (!caseData || standalone) return
     document.body.style.overflow = 'hidden'
     if (scrollRef.current) scrollRef.current.scrollTop = 0
     const onKey = (e) => { if (e.key === 'Escape') onClose() }
@@ -95,17 +101,15 @@ export default function CaseStudyModal({ caseData, onClose }) {
       document.body.style.overflow = ''
       window.removeEventListener('keydown', onKey)
     }
-  }, [caseData, onClose])
+  }, [caseData, onClose, standalone])
 
   if (!caseData) return null
 
   const goToContact = (e) => {
     e.preventDefault()
-    onClose()
-    requestAnimationFrame(() => {
-      document.getElementById('contact')?.scrollIntoView()
-      history.replaceState(null, '', '#contact')
-    })
+    if (onContact) onContact()
+    else if (!standalone) onClose()
+    requestAnimationFrame(() => document.getElementById('contact')?.scrollIntoView())
   }
 
   const c        = caseData
@@ -137,15 +141,17 @@ export default function CaseStudyModal({ caseData, onClose }) {
   let frame = 0
   const next = () => `F.${String(++frame).padStart(2, '0')}`
 
+  const Title = standalone ? 'h1' : 'h2'
+  const allCases = `${PATHS[LANG]}#projects`
+
   return (
-    <div className="csm-scrim" onClick={onClose}>
+    <div className={standalone ? 'csm-page' : 'csm-scrim'} onClick={standalone ? undefined : onClose}>
       <div
         className="csm-panel"
         ref={scrollRef}
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="csm-title"
-        tabIndex={-1}
+        {...(standalone
+          ? { 'aria-labelledby': 'csm-title' }
+          : { role: 'dialog', 'aria-modal': 'true', 'aria-labelledby': 'csm-title', tabIndex: -1 })}
         onClick={(e) => e.stopPropagation()}
       >
 
@@ -155,9 +161,15 @@ export default function CaseStudyModal({ caseData, onClose }) {
             <span className="csm-dot" style={{ backgroundColor: c.color }} />
             {c.num} · {c.tag}
           </span>
-          <button onClick={onClose} className="csm-close" aria-label={t(`Cerrar el caso de estudio de ${c.tag}`, `Close the ${c.tag} case study`)}>
-            <span aria-hidden="true">✕</span>
-          </button>
+          {standalone ? (
+            <a href={allCases} className="csm-back">
+              <span aria-hidden="true">←</span> {t('Todos los casos', 'All cases')}
+            </a>
+          ) : (
+            <button onClick={onClose} className="csm-close" aria-label={t(`Cerrar el caso de estudio de ${c.tag}`, `Close the ${c.tag} case study`)}>
+              <span aria-hidden="true">✕</span>
+            </button>
+          )}
         </div>
 
         <div className="csm-body">
@@ -165,7 +177,7 @@ export default function CaseStudyModal({ caseData, onClose }) {
           {/* ── Header ── */}
           <header className="csm-header">
             <p className="csm-eyebrow">{c.category}</p>
-            <h2 className="csm-title" id="csm-title">{c.title}</h2>
+            <Title className="csm-title" id="csm-title">{c.title}</Title>
             <p className="csm-tagline">{c.subtitle}</p>
 
             {(c.client || c.role || c.timeline) && (
@@ -196,6 +208,7 @@ export default function CaseStudyModal({ caseData, onClose }) {
                 <video
                   key={i}
                   src={src}
+                  poster={VIDEO_META[src]?.poster}
                   controls
                   autoPlay={i === 0}
                   muted
@@ -345,6 +358,21 @@ export default function CaseStudyModal({ caseData, onClose }) {
       </div>
 
       <style>{`
+        /* Página propia del caso: la hoja centrada sobre la mesa, por debajo
+           de la barra de navegación. */
+        .csm-page { padding: 88px 24px 0; }
+        .csm-page .csm-panel {
+          width: 100%; max-width: 900px; margin: 0 auto;
+          overflow: visible; border: 1px solid var(--sheet-line);
+        }
+        .csm-page .csm-bar { position: static; }
+        .csm-back {
+          font-family: var(--font-mono); font-size: var(--t-label);
+          letter-spacing: var(--tr-label); text-transform: uppercase;
+          color: var(--ink-magenta-d); text-decoration: none;
+        }
+        .csm-back:hover { text-decoration: underline; }
+
         .csm-scrim {
           position: fixed; inset: 0; z-index: 2000;
           background: rgba(20,20,15,0.6);
@@ -676,6 +704,8 @@ export default function CaseStudyModal({ caseData, onClose }) {
         /* ── Móvil: hoja completa, no cajón lateral ── */
         @media (max-width: 760px) {
           .csm-scrim { align-items: flex-end; }
+          .csm-page { padding: 72px 0 0; }
+          .csm-page .csm-panel { width: 100%; height: auto; border-left: none; border-right: none; }
           .csm-panel {
             width: 100vw; max-width: none;
             height: 100%;

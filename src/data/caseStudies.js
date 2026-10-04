@@ -12,6 +12,7 @@ const CS = '/assets/proyectos/casos/'
 export const CASES = [
   {
     id: 'sp',
+    slug: 'storyprints',
     num: '01',
     color: '#C4006B',
     tag: 'STORYPRINTS',
@@ -87,6 +88,7 @@ export const CASES = [
 
   {
     id: 'vm',
+    slug: 'vampmaker',
     num: '02',
     color: '#0079AB',
     tag: 'VAMPMAKER',
@@ -147,6 +149,7 @@ export const CASES = [
   },
   {
     id: 'ba',
+    slug: 'brandai',
     num: '03',
     client: 'Side project — RBT Studio',
     role: 'Product design · Full-stack · Arquitectura multi-agente · Prompt engineering',
@@ -208,6 +211,7 @@ export const CASES = [
   },
   {
     id: 'portfolio',
+    slug: 'rbt-studio',
     num: '04',
     client: 'Producto propio — rbt-studio.com',
     role: 'Diseño, desarrollo y dirección de arte',
@@ -252,6 +256,7 @@ export const CASES = [
   },
   {
     id: 'aimplas',
+    slug: 'aimplas',
     num: '05',
     client: 'Aimplas — Instituto Tecnológico del Plástico',
     role: 'Desarrollo de app móvil e integración 3D',
@@ -302,6 +307,7 @@ export const CASES = [
   },
   {
     id: 'dgo',
+    slug: 'd-go',
     num: '06',
     client: 'D-Go',
     role: 'Desarrollo web y dirección técnica 3D',
@@ -351,6 +357,7 @@ export const CASES = [
   },
   {
     id: 'tsl',
+    slug: 'the-smart-lollipop',
     num: '07',
     client: 'The Smart Lollipop',
     role: 'Desarrollo web · 3D · GSAP',
@@ -408,6 +415,7 @@ export const CASES = [
   },
   {
     id: 'eonia',
+    slug: 'eonia',
     num: '08',
     client: 'Producto propio de RBT Studio',
     role: 'Producto, diseño de sistema y desarrollo full-stack + IA — autor único',
@@ -479,6 +487,7 @@ export const CASES = [
   },
   {
     id: 'zarpe',
+    slug: 'el-ultimo-zarpe',
     num: '09',
     client: 'Side project — juego propio',
     role: 'Diseño de juego, desarrollo y dirección de arte',
@@ -544,6 +553,7 @@ export const CASES = [
   },
   {
     id: 'foto',
+    slug: 'fotografia-direccion-de-arte',
     num: '10',
     client: 'Trabajo propio y de encargo',
     role: 'Dirección de arte, fotografía, edición y maquetación de los tres libros',
@@ -625,6 +635,7 @@ export const CASES = [
   },
   {
     id: 'njc',
+    slug: 'notjustcode',
     num: '11',
     client: 'Side project — RBT Studio',
     role: 'Product design + prompt engineering + CLI',
@@ -679,6 +690,7 @@ export const CASES = [
   },
   {
     id: 'sdd',
+    slug: 'sdd-harness',
     num: '12',
     client: 'Side project / herramienta interna — RBT Studio',
     role: 'Diseño y desarrollo del skill',
